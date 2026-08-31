@@ -1,0 +1,64 @@
+/* ================= ADMIN PRODUK/JASA (PRODUSER) STYLES ================= */
+:root {
+    --prod-bg: #F5F7FA;
+    --prod-text-main: #1E2D3D;
+    --prod-text-sec: #64748B;
+    --prod-border: #E2E8F0;
+    --prod-success: #16A34A;
+    --prod-success-bg: #DCFCE7;
+    --prod-error: #DC2626;
+    --prod-error-bg: #FEE2E2;
+}
+
+body.produser-mode { background-color: var(--prod-bg); color: var(--prod-text-main); }
+body.produser-mode .tefa-card { border-radius: 12px; border: 1px solid var(--prod-border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.order-id-col { font-weight: 600; color: var(--primary); }
+
+/* Badge Status Soft Colors (Figma) */
+.badge-soft-blue { background: #E0F2FE; color: #0284C7; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
+.badge-soft-yellow { background: #FEF3C7; color: #D97706; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
+.badge-soft-green { background: #DCFCE7; color: #16A34A; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
+.badge-soft-gray { background: #F1F5F9; color: #64748B; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
+.badge-tipe-jasa-new { background: #FFF7ED; color: #EA580C; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; display: inline-block; }
+.badge-tipe-produk-new { background: #F3E8FF; color: #7E22CE; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; display: inline-block; }
+.btn-light-blue { background: #F0F7FF; color: var(--primary); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-block; transition: 0.2s; border: 1px solid transparent; }
+.btn-light-blue:hover { background: #E0F2FE; border-color: #BAE6FD; }
+
+/* HERO CARD DETAIL PESANAN */
+.order-hero-card { border-radius: 12px; border: 1px solid var(--prod-border); background: white; overflow: hidden; margin-bottom: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); display: flex; flex-direction: column; }
+.order-hero-top { background: var(--primary); padding: 24px; color: white; display: flex; flex-direction: column; gap: 16px; }
+.hero-badge-dark { background: rgba(0,0,0,0.25); color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.hero-badge-light { background: white; color: var(--primary); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.order-hero-bottom { display: grid; grid-template-columns: repeat(4, 1fr); padding: 20px 24px; gap: 16px; background: white; border-top: 1px solid var(--prod-border); width: 100%; }
+.hero-stat-label { font-size: 11px; color: var(--prod-text-sec); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 6px; }
+.hero-stat-value { font-size: 15px; font-weight: 600; color: var(--prod-text-main); }
+
+/* INTERAKTIF STEPPER (TIMELINE) */
+.stepper-container { display: flex; flex-direction: column; position: relative; margin-top: 16px; }
+.stepper-item { display: flex; gap: 16px; padding: 16px; position: relative; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; margin-left: -16px; margin-right: -16px; border: 1px solid transparent; }
+.stepper-item:hover { background: #F8FAFC; }
+.stepper-item.active-step { background: #F0F7FF; border-color: #BAE6FD; }
+.stepper-line { position: absolute; left: 32px; top: 48px; bottom: 0; width: 2px; background: var(--prod-border); z-index: 1; }
+.stepper-item:last-child .stepper-line { display: none; }
+.stepper-circle { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; font-size: 14px; font-weight: bold; flex-shrink: 0; position: relative; }
+.stepper-circle.selesai { background: var(--prod-success); color: white; }
+.stepper-circle.proses { background: var(--primary); color: white; }
+.stepper-circle.belum { background: white; color: var(--prod-text-sec); border: 2px solid var(--prod-border); }
+
+/* SLIDER RANGE PROGRESS */
+.mini-progress-bg { width: 100%; height: 6px; background: #E2E8F0; border-radius: 4px; overflow: hidden; margin: 8px 0; }
+.mini-progress-fill { height: 100%; background: var(--primary); }
+.range-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: #E2E8F0; border-radius: 4px; outline: none; transition: background 0.1s; margin-top: 8px; }
+.range-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--primary); cursor: pointer; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.selected-stage-box { background: #F0F7FF; border: 1px solid #BAE6FD; color: var(--primary); padding: 12px 16px; border-radius: 8px; font-weight: 500; font-size: 14px; margin-bottom: 20px; }
+
+/* UPDATE DETAIL KATALOG (FIGMA) */
+.katalog-hero-container { position: relative; width: 100%; height: 320px; border-radius: 12px 12px 0 0; overflow: hidden; }
+.katalog-hero-img { width: 100%; height: 100%; object-fit: cover; }
+.katalog-hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 32px 24px 24px 24px; color: white; }
+.katalog-badges { display: flex; gap: 8px; margin-bottom: 12px; }
+.katalog-badge-light { background: white; color: var(--primary); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+.katalog-badge-dark { background: rgba(0,0,0,0.5); color: white; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+.check-list { list-style: none; padding: 0; margin: 0; }
+.check-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 14px; color: var(--prod-text-sec); }
+.check-list li i { color: var(--prod-success); font-size: 18px; margin-top: 2px; }
