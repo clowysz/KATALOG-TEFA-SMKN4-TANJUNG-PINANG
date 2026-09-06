@@ -65,7 +65,8 @@
 
         setTimeout(() => {
             if(email === 'admin123@gmail.com' && pass === 'admin123') {
-                window.location.href = '/produser/dashboard';
+                // PERBAIKAN: Arahkan ke rute Dashboard TEFA Utama
+                window.location.href = '/dashboard';
             } else {
                 errorBox.textContent = 'Email atau password tidak sesuai.';
                 errorBox.style.display = 'block';

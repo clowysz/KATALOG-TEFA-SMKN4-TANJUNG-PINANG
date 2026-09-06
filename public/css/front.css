@@ -1,0 +1,448 @@
+/* ================= VARIABLES & FONTS ================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary-blue: #1A4981; /* Biru Utama SMKN 4 */
+    --secondary-blue: #2964A8;
+    --bg-light: #F8FAFC;
+    --text-dark: #1E293B;
+    --text-gray: #64748B;
+    --white: #FFFFFF;
+    --accent: #EAB308;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif; 
+}
+
+body { 
+    background-color: var(--primary-blue); /* Menyamakan background dasar dengan tema biru */
+    color: var(--text-dark); 
+    overflow-x: hidden; 
+}
+
+/* ================= NAVBAR PILL STICKY (BARU) ================= */
+.jurusan-sticky-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #1E3A8A !important;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.jurusan-nav-pill {
+    background: white;
+    border-radius: 50px;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    gap: 20px;
+}
+
+.jurusan-nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.jurusan-nav-brand img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.jurusan-nav-brand-text h4 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--primary-blue);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.jurusan-nav-brand-text p {
+    font-size: 11px;
+    color: var(--text-gray);
+    margin: 0;
+}
+
+.jurusan-nav-menu {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.jurusan-nav-menu a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.jurusan-nav-menu a:hover, .jurusan-nav-menu a.active {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.jurusan-nav-search {
+    background: #F1F5F9;
+    border-radius: 20px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 180px;
+    border: 1px solid #E2E8F0;
+}
+
+.jurusan-nav-search input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 12px;
+    width: 100%;
+}
+
+.jurusan-nav-profile {
+    width: 38px;
+    height: 38px;
+    background: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Fallback untuk class .navbar lama agar tidak error */
+.navbar {
+    display: none; 
+}
+
+/* ================= HERO SECTION & WAVE ================= */
+.hero-section {
+    margin-top: 0; /* Menghilangkan jarak kosong karena navbar sudah menggunakan sticky container */
+    background: var(--primary-blue); 
+    color: white;
+    position: relative; 
+    padding: 40px 5% 80px 5%; /* Padding atas disesuaikan agar teks beranda tampil penuh dan jelas */
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    min-height: 500px;
+    overflow: hidden;
+}
+
+/* Animasi Gelembung (Bubbles) */
+.bubble { 
+    position: absolute; 
+    background: rgba(255,255,255,0.1); 
+    border-radius: 50%; 
+    border: 1px solid rgba(255,255,255,0.2); 
+    animation: float 6s infinite ease-in-out; 
+}
+@keyframes float { 
+    0%, 100% { transform: translateY(0); } 
+    50% { transform: translateY(-20px); } 
+}
+
+.hero-content { 
+    width: 50%; 
+    z-index: 2; 
+}
+.hero-title { 
+    font-size: 52px; 
+    font-weight: 800; 
+    line-height: 1.1; 
+    margin-bottom: 16px; 
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3); 
+}
+.hero-subtitle { 
+    font-size: 24px; 
+    font-style: italic; 
+    margin-bottom: 24px; 
+    font-weight: 300; 
+}
+.hero-desc { 
+    font-size: 14px; 
+    line-height: 1.8; 
+    opacity: 0.9; 
+    max-width: 90%; 
+}
+.hero-line { 
+    width: 60px; 
+    height: 3px; 
+    background: var(--accent); 
+    margin-bottom: 24px; 
+}
+
+.hero-image-box { 
+    width: 45%; 
+    z-index: 2; 
+}
+.hero-image-box img { 
+    width: 100%; 
+    border-radius: 20px; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3); 
+    border: 4px solid rgba(255,255,255,0.2); 
+    object-fit: cover;
+}
+
+.wave-bottom { 
+    position: absolute; 
+    bottom: -5px; 
+    left: 0; 
+    width: 100%; 
+    z-index: 1; 
+}
+
+/* ================= JURUSAN UNGGULAN (SLIDER) ================= */
+.jurusan-section {
+    position: relative;
+    padding: 60px 5% 80px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+    scroll-margin-top: 100px; /* Jarak aman saat menu jurusan diklik dari navbar */
+}
+
+.section-header-wrap {
+    margin-bottom: 32px;
+}
+.section-subtitle-tag {
+    color: #93C5FD; font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px;
+}
+.section-title-main {
+    font-size: 32px; color: var(--white); font-weight: 800; margin-top: 6px;
+}
+.section-desc-sub {
+    color: #E2E8F0; font-size: 14px; margin-top: 6px;
+}
+
+/* Wrapper Slider dengan Panah */
+.slider-outer-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.slider-track-container {
+    overflow: hidden; 
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.jurusan-cards-track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; 
+    gap: 24px;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Kartu Jurusan */
+.jurusan-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    border: 1px solid #F1F5F9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    flex: 0 0 calc((100% - 48px) / 3);
+    min-width: calc((100% - 48px) / 3);
+}
+
+.jurusan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.jurusan-icon-box {
+    width: 100%;
+    height: 160px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.jurusan-icon-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+}
+
+.bg-animasi { background: #FEF08A; }
+.bg-rpl     { background: #3B82F6; }
+.bg-gim     { background: #FDE68A; }
+.bg-tkj     { background: #E0F2FE; }
+.bg-pspt    { background: #FCE7F3; }
+.bg-dkv     { background: #EDE9FE; }
+
+.jurusan-card h3 { font-size: 18px; color: var(--primary-blue); margin-bottom: 8px; font-weight: 700; }
+.jurusan-divider { width: 32px; height: 3px; background: var(--primary-blue); border-radius: 2px; margin-bottom: 12px; }
+.jurusan-card p { font-size: 13px; color: var(--text-gray); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+
+/* Perbaikan Tombol Lihat Selengkapnya (Bentuk Pill Elegan) */
+.btn-lihat-jurusan {
+    display: inline-block;
+    background-color: var(--primary-blue);
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(26, 73, 129, 0.2);
+}
+.btn-lihat-jurusan:hover {
+    background-color: var(--secondary-blue);
+    transform: translateY(-2px);
+}
+
+/* Tombol Panah Kiri & Kanan */
+.slider-arrow {
+    position: absolute;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--primary-blue); color: white; border: none;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+    cursor: pointer; z-index: 10; box-shadow: 0 4px 12px rgba(26, 73, 129, 0.3); transition: 0.2s;
+}
+.slider-arrow:hover { transform: scale(1.1); }
+.arrow-prev { left: -10px; }
+.arrow-next { right: -10px; }
+
+/* ================= FOOTER ================= */
+.footer { 
+    background: #162E67 !important; /* Warna seragam dengan footer di layout */
+    color: white; 
+    padding: 60px 5% 20px 5%; 
+    margin-top: 40px; 
+}
+.footer-grid { 
+    display: grid; 
+    grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+    gap: 40px; 
+    margin-bottom: 40px; 
+}
+.footer-logo { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    margin-bottom: 16px; 
+}
+.footer-logo img { 
+    width: 40px; 
+}
+.footer-logo h2 { 
+    font-size: 16px; 
+    font-weight: 700; 
+    line-height: 1.2; 
+}
+.footer-desc { 
+    font-size: 13px; 
+    line-height: 1.6; 
+    opacity: 0.8; 
+    margin-bottom: 24px; 
+}
+
+.footer-col h3 { 
+    font-size: 16px; 
+    margin-bottom: 20px; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+}
+.footer-links { 
+    list-style: none; 
+}
+.footer-links li { 
+    margin-bottom: 12px; 
+}
+.footer-links a { 
+    color: white; 
+    text-decoration: none; 
+    font-size: 13px; 
+    opacity: 0.8; 
+    transition: 0.2s; 
+}
+.footer-links a:hover { 
+    opacity: 1; 
+    margin-left: 5px; 
+}
+
+.footer-contact { 
+    display: flex; 
+    align-items: flex-start; 
+    gap: 12px; 
+    margin-bottom: 16px; 
+    font-size: 13px; 
+    opacity: 0.8; 
+}
+.footer-contact i { 
+    font-size: 18px; 
+    margin-top: 2px; 
+}
+.qr-code { 
+    background: white; 
+    padding: 8px; 
+    border-radius: 8px; 
+    width: 100px; 
+    margin-bottom: 8px; 
+}
+
+.footer-bottom { 
+    text-align: center; 
+    padding-top: 24px; 
+    border-top: 1px solid rgba(255,255,255,0.1); 
+    font-size: 12px; 
+    opacity: 0.8; 
+}
+
+/* Floating WhatsApp Button */
+.fab-wa { 
+    position: fixed; 
+    bottom: 30px; 
+    right: 30px; 
+    width: 60px; 
+    height: 60px; 
+    background: #25D366; 
+    color: white; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 32px; 
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); 
+    z-index: 1000; 
+    text-decoration: none; 
+    transition: 0.3s; 
+}
+.fab-wa:hover { 
+    transform: scale(1.1); 
+}
