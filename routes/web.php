@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PesananController;
+use App\Http\Controllers\AkunController;
+use App\Http\Controllers\FaqController;
 
 // ================= BAGIAN PUBLIK / PEMBELI =================
 
@@ -20,6 +23,7 @@ Route::get('/profil-pembeli', function () {
     return view('public.profil');
 });
 
+<<<<<<< HEAD
 Route::get('/riwayat-pesanan', function () {
     return view('public.riwayat');
 });
@@ -40,7 +44,7 @@ Route::get('/jurusan', function () {
 Route::prefix('jurusan')->group(function () {
     
 // 1. Rekayasa Perangkat Lunak (RPL)
-    Route::prefix('rpl')->group(function () {
+    Route::prefix('rpl')->SSgroup(function () {
         Route::get('/', function () { return view('public.jurusan.rpl.index'); });
         
         Route::get('/portofolio', function () { return view('public.jurusan.rpl.portofolio'); });
@@ -54,6 +58,7 @@ Route::prefix('jurusan')->group(function () {
     });
 
     // 2. Pemrograman GIM
+    
     Route::prefix('gim')->group(function () {
         Route::get('/', function () { return view('public.jurusan.gim.index'); });
         Route::get('/portofolio', function () { return view('public.jurusan.gim.portofolio'); });
@@ -101,6 +106,55 @@ Route::prefix('jurusan')->group(function () {
 Route::get('/login-tefa', function () {
     return view('admin.login.login-tefa'); 
 });
+=======
+Route::get('/pesanan', [PesananController::class, 'index']) 
+    ->name('pesanan.index');
+
+Route::put('/pesanan/{id}/status', [PesananController::class, 'updateStatus'])
+    ->name('pesanan.updateStatus');
+
+//Halaman Jurusan
+
+Route::get('/jurusan', function () {
+    return view('jurusan.index');
+});
+
+// Halaman Daftar Akun
+Route::get('/akun', function () {
+    return view('akun.index');
+});
+
+Route::get('/akun', [AkunController::class, 'index']) 
+    ->name('akun.index'); 
+
+Route::get('/akun/tambah', [AkunController::class, 'create']) 
+    ->name('akun.create'); 
+
+
+Route::post('/akun', [AkunController::class, 'store']) 
+    ->name('akun.store');
+
+// Detail akun
+Route::get('/akun/{id}', [AkunController::class, 'show'])->name('akun.show');
+
+// Edit akun
+Route::get('/akun/{id}/edit', [AkunController::class, 'edit'])->name('akun.edit');
+Route::put('/akun/{id}', [AkunController::class, 'update'])->name('akun.update');
+
+// Reset password
+Route::put('/akun/{id}/reset-password', [AkunController::class, 'resetPassword'])
+    ->name('akun.reset-password');
+
+// Hapus akses
+Route::put('/akun/{id}/hapus-akses', [AkunController::class, 'hapusAkses'])
+    ->name('akun.hapus-akses');
+
+Route::get('/profil', function () {
+    return view('profil.index');
+});
+
+Route::resource('faq', FaqController::class);
+>>>>>>> 2846f9b (update sistem admin TEFA)
 
 Route::get('/login-jurusan', function () {
     return view('admin.admin_jurusan.login-jurusan'); 
