@@ -23,7 +23,7 @@ Route::get('/profil-pembeli', function () {
     return view('public.profil');
 });
 
-<<<<<<< HEAD
+
 Route::get('/riwayat-pesanan', function () {
     return view('public.riwayat');
 });
@@ -58,7 +58,7 @@ Route::prefix('jurusan')->group(function () {
     });
 
     // 2. Pemrograman GIM
-    
+
     Route::prefix('gim')->group(function () {
         Route::get('/', function () { return view('public.jurusan.gim.index'); });
         Route::get('/portofolio', function () { return view('public.jurusan.gim.portofolio'); });
@@ -106,7 +106,7 @@ Route::prefix('jurusan')->group(function () {
 Route::get('/login-tefa', function () {
     return view('admin.login.login-tefa'); 
 });
-=======
+
 Route::get('/pesanan', [PesananController::class, 'index']) 
     ->name('pesanan.index');
 
@@ -154,7 +154,7 @@ Route::get('/profil', function () {
 });
 
 Route::resource('faq', FaqController::class);
->>>>>>> 2846f9b (update sistem admin TEFA)
+
 
 Route::get('/login-jurusan', function () {
     return view('admin.admin_jurusan.login-jurusan'); 
