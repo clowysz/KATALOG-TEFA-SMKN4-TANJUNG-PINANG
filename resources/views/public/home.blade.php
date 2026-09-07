@@ -28,9 +28,9 @@
 <!-- SECTION JURUSAN UNGGULAN (6 JURUSAN) -->
 <section class="jurusan-section" id="jurusan-unggulan">
     <div class="section-header-wrap">
-        <span class="section-subtitle-tag" style="color: #93C5FD; font-weight: 700;">JURUSAN ──</span>
-        <h2 class="section-title-main" style="color: white !important; font-size: 32px; font-weight: 800; margin-top: 5px;">JURUSAN UNGGULAN</h2>
-        <p class="section-desc-sub" style="color: #E2E8F0 !important;">Pilih jurusan untuk melihat produk, jasa dan informasi lebih lanjut di setiap jurusan</p>
+        <span class="section-subtitle-tag" style="color: #1E3A8A; font-weight: 700;">JURUSAN ──</span>
+        <h2 class="section-title-main" style="color: #1E3A8A !important; font-size: 32px; font-weight: 800; margin-top: 5px;">JURUSAN UNGGULAN</h2>
+        <p class="section-desc-sub" style="color: #64748B !important;">Pilih jurusan untuk melihat produk, jasa dan informasi lebih lanjut di setiap jurusan</p>
     </div>
 
     <div class="slider-outer-wrapper">

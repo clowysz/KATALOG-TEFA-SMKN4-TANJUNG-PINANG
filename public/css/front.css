@@ -295,12 +295,13 @@ body {
     object-fit: contain; 
 }
 
-.bg-animasi { background: #FEF08A; }
-.bg-rpl     { background: #3B82F6; }
-.bg-gim     { background: #FDE68A; }
-.bg-tkj     { background: #E0F2FE; }
-.bg-pspt    { background: #FCE7F3; }
-.bg-dkv     { background: #EDE9FE; }
+/* Warna Latar Kotak Logo (Warna Ekstra Pastel/Soft) */
+.bg-animasi { background: #FFF4CB !important; } /* Kuning Lembut Pastel */
+.bg-rpl     { background: #D4E4FC !important; } /* Biru Lembut Pastel */
+.bg-gim     { background: #FFF4CB !important; } /* Kuning Lembut Pastel */
+.bg-tkj     { background: #E1F0FA !important; } /* Biru Muda Pastel (Sudah Pas) */
+.bg-pspt    { background: #FDE4EC !important; } /* Pink Pastel (Sudah Pas) */
+.bg-dkv     { background: #EAE4FA !important; } /* Ungu Pastel (Sudah Pas) */
 
 .jurusan-card h3 { font-size: 18px; color: var(--primary-blue); margin-bottom: 8px; font-weight: 700; }
 .jurusan-divider { width: 32px; height: 3px; background: var(--primary-blue); border-radius: 2px; margin-bottom: 12px; }

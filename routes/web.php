@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-// ================= BAGIAN PUBLIK / PEMBELI =================
+// ======================================================
+// BAGIAN PUBLIK / PEMBELI
+// ======================================================
 
 Route::get('/', function () {
     return view('public.home');
@@ -32,93 +34,74 @@ Route::get('/checkout', function () {
     return view('public.checkout');
 });
 
-// ================= RUTE KATALOG JURUSAN (PUBLIK) =================
+// ======================================================
+// RUTE KATALOG JURUSAN (PUBLIK)
+// ======================================================
+
 Route::get('/jurusan', function () {
-    return view('public.jurusan.index'); // Halaman daftar seluruh Jurusan Unggulan
+    return view('public.jurusan.index'); // Halaman daftar semua jurusan
 });
 
 Route::prefix('jurusan')->group(function () {
-    
-// 1. Rekayasa Perangkat Lunak (RPL)
-    Route::prefix('rpl')->group(function () {
-        Route::get('/', function () { return view('public.jurusan.rpl.index'); });
+
+    // ======================================================
+    // RUTE DINAMIS UNTUK SEMUA JURUSAN (RPL, TKJ, ANIMASI, DKK)
+    // ======================================================
+    Route::prefix('{slug}')->group(function () {
         
-        Route::get('/portofolio', function () { return view('public.jurusan.rpl.portofolio'); });
-        Route::get('/portofolio/detail', function () { return view('public.jurusan.rpl.detail-portofolio'); });
+        // Halaman Detail/Deskripsi Jurusan
+        Route::get('/', function ($slug) {
+            return view('public.jurusan.detail-jurusan');
+        });
+
+        // --- PORTOFOLIO ---
+        Route::get('/portofolio', function ($slug) {
+            return view('public.portofolio.index');
+        });
+        Route::get('/portofolio/detail/{id}', function ($slug, $id) {
+            return view('public.portofolio.detail');
+        })->name('portofolio.detail');
+
+        // --- PRODUK ---
+        Route::get('/produk', function ($slug) {
+            return view('public.produk.index');
+        });
+        Route::get('/produk/detail/{id}', function ($slug, $id) {
+            return view('public.produk.detail');
+        })->name('produk.detail');
+
+        // --- JASA ---
+        Route::get('/jasa', function ($slug) {
+            return view('public.jasa.index');
+        });
+        Route::get('/jasa/detail/{id}', function ($slug, $id) {
+            return view('public.jasa.detail');
+        })->name('jasa.detail');
         
-        Route::get('/produk', function () { return view('public.jurusan.rpl.produk'); });
-        Route::get('/produk/detail', function () { return view('public.jurusan.rpl.detail-produk'); });
-        
-        Route::get('/jasa', function () { return view('public.jurusan.rpl.jasa'); });
-        Route::get('/jasa/detail', function () { return view('public.jurusan.rpl.detail-jasa'); });
-    });
-
-    // 2. Pemrograman GIM
-    Route::prefix('gim')->group(function () {
-        Route::get('/', function () { return view('public.jurusan.gim.index'); });
-        Route::get('/portofolio', function () { return view('public.jurusan.gim.portofolio'); });
-        Route::get('/produk', function () { return view('public.jurusan.gim.produk'); });
-        Route::get('/jasa', function () { return view('public.jurusan.gim.jasa'); });
-    });
-
-    // 3. Teknik Komputer & Jaringan (TKJ)
-    Route::prefix('tkj')->group(function () {
-        Route::get('/', function () { return view('public.jurusan.tkj.index'); });
-        Route::get('/portofolio', function () { return view('public.jurusan.tkj.portofolio'); });
-        Route::get('/produk', function () { return view('public.jurusan.tkj.produk'); });
-        Route::get('/jasa', function () { return view('public.jurusan.tkj.jasa'); });
-    });
-
-    // 4. Produksi & Siaran Program Televisi (PSPT)
-    Route::prefix('pspt')->group(function () {
-        Route::get('/', function () { return view('public.jurusan.pspt.index'); });
-        Route::get('/portofolio', function () { return view('public.jurusan.pspt.portofolio'); });
-        Route::get('/produk', function () { return view('public.jurusan.pspt.produk'); });
-        Route::get('/jasa', function () { return view('public.jurusan.pspt.jasa'); });
-    });
-
-    // 5. Desain Komunikasi Visual (DKV)
-    Route::prefix('dkv')->group(function () {
-        Route::get('/', function () { return view('public.jurusan.dkv.index'); });
-        Route::get('/portofolio', function () { return view('public.jurusan.dkv.portofolio'); });
-        Route::get('/produk', function () { return view('public.jurusan.dkv.produk'); });
-        Route::get('/jasa', function () { return view('public.jurusan.dkv.jasa'); });
-    });
-
-    // 6. Animasi
-    Route::prefix('animasi')->group(function () {
-        Route::get('/', function () { return view('public.jurusan.animasi.index'); });
-        Route::get('/portofolio', function () { return view('public.jurusan.animasi.portofolio'); });
-        Route::get('/produk', function () { return view('public.jurusan.animasi.produk'); });
-        Route::get('/jasa', function () { return view('public.jurusan.animasi.jasa'); });
     });
 
 });
 
 
-// ================= RUTE LOGIN SEMUA ADMIN =================
+// ======================================================
+// LOGIN SEMUA ADMIN
+// ======================================================
 
-Route::get('/login-tefa', function () {
-    return view('admin.login.login-tefa'); 
-});
-
-Route::get('/login-jurusan', function () {
-    return view('admin.admin_jurusan.login-jurusan'); 
-});
-
-Route::get('/login-produser', function () {
-    return view('admin.admin_produser.login-produser'); 
+Route::get('/login-admin', function () {
+    return view('admin.login.login');
 });
 
 
-// ================= 1. ADMIN TEFA =================
+// ======================================================
+// 1. ADMIN TEFA
+// ======================================================
 
 Route::get('/dashboard', function () {
     return view('admin.admin_tefa.dashboard');
 });
 
 Route::get('/pesanan', function () {
-    return view('admin.admin_tefa.pesanan.index'); 
+    return view('admin.admin_tefa.pesanan.index');
 });
 
 Route::get('/pesanan/detail', function () {
@@ -156,8 +139,9 @@ Route::get('/tefa/faq', function () {
 });
 
 
-
-// ================= 2. ADMIN JURUSAN =================
+// ======================================================
+// 2. ADMIN JURUSAN
+// ======================================================
 
 Route::get('/jurusan-admin/dashboard', function () {
     return view('admin.admin_jurusan.dashboard');
@@ -208,11 +192,12 @@ Route::get('/jurusan-admin/profil', function () {
 });
 
 
-
-// ================= 3. ADMIN PRODUK/JASA (PRODUSER) =================
+// ======================================================
+// 3. ADMIN PRODUK / JASA (PRODUSER)
+// ======================================================
 
 Route::get('/produser/dashboard', function () {
-    return view('admin.admin_produser.dashboard'); 
+    return view('admin.admin_produser.dashboard');
 });
 
 Route::get('/produser/pesanan', function () {
