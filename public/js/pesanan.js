@@ -1,48 +1,256 @@
-document.addEventListener("DOMContentLoaded", function() {
+
+document.addEventListener("DOMContentLoaded", function () {
+
     const searchInput = document.getElementById('searchInput');
     const filterStatus = document.getElementById('filterStatus');
     const filterJurusan = document.getElementById('filterJurusan');
-    const tableRows = document.querySelectorAll('#pesananTable tbody tr');
-    const emptyState = document.getElementById('emptyState');
+
     const table = document.getElementById('pesananTable');
+    const emptyState = document.getElementById('emptyState');
+
+    const tableRows = document.querySelectorAll(
+        '#pesananTable tbody tr'
+    );
+
 
     function filterTable() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const statusTerm = filterStatus.value;
-        const jurusanTerm = filterJurusan.value;
+
+        // =========================
+        // NILAI FILTER
+        // =========================
+
+        const searchTerm =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+        const statusTerm =
+            filterStatus.value
+                .toLowerCase()
+                .trim();
+
+        const jurusanTerm =
+            filterJurusan.value
+                .toLowerCase()
+                .trim();
+
+
         let visibleCount = 0;
 
+
+        // =========================
+        // LOOP DATA PESANAN
+        // =========================
+
         tableRows.forEach(row => {
-            const id = row.querySelector('.col-id').textContent.toLowerCase();
-            const nama = row.querySelector('.col-nama').textContent.toLowerCase();
-            const produk = row.querySelector('.col-produk').textContent.toLowerCase();
-            const status = row.querySelector('.col-status').textContent;
-            const jurusan = row.querySelector('.col-jurusan').textContent;
 
-            const matchSearch = id.includes(searchTerm) || nama.includes(searchTerm) || produk.includes(searchTerm);
-            const matchStatus = statusTerm === 'Semua' || status === statusTerm;
-            const matchJurusan = jurusanTerm === 'Semua' || jurusan === jurusanTerm;
-
-            if (matchSearch && matchStatus && matchJurusan) {
-                row.style.display = '';
-                visibleCount++;
-            } else {
-                row.style.display = 'none';
+            // Lewati baris kosong
+            if (!row.querySelector('.col-id')) {
+                return;
             }
+
+
+            // =========================
+            // AMBIL DATA PESANAN
+            // =========================
+
+            const id =
+                row.querySelector('.col-id')
+                    .textContent
+                    .toLowerCase()
+                    .trim();
+
+
+            const nama =
+                row.querySelector('.col-nama')
+                    .textContent
+                    .toLowerCase()
+                    .trim();
+
+
+            const produk =
+                row.querySelector('.col-produk')
+                    .textContent
+                    .toLowerCase()
+                    .trim();
+
+
+            const jurusan =
+                row.querySelector('.col-jurusan')
+                    .textContent
+                    .toLowerCase()
+                    .trim();
+
+
+            // =========================
+            // AMBIL STATUS
+            // =========================
+
+            const statusSelect =
+                row.querySelector('.col-status select');
+
+
+            let status = '';
+
+            if (statusSelect) {
+
+                status =
+                    statusSelect.value
+                        .toLowerCase()
+                        .trim();
+
+            } else {
+
+                status =
+                    row.querySelector('.col-status')
+                        ?.textContent
+                        .toLowerCase()
+                        .trim() || '';
+
+            }
+
+
+            // =========================
+            // SEARCH
+            // =========================
+
+            const matchSearch =
+                searchTerm === '' ||
+
+                id.includes(searchTerm) ||
+
+                nama.includes(searchTerm) ||
+
+                produk.includes(searchTerm) ||
+
+                jurusan.includes(searchTerm) ||
+
+                status.includes(searchTerm);
+
+
+            // =========================
+            // FILTER STATUS
+            // =========================
+
+            const matchStatus =
+                statusTerm === 'semua' ||
+
+                status === statusTerm;
+
+
+            // =========================
+            // FILTER JURUSAN
+            //
+            // Database:
+            // RPL
+            // TKJ
+            // DKV
+            // ANIMASI
+            // GIM
+            // PSPT
+            // =========================
+
+            const matchJurusan =
+                jurusanTerm === 'semua' ||
+
+                jurusan === jurusanTerm;
+
+
+            // =========================
+            // HASIL FILTER
+            // =========================
+
+            if (
+                matchSearch &&
+                matchStatus &&
+                matchJurusan
+            ) {
+
+                row.style.display = '';
+
+                visibleCount++;
+
+            } else {
+
+                row.style.display = 'none';
+
+            }
+
         });
 
-        // Tampilkan empty state jika tidak ada data yang cocok
+
+        // =========================
+        // EMPTY STATE
+        // =========================
+
         if (visibleCount === 0) {
+
             emptyState.style.display = 'block';
+
             table.style.display = 'none';
+
         } else {
+
             emptyState.style.display = 'none';
+
             table.style.display = 'table';
+
         }
+
     }
 
-    // Jalankan filter saat input/dropdown diubah
-    if(searchInput) searchInput.addEventListener('keyup', filterTable);
-    if(filterStatus) filterStatus.addEventListener('change', filterTable);
-    if(filterJurusan) filterJurusan.addEventListener('change', filterTable);
+
+    // =========================
+    // SEARCH
+    // =========================
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            'keyup',
+            filterTable
+        );
+
+        searchInput.addEventListener(
+            'input',
+            filterTable
+        );
+
+    }
+
+
+    // =========================
+    // FILTER STATUS
+    // =========================
+
+    if (filterStatus) {
+
+        filterStatus.addEventListener(
+            'change',
+            filterTable
+        );
+
+    }
+
+
+    // =========================
+    // FILTER JURUSAN
+    // =========================
+
+    if (filterJurusan) {
+
+        filterJurusan.addEventListener(
+            'change',
+            filterTable
+        );
+
+    }
+
+
+    // =========================
+    // JALANKAN SAAT HALAMAN DIBUKA
+    // =========================
+
+    filterTable();
+
 });

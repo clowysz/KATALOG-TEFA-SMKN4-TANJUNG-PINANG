@@ -43,35 +43,83 @@
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td class="col-nama">Miftakhul Khoiriyah</td>
-                    <td class="col-email">admin@gmail.com</td>
-                    <td class="col-role">Admin TEFA</td>
-                    <td class="col-jurusan">-</td>
-                    <td class="col-status"><span class="badge badge-active">Aktif</span></td>
-                    <!-- Tombol 1 Sudah Diperbaiki -->
-                    <td><a href="/akun/detail" class="btn-outline btn-lihat-detail">Lihat Detail</a></td>
-                </tr>
-                <tr>
-                    <td class="col-nama">Guru RPL</td>
-                    <td class="col-email">rpl@smkn4.sch.id</td>
-                    <td class="col-role">Admin Jurusan</td>
-                    <td class="col-jurusan">Rekayasa Perangkat Lunak</td>
-                    <td class="col-status"><span class="badge badge-active">Aktif</span></td>
-                    <!-- Tombol 2 Sudah Diperbaiki -->
-                    <td><a href="/akun/detail" class="btn-outline btn-lihat-detail">Lihat Detail</a></td>
-                </tr>
-                <tr>
-                    <td class="col-nama">Mantan Admin</td>
-                    <td class="col-email">oldadmin@gmail.com</td>
-                    <td class="col-role">Admin TEFA</td>
-                    <td class="col-jurusan">-</td>
-                    <td class="col-status"><span class="badge badge-inactive">Tidak Aktif</span></td>
-                    <!-- Tombol 3 Sudah Diperbaiki -->
-                    <td><a href="/akun/detail" class="btn-outline btn-lihat-detail">Lihat Detail</a></td>    
-                </tr>
-            </tbody>
+            
+                <tbody>
+
+                    @forelse($akuns as $akun)
+
+                    <tr>
+
+                        <!-- Nama Pengguna -->
+                        <td class="col-nama">
+                            {{ $akun->nama_pengguna }}
+                        </td>
+
+
+                        <!-- Email -->
+                        <td class="col-email">
+                            {{ $akun->email }}
+                        </td>
+
+
+                        <!-- Role -->
+                        <td class="col-role">
+                            {{ $akun->role }}
+                        </td>
+
+
+                        <!-- Jurusan -->
+                        <td class="col-jurusan">
+                            {{ $akun->jurusan ?? '-' }}
+                        </td>
+
+
+                        <!-- Status -->
+                       <td>
+                    @if(strtolower(trim($akun->status)) === 'aktif')
+                        <span class="badge badge-active">
+                            Aktif
+                        </span>
+                    @else
+                        <span class="badge badge-inactive">
+                            Tidak Aktif
+                        </span>
+                    @endif
+                </td>
+
+
+                        <!-- Aksi -->
+                        <td>
+
+                            <a
+                                href="{{ url('/akun/' . $akun->id) }}"
+                                class="btn-outline btn-lihat-detail"
+                            >
+                                Lihat Detail
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    @empty
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            style="text-align:center; padding:40px;"
+                        >
+                            Belum Ada Akun
+                        </td>
+
+                    </tr>
+
+                    @endforelse
+
+                </tbody>
+
+
         </table>
     </div>
 

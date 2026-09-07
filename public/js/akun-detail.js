@@ -82,3 +82,26 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const roleSelect = document.getElementById('roleSelect');
+    const jurusanWrapper = document.getElementById('jurusanWrapper');
+    const jurusanSelect = document.getElementById('jurusanSelect');
+
+    function toggleJurusan() {
+        if (roleSelect.value === 'Admin Jurusan') {
+            jurusanWrapper.style.display = 'block';
+            jurusanSelect.removeAttribute('disabled');
+        } else {
+            jurusanWrapper.style.display = 'none';
+            jurusanSelect.setAttribute('disabled', 'disabled');
+            jurusanSelect.value = '';
+        }
+    }
+
+    // Jalankan saat halaman pertama kali di-load
+    toggleJurusan();
+
+    // Jalankan setiap kali ada perubahan pada select Role
+    roleSelect.addEventListener('change', toggleJurusan);
+});

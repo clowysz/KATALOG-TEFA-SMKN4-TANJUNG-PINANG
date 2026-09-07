@@ -3,50 +3,92 @@
 @section('title', 'Edit Akun')
 
 @section('content')
-<div class="page-header">
-    <a href="/akun/detail" class="btn-outline" style="margin-bottom: 16px;">← Batal dan Kembali</a>
-    <h2>Edit Akun</h2>
-    <p>Perbarui informasi pengguna</p>
+
+{{-- Link Kembali --}}
+<div class="back-link-wrapper">
+    <a href="{{ route('akun.show', $akun->id) }}" class="back-link">
+        ← Kembali ke Detail Akun
+    </a>
 </div>
 
-<div class="tefa-card" style="max-width: 600px;">
-    <form id="formEditAkun" action="/akun/detail">
-        <label for="nama" class="detail-label">Nama Pengguna</label>
-        <input type="text" id="nama" class="form-control" value="Guru RPL" required>
+{{-- Judul Halaman --}}
+<h2 class="page-title">Edit Akun</h2>
 
-        <label for="email" class="detail-label">Email</label>
-        <input type="email" id="email" class="form-control" value="rpl@smkn4.sch.id" required>
+{{-- Card Form --}}
+<div class="edit-card">
+    <form action="{{ route('akun.update', $akun->id) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-        <label for="role" class="detail-label">Role</label>
-        <select id="role" class="form-control" required>
-            <option value="Admin TEFA">Admin TEFA</option>
-            <option value="Admin Jurusan" selected>Admin Jurusan</option>
-        </select>
+        {{-- Nama Pengguna --}}
+        <div class="form-group">
+            <label>Nama Pengguna</label>
+            <input type="text" 
+                   name="nama_pengguna" 
+                   class="form-control" 
+                   value="{{ old('nama_pengguna', $akun->nama_pengguna) }}" 
+                   required>
+        </div>
 
-        <div id="jurusanContainer">
-            <label for="jurusan" class="detail-label">Jurusan</label>
-            <select id="jurusan" class="form-control" required>
-                <option value="Rekayasa Perangkat Lunak" selected>Rekayasa Perangkat Lunak</option>
-                <option value="Teknik Komputer dan Jaringan">Teknik Komputer dan Jaringan</option>
-                <option value="Desain Komunikasi Visual">Desain Komunikasi Visual</option>
+        {{-- Email --}}
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" 
+                   name="email" 
+                   class="form-control" 
+                   value="{{ old('email', $akun->email) }}" 
+                   required>
+        </div>
+
+        {{-- Role --}}
+        <div class="form-group">
+            <label>Role</label>
+            <select name="role" id="roleSelect" class="form-control" required>
+                <option value="Admin TEFA" {{ old('role', $akun->role) == 'Admin TEFA' ? 'selected' : '' }}>Admin TEFA</option>
+                <option value="Admin Jurusan" {{ old('role', $akun->role) == 'Admin Jurusan' ? 'selected' : '' }}>Admin Jurusan</option>
             </select>
         </div>
-        <span id="helpTextJurusan" class="help-text">Pilih jurusan yang menjadi tanggung jawab akun ini.</span>
 
-        <label for="status" class="detail-label" style="margin-top: 16px;">Status Akun</label>
-        <select id="status" class="form-control" required>
-            <option value="Aktif" selected>Aktif</option>
-            <option value="Tidak Aktif">Tidak Aktif</option>
-        </select>
+        {{-- Jurusan (Dinamis) --}}
+        <div class="form-group" id="jurusanWrapper">
+            <label>Jurusan</label>
+            <select name="jurusan" id="jurusanSelect" class="form-control">
+                <option value="">-- Pilih Jurusan --</option>
+                <option value="Rekayasa Perangkat Lunak" {{ old('jurusan', $akun->jurusan) == 'Rekayasa Perangkat Lunak' ? 'selected' : '' }}>Rekayasa Perangkat Lunak</option>
+                <option value="Teknik Komputer Jaringan" {{ old('jurusan', $akun->jurusan) == 'Teknik Komputer Jaringan' ? 'selected' : '' }}>Teknik Komputer Jaringan</option>
+                <option value="Desain Komunikasi Visual" {{ old('jurusan', $akun->jurusan) == 'Desain Komunikasi Visual' ? 'selected' : '' }}>Desain Komunikasi Visual</option>
+                <option value="Pengembangan GIM" {{ old('jurusan', $akun->jurusan) == 'Pengembangan GIM' ? 'selected' : '' }}>Pengembangan GIM</option>
+                <option value="Animasi" {{ old('jurusan', $akun->jurusan) == 'Animasi' ? 'selected' : '' }}>Animasi</option>
+                <option value="Produksi Siaran dan Program Televisi" {{ old('jurusan', $akun->jurusan) == 'Produksi Siaran dan Program Televisi' ? 'selected' : '' }}>Produksi Siaran dan Program Televisi</option>
 
-        <div style="display: flex; gap: 12px; margin-top: 24px;">
-            <a href="/akun/detail" class="btn-outline" style="text-align:center; padding: 10px 16px;">Batal</a>
-            <button type="submit" class="btn-primary">Simpan Perubahan</button>
+            </select>
         </div>
+
+        {{-- Status Akun --}}
+        <div class="form-group mb-large">
+            <label>Status Akun</label>
+            <select name="status" class="form-control" required>
+                <option value="aktif" {{ old('status', strtolower($akun->status)) == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                <option value="nonaktif" {{ old('status', strtolower($akun->status)) == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+            </select>
+        </div>
+
+        {{-- Tombol Aksi --}}
+        <div class="form-actions">
+            <a href="{{ route('akun.show', $akun->id) }}" class="btn-cancel">
+                Batal
+            </a>
+
+            <button type="submit" class="btn-submit">
+                Simpan Perubahan
+            </button>
+        </div>
+
     </form>
 </div>
+
 @endsection
 
-@section('scripts')
-<script src="{{ asset('js/akun.js') }}"></script>
-@endsection
+@push('scripts')
+    <script src="{{ asset('js/edit-akun.js') }}"></script>
+@endpush
