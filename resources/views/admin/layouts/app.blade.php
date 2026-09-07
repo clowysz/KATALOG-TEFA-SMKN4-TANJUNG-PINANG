@@ -24,7 +24,7 @@
             <li><a href="/jurusan">Jurusan</a></li>
             <li><a href="/akun">Daftar Akun</a></li>
             <!-- INI BARIS YANG DITAMBAHKAN UNTUK MENU FAQ -->
-            <li><a href="/faq">Kelola FAQ</a></li>
+            <li><a href="/admin/faq">Kelola FAQ</a></li>
             <li><a href="/profil">Profil</a></li>
             <li><a href="/">Logout</a></li>
         </ul>

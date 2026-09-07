@@ -1,6 +1,8 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function () {
 
-    // ================= LOGIKA HALAMAN DAFTAR AKUN =================
+    // =========================================================
+    // LOGIKA HALAMAN DAFTAR AKUN
+    // =========================================================
 
     const searchAkun = document.getElementById('searchAkun');
     const filterRole = document.getElementById('filterRole');
@@ -14,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         function filterAkunTable() {
 
+            // =========================
+            // Ambil nilai filter
+            // =========================
+
             const searchTerm = searchAkun
                 ? searchAkun.value.toLowerCase().trim()
                 : '';
@@ -26,43 +32,111 @@ document.addEventListener("DOMContentLoaded", function() {
                 ? filterStatus.value
                 : 'Semua';
 
+
             let visibleCount = 0;
+
+
+            // =========================
+            // Periksa setiap baris akun
+            // =========================
 
             tableRows.forEach(row => {
 
-                const nama = row.querySelector('.col-nama')
-                    ? row.querySelector('.col-nama').textContent.toLowerCase().trim()
+                // Lewati baris "Belum Ada Akun"
+                if (row.querySelector('td[colspan="6"]')) {
+                    return;
+                }
+
+
+                // =========================
+                // Ambil data akun
+                // =========================
+
+                const namaElement = row.querySelector('.col-nama');
+                const emailElement = row.querySelector('.col-email');
+                const roleElement = row.querySelector('.col-role');
+
+                const nama = namaElement
+                    ? namaElement.textContent.toLowerCase().trim()
                     : '';
 
-                const email = row.querySelector('.col-email')
-                    ? row.querySelector('.col-email').textContent.toLowerCase().trim()
+                const email = emailElement
+                    ? emailElement.textContent.toLowerCase().trim()
                     : '';
 
-                const role = row.querySelector('.col-role')
-                    ? row.querySelector('.col-role').textContent.trim()
+                const role = roleElement
+                    ? roleElement.textContent.trim()
                     : '';
+
+
+                // =========================
+                // AMBIL STATUS
+                // =========================
+
+                const statusElement = row.querySelector(
+                    'td:nth-child(5) .badge'
+                );
+
+                const status = statusElement
+                    ? statusElement.textContent.trim()
+                    : '';
+
+
+                // =========================
+                // FILTER PENCARIAN
+                // =========================
 
                 const matchSearch =
                     nama.includes(searchTerm) ||
                     email.includes(searchTerm);
 
+
+                // =========================
+                // FILTER ROLE
+                // =========================
+
                 const matchRole =
                     roleTerm === 'Semua' ||
                     role === roleTerm;
+
+
+                // =========================
+                // FILTER STATUS
+                // =========================
 
                 const matchStatus =
                     statusTerm === 'Semua' ||
                     status === statusTerm;
 
-                if (matchSearch && matchRole && matchStatus) {
+
+                // =========================
+                // TAMPILKAN / SEMBUNYIKAN
+                // =========================
+
+                if (
+                    matchSearch &&
+                    matchRole &&
+                    matchStatus
+                ) {
+
                     row.style.display = '';
                     visibleCount++;
+
                 } else {
+
                     row.style.display = 'none';
+
                 }
+
             });
 
+
+            // =========================
+            // JIKA TIDAK ADA DATA
+            // =========================
+
             if (visibleCount === 0) {
+
                 if (emptyAkun) {
                     emptyAkun.style.display = 'block';
                 }
@@ -76,80 +150,165 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 akunTable.style.display = 'table';
+
             }
+
         }
+
+
+        // =====================================================
+        // EVENT SEARCH
+        // =====================================================
 
         if (searchAkun) {
-            searchAkun.addEventListener('keyup', filterAkunTable);
+
+            searchAkun.addEventListener(
+                'input',
+                filterAkunTable
+            );
+
         }
+
+
+        // =====================================================
+        // EVENT FILTER ROLE
+        // =====================================================
 
         if (filterRole) {
-            filterRole.addEventListener('change', filterAkunTable);
+
+            filterRole.addEventListener(
+                'change',
+                filterAkunTable
+            );
+
         }
 
+
+        // =====================================================
+        // EVENT FILTER STATUS
+        // =====================================================
+
         if (filterStatus) {
-            filterStatus.addEventListener('change', filterAkunTable);
+
+            filterStatus.addEventListener(
+                'change',
+                filterAkunTable
+            );
+
         }
+
+
+        // Jalankan filter pertama kali
+        filterAkunTable();
+
     }
 
 
-    // ================= LOGIKA HALAMAN TAMBAH AKUN =================
+
+    // =========================================================
+    // LOGIKA HALAMAN TAMBAH AKUN
+    // =========================================================
 
     const roleSelect = document.getElementById('role');
     const jurusanContainer = document.getElementById('jurusanContainer');
     const jurusanSelect = document.getElementById('jurusan');
     const helpText = document.getElementById('helpTextJurusan');
 
-    if (roleSelect) {
+
+    if (
+        roleSelect &&
+        jurusanContainer
+    ) {
 
         function updateJurusan() {
+
+            // =================================================
+            // JIKA ROLE = ADMIN TEFA
+            // =================================================
 
             if (roleSelect.value === 'Admin TEFA') {
 
                 jurusanContainer.style.display = 'none';
 
                 if (jurusanSelect) {
+
                     jurusanSelect.required = false;
                     jurusanSelect.value = '';
+
                 }
 
                 if (helpText) {
+
                     helpText.textContent =
-                        "Admin TEFA tidak terikat pada jurusan tertentu.";
+                        'Admin TEFA tidak terikat pada jurusan tertentu.';
+
                 }
 
-            } else if (roleSelect.value === 'Admin Jurusan') {
+            }
+
+
+            // =================================================
+            // JIKA ROLE = ADMIN JURUSAN
+            // =================================================
+
+            else if (
+                roleSelect.value === 'Admin Jurusan'
+            ) {
 
                 jurusanContainer.style.display = 'block';
 
                 if (jurusanSelect) {
+
                     jurusanSelect.required = true;
+
                 }
 
                 if (helpText) {
+
                     helpText.textContent =
-                        "Pilih jurusan yang menjadi tanggung jawab akun ini.";
+                        'Pilih jurusan yang menjadi tanggung jawab akun ini.';
+
                 }
 
-            } else {
+            }
+
+
+            // =================================================
+            // JIKA BELUM MEMILIH ROLE
+            // =================================================
+
+            else {
 
                 jurusanContainer.style.display = 'none';
 
                 if (jurusanSelect) {
+
                     jurusanSelect.required = false;
+
                 }
 
                 if (helpText) {
+
                     helpText.textContent =
-                        "Pilih role terlebih dahulu untuk menentukan kebutuhan jurusan.";
+                        'Pilih role terlebih dahulu untuk menentukan kebutuhan jurusan.';
+
                 }
+
             }
+
         }
 
-        roleSelect.addEventListener('change', updateJurusan);
 
-        // Jalankan saat halaman pertama kali dibuka
+        // Jalankan ketika role berubah
+        roleSelect.addEventListener(
+            'change',
+            updateJurusan
+        );
+
+
+        // Jalankan ketika halaman pertama kali dibuka
         updateJurusan();
+
     }
 
 });

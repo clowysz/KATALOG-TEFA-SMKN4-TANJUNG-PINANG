@@ -15,9 +15,8 @@ class AkunController extends Controller
     {
         $akuns = Akun::all();
 
-        return view('akun.index', compact('akuns'));
+        return view('admin.admin_tefa.akun.index', compact('akuns'));
     }
-
 
     // =========================
     // TAMBAH AKUN
@@ -27,7 +26,6 @@ class AkunController extends Controller
         return view('akun.create');
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -36,7 +34,7 @@ class AkunController extends Controller
             'password' => 'required|min:8',
             'role' => 'required',
             'jurusan' => 'nullable|string',
-            'status' => 'required|in:aktif,nonaktif',
+            'status' => 'required|in:Aktif,Tidak Aktif',
         ]);
 
         Akun::create([
@@ -53,7 +51,6 @@ class AkunController extends Controller
             ->with('success', 'Akun berhasil ditambahkan.');
     }
 
-
     // =========================
     // LIHAT DETAIL
     // =========================
@@ -61,9 +58,8 @@ class AkunController extends Controller
     {
         $akun = Akun::findOrFail($id);
 
-        return view('akun.detail', compact('akun'));
-    }
-
+        return view('admin.admin_tefa.akun.detail', compact('akun'));
+        }
 
     // =========================
     // EDIT AKUN
@@ -72,9 +68,7 @@ class AkunController extends Controller
     {
         $akun = Akun::findOrFail($id);
 
-        return view('akun.edit', compact('akun'));
-    }
-
+        return view('admin.admin_tefa.akun.edit', compact('akun'));    }
 
     // =========================
     // UPDATE AKUN
@@ -88,7 +82,7 @@ class AkunController extends Controller
             'email' => 'required|email|unique:akuns,email,' . $akun->id,
             'role' => 'required',
             'jurusan' => 'nullable|string',
-            'status' => 'required|in:aktif,nonaktif',
+            'status' => 'required|in:Aktif,Tidak Aktif',
         ]);
 
         $akun->update([
@@ -103,7 +97,6 @@ class AkunController extends Controller
             ->route('akun.show', $akun->id)
             ->with('success', 'Data akun berhasil diperbarui.');
     }
-
 
     // =========================
     // RESET PASSWORD
@@ -124,7 +117,6 @@ class AkunController extends Controller
             ->with('success', 'Password berhasil direset.');
     }
 
-
     // =========================
     // HAPUS AKSES
     // =========================
@@ -132,7 +124,7 @@ class AkunController extends Controller
     {
         $akun = Akun::findOrFail($id);
 
-        $akun->status = 'nonaktif';
+        $akun->status = 'Tidak Aktif';
         $akun->save();
 
         return redirect()

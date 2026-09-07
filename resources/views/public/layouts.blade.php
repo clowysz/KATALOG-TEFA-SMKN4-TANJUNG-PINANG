@@ -216,7 +216,7 @@
                 <ul class="footer-links">
                     <li><a href="/"><i class="ph ph-caret-right"></i> Beranda</a></li>
                     <li><a href="/#jurusan-unggulan"><i class="ph ph-caret-right"></i> Jurusan</a></li>
-                    <li><a href="/faq"><i class="ph ph-caret-right"></i> FAQ</a></li>
+                    <li><a href="/admin/faq"><i class="ph ph-caret-right"></i> FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-col">

@@ -3,28 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'TEFA SMKN 4 Tanjungpinang')</title>
+    <title>TEFA SMKN 4 Tanjungpinang</title>
     <link rel="stylesheet" href="{{ asset('css/front.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jurusan-detail.css') }}">
     @stack('css')
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        body {
-            background-color: #1E3A8A;
-            margin: 0;
-            padding: 0;
-        }
-        .jurusan-custom-header {
+        /* CSS Spesifik untuk Header Khusus Jurusan (Gambar 3) */
+        .jurusan-top-nav-bar {
             background: #1E3A8A;
-            padding: 20px 20px 10px 20px;
+            padding: 30px 5% 20px 5%;
             display: flex;
             justify-content: center;
-            width: 100%;
         }
         .jurusan-nav-pill {
             background: white;
             border-radius: 50px;
-            padding: 10px 24px;
+            padding: 12px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -37,33 +32,32 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            text-decoration: none;
         }
         .jurusan-nav-brand img {
-            width: 42px;
-            height: 42px;
+            width: 45px;
+            height: 45px;
             object-fit: contain;
         }
         .jurusan-nav-brand-text h4 {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 800;
             color: #1E3A8A;
             margin: 0;
             line-height: 1.2;
         }
         .jurusan-nav-brand-text p {
-            font-size: 10px;
+            font-size: 11px;
             color: #64748B;
             margin: 0;
         }
         .jurusan-nav-menu {
             display: flex;
-            gap: 12px;
+            gap: 24px;
             align-items: center;
         }
         .jurusan-nav-menu a {
             text-decoration: none;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             color: #1E2D3D;
             padding: 8px 16px;
@@ -77,22 +71,22 @@
         .jurusan-nav-search {
             background: #F1F5F9;
             border-radius: 20px;
-            padding: 6px 14px;
+            padding: 8px 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-            width: 160px;
+            width: 200px;
         }
         .jurusan-nav-search input {
             border: none;
             background: transparent;
             outline: none;
-            font-size: 12px;
+            font-size: 13px;
             width: 100%;
         }
         .jurusan-nav-profile {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             background: #1E3A8A;
             color: white;
             border-radius: 50%;
@@ -100,37 +94,61 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR PUTIH MELENGKUNG SPESIFIK JURUSAN -->
-    <div class="jurusan-custom-header">
+    <!-- NAVBAR UTAMA WEBSITE -->
+    <nav class="navbar">
+        <a href="/" class="nav-logo">
+            <img src="{{ asset('images/logo-smk4.png') }}" alt="Logo">
+            <div>
+                <h1>TEACHING FACTORY</h1>
+                <p>SMKN 4 Tanjungpinang</p>
+            </div>
+        </a>
+
+        <div class="nav-links">
+            <a href="/" class="{{ Request::is('/') ? 'active' : '' }}">BERANDA</a>
+            <a href="/jurusan" class="{{ Request::is('jurusan') ? 'active-btn' : '' }}">JURUSAN</a>
+            <a href="/faq" class="{{ Request::is('faq*') ? 'active' : '' }}">FAQ</a>
+        </div>
+
+        <div class="nav-right">
+            <div class="search-box">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" placeholder="Pencarian">
+            </div>
+            <a href="/profil-pembeli" class="profile-btn">
+                <i class="ph ph-user"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- BILAH NAVIGASI KHUSUS JURUSAN (GAMBAR 3) -->
+    <div class="jurusan-top-nav-bar">
         <div class="jurusan-nav-pill">
-            <!-- Logo & Nama Jurusan (Dinamis sesuai halaman) -->
-            <a href="/jurusan" class="jurusan-nav-brand">
-                <img src="{{ asset(@$jurusanLogo ?? 'images/logo-smk4.png') }}" alt="Logo Jurusan">
+            <!-- Logo & Nama Jurusan di Kiri -->
+            <div class="jurusan-nav-brand">
+                <img src="{{ asset('images/logo-smk4.png') }}" alt="Logo Jurusan">
                 <div class="jurusan-nav-brand-text">
-                    <h4>{{ @$jurusanNama ?? 'REKAYASA PERANGKAT LUNAK' }}</h4>
+                    <h4>REKAYASA PERANGKAT LUNAK</h4>
                     <p>SMKN 4 TanjungPinang</p>
                 </div>
-            </a>
-
-            <!-- Menu Sub-Navigasi (Otomatis menyesuaikan prefix URL jurusan saat ini) -->
-            @php
-                $segment = Request::segment(2); // Mengambil rute setelah /jurusan/ (misal: rpl, gim, tkj)
-            @endphp
-            <div class="jurusan-nav-menu">
-                <a href="/jurusan/{{ $segment }}" class="{{ Request::is('jurusan/' . $segment) ? 'active' : '' }}">DESKRIPSI</a>
-                <a href="/jurusan/{{ $segment }}/portofolio" class="{{ Request::is('jurusan/' . $segment . '/portofolio*') ? 'active' : '' }}">PORTOFOLIO</a>
-                <a href="/jurusan/{{ $segment }}/produk" class="{{ Request::is('jurusan/' . $segment . '/produk*') ? 'active' : '' }}">PRODUK</a>
-                <a href="/jurusan/{{ $segment }}/jasa" class="{{ Request::is('jurusan/' . $segment . '/jasa*') ? 'active' : '' }}">JASA</a>
             </div>
 
-            <!-- Pencarian & Profil -->
-            <div style="display: flex; align-items: center; gap: 10px;">
+            <!-- Menu Sub-Navigasi di Tengah -->
+            <div class="jurusan-nav-menu">
+                <a href="/jurusan/rpl" class="{{ Request::is('jurusan/rpl') ? 'active' : '' }}">DESKRIPSI</a>
+                <a href="/jurusan/rpl/portofolio" class="{{ Request::is('jurusan/rpl/portofolio*') ? 'active' : '' }}">PORTOFOLIO</a>
+                <a href="/jurusan/rpl/produk" class="{{ Request::is('jurusan/rpl/produk*') ? 'active' : '' }}">PRODUK</a>
+                <a href="/jurusan/rpl/jasa" class="{{ Request::is('jurusan/rpl/jasa*') ? 'active' : '' }}">JASA</a>
+            </div>
+
+            <!-- Pencarian & Profil di Kanan -->
+            <div style="display: flex; align-items: center; gap: 12px;">
                 <div class="jurusan-nav-search">
                     <i class="ph ph-magnifying-glass" style="color: #64748B;"></i>
                     <input type="text" placeholder="Pencarian">
@@ -142,6 +160,7 @@
         </div>
     </div>
 
+    <!-- KONTEN UTAMA HALAMAN JURUSAN -->
     <main>
         @yield('content')
     </main>

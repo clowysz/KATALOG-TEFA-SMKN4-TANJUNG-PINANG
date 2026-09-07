@@ -1,9 +1,4 @@
-<<<<<<< HEAD:resources/views/admin/admin_tefa/pesanan/index.blade.php
 @extends('admin.layouts.app')
-=======
-
-@extends('layouts.app')
->>>>>>> 2846f9b (update sistem admin TEFA):resources/views/pesanan/index.blade.php
 
 @section('title', 'Kelola Pesanan')
 

@@ -65,3 +65,1877 @@
 .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
 .faq-question { font-size: 16px; font-weight: 600; color: var(--primary); margin-bottom: 8px; line-height: 1.4; }
 .faq-answer { font-size: 14px; color: var(--text-dark); margin-bottom: 12px; line-height: 1.6; }
+
+/* =========================================
+   HALAMAN JURUSAN
+========================================= */
+
+.jurusan-page {
+    min-height: calc(100vh - 72px);
+    background: #f7f9fb;
+    padding: 28px 30px 50px;
+    box-sizing: border-box;
+}
+
+.jurusan-container {
+    width: 100%;
+    max-width: 1085px;
+    margin: 0 auto;
+}
+
+.page-title {
+    margin: 0 0 28px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #142238;
+}
+
+
+/* =========================================
+   GRID JURUSAN
+========================================= */
+
+.jurusan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.jurusan-card {
+    background: #ffffff;
+    min-height: 290px;
+    padding: 24px 21px 25px;
+    box-sizing: border-box;
+
+    border: 1px solid #e1e7ec;
+    border-top: 5px solid;
+    border-radius: 16px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+.jurusan-card h2 {
+    margin: 0 0 17px;
+
+    font-size: 19px;
+    line-height: 1.35;
+    font-weight: 700;
+
+    color: #142238;
+}
+
+
+/* =========================================
+   KOTAK STATISTIK
+========================================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.stat-box {
+    height: 89px;
+    padding: 14px 15px;
+
+    box-sizing: border-box;
+    border-radius: 11px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stat-number {
+    font-size: 29px;
+    line-height: 1;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 15px;
+    line-height: 1;
+    color: #526b87;
+}
+
+
+/* =========================================
+   RPL
+========================================= */
+
+.rpl {
+    border-top-color: #df8c32;
+}
+
+.rpl .stat-box {
+    background: #fcf8f4;
+}
+
+.rpl .stat-number {
+    color: #df8c32;
+}
+
+
+/* =========================================
+   TKJ
+========================================= */
+
+.tkj {
+    border-top-color: #609477;
+}
+
+.tkj .stat-box {
+    background: #f3f8f5;
+}
+
+.tkj .stat-number {
+    color: #609477;
+}
+
+
+/* =========================================
+   DKV
+========================================= */
+
+.dkv {
+    border-top-color: #ae5d60;
+}
+
+.dkv .stat-box {
+    background: #faf5f5;
+}
+
+.dkv .stat-number {
+    color: #ae5d60;
+}
+
+
+/* =========================================
+   ANIMASI
+========================================= */
+
+.animasi {
+    border-top-color: #356486;
+}
+
+.animasi .stat-box {
+    background: #f3f5f7;
+}
+
+.animasi .stat-number {
+    color: #356486;
+}
+
+
+/* =========================================
+   GIM
+========================================= */
+
+.gim {
+    border-top-color: #70a8d0;
+}
+
+.gim .stat-box {
+    background: #f4f8fb;
+}
+
+.gim .stat-number {
+    color: #70a8d0;
+}
+
+
+/* =========================================
+   PSTV
+========================================= */
+
+.pstv {
+    border-top-color: #d5a637;
+}
+
+.pstv .stat-box {
+    background: #fcf9f2;
+}
+
+.pstv .stat-number {
+    color: #d5a637;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+    .jurusan-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+
+    .jurusan-page {
+        padding: 20px 15px 40px;
+    }
+
+    .jurusan-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title {
+        font-size: 23px;
+    }
+}
+
+/* =========================================================
+   DETAIL AKUN
+   ========================================================= */
+
+.detail-container {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+/* Link kembali */
+.back-link-wrapper {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto 25px auto;
+}
+
+.back-link {
+    display: inline-block;
+    color: #356b98;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Judul halaman */
+.page-title {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto 26px auto;
+
+    font-size: 26px;
+    font-weight: 700;
+    color: #102a43;
+}
+
+
+/* =========================================================
+   CARD DETAIL
+   ========================================================= */
+
+.detail-card {
+    background: #ffffff;
+
+    border: 1px solid #dfe5ea;
+    border-radius: 16px;
+
+    padding: 30px 27px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+    margin-bottom: 20px;
+}
+
+
+/* Baris informasi */
+.info-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    font-size: 16px;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Label */
+.info-label {
+    color: #58718b;
+    font-weight: 400;
+}
+
+
+/* Nilai */
+.info-value {
+    color: #102a43;
+    font-weight: 400;
+}
+
+.text-bold {
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   BADGE ROLE
+   ========================================================= */
+
+.badge-role {
+    display: inline-block;
+
+    padding: 5px 11px;
+
+    background: #edf5fc;
+    color: #5b91bf;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* Status aktif */
+.status-active {
+    background: #e9f5ef;
+    color: #559474;
+}
+
+
+/* Status nonaktif */
+.status-inactive {
+    background: #fcecec;
+    color: #c65c5c;
+}
+
+
+/* Titik status */
+.dot {
+    font-size: 11px;
+}
+
+
+/* Password */
+.dots-password {
+    color: #8da4bb;
+    letter-spacing: 5px;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   TOMBOL AKSI
+   ========================================================= */
+
+.action-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+
+.btn-action {
+    width: 100%;
+    height: 53px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    border-radius: 11px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+/* =========================================================
+   EDIT AKUN
+   ========================================================= */
+
+.btn-primary {
+    background: #3d7199;
+    color: #ffffff;
+
+    border: 1px solid #3d7199;
+}
+
+.btn-primary:hover {
+    background: #315f83;
+    border-color: #315f83;
+}
+
+
+/* =========================================================
+   RESET PASSWORD
+   ========================================================= */
+
+.btn-outline-primary {
+    background: #ffffff;
+    color: #356b98;
+
+    border: 1px solid #356b98;
+}
+
+.btn-outline-primary:hover {
+    background: #f2f7fb;
+}
+
+
+/* =========================================================
+   HAPUS AKSES
+   ========================================================= */
+
+.btn-outline-danger {
+    background: #ffffff;
+    color: #d45757;
+
+    border: 1px solid #ffbebe;
+}
+
+.btn-outline-danger:hover {
+    background: #fff5f5;
+}
+
+
+/* Tombol disabled */
+.btn-disabled {
+    background: #f3f3f3;
+    color: #999999;
+
+    border: 1px solid #dddddd;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   FORM RESET PASSWORD
+   ========================================================= */
+
+.reset-form-box {
+    margin-top: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe5ea;
+    border-radius: 14px;
+
+    padding: 24px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.reset-form-box h3 {
+    margin: 0 0 20px 0;
+
+    font-size: 20px;
+    color: #102a43;
+}
+
+
+/* Form group */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #58718b;
+    font-size: 15px;
+}
+
+.form-control {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d5dce2;
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.form-control:focus {
+    border-color: #3d7199;
+}
+
+
+/* Tombol form reset */
+.reset-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.btn-cancel-sm,
+.btn-submit-sm {
+    padding: 10px 20px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.btn-cancel-sm {
+    background: #ffffff;
+    color: #555555;
+
+    border: 1px solid #cccccc;
+}
+
+.btn-submit-sm {
+    background: #3d7199;
+    color: #ffffff;
+
+    border: 1px solid #3d7199;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .detail-container,
+    .back-link-wrapper,
+    .page-title {
+        max-width: none;
+        width: auto;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .detail-card {
+        padding: 24px 20px;
+    }
+
+    .info-row {
+        grid-template-columns: 140px 1fr;
+        font-size: 15px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .info-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        margin-bottom: 17px;
+    }
+
+    .info-label {
+        font-size: 14px;
+    }
+
+    .info-value {
+        font-size: 15px;
+    }
+
+    .detail-card {
+        padding: 22px 18px;
+    }
+
+    .page-title {
+        font-size: 23px;
+    }
+}
+
+/* =========================================
+   HALAMAN EDIT AKUN
+========================================= */
+
+.edit-page {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 25px 20px 50px;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   LINK KEMBALI
+========================================= */
+
+.back-link-wrapper {
+    margin-bottom: 28px;
+}
+
+.back-link {
+    color: #35698f;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   JUDUL
+========================================= */
+.page-title {
+    width: 600px;
+    max-width: 100%;
+    margin: 0 auto 30px;
+    font-size: 25px;
+    font-weight: 700;
+    color: #162d45;
+    text-align: center;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.edit-card {
+    background: #ffffff;
+    border: 1px solid #dce4ec;
+    border-radius: 15px;
+    padding: 30px 28px;
+    box-shadow: 0 3px 12px rgba(30, 60, 90, 0.06);
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 9px;
+
+    color: #172f49;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   INPUT & SELECT
+========================================= */
+
+.form-control {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    border: 1px solid #d9e2eb;
+    border-radius: 11px;
+
+    background: #ffffff;
+    color: #18334e;
+
+    font-size: 16px;
+    font-family: inherit;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #3d7098;
+    box-shadow: 0 0 0 3px rgba(61, 112, 152, 0.10);
+}
+
+select.form-control {
+    cursor: pointer;
+}
+
+
+/* =========================================
+   INFORMASI ADMIN TEFA
+========================================= */
+
+.jurusan-info {
+    width: 100%;
+    min-height: 50px;
+
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
+    background: #f5f8fc;
+
+    border: 1px solid #dce5ee;
+    border-radius: 11px;
+
+    color: #8da2bc;
+
+    font-size: 16px;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.alert-danger {
+    background: #fff2f2;
+
+    border: 1px solid #f1c5c5;
+    border-radius: 10px;
+
+    color: #a94442;
+
+    padding: 14px 16px;
+    margin-bottom: 22px;
+
+    font-size: 14px;
+}
+
+.alert-danger ul {
+    margin: 8px 0 0 20px;
+    padding: 0;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.mb-large {
+    margin-bottom: 28px;
+}
+
+
+/* =========================================
+   TOMBOL
+========================================= */
+
+.form-actions {
+    display: flex;
+    gap: 13px;
+
+    width: 100%;
+}
+
+.btn-cancel,
+.btn-submit {
+    height: 54px;
+
+    border-radius: 11px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+    box-sizing: border-box;
+
+    transition: 0.2s ease;
+}
+
+
+/* Tombol Batal */
+
+.btn-cancel {
+    width: 32%;
+
+    background: #ffffff;
+
+    border: 1px solid #cdd9e5;
+
+    color: #28445f;
+}
+
+.btn-cancel:hover {
+    background: #f5f8fb;
+}
+
+
+/* Tombol Simpan */
+
+.btn-submit {
+    width: 68%;
+
+    border: none;
+
+    background: #3d7098;
+
+    color: #ffffff;
+}
+
+.btn-submit:hover {
+    background: #315f83;
+}
+
+.btn-submit:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .edit-page {
+        padding: 20px 15px 40px;
+    }
+
+    .edit-card {
+        padding: 24px 20px;
+    }
+
+    .page-title {
+        font-size: 23px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-cancel,
+    .btn-submit {
+        width: 100%;
+    }
+}
+
+/* ==============================
+   HALAMAN TAMBAH FAQ
+   ============================== */
+
+.faq-create-page {
+    width: 100%;
+    max-width: 710px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+    box-sizing: border-box;
+}
+
+
+/* ==============================
+   LINK KEMBALI
+   ============================== */
+
+.back-link-wrapper {
+    margin-bottom: 28px;
+}
+
+.back-link {
+    display: inline-block;
+    color: #35698f;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+/* ==============================
+   JUDUL
+   ============================== */
+
+.page-title {
+    margin: 0 0 30px;
+    color: #162d45;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+
+/* ==============================
+   CARD
+   ============================== */
+
+.faq-card {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #dce4ec;
+    border-radius: 15px;
+    padding: 30px 28px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 14px rgba(30, 60, 90, 0.07);
+}
+
+
+/* ==============================
+   FORM
+   ============================== */
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: #172f49;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* ==============================
+   INPUT & TEXTAREA
+   ============================== */
+
+.form-control {
+    width: 100%;
+    height: 53px;
+    padding: 0 17px;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border: 1px solid #d9e2eb;
+    border-radius: 11px;
+
+    color: #18334e;
+    font-family: inherit;
+    font-size: 16px;
+
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.form-control::placeholder {
+    color: #8da2bc;
+}
+
+.form-control:focus {
+    border-color: #3d7098;
+    box-shadow: 0 0 0 3px rgba(61, 112, 152, 0.10);
+}
+
+
+/* ==============================
+   TEXTAREA
+   ============================== */
+
+.textarea-control {
+    height: 168px;
+    padding: 14px 17px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+
+/* ==============================
+   TOMBOL
+   ============================== */
+
+.form-actions {
+    display: flex;
+    gap: 13px;
+    width: 100%;
+    margin-top: 37px;
+}
+
+
+/* Tombol Batal */
+
+.btn-cancel {
+    width: 32%;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border: 1px solid #cdd9e5;
+    border-radius: 11px;
+
+    color: #28445f;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.btn-cancel:hover {
+    background: #f5f8fb;
+}
+
+
+/* Tombol Simpan */
+
+.btn-submit {
+    width: 68%;
+    height: 56px;
+
+    border: none;
+    border-radius: 11px;
+
+    background: #3d7098;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.btn-submit:hover {
+    background: #315f83;
+}
+
+.btn-submit:active {
+    transform: translateY(1px);
+}
+
+
+/* ==============================
+   ERROR VALIDASI
+   ============================== */
+
+.alert-danger {
+    margin-bottom: 22px;
+    padding: 14px 16px;
+
+    background: #fff2f2;
+    border: 1px solid #f1c5c5;
+    border-radius: 10px;
+
+    color: #a94442;
+    font-size: 14px;
+}
+
+.alert-danger ul {
+    margin: 8px 0 0 20px;
+    padding: 0;
+}
+
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
+
+@media (max-width: 700px) {
+
+    .faq-create-page {
+        padding: 20px 15px 40px;
+    }
+
+    .faq-card {
+        padding: 24px 20px;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-cancel,
+    .btn-submit {
+        width: 100%;
+    }
+}
+
+/* =====================================================
+   HALAMAN KELOLA FAQ
+   ===================================================== */
+
+.faq-page {
+    width: 100%;
+    max-width: 915px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   HEADER HALAMAN
+   ===================================================== */
+
+.faq-page-header {
+    width: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 31px;
+}
+
+
+/* =====================================================
+   JUDUL
+   ===================================================== */
+
+.faq-title-area h2 {
+    margin: 0 0 5px;
+
+    color: #162d45;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+.faq-title-area p {
+    margin: 0;
+
+    color: #5b7895;
+
+    font-size: 16px;
+    font-weight: 400;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   BUTTON TAMBAH FAQ
+   ===================================================== */
+
+.faq-add-button {
+    width: 159px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    background: #3d7098;
+
+    border-radius: 11px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    box-sizing: border-box;
+
+    transition: all 0.2s ease;
+}
+
+
+.faq-add-button:hover {
+    background: #315f83;
+}
+
+
+.plus-icon {
+    font-size: 20px;
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   DAFTAR FAQ
+   ===================================================== */
+
+.faq-items {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+/* =====================================================
+   CARD FAQ
+   ===================================================== */
+
+.faq-item {
+    width: 100%;
+
+    display: flex;
+    align-items: flex-start;
+
+    padding: 22px 23px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #dce4ec;
+
+    border-radius: 15px;
+
+    box-shadow: 0 3px 10px rgba(30, 60, 90, 0.05);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   NOMOR FAQ
+   ===================================================== */
+
+.faq-item-number {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 16px;
+
+    background: #edf4fb;
+
+    border-radius: 9px;
+
+    color: #35698f;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   ISI FAQ
+   ===================================================== */
+
+.faq-item-body {
+    flex: 1;
+
+    min-width: 0;
+
+    padding-right: 20px;
+
+    box-sizing: border-box;
+
+    background: transparent;
+}
+
+
+/* =====================================================
+   PERTANYAAN
+   ===================================================== */
+
+.faq-item-body h4 {
+    margin: 0 0 12px;
+
+    padding: 0;
+
+    color: #162d45;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    background: transparent;
+}
+
+
+/* =====================================================
+   JAWABAN
+   ===================================================== */
+
+.faq-item-body p {
+    margin: 0;
+    padding: 0;
+
+    color: #355775;
+
+    font-size: 16px;
+    font-weight: 400;
+
+    line-height: 1.8;
+
+    background: transparent;
+
+    word-wrap: break-word;
+}
+
+
+/* =====================================================
+   BAGIAN TOMBOL
+   ===================================================== */
+
+.faq-item-actions {
+    width: 78px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+
+    padding: 0;
+
+    margin: 0;
+
+    background: transparent;
+}
+
+
+/* =====================================================
+   BUTTON EDIT
+   ===================================================== */
+
+.faq-edit-button {
+    width: 78px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    background: #edf5fc;
+
+    border-radius: 8px;
+
+    color: #35698f;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+
+.faq-edit-button:hover {
+    background: #e1eef9;
+}
+
+
+/* =====================================================
+   BUTTON HAPUS
+   ===================================================== */
+
+.faq-delete-button {
+    width: 78px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: #fff0f0;
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: #dc4d4d;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+.faq-delete-button:hover {
+    background: #ffe2e2;
+}
+
+
+/* =====================================================
+   FORM HAPUS
+   ===================================================== */
+
+.faq-item-actions form {
+    width: 78px;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+}
+
+
+/* =====================================================
+   KALAU DATA KOSONG
+   ===================================================== */
+
+.faq-empty {
+    width: 100%;
+
+    padding: 35px 20px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #dce4ec;
+
+    border-radius: 15px;
+
+    color: #6c7f92;
+
+    text-align: center;
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .faq-page {
+        padding: 22px 15px 40px;
+    }
+
+
+    .faq-page-header {
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+
+    .faq-add-button {
+        width: 100%;
+    }
+
+
+    .faq-item {
+        padding: 18px;
+    }
+
+
+    .faq-item-body {
+        padding-right: 10px;
+    }
+
+
+    .faq-item-body h4 {
+        font-size: 15px;
+    }
+
+
+    .faq-item-body p {
+        font-size: 14px;
+    }
+
+
+    .faq-item-actions {
+        width: 65px;
+    }
+
+
+    .faq-edit-button,
+    .faq-delete-button {
+        width: 65px;
+    }
+
+
+    .faq-item-actions form {
+        width: 65px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE KECIL
+   ===================================================== */
+
+@media (max-width: 500px) {
+
+    .faq-item {
+        flex-wrap: wrap;
+    }
+
+
+    .faq-item-body {
+        width: calc(100% - 50px);
+    }
+
+
+    .faq-item-actions {
+        width: 100%;
+
+        flex-direction: row;
+
+        margin-top: 18px;
+
+        padding-left: 50px;
+
+        box-sizing: border-box;
+    }
+
+
+    .faq-edit-button,
+    .faq-delete-button,
+    .faq-item-actions form {
+        width: 100%;
+    }
+
+}
+
+/* ==============================
+   HALAMAN EDIT FAQ
+   ============================== */
+
+.edit-faq-page {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 28px 20px 50px;
+    box-sizing: border-box;
+}
+
+
+/* ==============================
+   LINK KEMBALI
+   ============================== */
+
+.back-link-wrapper {
+    margin-bottom: 27px;
+}
+
+.back-link {
+    color: #35698f;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+/* ==============================
+   JUDUL
+   ============================== */
+
+.page-title {
+    margin: 0 0 30px;
+    color: #162d45;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+/* ==============================
+   CARD
+   ============================== */
+
+.edit-faq-card {
+    width: 100%;
+    background: #ffffff;
+
+    border: 1px solid #dce4ec;
+    border-radius: 15px;
+
+    padding: 30px 28px;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 3px 12px rgba(30, 60, 90, 0.06);
+}
+
+
+/* ==============================
+   FORM GROUP
+   ============================== */
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #172f49;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* ==============================
+   INPUT & TEXTAREA
+   ============================== */
+
+.form-control {
+    width: 100%;
+
+    padding: 0 16px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d9e2eb;
+    border-radius: 11px;
+
+    background: #ffffff;
+
+    color: #18334e;
+
+    font-size: 16px;
+    font-family: inherit;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+.form-control[type="text"] {
+    height: 52px;
+}
+
+.form-control:focus {
+    border-color: #3d7098;
+
+    box-shadow:
+        0 0 0 3px rgba(61, 112, 152, 0.10);
+}
+
+
+/* ==============================
+   TEXTAREA JAWABAN
+   ============================== */
+
+.textarea-jawaban {
+    min-height: 165px;
+
+    padding: 14px 16px;
+
+    line-height: 1.6;
+
+    resize: vertical;
+}
+
+
+/* ==============================
+   ERROR
+   ============================== */
+
+.alert-danger {
+    background: #fff2f2;
+
+    border: 1px solid #f1c5c5;
+
+    border-radius: 10px;
+
+    color: #a94442;
+
+    padding: 14px 16px;
+
+    margin-bottom: 22px;
+
+    font-size: 14px;
+}
+
+.alert-danger ul {
+    margin: 8px 0 0 20px;
+    padding: 0;
+}
+
+
+/* ==============================
+   TOMBOL
+   ============================== */
+
+.form-actions {
+    display: flex;
+
+    gap: 13px;
+
+    width: 100%;
+
+    margin-top: 4px;
+}
+
+.btn-cancel,
+.btn-submit {
+    height: 56px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    border-radius: 11px;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* Tombol Batal */
+
+.btn-cancel {
+    width: 32%;
+
+    background: #ffffff;
+
+    border: 1px solid #cdd9e5;
+
+    color: #28445f;
+}
+
+.btn-cancel:hover {
+    background: #f5f8fb;
+}
+
+
+/* Tombol Simpan */
+
+.btn-submit {
+    width: 68%;
+
+    border: none;
+
+    background: #3d7098;
+
+    color: #ffffff;
+}
+
+.btn-submit:hover {
+    background: #315f83;
+}
+
+.btn-submit:active {
+    transform: translateY(1px);
+}
+
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
+
+@media (max-width: 700px) {
+
+    .edit-faq-page {
+        padding: 22px 15px 40px;
+    }
+
+    .edit-faq-card {
+        padding: 24px 20px;
+    }
+
+    .page-title {
+        font-size: 23px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-cancel,
+    .btn-submit {
+        width: 100%;
+    }
+}

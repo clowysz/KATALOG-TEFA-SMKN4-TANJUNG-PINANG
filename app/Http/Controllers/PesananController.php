@@ -12,7 +12,8 @@ class PesananController extends Controller
     {
         $pesanans = Pesanan::latest()->get();
 
-        return view('pesanan.index', compact('pesanans'));
+        return view('admin.admin_tefa.pesanan.index', compact('pesanans'));
+
     }
 
     // Menyimpan pesanan baru
