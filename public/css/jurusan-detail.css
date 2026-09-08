@@ -40,7 +40,8 @@
     margin: 0 auto;
     position: relative;
     z-index: 2;
-    padding-bottom: 120px;
+    /* PERBAIKAN: Mengurangi jarak bawah agar gelombang tidak terlalu ke bawah */
+    padding-bottom: 60px; 
 }
 
 .jurusan-hero-text { flex: 1; }
@@ -85,7 +86,8 @@
 /* ================= KONTEN DESKRIPSI ================= */
 .deskripsi-content {
     background: white;
-    padding: 80px 5% 100px 5%;
+    /* PERBAIKAN: Mengurangi padding atas (dari 80px ke 30px) agar teks merapat ke atas */
+    padding: 30px 5% 100px 5%;
 }
 .deskripsi-wrapper {
     max-width: 900px;
@@ -162,3 +164,123 @@
 .spec-table td:first-child { font-weight: 600; color: #1E2D3D; width: 150px; }
 
 .k-card-year { font-size: 12px; color: #94A3B8; font-weight: 600; margin-bottom: 8px; }
+
+/* ================= PERBAIKAN GAP PUTIH DI ATAS FOOTER ================= */
+.detail-page-wrapper {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.detail-card {
+    margin-bottom: 0 !important;
+}
+
+footer, .footer {
+    margin-top: 0 !important;
+}
+
+/* ================= RESPONSIVE (TABLET & LAYAR MENENGAH) ================= */
+@media (max-width: 992px) {
+    /* Hero Section: Gambar naik ke atas, teks di bawahnya dan rata tengah */
+    .jurusan-hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding-bottom: 40px;
+    }
+    .jurusan-hero-image img {
+        max-width: 90%;
+    }
+    .jurusan-hero-text p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Halaman Detail: Galeri dan Info menjadi atas-bawah */
+    .detail-top-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .main-image {
+        height: 300px; /* Ukuran gambar dikecilkan sedikit */
+    }
+}
+
+/* ================= RESPONSIVE (HANDPHONE / LAYAR KECIL) ================= */
+@media (max-width: 600px) {
+    .jurusan-hero-section {
+        padding-top: 100px;
+    }
+    .jurusan-hero-text h1 {
+        font-size: 28px; /* Teks judul dikecilkan agar tidak menabrak batas layar */
+    }
+    
+    /* Sub-navigasi atas (Deskripsi, Portofolio, dll) membungkus ke bawah jika sempit */
+    .jurusan-sub-nav {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+    
+    /* Grid Katalog dipaksa jadi 1 kolom penuh di HP */
+    .katalog-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Ruang dalam (Padding) dikurangi agar tidak memakan tempat di layar kecil */
+    .deskripsi-content, 
+    .katalog-section, 
+    .detail-page-wrapper {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .detail-card {
+        padding: 24px;
+        margin-top: 40px;
+    }
+    .detail-title {
+        font-size: 24px;
+    }
+    .spec-table td {
+        display: block;
+        width: 100%;
+        border-bottom: none;
+        padding: 4px 0;
+    }
+    .spec-table tr {
+        border-bottom: 1px solid #E2E8F0;
+        display: block;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+    }
+}
+
+/* ================= RESPONSIVE KONTEN HERO (HP & TABLET) ================= */  
+    @media (max-width: 850px) {
+    .jurusan-hero-section {
+        padding-top: 220px; /* Menambah jarak atas agar tidak tertimpa navbar yang membesar di HP */
+    }
+    .jurusan-hero-content {
+        flex-direction: column; /* Memindahkan gambar ke bawah teks */
+        text-align: center;
+        gap: 30px;
+    }
+    .jurusan-hero-text h1 {
+        font-size: 28px; /* Mengecilkan judul utama */
+    }
+    .jurusan-hero-text p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .btn-kembali-beranda {
+        margin: 0 auto; /* Menengahkan tombol */
+        justify-content: center;
+    }
+    .jurusan-hero-image {
+        justify-content: center;
+        width: 100%;
+    }
+    .jurusan-hero-image img {
+        max-width: 100%;
+    }
+}

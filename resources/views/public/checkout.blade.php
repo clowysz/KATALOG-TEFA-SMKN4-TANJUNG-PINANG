@@ -93,7 +93,7 @@
             </div>
             
             <!-- Tombol Konfirmasi diarahkan ke halaman Riwayat Pesanan -->
-            <a href="/riwayat-pesanan" class="btn-submit">
+            <a href="/riwayat-pesanan" class="btn-submit" style="text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 8px;">
                 Konfirmasi Pesanan <i class="ph ph-arrow-right"></i>
             </a>
 

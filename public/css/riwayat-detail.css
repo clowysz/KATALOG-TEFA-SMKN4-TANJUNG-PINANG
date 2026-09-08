@@ -1,0 +1,66 @@
+.rd-page { background: #F0F4F8; min-height: 100vh; padding-bottom: 60px; font-family: 'Poppins', sans-serif; }
+.rd-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+.rd-header { background: #1E3A8A; color: white; padding: 120px 0 60px 0; border-radius: 0 0 24px 24px; margin-bottom: -30px; position: relative; }
+.rd-back-btn { background: white; color: #1E3A8A; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+.rd-title-area { display: flex; align-items: center; gap: 16px; }
+.rd-title-icon { font-size: 32px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 12px; }
+.rd-title-area h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.rd-title-area p { font-size: 14px; color: #CBD5E1; }
+
+/* Cards */
+.rd-body { position: relative; z-index: 10; }
+.rd-card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #E2E8F0; }
+.rd-flex-between { display: flex; justify-content: space-between; align-items: flex-start; }
+.rd-label { font-size: 13px; color: #64748B; margin-bottom: 4px; }
+.rd-order-id { font-size: 24px; font-weight: 800; color: #1E2D3D; margin-bottom: 4px; }
+.rd-date { font-size: 13px; color: #94A3B8; }
+
+.rd-status-box.warning { background: #FFF7ED; border: 1px solid #FFEDD5; padding: 12px 20px; border-radius: 12px; text-align: right; }
+.rd-status-title { color: #EA580C; font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 6px; justify-content: flex-end; margin-bottom: 4px; }
+.rd-status-est { font-size: 12px; color: #9A3412; }
+
+/* Product */
+.rd-product { display: flex; gap: 24px; align-items: center; }
+.rd-product img { width: 150px; border-radius: 12px; }
+.rd-badge { background: #E0E7FF; color: #1E3A8A; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+.rd-product-info h2 { font-size: 18px; font-weight: 700; color: #1E2D3D; margin-bottom: 8px; }
+.rd-product-info p { font-size: 13px; color: #64748B; margin-bottom: 12px; line-height: 1.5; }
+.rd-price { font-size: 20px; font-weight: 800; color: #1E3A8A; margin-bottom: 4px; }
+.rd-qty { font-size: 13px; color: #64748B; }
+
+/* Timeline */
+.rd-card-title { font-size: 16px; font-weight: 700; color: #1E3A8A; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+.rd-timeline { display: flex; justify-content: space-between; align-items: flex-start; text-align: center; }
+.rd-step { width: 100px; display: flex; flex-direction: column; align-items: center; z-index: 2; }
+.rd-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 12px; background: #F1F5F9; color: #94A3B8; border: 2px solid white; }
+.rd-text { font-size: 12px; font-weight: 600; color: #1E2D3D; line-height: 1.4; }
+.rd-text span { font-weight: 400; color: #94A3B8; font-size: 11px; }
+
+.rd-step.active .rd-icon { background: #2563EB; color: white; }
+.rd-step.current .rd-icon { border: 4px solid #DBEAFE; background: #2563EB; }
+.rd-line { flex-grow: 1; height: 2px; background: #E2E8F0; margin-top: 16px; }
+.rd-line.active { background: #2563EB; }
+
+/* Grid Info */
+.rd-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.rd-info-row { display: flex; align-items: center; gap: 12px; font-size: 13px; color: #475569; margin-bottom: 16px; }
+.rd-info-row i { font-size: 18px; color: #1E3A8A; }
+.rd-info-row span { flex-grow: 1; }
+.rd-info-row strong { color: #1E2D3D; font-weight: 600; text-align: right; }
+.rd-divider { height: 1px; background: #E2E8F0; margin: 16px 0; }
+.rd-info-row.total span { font-size: 16px; font-weight: 700; color: #1E3A8A; }
+.rd-info-row.total strong { font-size: 20px; font-weight: 800; color: #1E3A8A; }
+
+/* Notes */
+.rd-notes { background: #F8FAFC; border: 1px solid #E2E8F0; padding: 16px; border-radius: 12px; font-size: 13px; color: #475569; }
+
+@media (max-width: 768px) {
+    .rd-flex-between, .rd-product, .rd-grid-2 { flex-direction: column; gap: 16px; }
+    .rd-status-box.warning { text-align: left; }
+    .rd-status-title { justify-content: flex-start; }
+    .rd-timeline { overflow-x: auto; padding-bottom: 10px; }
+    .rd-step { min-width: 120px; }
+    .rd-line { min-width: 50px; }
+}
