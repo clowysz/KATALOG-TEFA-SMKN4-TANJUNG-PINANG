@@ -7,7 +7,7 @@
     <a href="/produser/pesanan" class="btn-outline" style="border: none; padding-left: 0; color: white; background: var(--prod-text-sec); padding: 8px 16px; border-radius: 8px; text-decoration: none;"><i class="ph ph-arrow-left"></i> Kembali ke Daftar</a>
 </div>
 
-<!-- KOTAK BIRU (HERO CARD) YANG SUDAH DIPERBAIKI -->
+<!-- KOTAK BIRU (HERO CARD) -->
 <div class="order-hero-card">
     <div class="order-hero-top">
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -49,10 +49,10 @@
                     <h3 style="font-size: 16px; margin-bottom: 4px;">Tahapan Pengerjaan</h3>
                     <p style="font-size: 13px; color: var(--prod-text-sec);" id="stepperSubtitle">0 dari 0 tahap selesai</p>
                 </div>
-                <button class="btn-outline" style="padding: 6px 12px; font-size: 13px; background: #F8FAFC; border-color: var(--prod-border);">Kelola Tahapan</button>
+                <!-- PERBAIKAN: Tombol Kelola Tahapan Diaktifkan -->
+                <button type="button" onclick="openModalTahapan()" class="btn-outline" style="padding: 6px 12px; font-size: 13px; background: #F8FAFC; border-color: var(--prod-border); cursor: pointer;"><i class="ph ph-gear"></i> Kelola Tahapan</button>
             </div>
             
-            <!-- Tempat Stepper Interaktif Muncul -->
             <div class="stepper-container" id="stepperContainer"></div>
         </div>
     </div>
@@ -75,7 +75,6 @@
                 <option value="Selesai">Selesai</option>
             </select>
 
-            <!-- Box Progress Slider (Otomatis muncul/hilang) -->
             <div id="progressSliderBox" style="margin-bottom: 24px;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px;">
                     <label class="detail-label" style="margin-bottom: 0; font-weight: 600; color: var(--prod-text-main);">Progress Pengerjaan</label>
@@ -93,6 +92,68 @@
             <div style="display: flex; gap: 16px; margin-top: 16px;">
                 <button type="button" class="btn-outline" style="flex: 1; padding: 12px;">Batal</button>
                 <button type="submit" id="btnSimpanUpdate" class="btn-primary" style="flex: 2; padding: 12px;" disabled>Simpan Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ================= MODAL KELOLA TAHAPAN (CRUD) ================= -->
+<div id="modalKelolaTahapan" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div class="modal-box" style="background: white; border-radius: 16px; width: 100%; max-width: 650px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-height: 90vh; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--prod-border); padding-bottom: 12px;">
+            <div>
+                <h3 style="font-size: 18px; font-weight: 700; color: var(--prod-text-main); margin-bottom: 2px;">Kelola Tahapan Pengerjaan</h3>
+                <p style="font-size: 13px; color: var(--prod-text-sec);">Tambah, ubah, atau hapus tahapan untuk pesanan ini</p>
+            </div>
+            <button type="button" onclick="closeModalTahapan()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--prod-text-sec);"><i class="ph ph-x"></i></button>
+        </div>
+
+        <button type="button" onclick="openFormTambahTahap()" class="btn-primary" style="margin-bottom: 16px; padding: 10px 16px; font-size: 13px; width: auto;"><i class="ph ph-plus"></i> Tambah Tahap Baru</button>
+
+        <div style="overflow-x: auto; border: 1px solid var(--prod-border); border-radius: 8px; margin-bottom: 20px;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+                <thead>
+                    <tr style="background: #F8FAFC; border-bottom: 1px solid var(--prod-border); color: var(--prod-text-sec);">
+                        <th style="padding: 12px;">No</th>
+                        <th style="padding: 12px;">Nama Tahap</th>
+                        <th style="padding: 12px;">Status</th>
+                        <th style="padding: 12px; text-align: center;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelTahapanBody">
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 20px; color: var(--prod-text-sec);">Memuat data tahapan...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end;">
+            <button type="button" onclick="closeModalTahapan()" class="btn-outline" style="padding: 10px 20px;">Tutup</button>
+        </div>
+    </div>
+</div>
+
+<!-- SUB-MODAL FORM TAMBAH / EDIT TAHAP -->
+<div id="modalFormTahap" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1100; justify-content: center; align-items: center;">
+    <div class="modal-box" style="background: white; border-radius: 16px; width: 100%; max-width: 450px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+        <h3 id="formTahapTitle" style="font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--prod-text-main);">Tambah Tahap</h3>
+        <form id="formSimpanTahap">
+            <input type="hidden" id="editStageId">
+            <label class="detail-label" style="font-weight: 600; color: var(--prod-text-main);">Nama Tahap Pengerjaan</label>
+            <input type="text" id="inputNamaTahap" class="form-control" placeholder="Contoh: Desain UI/UX" required style="margin-bottom: 16px; padding: 10px;">
+            
+            <label class="detail-label" style="font-weight: 600; color: var(--prod-text-main);">Status Awal</label>
+            <select id="inputStatusTahap" class="form-control" style="margin-bottom: 20px; padding: 10px;" required>
+                <option value="Belum Dimulai">Belum Dimulai</option>
+                <option value="Sedang Dikerjakan">Sedang Dikerjakan</option>
+                <option value="Dalam Revisi">Dalam Revisi</option>
+                <option value="Selesai">Selesai</option>
+            </select>
+
+            <div style="display: flex; gap: 12px;">
+                <button type="button" onclick="closeFormTahap()" class="btn-outline" style="flex: 1; padding: 10px;">Batal</button>
+                <button type="submit" class="btn-primary" style="flex: 2; padding: 10px;">Simpan Tahap</button>
             </div>
         </form>
     </div>

@@ -6,7 +6,7 @@
 
 @section('content')
 
-<section class="jurusan-hero-section" style="padding-top: 20px; position: relative;">
+<section class="jurusan-hero-section" style="padding-top: 80px; position: relative;">
     <div class="bubble" style="width: 100px; height: 100px; top: 20%; right: 10%; animation-duration: 7s;"></div>
     
     <div class="jurusan-hero-content" style="position: relative; z-index: 10;">
@@ -44,7 +44,7 @@
                 <div class="k-card-year">2026</div>
                 <h3 class="k-card-title">IoT Untuk Irigasi Cerdas</h3>
                 <p class="k-card-desc">Sistem pengairan otomatis berbasis Internet of Things untuk pertanian modern.</p>
-                <a href="/jurusan/rpl/portofolio/detail" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/portofolio/detail/1" class="k-card-btn">Lihat Selengkapnya &gt;</a>
             </div>
         </div>
 
@@ -57,7 +57,7 @@
                 <div class="k-card-year">2025</div>
                 <h3 class="k-card-title">Aplikasi E-Learning Sederhana</h3>
                 <p class="k-card-desc">Platform belajar interaktif yang digunakan oleh siswa internal sekolah.</p>
-                <a href="/jurusan/rpl/portofolio/detail" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/portofolio/detail/2" class="k-card-btn">Lihat Selengkapnya &gt;</a>
             </div>
         </div>
 
@@ -70,9 +70,9 @@
                 <div class="k-card-year">2025</div>
                 <h3 class="k-card-title">Robot Line Follower</h3>
                 <p class="k-card-desc">Juara 1 Lomba Robotik tingkat Provinsi Kepulauan Riau.</p>
-                <a href="/jurusan/rpl/portofolio/detail" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/portofolio/detail/3" class="k-card-btn">Lihat Selengkapnya &gt;</a>
             </div>
         </div>
     </div>
 </section>
-@endsection 
+@endsection

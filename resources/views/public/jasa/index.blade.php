@@ -6,7 +6,7 @@
 
 @section('content')
 
-<section class="jurusan-hero-section" style="padding-top: 20px; position: relative;">
+<section class="jurusan-hero-section" style="padding-top: 80px; position: relative;">
     <div class="bubble" style="width: 100px; height: 100px; top: 20%; right: 10%; animation-duration: 7s;"></div>
     
     <div class="jurusan-hero-content" style="position: relative; z-index: 10;">
@@ -44,7 +44,7 @@
                 <h3 class="k-card-title">Maintenance & Support</h3>
                 <p class="k-card-desc">Layanan perawatan sistem, update keamanan, dan dukungan teknis secara berkala.</p>
                 <div class="k-card-price">Rp500.000 / Bulan</div>
-                <a href="/jurusan/rpl/jasa/detail" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/jasa/detail/1" class="k-card-btn">Lihat Selengkapnya &gt;</a>
             </div>
         </div>
 
@@ -57,7 +57,7 @@
                 <h3 class="k-card-title">Instalasi Jaringan Komputer</h3>
                 <p class="k-card-desc">Pemasangan dan konfigurasi jaringan LAN/Wi-Fi untuk kantor dan sekolah.</p>
                 <div class="k-card-price">Mulai Rp1.200.000</div>
-                <a href="/jurusan/rpl/jasa/detail" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/jasa/detail/2" class="k-card-btn">Lihat Selengkapnya &gt;</a>
             </div>
         </div>
     </div>

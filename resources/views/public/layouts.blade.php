@@ -14,10 +14,9 @@
     body {
         margin: 0;
         padding: 0;
-        background-color: #F8FAFC !important; /* Bagian tengah ke bawah jadi terang seperti foto kedua */
+        background-color: #F8FAFC !important;
     }
 
-    /* Kunci warna biru navbar dan hero section agar 100% sama */
     .jurusan-sticky-container, .hero-section {
         background-color: #1E3A8A !important; 
     }
@@ -124,6 +123,28 @@
     #jurusan-unggulan {
         scroll-margin-top: 80px;
     }
+
+    @media (max-width: 850px) {
+        .jurusan-nav-pill {
+            flex-direction: column;
+            border-radius: 20px;
+            padding: 16px;
+            gap: 16px;
+        }
+        .jurusan-nav-brand {
+            justify-content: center;
+            text-align: center;
+        }
+        .jurusan-nav-menu {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .jurusan-nav-search {
+            width: 100%;
+            justify-content: center;
+        }
+    }
 </style>
 </head>
 <body>
@@ -180,16 +201,21 @@
 
                 <div class="jurusan-nav-menu">
                     <a href="/" class="{{ Request::is('/') ? 'active' : '' }}">BERANDA</a>
-                    <a href="/#jurusan-unggulan" class="{{ Request::is('jurusan') ? 'active' : '' }}">JURUSAN</a>
+                    <a href="/jurusan" class="{{ Request::is('jurusan') ? 'active' : '' }}">JURUSAN</a>
                     <a href="/faq" class="{{ Request::is('faq*') ? 'active' : '' }}">FAQ</a>
                 </div>
             @endif
 
             <div style="display: flex; align-items: center; gap: 10px;">
-                <div class="jurusan-nav-search">
-                    <i class="ph ph-magnifying-glass" style="color: #64748B;"></i>
-                    <input type="text" placeholder="Pencarian">
-                </div>
+                
+                <!-- PERBAIKAN: Kotak pencarian diubah menjadi Form -->
+                <form action="/pencarian" method="GET" class="jurusan-nav-search" style="margin: 0;">
+                    <button type="submit" style="background: transparent; border: none; cursor: pointer; padding: 0; display: flex; align-items: center; outline: none;">
+                        <i class="ph ph-magnifying-glass" style="color: #64748B; font-size: 16px;"></i>
+                    </button>
+                    <input type="text" name="keyword" placeholder="Cari produk, jasa..." required style="border: none; background: transparent; outline: none; font-size: 12px; width: 100%;">
+                </form>
+
                 <a href="/profil-pembeli" class="jurusan-nav-profile">
                     <i class="ph ph-user"></i>
                 </a>
@@ -215,7 +241,7 @@
                 <h3>LINK CEPAT</h3>
                 <ul class="footer-links">
                     <li><a href="/"><i class="ph ph-caret-right"></i> Beranda</a></li>
-                    <li><a href="/#jurusan-unggulan"><i class="ph ph-caret-right"></i> Jurusan</a></li>
+                    <li><a href="/jurusan"><i class="ph ph-caret-right"></i> Jurusan</a></li>
                     <li><a href="/faq"><i class="ph ph-caret-right"></i> FAQ</a></li>
                 </ul>
             </div>

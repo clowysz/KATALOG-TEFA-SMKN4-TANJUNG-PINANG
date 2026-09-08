@@ -14,8 +14,10 @@ Route::get('/login-pembeli', function () { return view('public.login'); });
 Route::get('/daftar-pembeli', function () { return view('public.daftar'); });
 Route::get('/profil-pembeli', function () { return view('public.profil'); });
 Route::get('/riwayat-pesanan', function () { return view('public.riwayat'); });
+Route::get('/riwayat-pesanan/detail', function () { return view('public.riwayat-detail'); });
 Route::get('/faq', function () { return view('public.faq'); });
 Route::get('/checkout', function () { return view('public.checkout'); });
+Route::get('/pencarian', function () { return view('public.pencarian'); }); // RUTE PENCARIAN BARU
 
 // ======================================================
 // RUTE KATALOG JURUSAN (PUBLIK)

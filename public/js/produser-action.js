@@ -50,20 +50,12 @@ document.addEventListener("DOMContentLoaded", function() {
             const typeClass = order.productType === 'Produk' ? 'badge-tipe-produk-new' : 'badge-tipe-jasa-new';
             
             let htmlRow = `<tr>`;
-            
-            // Kolom 1: Order ID
             htmlRow += `<td class="order-id-col">${order.id}</td>`;
-            // Kolom 2: Produk/Jasa
             htmlRow += `<td><div style="font-weight: 600; color: var(--prod-text-main); margin-bottom: 6px;">${order.productName}</div><span class="${typeClass}">${order.productType}</span></td>`;
-            // Kolom 3: Customer
             htmlRow += `<td style="font-weight: 500; color: var(--prod-text-main);">${order.customer}</td>`;
-            // Kolom 4: Status Pengerjaan
             htmlRow += `<td><span class="${getBadge(order.statusPengerjaan)}">${order.statusPengerjaan}</span></td>`;
-            // Kolom 5: Status Pesanan (SEKARANG MUNCUL DI DASHBOARD JUGA)
             htmlRow += `<td><span class="${getBadge(order.statusPesanan)}">${order.statusPesanan}</span></td>`;
-            // Kolom 6: Aksi
             htmlRow += `<td style="text-align: center;"><a href="/produser/pesanan/detail?id=${order.id}" class="btn-light-blue">Lihat Detail</a></td>`;
-            
             htmlRow += `</tr>`;
             container.innerHTML += htmlRow;
         });
@@ -80,10 +72,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const orderIndex = dataOrders.findIndex(o => o.id === orderId);
         let order = dataOrders[orderIndex];
         
-        // Cari tahapan pertama yang Belum/Sedang dikerjakan
+        
         let activeStageId = order.stages.find(s => s.status !== 'Selesai')?.id || order.stages[order.stages.length - 1].id;
 
-        // Isi Data Hero Card
+
         document.getElementById('heroOrderId').textContent = order.id;
         document.getElementById('heroStatusPesanan').textContent = order.statusPesanan;
         document.getElementById('heroStatusPengerjaan').textContent = order.statusPengerjaan;
@@ -98,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('detNeedTitle').textContent = order.needTitle;
         document.getElementById('detNeedDesc').innerText = order.needDesc;
 
-        // FUNGSI SLIDER RANGE WARNA BIRU
+
         const updateProgressSlider = document.getElementById('updateProgress');
         const progressSliderBox = document.getElementById('progressSliderBox');
         
@@ -109,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         if (updateProgressSlider) updateProgressSlider.addEventListener('input', function() { applySliderColor(this); });
 
-        // FUNGSI RENDER TAHAPAN (KLIK)
+
         const stepperContainer = document.getElementById('stepperContainer');
         function renderStepper() {
             stepperContainer.innerHTML = '';
@@ -164,16 +156,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 `;
             });
 
-            // Pasang Event Listener ke setiap Stepper
+
             document.querySelectorAll('.stepper-item').forEach(el => {
                 el.addEventListener('click', function() {
                     activeStageId = parseInt(this.getAttribute('data-id'));
-                    renderStepper(); populateForm(); // Refresh warna UI & formnya
+                    renderStepper(); populateForm(); 
                 });
             });
         }
 
-        // FUNGSI ISI FORM UPDATE DI KANAN
+
         function populateForm() {
             const stage = order.stages.find(s => s.id === activeStageId);
             document.getElementById('formSubtitle').textContent = `Memperbarui: Tahap ${stage.id} — ${stage.name}`;
@@ -187,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('updateStatus').value = stage.status;
             document.getElementById('updateNote').value = stage.note;
 
-            // Sembunyikan slider jika status "Belum Dimulai" atau "Selesai"
+
             if(stage.status === 'Belum Dimulai') {
                 progressSliderBox.style.display = 'none';
             } else {
@@ -201,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         renderStepper(); populateForm();
 
-        // LOGIKA SIMPAN UPDATE
+
         document.getElementById('formUpdateProgress').addEventListener('submit', function(e) {
             e.preventDefault();
             const stageId = parseInt(document.getElementById('activeStageId').value);
@@ -213,10 +205,10 @@ document.addEventListener("DOMContentLoaded", function() {
             order.stages[stageIndex].progress = newProgress;
             order.stages[stageIndex].note = document.getElementById('updateNote').value;
             
-            // Format waktu saat ini: "27 Agustus 2026"
+
             if(newStatus === 'Selesai') order.stages[stageIndex].date = '27 Agustus 2026';
 
-            // Ubah status global jika ini adalah tahap terakhir yang diubah
+
             order.statusPengerjaan = newStatus;
             document.getElementById('statStatus').textContent = newStatus;
             document.getElementById('heroStatusPengerjaan').textContent = newStatus;
@@ -233,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function() {
             setTimeout(() => toast.classList.remove('show'), 3000);
         });
 
-        // Event listener saat dropdown status diubah manual oleh admin
+
         document.getElementById('updateStatus').addEventListener('change', function() {
             if(this.value === 'Belum Dimulai' || this.value === 'Selesai') { 
                 progressSliderBox.style.display = 'none'; 
@@ -244,11 +236,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-        // ================= HALAMAN PRODUK/JASA SAYA =================
+    // ================= HALAMAN PRODUK/JASA SAYA =================
     const katalogContainer = document.getElementById('katalogContainer');
     if (katalogContainer) {
-        // Gabungkan data Produk dan Jasa dari localStorage (yang dibuat oleh Admin Jurusan sebelumnya)
-        // Jika kosong, kita berikan data dummy agar prototype tidak blank.
         const dProduk = JSON.parse(localStorage.getItem('rpl_produk')) || [
             { id: 'p1', type: 'Produk', name: 'Aplikasi Kasir', desc: 'Sistem kasir digital untuk UMKM.', price: 'Rp 2.500.000', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80' },
             { id: 'p2', type: 'Produk', name: 'Desain Logo & Branding', desc: 'Paket identitas visual profesional.', price: 'Rp 750.000', img: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&q=80' }
@@ -295,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     `;
                 });
 
-                // Pasang Event Click untuk Buka Detail
+
                 document.querySelectorAll('.btn-detail-katalog').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const id = this.getAttribute('data-id');
@@ -310,12 +300,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (searchInput) searchInput.addEventListener('keyup', renderKatalog);
     }
 
-   // ================= HALAMAN DETAIL KATALOG =================
+    // ================= HALAMAN DETAIL KATALOG =================
     const detKatalogName = document.getElementById('detKatalogName');
     if (detKatalogName) {
         const item = JSON.parse(localStorage.getItem('produser_selected_katalog'));
         if (item) {
-            // Data Header
             document.getElementById('detKatalogImg').src = item.img;
             detKatalogName.textContent = item.name;
             document.getElementById('detKatalogTypeBadge').textContent = item.type;
@@ -325,14 +314,14 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('detKatalogDesc').textContent = item.desc;
             document.getElementById('detKatalogKategori').textContent = item.type === 'Produk' ? 'Graphic Design' : 'Web Development';
 
-            // Data Checklist Fitur (Dummy)
+
             const features = item.type === 'Jasa' ? 
                 ['Responsive Design (Mobile-Friendly)', 'CMS untuk Pengelolaan Konten', 'SEO Friendly', 'SSL Certificate', '3 Bulan Free Maintenance'] : 
                 ['3 Pilihan Konsep Logo', 'Revisi Maksimal 3 Kali', 'File Master (.AI, .EPS)', 'Panduan Warna & Tipografi', 'Desain Kartu Nama'];
             
             document.getElementById('detKatalogFeatures').innerHTML = features.map(f => `<li><i class="ph ph-check-circle"></i> ${f}</li>`).join('');
 
-            // Filter Pesanan yang berkaitan dengan Produk/Jasa ini
+
             const relatedOrders = dataOrders.filter(o => o.productName === item.name);
             document.getElementById('detKatalogTotalOrders').textContent = relatedOrders.length;
             document.getElementById('totalRelatedOrders').textContent = relatedOrders.length;
@@ -359,5 +348,54 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     }
-
 });
+
+// ================= MODAL KELOLA TAHAPAN (TAMBAHAN BARU DI LUAR DOMContentLoaded) =================
+
+// Fungsi Membuka & Menutup Modal Kelola Tahapan
+function openModalTahapan() {
+    document.getElementById('modalKelolaTahapan').style.display = 'flex';
+    renderTabelTahapanDummy();
+}
+
+function closeModalTahapan() {
+    document.getElementById('modalKelolaTahapan').style.display = 'none';
+}
+
+// Fungsi Form Sub-Modal (Tambah/Edit)
+function openFormTambahTahap() {
+    document.getElementById('formTahapTitle').textContent = 'Tambah Tahap Baru';
+    document.getElementById('editStageId').value = '';
+    document.getElementById('inputNamaTahap').value = '';
+    document.getElementById('inputStatusTahap').value = 'Belum Dimulai';
+    document.getElementById('modalFormTahap').style.display = 'flex';
+}
+
+function closeFormTahap() {
+    document.getElementById('modalFormTahap').style.display = 'none';
+}
+
+// Render tabel dummy untuk preview UI
+function renderTabelTahapanDummy() {
+    const tbody = document.getElementById('tabelTahapanBody');
+    tbody.innerHTML = `
+        <tr>
+            <td style="padding: 12px;">1</td>
+            <td style="padding: 12px; font-weight: 600;">Analisis Kebutuhan & Perancangan Sistem</td>
+            <td style="padding: 12px;"><span style="background: #E0F2FE; color: #0369A1; padding: 4px 8px; border-radius: 4px; font-size: 11px;">Selesai</span></td>
+            <td style="padding: 12px; text-align: center;">
+                <button onclick="alert('Fitur Edit')" style="background: none; border: none; color: #2563EB; cursor: pointer; margin-right: 8px;"><i class="ph ph-pencil-simple" style="font-size: 16px;"></i></button>
+                <button onclick="alert('Fitur Hapus')" style="background: none; border: none; color: #DC2626; cursor: pointer;"><i class="ph ph-trash" style="font-size: 16px;"></i></button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 12px;">2</td>
+            <td style="padding: 12px; font-weight: 600;">Pengembangan Frontend & Backend</td>
+            <td style="padding: 12px;"><span style="background: #FEF3C7; color: #D97706; padding: 4px 8px; border-radius: 4px; font-size: 11px;">Sedang Dikerjakan</span></td>
+            <td style="padding: 12px; text-align: center;">
+                <button onclick="alert('Fitur Edit')" style="background: none; border: none; color: #2563EB; cursor: pointer; margin-right: 8px;"><i class="ph ph-pencil-simple" style="font-size: 16px;"></i></button>
+                <button onclick="alert('Fitur Hapus')" style="background: none; border: none; color: #DC2626; cursor: pointer;"><i class="ph ph-trash" style="font-size: 16px;"></i></button>
+            </td>
+        </tr>
+    `;
+}

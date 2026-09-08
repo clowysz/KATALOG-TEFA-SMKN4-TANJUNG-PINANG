@@ -6,7 +6,7 @@
 
 @section('content')
 
-<section class="jurusan-hero-section" style="padding-top: 20px; position: relative;">
+<section class="jurusan-hero-section" style="padding-top: 80px; position: relative;">
     <div class="bubble" style="width: 100px; height: 100px; top: 20%; right: 10%; animation-duration: 7s;"></div>
     <div class="bubble" style="width: 60px; height: 60px; bottom: 40%; right: 20%; animation-duration: 5s;"></div>
 
@@ -45,7 +45,7 @@
                 <h3 class="k-card-title">Website Profil Sekolah</h3>
                 <p class="k-card-desc">Website profil sekolah yang modern dan responsif untuk kebutuhan branding pendidikan.</p>
                 <div class="k-card-price">Rp1.000.000</div>
-                <a href="/jurusan/rpl/produk/detail" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/produk/detail/1" class="k-card-btn">Lihat Selengkapnya &gt;</a>
             </div>
         </div>
 
@@ -58,7 +58,7 @@
                 <h3 class="k-card-title">Website UMKM Kijang</h3>
                 <p class="k-card-desc">Katalog online untuk UMKM dengan fitur pemesanan langsung via WhatsApp.</p>
                 <div class="k-card-price">Rp2.000.000</div>
-                <a href="/jurusan/rpl/produk/detail" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/produk/detail/2" class="k-card-btn">Lihat Selengkapnya &gt;</a>
             </div>
         </div>
 
@@ -71,7 +71,7 @@
                 <h3 class="k-card-title">Aplikasi Inventaris Barang</h3>
                 <p class="k-card-desc">Aplikasi inventaris barang berbasis mobile untuk memudahkan pencatatan stok.</p>
                 <div class="k-card-price">Rp750.000</div>
-                <a href="/jurusan/rpl/produk/detail" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/produk/detail/3" class="k-card-btn">Lihat Selengkapnya &gt;</a>
             </div>
         </div>
         
@@ -84,7 +84,7 @@
                 <h3 class="k-card-title">Sistem Monitoring Jaringan</h3>
                 <p class="k-card-desc">Sistem pemantauan status jaringan secara real-time berbasis antarmuka web.</p>
                 <div class="k-card-price">Rp1.500.000</div>
-                <a href="/jurusan/rpl/produk/detail" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/produk/detail/4" class="k-card-btn">Lihat Selengkapnya &gt;</a>
             </div>
         </div>
     </div>

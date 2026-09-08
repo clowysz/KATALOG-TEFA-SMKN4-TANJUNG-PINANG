@@ -6,7 +6,7 @@
 
 @section('content')
 
-<section class="jurusan-hero-section" style="padding-top: 20px; position: relative;">
+<section class="jurusan-hero-section" style="padding-top: 80px; position: relative;">
     <div class="bubble" style="width: 100px; height: 100px; top: 20%; right: 10%; animation-duration: 7s;"></div>
     <div class="bubble" style="width: 60px; height: 60px; bottom: 40%; right: 20%; animation-duration: 5s;"></div>
 
