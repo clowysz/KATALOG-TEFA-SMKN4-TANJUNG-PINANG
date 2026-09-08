@@ -75,7 +75,7 @@
                             <div class="r-text-main">Estimasi</div>
                             <div class="r-text-sub">7 - 14 Hari</div>
                         </td>
-                        <td><a href="#" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
+                        <td><a href="/riwayat-pesanan/detail" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
                     </tr>
 
                     <!-- Baris 2 -->
@@ -99,7 +99,7 @@
                             <div class="r-text-main">Estimasi</div>
                             <div class="r-text-sub">3 - 7 Hari</div>
                         </td>
-                        <td><a href="#" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
+                        <td><a href="/riwayat-pesanan/detail" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
                     </tr>
 
                     <!-- Baris 3 -->
@@ -123,7 +123,7 @@
                             <div class="r-text-main">Selesai pada</div>
                             <div class="r-text-sub">12 Agustus 2026</div>
                         </td>
-                        <td><a href="#" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
+                        <td><a href="/riwayat-pesanan/detail" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
                     </tr>
                 </tbody>
             </table>

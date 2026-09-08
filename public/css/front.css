@@ -295,12 +295,13 @@ body {
     object-fit: contain; 
 }
 
-.bg-animasi { background: #FEF08A; }
-.bg-rpl     { background: #3B82F6; }
-.bg-gim     { background: #FDE68A; }
-.bg-tkj     { background: #E0F2FE; }
-.bg-pspt    { background: #FCE7F3; }
-.bg-dkv     { background: #EDE9FE; }
+/* Warna Latar Kotak Logo (Warna Ekstra Pastel/Soft) */
+.bg-animasi { background: #FFF4CB !important; } /* Kuning Lembut Pastel */
+.bg-rpl     { background: #D4E4FC !important; } /* Biru Lembut Pastel */
+.bg-gim     { background: #FFF4CB !important; } /* Kuning Lembut Pastel */
+.bg-tkj     { background: #E1F0FA !important; } /* Biru Muda Pastel (Sudah Pas) */
+.bg-pspt    { background: #FDE4EC !important; } /* Pink Pastel (Sudah Pas) */
+.bg-dkv     { background: #EAE4FA !important; } /* Ungu Pastel (Sudah Pas) */
 
 .jurusan-card h3 { font-size: 18px; color: var(--primary-blue); margin-bottom: 8px; font-weight: 700; }
 .jurusan-divider { width: 32px; height: 3px; background: var(--primary-blue); border-radius: 2px; margin-bottom: 12px; }
@@ -445,4 +446,53 @@ body {
 }
 .fab-wa:hover { 
     transform: scale(1.1); 
+}
+
+/* ================= RESPONSIVE (HP & TABLET) ================= */
+@media (max-width: 900px) {
+    /* Merapikan Hero Section (Gambar & Teks Atas) */
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 60px;
+    }
+    .hero-content, .hero-image-box {
+        width: 100%;
+    }
+    .hero-content {
+        margin-bottom: 40px;
+    }
+    .hero-line {
+        margin: 0 auto 24px auto; /* Ketengahkan garis */
+    }
+    .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Merapikan Kartu Jurusan agar tampil 1 kartu per layar di HP */
+    .jurusan-card {
+        flex: 0 0 100%;
+        min-width: 100%;
+    }
+
+    /* Merapikan Footer (Disusun ke bawah) */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    .footer-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-contact {
+        justify-content: center;
+        width: 100%;
+    }
+    .footer-logo {
+        justify-content: center;
+        width: 100%;
+    }
 }

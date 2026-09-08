@@ -1,10 +1,23 @@
 /* ================= HALAMAN FAQ PUBLIK ================= */
-.faq-hero { background: #1E3A8A; color: white; padding: 140px 5% 40px 5%; display: flex; align-items: center; gap: 20px; }
+.faq-hero { 
+    background: #1E3A8A; 
+    color: white; 
+    /* PERBAIKAN: Padding atas dan bawah dikurangi dari 40px menjadi 20px */
+    padding: 20px 5% 20px 5%; 
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+}
 .faq-hero-icon { background: rgba(255,255,255,0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; }
-.faq-hero-text h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; font-family: 'Poppins', sans-serif; }
+.faq-hero-text h1 { font-size: 32px; font-weight: 700; margin-bottom: 4px; font-family: 'Poppins', sans-serif; }
 .faq-hero-text p { font-size: 15px; color: #CBD5E1; }
 
-.faq-content { padding: 40px 5% 100px 5%; background: #F0F4F8; min-height: 60vh; }
+.faq-content { 
+    /* PERBAIKAN: Padding atas dikurangi dari 40px menjadi 20px agar konten naik */
+    padding: 20px 5% 100px 5%; 
+    background: #F0F4F8; 
+    min-height: 60vh; 
+}
 .faq-wrapper { max-width: 900px; margin: 0 auto; }
 
 .faq-item { background: white; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); overflow: hidden; border: 1px solid #E2E8F0; transition: 0.3s; }
@@ -23,7 +36,7 @@
 .faq-item.active { border-color: #CBD5E1; }
 
 /* Box Hubungi Kami */
-.faq-more { background: white; border-radius: 16px; padding: 32px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #E2E8F0; flex-wrap: wrap; gap: 20px; }
+.faq-more { background: white; border-radius: 16px; padding: 32px; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #E2E8F0; flex-wrap: wrap; gap: 20px; }
 .faq-more-left { display: flex; align-items: center; gap: 20px; }
 .faq-more-icon { background: #E0E7FF; color: #1E3A8A; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
 .faq-more-text h3 { font-size: 18px; font-weight: 700; color: #1E2D3D; margin-bottom: 4px; font-family: 'Poppins', sans-serif; }
@@ -31,3 +44,26 @@
 
 .btn-hubungi { border: 1px solid #1E3A8A; color: #1E3A8A; padding: 10px 24px; border-radius: 20px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; font-size: 14px; }
 .btn-hubungi:hover { background: #1E3A8A; color: white; }
+
+/* ================= RESPONSIVE (HP & TABLET) ================= */
+@media (max-width: 600px) {
+    .faq-hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .faq-header {
+        padding: 16px;
+        gap: 12px;
+    }
+    .faq-body {
+        padding: 0 16px 16px 58px;
+    }
+    .faq-more {
+        flex-direction: column;
+        text-align: center;
+    }
+    .faq-more-left {
+        flex-direction: column;
+    }
+}

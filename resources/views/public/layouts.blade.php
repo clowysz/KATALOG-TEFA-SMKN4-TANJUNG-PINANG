@@ -10,120 +10,142 @@
     @stack('css')
     
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #1E3A8A !important; /* Warna biru cerah pilihanmu */
-        }
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #F8FAFC !important;
+    }
 
-        .jurusan-sticky-container {
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            background-color: #1E3A8A !important; /* Sinkron dengan biru cerah */
-            padding: 10px 20px; 
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            box-sizing: border-box;
-            border: none;
-        }
+    .jurusan-sticky-container, .hero-section {
+        background-color: #1E3A8A !important; 
+    }
+
+    .jurusan-sticky-container {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        padding: 5px 20px; 
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .jurusan-nav-pill {
+        background: white;
+        border-radius: 50px;
+        padding: 8px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1200px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        gap: 20px;
+    }
+    .jurusan-nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+    }
+    .jurusan-nav-brand img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+    }
+    .jurusan-nav-brand-text h4 {
+        font-size: 13px;
+        font-weight: 800;
+        color: #1E3A8A;
+        margin: 0;
+        line-height: 1.2;
+    }
+    .jurusan-nav-brand-text p {
+        font-size: 10px;
+        color: #64748B;
+        margin: 0;
+    }
+    .jurusan-nav-menu {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+    .jurusan-nav-menu a {
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+        color: #1E2D3D;
+        padding: 6px 14px;
+        border-radius: 20px;
+        transition: 0.3s;
+    }
+    .jurusan-nav-menu a:hover, .jurusan-nav-menu a.active {
+        background: #1E3A8A;
+        color: white;
+    }
+    .jurusan-nav-search {
+        background: #F1F5F9;
+        border-radius: 20px;
+        padding: 6px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 160px;
+    }
+    .jurusan-nav-search input {
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 12px;
+        width: 100%;
+    }
+    .jurusan-nav-profile {
+        width: 36px;
+        height: 36px;
+        background: #1E3A8A;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    main {
+        padding-top: 0px !important; 
+        margin-top: 0px !important;
+    }
+    .footer {
+        background-color: #1E3A8A !important;
+    }
+    #jurusan-unggulan {
+        scroll-margin-top: 80px;
+    }
+
+    @media (max-width: 850px) {
         .jurusan-nav-pill {
-            background: white;
-            border-radius: 50px;
-            padding: 8px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            gap: 20px;
+            flex-direction: column;
+            border-radius: 20px;
+            padding: 16px;
+            gap: 16px;
         }
         .jurusan-nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-        .jurusan-nav-brand img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
-        .jurusan-nav-brand-text h4 {
-            font-size: 13px;
-            font-weight: 800;
-            color: #1E3A8A; /* Teks logo biru cerah */
-            margin: 0;
-            line-height: 1.2;
-        }
-        .jurusan-nav-brand-text p {
-            font-size: 10px;
-            color: #64748B;
-            margin: 0;
+            justify-content: center;
+            text-align: center;
         }
         .jurusan-nav-menu {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .jurusan-nav-menu a {
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 700;
-            color: #1E2D3D;
-            padding: 6px 14px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
-        .jurusan-nav-menu a:hover, .jurusan-nav-menu a.active {
-            background: #1E3A8A; /* Hover menu biru cerah */
-            color: white;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
         .jurusan-nav-search {
-            background: #F1F5F9;
-            border-radius: 20px;
-            padding: 6px 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            width: 160px;
-        }
-        .jurusan-nav-search input {
-            border: none;
-            background: transparent;
-            outline: none;
-            font-size: 12px;
             width: 100%;
-        }
-        .jurusan-nav-profile {
-            width: 36px;
-            height: 36px;
-            background: #1E3A8A; /* Profil biru cerah */
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            text-decoration: none;
-            font-size: 16px;
         }
-
-        main {
-            padding-top: 0px !important; 
-            margin-top: 0px !important;
-        }
-        
-        .footer {
-            background-color: #1E3A8A !important; /* Footer biru cerah */
-        }
-
-        #jurusan-unggulan {
-            scroll-margin-top: 80px;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
 
@@ -179,16 +201,21 @@
 
                 <div class="jurusan-nav-menu">
                     <a href="/" class="{{ Request::is('/') ? 'active' : '' }}">BERANDA</a>
-                    <a href="/#jurusan-unggulan" class="{{ Request::is('jurusan') ? 'active' : '' }}">JURUSAN</a>
+                    <a href="/jurusan" class="{{ Request::is('jurusan') ? 'active' : '' }}">JURUSAN</a>
                     <a href="/faq" class="{{ Request::is('faq*') ? 'active' : '' }}">FAQ</a>
                 </div>
             @endif
 
             <div style="display: flex; align-items: center; gap: 10px;">
-                <div class="jurusan-nav-search">
-                    <i class="ph ph-magnifying-glass" style="color: #64748B;"></i>
-                    <input type="text" placeholder="Pencarian">
-                </div>
+                
+                <!-- PERBAIKAN: Kotak pencarian diubah menjadi Form -->
+                <form action="/pencarian" method="GET" class="jurusan-nav-search" style="margin: 0;">
+                    <button type="submit" style="background: transparent; border: none; cursor: pointer; padding: 0; display: flex; align-items: center; outline: none;">
+                        <i class="ph ph-magnifying-glass" style="color: #64748B; font-size: 16px;"></i>
+                    </button>
+                    <input type="text" name="keyword" placeholder="Cari produk, jasa..." required style="border: none; background: transparent; outline: none; font-size: 12px; width: 100%;">
+                </form>
+
                 <a href="/profil-pembeli" class="jurusan-nav-profile">
                     <i class="ph ph-user"></i>
                 </a>
@@ -214,7 +241,7 @@
                 <h3>LINK CEPAT</h3>
                 <ul class="footer-links">
                     <li><a href="/"><i class="ph ph-caret-right"></i> Beranda</a></li>
-                    <li><a href="/#jurusan-unggulan"><i class="ph ph-caret-right"></i> Jurusan</a></li>
+                    <li><a href="/jurusan"><i class="ph ph-caret-right"></i> Jurusan</a></li>
                     <li><a href="/faq"><i class="ph ph-caret-right"></i> FAQ</a></li>
                 </ul>
             </div>
