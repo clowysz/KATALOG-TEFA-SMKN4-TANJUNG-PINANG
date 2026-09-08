@@ -201,14 +201,15 @@
 
                 <div class="jurusan-nav-menu">
                     <a href="/" class="{{ Request::is('/') ? 'active' : '' }}">BERANDA</a>
-                    <a href="/jurusan" class="{{ Request::is('jurusan') ? 'active' : '' }}">JURUSAN</a>
+                    <!-- PERBAIKAN: Mengubah link agar meluncur ke bagian logo jurusan -->
+                    <a href="/#jurusan-unggulan" class="{{ Request::is('jurusan') ? 'active' : '' }}">JURUSAN</a>
                     <a href="/faq" class="{{ Request::is('faq*') ? 'active' : '' }}">FAQ</a>
                 </div>
             @endif
 
             <div style="display: flex; align-items: center; gap: 10px;">
                 
-                <!-- PERBAIKAN: Kotak pencarian diubah menjadi Form -->
+                
                 <form action="/pencarian" method="GET" class="jurusan-nav-search" style="margin: 0;">
                     <button type="submit" style="background: transparent; border: none; cursor: pointer; padding: 0; display: flex; align-items: center; outline: none;">
                         <i class="ph ph-magnifying-glass" style="color: #64748B; font-size: 16px;"></i>
@@ -233,7 +234,7 @@
             <div class="footer-col">
                 <div class="footer-logo">
                     <img src="{{ asset('images/logo-smk4.png') }}" alt="Logo SMKN 4">
-                    <h2>TEACHING FACTORY<br><span style="font-size: 11px; font-weight:400;">SMKN 4 Tanjungpinang</span></h2>
+                    <h2 style="color: white;">TEACHING FACTORY<br><span style="font-size: 11px; font-weight:400; color: white;">SMKN 4 Tanjungpinang</span></h2>
                 </div>
                 <p class="footer-desc">Mewujudkan pendidikan vokasi berbasis dunia kerja yang inovatif, kreatif, dan berdaya saing global.</p>
             </div>
@@ -241,7 +242,8 @@
                 <h3>LINK CEPAT</h3>
                 <ul class="footer-links">
                     <li><a href="/"><i class="ph ph-caret-right"></i> Beranda</a></li>
-                    <li><a href="/jurusan"><i class="ph ph-caret-right"></i> Jurusan</a></li>
+                    <!-- PERBAIKAN: Mengubah link di footer -->
+                    <li><a href="/#jurusan-unggulan"><i class="ph ph-caret-right"></i> Jurusan</a></li>
                     <li><a href="/faq"><i class="ph ph-caret-right"></i> FAQ</a></li>
                 </ul>
             </div>
