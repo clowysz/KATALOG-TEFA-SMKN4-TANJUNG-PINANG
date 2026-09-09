@@ -31,17 +31,16 @@
 
 <section class="deskripsi-content" style="position: relative; z-index: 2; background-color: #F8FAFC;">
     <div class="deskripsi-wrapper">
-        <p>Di jurusan Rekayasa Perangkat Lunak, kamu akan mempelajari berbagai hal yang berkaitan dengan pembuatan aplikasi dan sistem perangkat lunak. Mulai dari dasar pemrograman, struktur data, algoritma, hingga pengembangan aplikasi berbasis web, mobile, dan desktop.</p>
-        
-        <p>Kamu juga akan belajar tentang basis data, desain antarmuka pengguna, pengujian perangkat lunak, serta manajemen proyek perangkat lunak. Semua pembelajaran ini bertujuan untuk membekali kamu dengan keterampilan yang dibutuhkan di dunia kerja dan industri digital.</p>
-        
-        <p>Dengan kurikulum yang selalu diperbarui sesuai perkembangan teknologi, kamu akan siap menjadi seorang pengembang perangkat lunak yang kompeten, kreatif, dan inovatif.</p>
-        
-        <p>RPL adalah pilihan yang tepat bagi kamu yang memiliki minat di bidang teknologi, logika, dan kreativitas. Jurusan ini membuka peluang karir yang luas, baik sebagai programmer, web developer, mobile developer, analis sistem, hingga software engineer.</p>
-        
-        <p>Di SMKN 4 Tanjungpinang, kamu akan mendapatkan pembelajaran yang praktis dan relevan dengan kebutuhan industri, didukung oleh fasilitas lengkap, guru profesional, serta lingkungan belajar yang kondusif.</p>
-        
-        <p>Dengan memilih RPL, kamu tidak hanya belajar membuat aplikasi, tetapi juga belajar memecahkan masalah, berkolaborasi dalam tim, dan berinovasi untuk menciptakan solusi digital yang bermanfaat bagi banyak orang.</p>
+        @if(isset($jurusan) && $jurusan->deskripsi)
+            <p>{{ $jurusan->deskripsi }}</p>
+        @else
+            <!-- Empty State Deskripsi -->
+            <div style="text-align: center; padding: 60px 20px; background: white; border-radius: 12px; border: 1px dashed #CBD5E1;">
+                <i class="ph ph-file-text" style="font-size: 48px; color: #94A3B8; margin-bottom: 16px;"></i>
+                <h3 style="font-size: 18px; font-weight: 600; color: #1E2D3D; margin-bottom: 8px;">Belum ada data deskripsi</h3>
+                <p style="font-size: 14px; color: #64748B; margin: 0; text-align: center;">Deskripsi untuk jurusan ini belum ditambahkan oleh admin.</p>
+            </div>
+        @endif
     </div>
 </section>
 

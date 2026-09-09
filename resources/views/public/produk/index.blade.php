@@ -36,57 +36,27 @@
     </div>
 
     <div class="katalog-grid">
-        <div class="k-card">
-            <div class="k-card-img">
-                <div class="k-badge">Produk</div>
-                <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Web+Profil+Sekolah" alt="Website Profil Sekolah">
+        @forelse($produks ?? [] as $item)
+            <div class="k-card">
+                <div class="k-card-img">
+                    <div class="k-badge">Produk</div>
+                    <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Web+Profil+Sekolah" alt="Website Profil Sekolah">
+                </div>
+                <div class="k-card-body">
+                    <h3 class="k-card-title">Website Profil Sekolah</h3>
+                    <p class="k-card-desc">Website profil sekolah yang modern dan responsif untuk kebutuhan branding pendidikan.</p>
+                    <div class="k-card-price">Rp1.000.000</div>
+                    <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/produk/detail/1" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                </div>
             </div>
-            <div class="k-card-body">
-                <h3 class="k-card-title">Website Profil Sekolah</h3>
-                <p class="k-card-desc">Website profil sekolah yang modern dan responsif untuk kebutuhan branding pendidikan.</p>
-                <div class="k-card-price">Rp1.000.000</div>
-                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/produk/detail/1" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+        @empty
+            <!-- Empty State Produk -->
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: 12px; border: 1px dashed #CBD5E1;">
+                <i class="ph ph-package" style="font-size: 48px; color: #94A3B8; margin-bottom: 16px;"></i>
+                <h3 style="font-size: 18px; font-weight: 600; color: #1E2D3D; margin-bottom: 8px;">Belum ada data Produk</h3>
+                <p style="font-size: 14px; color: #64748B; margin: 0;">Katalog produk untuk jurusan ini belum tersedia.</p>
             </div>
-        </div>
-
-        <div class="k-card">
-            <div class="k-card-img">
-                <div class="k-badge">Produk</div>
-                <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Web+UMKM+Kijang" alt="Website UMKM">
-            </div>
-            <div class="k-card-body">
-                <h3 class="k-card-title">Website UMKM Kijang</h3>
-                <p class="k-card-desc">Katalog online untuk UMKM dengan fitur pemesanan langsung via WhatsApp.</p>
-                <div class="k-card-price">Rp2.000.000</div>
-                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/produk/detail/2" class="k-card-btn">Lihat Selengkapnya &gt;</a>
-            </div>
-        </div>
-
-        <div class="k-card">
-            <div class="k-card-img">
-                <div class="k-badge">Produk</div>
-                <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=App+Inventaris" alt="Aplikasi Inventaris">
-            </div>
-            <div class="k-card-body">
-                <h3 class="k-card-title">Aplikasi Inventaris Barang</h3>
-                <p class="k-card-desc">Aplikasi inventaris barang berbasis mobile untuk memudahkan pencatatan stok.</p>
-                <div class="k-card-price">Rp750.000</div>
-                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/produk/detail/3" class="k-card-btn">Lihat Selengkapnya &gt;</a>
-            </div>
-        </div>
-        
-        <div class="k-card">
-            <div class="k-card-img">
-                <div class="k-badge">Produk</div>
-                <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Sistem+Monitoring" alt="Sistem Monitoring">
-            </div>
-            <div class="k-card-body">
-                <h3 class="k-card-title">Sistem Monitoring Jaringan</h3>
-                <p class="k-card-desc">Sistem pemantauan status jaringan secara real-time berbasis antarmuka web.</p>
-                <div class="k-card-price">Rp1.500.000</div>
-                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/produk/detail/4" class="k-card-btn">Lihat Selengkapnya &gt;</a>
-            </div>
-        </div>
+        @endforelse
     </div>
 </section>
 

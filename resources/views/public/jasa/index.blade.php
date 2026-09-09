@@ -35,31 +35,27 @@
     </div>
 
     <div class="katalog-grid">
-        <div class="k-card">
-            <div class="k-card-img">
-                <div class="k-badge">Jasa</div>
-                <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Maintenance+Server" alt="Jasa">
+        @forelse($jasas ?? [] as $item)
+            <div class="k-card">
+                <div class="k-card-img">
+                    <div class="k-badge">Jasa</div>
+                    <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Maintenance+Server" alt="Jasa">
+                </div>
+                <div class="k-card-body">
+                    <h3 class="k-card-title">Maintenance & Support</h3>
+                    <p class="k-card-desc">Layanan perawatan sistem, update keamanan, dan dukungan teknis secara berkala.</p>
+                    <div class="k-card-price">Rp500.000 / Bulan</div>
+                    <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/jasa/detail/1" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                </div>
             </div>
-            <div class="k-card-body">
-                <h3 class="k-card-title">Maintenance & Support</h3>
-                <p class="k-card-desc">Layanan perawatan sistem, update keamanan, dan dukungan teknis secara berkala.</p>
-                <div class="k-card-price">Rp500.000 / Bulan</div>
-                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/jasa/detail/1" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+        @empty
+            <!-- Empty State Jasa -->
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: 12px; border: 1px dashed #CBD5E1;">
+                <i class="ph ph-folder-open" style="font-size: 48px; color: #94A3B8; margin-bottom: 16px;"></i>
+                <h3 style="font-size: 18px; font-weight: 600; color: #1E2D3D; margin-bottom: 8px;">Belum ada data Jasa</h3>
+                <p style="font-size: 14px; color: #64748B; margin: 0;">Layanan jasa untuk jurusan ini belum tersedia. Silakan cek kembali nanti.</p>
             </div>
-        </div>
-
-        <div class="k-card">
-            <div class="k-card-img">
-                <div class="k-badge">Jasa</div>
-                <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Instalasi+Jaringan" alt="Jasa">
-            </div>
-            <div class="k-card-body">
-                <h3 class="k-card-title">Instalasi Jaringan Komputer</h3>
-                <p class="k-card-desc">Pemasangan dan konfigurasi jaringan LAN/Wi-Fi untuk kantor dan sekolah.</p>
-                <div class="k-card-price">Mulai Rp1.200.000</div>
-                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/jasa/detail/2" class="k-card-btn">Lihat Selengkapnya &gt;</a>
-            </div>
-        </div>
+        @endforelse
     </div>
 </section>
 

@@ -19,41 +19,27 @@
 <div class="faq-content">
     <div class="faq-wrapper">
         
-        <!-- Pertanyaan 1 -->
-        <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">
-                <div class="faq-num">1.</div>
-                <div class="faq-question">Apakah harus memiliki akun untuk melakukan pemesanan?</div>
-                <div class="faq-toggle"><i class="ph ph-caret-down"></i></div>
+        @forelse($faqs ?? [] as $faq)
+            <!-- Template Item FAQ -->
+            <div class="faq-item">
+                <div class="faq-header" onclick="toggleFaq(this)">
+                    <div class="faq-num">{{ $loop->iteration }}.</div>
+                    <!-- Sesuaikan pemanggilan variabel dengan field di database-mu -->
+                    <div class="faq-question">{{ $faq->pertanyaan ?? 'Apakah harus memiliki akun untuk melakukan pemesanan?' }}</div>
+                    <div class="faq-toggle"><i class="ph ph-caret-down"></i></div>
+                </div>
+                <div class="faq-body">
+                    {{ $faq->jawaban ?? 'Ya. Pengguna perlu login atau membuat akun terlebih dahulu untuk melakukan pemesanan produk maupun jasa.' }}
+                </div>
             </div>
-            <div class="faq-body">
-                Ya. Pengguna perlu login atau membuat akun terlebih dahulu untuk melakukan pemesanan produk maupun jasa.
+        @empty
+            <!-- Empty State FAQ -->
+            <div style="text-align: center; padding: 40px 20px; background: white; border-radius: 12px; border: 1px dashed #CBD5E1; margin-bottom: 24px;">
+                <i class="ph ph-chat-circle-dots" style="font-size: 48px; color: #94A3B8; margin-bottom: 16px;"></i>
+                <h3 style="font-size: 18px; font-weight: 600; color: #1E2D3D; margin-bottom: 8px;">Belum ada data FAQ</h3>
+                <p style="font-size: 14px; color: #64748B; margin: 0;">Pertanyaan yang sering diajukan belum tersedia.</p>
             </div>
-        </div>
-
-        <!-- Pertanyaan 2 -->
-        <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">
-                <div class="faq-num">2.</div>
-                <div class="faq-question">Apakah saya bisa membatalkan pesanan?</div>
-                <div class="faq-toggle"><i class="ph ph-caret-down"></i></div>
-            </div>
-            <div class="faq-body">
-                Pembatalan bergantung pada status pesanan. Jika pesanan sudah masuk tahap proses, pembatalan mungkin tidak dapat dilakukan. Hubungi admin untuk informasi lebih lanjut.
-            </div>
-        </div>
-
-        <!-- Pertanyaan 3 -->
-        <div class="faq-item">
-            <div class="faq-header" onclick="toggleFaq(this)">
-                <div class="faq-num">3.</div>
-                <div class="faq-question">Kapan saya harus melakukan pembayaran?</div>
-                <div class="faq-toggle"><i class="ph ph-caret-down"></i></div>
-            </div>
-            <div class="faq-body">
-                Pembayaran dilakukan sesuai ketentuan pada saat pemesanan dan setelah konfirmasi dari pihak admin kami melalui WhatsApp.
-            </div>
-        </div>
+        @endforelse
 
         <!-- Box Kontak Darurat -->
         <div class="faq-more">

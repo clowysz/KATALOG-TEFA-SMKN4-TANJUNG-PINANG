@@ -35,44 +35,28 @@
     </div>
 
     <div class="katalog-grid">
-        <div class="k-card">
-            <div class="k-card-img">
-                <div class="k-badge">Karya</div>
-                <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=IoT+Irigasi" alt="Portofolio">
+        @forelse($portofolios ?? [] as $item)
+            <!-- Template Card yang akan diulang oleh database -->
+            <div class="k-card">
+                <div class="k-card-img">
+                    <div class="k-badge">Karya</div>
+                    <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=IoT+Irigasi" alt="Portofolio">
+                </div>
+                <div class="k-card-body">
+                    <div class="k-card-year">2026</div>
+                    <h3 class="k-card-title">IoT Untuk Irigasi Cerdas</h3>
+                    <p class="k-card-desc">Sistem pengairan otomatis berbasis Internet of Things untuk pertanian modern.</p>
+                    <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/portofolio/detail/1" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+                </div>
             </div>
-            <div class="k-card-body">
-                <div class="k-card-year">2026</div>
-                <h3 class="k-card-title">IoT Untuk Irigasi Cerdas</h3>
-                <p class="k-card-desc">Sistem pengairan otomatis berbasis Internet of Things untuk pertanian modern.</p>
-                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/portofolio/detail/1" class="k-card-btn">Lihat Selengkapnya &gt;</a>
+        @empty
+            <!-- Empty State Portofolio -->
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: 12px; border: 1px dashed #CBD5E1;">
+                <i class="ph ph-image" style="font-size: 48px; color: #94A3B8; margin-bottom: 16px;"></i>
+                <h3 style="font-size: 18px; font-weight: 600; color: #1E2D3D; margin-bottom: 8px;">Belum ada data Portofolio</h3>
+                <p style="font-size: 14px; color: #64748B; margin: 0;">Karya dan proyek siswa belum ditambahkan.</p>
             </div>
-        </div>
-
-        <div class="k-card">
-            <div class="k-card-img">
-                <div class="k-badge">Karya</div>
-                <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=App+E-Learning" alt="Portofolio">
-            </div>
-            <div class="k-card-body">
-                <div class="k-card-year">2025</div>
-                <h3 class="k-card-title">Aplikasi E-Learning Sederhana</h3>
-                <p class="k-card-desc">Platform belajar interaktif yang digunakan oleh siswa internal sekolah.</p>
-                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/portofolio/detail/2" class="k-card-btn">Lihat Selengkapnya &gt;</a>
-            </div>
-        </div>
-
-        <div class="k-card">
-            <div class="k-card-img">
-                <div class="k-badge">Karya</div>
-                <img src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Robot+Line+Follower" alt="Portofolio">
-            </div>
-            <div class="k-card-body">
-                <div class="k-card-year">2025</div>
-                <h3 class="k-card-title">Robot Line Follower</h3>
-                <p class="k-card-desc">Juara 1 Lomba Robotik tingkat Provinsi Kepulauan Riau.</p>
-                <a href="/jurusan/{{ $jurusan->slug ?? 'rpl' }}/portofolio/detail/3" class="k-card-btn">Lihat Selengkapnya &gt;</a>
-            </div>
-        </div>
+        @endforelse
     </div>
 </section>
 @endsection

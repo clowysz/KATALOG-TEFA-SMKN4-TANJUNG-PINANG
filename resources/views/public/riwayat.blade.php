@@ -54,77 +54,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Baris 1 -->
-                    <tr>
-                        <td>
-                            <div class="r-item">
-                                <div class="r-item-icon"><i class="ph ph-code"></i></div>
-                                <div class="r-item-text">
-                                    <h4>Website Education</h4>
-                                    <p>Rekayasa Perangkat Lunak<br>#RPL250825-001</p>
+                    @forelse($riwayats ?? [] as $item)
+                        <!-- Template Baris Data Riwayat -->
+                        <tr>
+                            <td>
+                                <div class="r-item">
+                                    <div class="r-item-icon"><i class="ph ph-code"></i></div>
+                                    <div class="r-item-text">
+                                        <h4>Website Education</h4>
+                                        <p>Rekayasa Perangkat Lunak<br>#RPL250825-001</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="r-text-main"><i class="ph ph-calendar-blank"></i> 25 Agustus 2026</div>
-                            <div class="r-text-sub"><i class="ph ph-clock"></i> Qty: 1</div>
-                        </td>
-                        <td class="r-price">Rp 1.000.000</td>
-                        <td><span class="s-badge s-kerja"><i class="ph ph-spinner-gap"></i> Sedang Dikerjakan</span></td>
-                        <td>
-                            <div class="r-text-main">Estimasi</div>
-                            <div class="r-text-sub">7 - 14 Hari</div>
-                        </td>
-                        <td><a href="/riwayat-pesanan/detail" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
-                    </tr>
-
-                    <!-- Baris 2 -->
-                    <tr>
-                        <td>
-                            <div class="r-item">
-                                <div class="r-item-icon" style="background: #0284C7;"><i class="ph ph-squares-four"></i></div>
-                                <div class="r-item-text">
-                                    <h4>Aplikasi Dashboard</h4>
-                                    <p>Rekayasa Perangkat Lunak<br>#RPL250810-002</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="r-text-main"><i class="ph ph-calendar-blank"></i> 10 Agustus 2026</div>
-                            <div class="r-text-sub"><i class="ph ph-clock"></i> Qty: 1</div>
-                        </td>
-                        <td class="r-price">Rp 1.500.000</td>
-                        <td><span class="s-badge s-proses"><i class="ph ph-arrows-clockwise"></i> Diproses</span></td>
-                        <td>
-                            <div class="r-text-main">Estimasi</div>
-                            <div class="r-text-sub">3 - 7 Hari</div>
-                        </td>
-                        <td><a href="/riwayat-pesanan/detail" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
-                    </tr>
-
-                    <!-- Baris 3 -->
-                    <tr>
-                        <td>
-                            <div class="r-item">
-                                <div class="r-item-icon" style="background: #16A34A;"><i class="ph ph-device-mobile"></i></div>
-                                <div class="r-item-text">
-                                    <h4>Aplikasi Mobile Kasir</h4>
-                                    <p>Rekayasa Perangkat Lunak<br>#RPL250801-003</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="r-text-main"><i class="ph ph-calendar-blank"></i> 01 Agustus 2026</div>
-                            <div class="r-text-sub"><i class="ph ph-clock"></i> Qty: 1</div>
-                        </td>
-                        <td class="r-price">Rp 2.250.000</td>
-                        <td><span class="s-badge s-selesai"><i class="ph ph-check-circle"></i> Selesai</span></td>
-                        <td>
-                            <div class="r-text-main">Selesai pada</div>
-                            <div class="r-text-sub">12 Agustus 2026</div>
-                        </td>
-                        <td><a href="/riwayat-pesanan/detail" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
-                    </tr>
+                            </td>
+                            <td>
+                                <div class="r-text-main"><i class="ph ph-calendar-blank"></i> 25 Agustus 2026</div>
+                                <div class="r-text-sub"><i class="ph ph-clock"></i> Qty: 1</div>
+                            </td>
+                            <td class="r-price">Rp 1.000.000</td>
+                            <td><span class="s-badge s-kerja"><i class="ph ph-spinner-gap"></i> Sedang Dikerjakan</span></td>
+                            <td>
+                                <div class="r-text-main">Estimasi</div>
+                                <div class="r-text-sub">7 - 14 Hari</div>
+                            </td>
+                            <td><a href="/riwayat-pesanan/detail" class="btn-detail-r">Detail Pesanan <i class="ph ph-caret-right"></i></a></td>
+                        </tr>
+                    @empty
+                        <!-- Empty State Tabel Riwayat -->
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 60px 20px; background: white;">
+                                <i class="ph ph-receipt" style="font-size: 48px; color: #94A3B8; margin-bottom: 16px; display: inline-block;"></i>
+                                <h3 style="font-size: 16px; font-weight: 600; color: #1E2D3D; margin-bottom: 8px;">Belum ada data pesanan</h3>
+                                <p style="font-size: 14px; color: #64748B; margin: 0;">Anda belum melakukan pemesanan produk atau jasa apapun.</p>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

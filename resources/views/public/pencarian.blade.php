@@ -18,52 +18,30 @@
             </p>
         </div>
 
-        <!-- Grid Hasil (Memakai class yang sama dengan halaman produk) -->
+        <!-- Grid Hasil -->
         <div class="katalog-grid">
-            
-            <!-- Contoh Hasil 1 (Produk) -->
-            <div class="k-card">
-                <div class="k-card-img">
-                    <span class="k-badge">PRODUK</span>
-                    <img src="https://placehold.co/400x300/E2E8F0/1E3A8A?text=Aplikasi+Kasir" alt="Gambar">
+            @forelse($results ?? [] as $item)
+                <!-- Template Hasil Pencarian yang akan diulang -->
+                <div class="k-card">
+                    <div class="k-card-img">
+                        <span class="k-badge">KATEGORI</span>
+                        <img src="https://placehold.co/400x300/E2E8F0/1E3A8A?text=Gambar" alt="Gambar">
+                    </div>
+                    <div class="k-card-body">
+                        <div class="k-card-title">{{ $item->judul ?? 'Judul Item' }}</div>
+                        <div class="k-card-desc">Deskripsi singkat item akan muncul di sini.</div>
+                        <div class="k-card-price">Rp0</div>
+                        <a href="#" class="k-card-btn">Lihat Detail</a>
+                    </div>
                 </div>
-                <div class="k-card-body">
-                    <div class="k-card-title">Aplikasi Point of Sale (POS)</div>
-                    <div class="k-card-desc">Aplikasi kasir dan manajemen penjualan yang membantu pencatatan transaksi secara efisien.</div>
-                    <div class="k-card-price">Rp1.300.000</div>
-                    <a href="/jurusan/rpl/produk/detail/1" class="k-card-btn">Lihat Detail</a>
+            @empty
+                <!-- Empty State Pencarian -->
+                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: 12px; border: 1px dashed #CBD5E1; margin-top: 20px;">
+                    <i class="ph ph-magnifying-glass" style="font-size: 48px; color: #94A3B8; margin-bottom: 16px;"></i>
+                    <h3 style="font-size: 18px; font-weight: 600; color: #1E2D3D; margin-bottom: 8px;">Pencarian tidak ditemukan</h3>
+                    <p style="font-size: 14px; color: #64748B; margin: 0;">Kami tidak menemukan produk, jasa, atau portofolio yang cocok dengan kata kunci tersebut.</p>
                 </div>
-            </div>
-
-            <!-- Contoh Hasil 2 (Jasa) -->
-            <div class="k-card">
-                <div class="k-card-img">
-                    <span class="k-badge" style="background: #059669;">JASA</span>
-                    <img src="https://placehold.co/400x300/E2E8F0/1E3A8A?text=Desain+Logo" alt="Gambar">
-                </div>
-                <div class="k-card-body">
-                    <div class="k-card-title">Jasa Desain Identitas Visual (Logo)</div>
-                    <div class="k-card-desc">Pembuatan logo profesional untuk branding usaha dan perusahaan Anda.</div>
-                    <div class="k-card-price">Mulai Rp500.000</div>
-                    <a href="/jurusan/dkv/jasa/detail/1" class="k-card-btn">Lihat Detail</a>
-                </div>
-            </div>
-
-            <!-- Contoh Hasil 3 (Portofolio) -->
-            <div class="k-card">
-                <div class="k-card-img">
-                    <span class="k-badge" style="background: #D97706;">PORTOFOLIO</span>
-                    <img src="https://placehold.co/400x300/E2E8F0/1E3A8A?text=Film+Pendek" alt="Gambar">
-                </div>
-                <div class="k-card-body">
-                    <div class="k-card-year">2025</div>
-                    <div class="k-card-title">Film Pendek "Suara Harapan"</div>
-                    <div class="k-card-desc">Juara 1 Festival Film Pelajar Nasional. Diproduksi oleh tim siswa PSPT.</div>
-                    <div style="flex-grow: 1;"></div> <!-- Spacer agar tombol di bawah -->
-                    <a href="/jurusan/pspt/portofolio/detail/1" class="k-card-btn">Lihat Detail</a>
-                </div>
-            </div>
-
+            @endforelse
         </div>
         
     </div>
