@@ -19,13 +19,16 @@ class AkunController extends Controller
     }
 
     // =========================
-    // TAMBAH AKUN
+    // TAMBAH AKUN - FORM
     // =========================
     public function create()
     {
-        return view('akun.create');
+        return view('admin.admin_tefa.akun.create');
     }
 
+    // =========================
+    // SIMPAN AKUN
+    // =========================
     public function store(Request $request)
     {
         $request->validate([
@@ -58,8 +61,11 @@ class AkunController extends Controller
     {
         $akun = Akun::findOrFail($id);
 
-        return view('admin.admin_tefa.akun.detail', compact('akun'));
-        }
+        return view(
+            'admin.admin_tefa.akun.detail',
+            compact('akun')
+        );
+    }
 
     // =========================
     // EDIT AKUN
@@ -68,7 +74,11 @@ class AkunController extends Controller
     {
         $akun = Akun::findOrFail($id);
 
-        return view('admin.admin_tefa.akun.edit', compact('akun'));    }
+        return view(
+            'admin.admin_tefa.akun.edit',
+            compact('akun')
+        );
+    }
 
     // =========================
     // UPDATE AKUN

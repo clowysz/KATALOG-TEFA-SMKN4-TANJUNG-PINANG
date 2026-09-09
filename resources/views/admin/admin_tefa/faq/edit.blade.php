@@ -2,86 +2,69 @@
 
 @section('title', 'Edit FAQ')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/faq.css') }}">
+@endpush
+
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/edit-faq.css') }}">
-
-<div class="edit-faq-page">
-
-    {{-- Tombol kembali --}}
+<div class="faq-container">
+    {{-- Link Kembali (Menggeser ke Kiri) --}}
     <div class="back-link-wrapper">
         <a href="{{ route('admin.faq.index') }}" class="back-link">
-            ← Kembali ke Kelola FAQ
+            &larr; Kembali ke Kelola FAQ
         </a>
     </div>
 
-    {{-- Judul --}}
+    {{-- Judul Halaman (Ditengah) --}}
     <h2 class="page-title">Edit FAQ</h2>
 
-    {{-- Card Form --}}
-    <div class="edit-faq-card">
-
-        <form action="{{ route('faq.update', $faq->id) }}" method="POST">
+    {{-- Form Card --}}
+    <div class="faq-card">
+        <form action="{{ route('admin.faq.update', $faq->id) }}" method="POST">
             @csrf
             @method('PUT')
 
-            {{-- Pesan Error --}}
-            @if ($errors->any())
-                <div class="alert-danger">
-                    <strong>Data belum dapat disimpan.</strong>
-
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            {{-- Pertanyaan --}}
+            {{-- Input Pertanyaan --}}
             <div class="form-group">
-                <label for="pertanyaan">Pertanyaan</label>
-
-                <input
-                    type="text"
-                    name="pertanyaan"
-                    id="pertanyaan"
-                    class="form-control"
-                    value="{{ old('pertanyaan', $faq->pertanyaan) }}"
-                    required
-                >
+                <label for="pertanyaan" class="form-label">Pertanyaan</label>
+                <input type="text" 
+                       name="pertanyaan" 
+                       id="pertanyaan" 
+                       class="form-input @error('pertanyaan') is-invalid @enderror" 
+                       placeholder="Masukkan pertanyaan" 
+                       value="{{ old('pertanyaan', $faq->pertanyaan) }}" 
+                       required>
+                @error('pertanyaan')
+                    <span class="error-text">{{ $message }}</span>
+                @enderror
             </div>
 
-            {{-- Jawaban --}}
+            {{-- Input Jawaban --}}
             <div class="form-group">
-                <label for="jawaban">Jawaban</label>
-
-                <textarea
-                    name="jawaban"
-                    id="jawaban"
-                    class="form-control textarea-jawaban"
-                    rows="6"
-                    required
-                >{{ old('jawaban', $faq->jawaban) }}</textarea>
+                <label for="jawaban" class="form-label">Jawaban</label>
+                <textarea name="jawaban" 
+                          id="jawaban" 
+                          rows="5" 
+                          class="form-textarea @error('jawaban') is-invalid @enderror" 
+                          placeholder="Masukkan jawaban" 
+                          required>{{ old('jawaban', $faq->jawaban) }}</textarea>
+                @error('jawaban')
+                    <span class="error-text">{{ $message }}</span>
+                @enderror
             </div>
 
-            {{-- Tombol --}}
-            <div class="form-actions">
-
-                <a href="{{ route('admin.faq.index') }}" class="btn-cancel">
+            {{-- Tombol Aksi --}}
+            <div class="action-buttons">
+                <a href="{{ route('admin.faq.index') }}" class="btn btn-batal">
                     Batal
                 </a>
-
-                <button type="submit" class="btn-submit">
+                <button type="submit" class="btn btn-simpan">
                     Simpan Perubahan
                 </button>
-
             </div>
-
         </form>
-
     </div>
-
 </div>
 
 @endsection

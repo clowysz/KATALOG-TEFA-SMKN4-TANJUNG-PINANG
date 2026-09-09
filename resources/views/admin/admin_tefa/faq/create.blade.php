@@ -2,67 +2,68 @@
 
 @section('title', 'Tambah FAQ')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/faq.css') }}">
+@endpush
+
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/create-faq.css') }}">
-
-<div class="faq-create-page">
-
+<div class="faq-container">
+    {{-- Link Kembali (Menggeser Ke Kiri) --}}
     <div class="back-link-wrapper">
         <a href="{{ route('admin.faq.index') }}" class="back-link">
-            ← Kembali ke Kelola FAQ
+            &larr; Kembali ke Kelola FAQ
         </a>
     </div>
 
+    {{-- Judul Halaman (Tetap Ditengah) --}}
     <h2 class="page-title">Tambah FAQ</h2>
 
+    {{-- Form Card --}}
     <div class="faq-card">
-
-        <form action="{{ route('faq.store') }}" method="POST">
+        <form action="{{ route('admin.faq.store') }}" method="POST">
             @csrf
 
+            {{-- Input Pertanyaan --}}
             <div class="form-group">
-                <label for="pertanyaan">Pertanyaan</label>
-
-                <input
-                    type="text"
-                    name="pertanyaan"
-                    id="pertanyaan"
-                    class="form-control"
-                    placeholder="Masukkan pertanyaan"
-                    value="{{ old('pertanyaan') }}"
-                    required
-                >
+                <label for="pertanyaan" class="form-label">Pertanyaan</label>
+                <input type="text" 
+                       name="pertanyaan" 
+                       id="pertanyaan" 
+                       class="form-input @error('pertanyaan') is-invalid @enderror" 
+                       placeholder="Masukkan pertanyaan" 
+                       value="{{ old('pertanyaan') }}" 
+                       required>
+                @error('pertanyaan')
+                    <span class="error-text">{{ $message }}</span>
+                @enderror
             </div>
 
+            {{-- Input Jawaban --}}
             <div class="form-group">
-                <label for="jawaban">Jawaban</label>
-
-                <textarea
-                    name="jawaban"
-                    id="jawaban"
-                    class="form-control textarea-control"
-                    placeholder="Masukkan jawaban"
-                    required
-                >{{ old('jawaban') }}</textarea>
+                <label for="jawaban" class="form-label">Jawaban</label>
+                <textarea name="jawaban" 
+                          id="jawaban" 
+                          rows="5" 
+                          class="form-textarea @error('jawaban') is-invalid @enderror" 
+                          placeholder="Masukkan jawaban" 
+                          required>{{ old('jawaban') }}</textarea>
+                @error('jawaban')
+                    <span class="error-text">{{ $message }}</span>
+                @enderror
             </div>
 
-            <div class="form-actions">
-
-                <a href="{{ route('admin.faq.index') }}" class="btn-cancel">
+            {{-- Tombol Aksi --}}
+            <div class="action-buttons">
+                <a href="{{ route('admin.faq.index') }}" class="btn btn-batal">
                     Batal
                 </a>
-
-                <button type="submit" class="btn-submit">
+                <button type="submit" class="btn btn-simpan">
                     Simpan
                 </button>
-
             </div>
-
         </form>
-
     </div>
-
 </div>
 
 @endsection
