@@ -11,18 +11,18 @@
     <div class="bubble" style="width: 60px; height: 60px; bottom: 40%; right: 20%; animation-duration: 5s;"></div>
 
     <div class="jurusan-hero-content" style="position: relative; z-index: 10;">
-        <div class="jurusan-hero-image">
-            <img src="{{ asset('images/rpl-lab.jpeg') }}" alt="Produk RPL">
-        </div>
-        <div class="jurusan-hero-text">
-            <h3>PRODUK</h3>
-            <h1>PRODUK KAMI</h1>
-            <p>Berbagai produk inovatif yang dikembangkan oleh siswa-siswi SMKN 4 Tanjungpinang untuk memenuhi kebutuhan di era digital.</p>
-            <a href="/#jurusan-unggulan" class="btn-kembali-beranda" style="position: relative; z-index: 50;">
-                <i class="ph ph-arrow-u-up-left"></i> Kembali ke Daftar Jurusan
-            </a>
-        </div>
+    <div class="jurusan-hero-image">
+        <img src="{{ asset($jurusan->hero) }}" alt="Produk {{ $jurusan->name }}">
     </div>
+    <div class="jurusan-hero-text">
+        <h3>PRODUK</h3>
+        <h1>PRODUK {{ $jurusan->name }}</h1>
+        <p>Berbagai produk inovatif yang dikembangkan oleh siswa-siswi SMKN 4 Tanjungpinang untuk memenuhi kebutuhan di era digital.</p>
+        <a href="/#jurusan-unggulan" class="btn-kembali-beranda" style="position: relative; z-index: 50;">
+            <i class="ph ph-arrow-u-up-left"></i> Kembali ke Daftar Jurusan
+        </a>
+    </div>
+</div>
 
     <svg class="wave-jurusan" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" style="position: absolute; bottom: -1px; left: 0; width: 100%; display: block; z-index: 1;">
         <path fill="#F8FAFC" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,144C672,149,768,203,864,213.3C960,224,1056,192,1152,176C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>

@@ -9,19 +9,19 @@
 <section class="jurusan-hero-section" style="padding-top: 80px; position: relative;">
     <div class="bubble" style="width: 100px; height: 100px; top: 20%; right: 10%; animation-duration: 7s;"></div>
     
-    <div class="jurusan-hero-content" style="position: relative; z-index: 10;">
-        <div class="jurusan-hero-image">
-            <img src="{{ asset('images/rpl-lab.jpeg') }}" alt="Jasa RPL">
-        </div>
-        <div class="jurusan-hero-text">
-            <h3>JASA</h3>
-            <h1>LAYANAN JASA</h1>
-            <p>Kami menyediakan berbagai layanan di bidang teknologi informasi yang dirancang untuk membantu kebutuhan teknis maupun instansi.</p>
-            <a href="/#jurusan-unggulan" class="btn-kembali-beranda" style="position: relative; z-index: 50;">
-                <i class="ph ph-arrow-u-up-left"></i> Kembali ke Daftar Jurusan
-            </a>
-        </div>
+   <div class="jurusan-hero-content" style="position: relative; z-index: 10;">
+    <div class="jurusan-hero-image">
+        <img src="{{ asset($jurusan->hero) }}" alt="Jasa {{ $jurusan->name }}">
     </div>
+    <div class="jurusan-hero-text">
+        <h3>JASA</h3>
+        <h1>LAYANAN JASA {{ $jurusan->name }}</h1>
+        <p>Kami menyediakan berbagai layanan di bidang teknologi informasi yang dirancang untuk membantu kebutuhan teknis maupun instansi.</p>
+        <a href="/#jurusan-unggulan" class="btn-kembali-beranda" style="position: relative; z-index: 50;">
+            <i class="ph ph-arrow-u-up-left"></i> Kembali ke Daftar Jurusan
+        </a>
+    </div>
+</div>
     
     <svg class="wave-jurusan" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" style="position: absolute; bottom: -1px; left: 0; width: 100%; display: block; z-index: 1;">
         <path fill="#F8FAFC" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,144C672,149,768,203,864,213.3C960,224,1056,192,1152,176C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
