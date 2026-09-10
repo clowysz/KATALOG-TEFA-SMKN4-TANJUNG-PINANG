@@ -249,7 +249,7 @@
             </div>
             <div class="footer-col">
                 <h3>INFORMASI</h3>
-                <div class="footer-contact"><i class="ph ph-map-pin"></i> <span>Jl. Brigjend Katamso No.92</span></div>
+                <div class="footer-contact"><i class="ph ph-map-pin"></i> <span>Jl. Nusantara Km.14</span></div>
                 <div class="footer-contact"><i class="ph ph-phone"></i> <span>0771-123456</span></div>
             </div>
             <div class="footer-col">

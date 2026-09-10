@@ -24,7 +24,7 @@
             <i class="ph ph-user"></i>
         </div>
 
-        <form action="/checkout" method="GET">
+        <form action="/profil-pembeli" method="GET">
             <!-- Hanya Email dan Sandi -->
             <div class="login-form-group">
                 <label>Email</label>

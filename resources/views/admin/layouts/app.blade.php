@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - Admin TEFA</title>
     <!-- Memanggil CSS -->
-   <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin_tefa.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/global.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/admin_tefa.css') }}?v=1">  
 </head>
 <body>
 
@@ -21,10 +21,10 @@
         <ul class="drawer-menu">    
             <li><a href="/dashboard">Dashboard</a></li>
             <li><a href="/pesanan">Kelola Pesanan</a></li>
-            <li><a href="/jurusan">Jurusan</a></li>
+            <li><a href="/tefa/jurusan">Jurusan</a></li>
             <li><a href="/akun">Daftar Akun</a></li>
             <!-- INI BARIS YANG DITAMBAHKAN UNTUK MENU FAQ -->
-            <li><a href="/faq">Kelola FAQ</a></li>
+            <li><a href="/tefa/faq">Kelola FAQ</a></li>
             <li><a href="/profil">Profil</a></li>
             <li><a href="/">Logout</a></li>
         </ul>

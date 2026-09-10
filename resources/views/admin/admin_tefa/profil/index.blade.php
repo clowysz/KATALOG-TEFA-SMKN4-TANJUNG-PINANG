@@ -26,6 +26,6 @@
     </div>
     
     <!-- Tombol Logout yang mengarah kembali ke halaman Login (/) -->
-    <a href="/" class="btn-outline btn-logout">Logout dari Sistem</a>
+    <a href="/login-tefa" class="btn-outline btn-logout">Logout dari Sistem</a>
 </div>
 @endsection
