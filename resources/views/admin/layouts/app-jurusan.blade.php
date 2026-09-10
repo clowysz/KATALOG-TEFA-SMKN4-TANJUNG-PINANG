@@ -22,7 +22,7 @@
     <nav class="drawer" id="navDrawer">
         <!-- Header Drawer -->
         <div class="drawer-top-header">
-            <h3>TEFA Admin</h3>
+            <h3>TEFA Admin Jurusan</h3>
             <span class="close-drawer" onclick="toggleDrawer()"><i class="ph ph-x"></i></span>
         </div>
 
@@ -47,7 +47,7 @@
 
             <li class="menu-divider"></li>
 
-            <li><a href="/jurusan-admin/profil"><i class="ph ph-user"></i> Profil</a></li>
+            <li><a href="/jurusan-admin/profil"><i class="ph ph-user-circle"></i> Profil</a></li>
             <li><a href="/login-jurusan" class="logout-link"><i class="ph ph-sign-out"></i> Logout</a></li>
         </ul>
 
