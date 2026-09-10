@@ -26,15 +26,7 @@
             <span class="close-drawer" onclick="toggleDrawer()"><i class="ph ph-x"></i></span>
         </div>
 
-        <!-- Identitas Jurusan RPL -->
-        <div class="drawer-identity-box">
-            <div class="identity-logo">RPL</div>
-            <div class="identity-text">
-                <h4>RPL</h4>
-                <p>Rekayasa Perangkat Lunak</p>
-            </div>
-        </div>
-
+    
         <!-- Daftar Menu -->
         <ul class="drawer-menu">
             <li><a href="/jurusan-admin/dashboard"><i class="ph ph-house"></i> Dashboard</a></li>

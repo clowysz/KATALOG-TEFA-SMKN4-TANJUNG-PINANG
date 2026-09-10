@@ -52,7 +52,7 @@ Route::prefix('jurusan')->group(function () {
                     'hero' => 'images/dkv-lab.jpeg',
                 ],
                 'gim' => [
-                    'name' => 'PENGEMBANGAN PERANGKAT LUNAK DAN GIM',
+                    'name' => 'GIM',
                     'description' => 'Mempelajari logika pemrograman gim, desain aset 2D/3D, animasi interaktif, serta perancangan engine permainan.',
                     'logo' => 'images/logo-gim.png',
                     'hero' => 'images/gim-lab.jpeg',
