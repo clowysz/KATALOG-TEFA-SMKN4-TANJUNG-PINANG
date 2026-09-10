@@ -73,7 +73,7 @@ $faqs = [
             <p>Informasi umum mengenai website dan layanan TEFA</p>
         </div>
         <!-- Menggunakan URL sementara '#' agar tidak error route not defined -->
-        <a href="#" class="btn-add-faq">
+        <a href="/buat/fah" class="btn-add-faq">
             + Tambah FAQ
         </a>
     </div>
@@ -99,7 +99,7 @@ $faqs = [
                         Edit
                     </a>
 
-                    <form action="#" method="POST" onsubmit="return confirm('Yakin ingin menghapus FAQ ini?');">
+                    <form action="/tefa/faq" method="POST" onsubmit="return confirm('Yakin ingin menghapus FAQ ini?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-delete-faq">

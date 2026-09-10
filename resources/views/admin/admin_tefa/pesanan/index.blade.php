@@ -2,7 +2,7 @@
 @extends('admin.layouts.app')
 =======
 
-@extends('layouts.app')
+
 >>>>>>> 2846f9b (update sistem admin TEFA):resources/views/pesanan/index.blade.php
 
 @section('title', 'Kelola Pesanan')
@@ -207,7 +207,7 @@
     </div>
 
 </div>
-@endsection
+
 
 @section('scripts')
 <script src="{{ asset('js/pesanan.js') }}"></script>

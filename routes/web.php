@@ -131,19 +131,39 @@ Route::get('/login-produser', function () { return view('admin.admin_produser.lo
 
 Route::get('/dashboard', function () { return view('admin.admin_tefa.dashboard'); });
 
-// Rute Pesanan (Tanpa Database)
-Route::get('/pesanan', function () { return view('admin.admin_tefa.pesanan.index'); });
+// Rute Pesanan (Halaman Kosong / Belum Ada Data)
+Route::get('/pesanan', function () { 
+    $pesanans = []; 
+    return view('admin.admin_tefa.pesanan.index', compact('pesanans')); 
+})->name('pesanan.index');
+
 Route::get('/pesanan/detail', function () { return view('admin.admin_tefa.pesanan.detail'); });
+
+Route::post('/pesanan/{id}/update-status', function ($id) {
+    // Logika update status nanti
+})->name('pesanan.updateStatus');
 
 Route::get('/tefa/jurusan', function () { return view('admin.admin_tefa.jurusan.index'); });
 
-// Rute Akun (Tanpa Database)
-Route::get('/akun', function () { return view('admin.admin_tefa.akun.index'); });
+// Rute Akun Admin TEFA dengan Penamaan (Named Routes)
+Route::get('/akun', function () { 
+    return view('admin.admin_tefa.akun.index'); 
+})->name('akun.index');
+
+Route::get('/akun/tambah', function () { 
+    return view('admin.admin_tefa.akun.create'); 
+})->name('akun.create');
+
+Route::post('/akun', function () { 
+    // Setelah data diproses, arahkan kembali ke daftar akun
+    return redirect()->route('akun.index');
+})->name('akun.store');
 
 Route::get('/profil', function () { return view('admin.admin_tefa.profil.index'); });
 
-// Rute FAQ (Tanpa Database)
-Route::get('/tefa/faq', function () { return view('admin.admin_tefa.faq.index'); });
+// Rute FAQ Admin TEFA
+Route::get('/tefa/faq', function () { return view('admin.admin_tefa.faq.index'); })->name('tefa.faq.index');
+Route::get('/buat/fah', function () { return view('admin.admin_tefa.faq.create'); })->name('tefa.faq.create');
 
 
 // ======================================================
@@ -164,6 +184,7 @@ Route::get('/jurusan-admin/akun/edit', function () { return view('admin.admin_ju
 Route::get('/jurusan-admin/profil', function () { return view('admin.admin_jurusan.profil'); });
 
 Route::resource('jurusan-admin/faq', FaqController::class);
+
 
 // ======================================================
 // 3. ADMIN PRODUK / JASA (PRODUSER)
