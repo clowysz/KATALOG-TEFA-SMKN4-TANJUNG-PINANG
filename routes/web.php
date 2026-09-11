@@ -30,7 +30,6 @@ Route::get('/jurusan', function () {
 Route::prefix('jurusan')->group(function () {
     Route::prefix('{slug}')->group(function () {
         
-        // FUNGSI PEMETA DATA DINAMIS PER JURUSAN
         $getJurusan = function($slug) {
             $data = [
                 'rpl' => [
@@ -74,11 +73,9 @@ Route::prefix('jurusan')->group(function () {
             if (!array_key_exists($slug, $data)) {
                 abort(404);
             }
-
             return (object) array_merge(['slug' => $slug], $data[$slug]);
         };
 
-        // SEMUA RUTE DIBAWAH OTOMATIS MENGIRIM DATA $jurusan KE BLADE
         Route::get('/', function ($slug) use ($getJurusan) { 
             $jurusan = $getJurusan($slug);
             return view('public.jurusan.detail-jurusan', compact('jurusan', 'slug')); 
@@ -119,77 +116,78 @@ Route::prefix('jurusan')->group(function () {
 // ======================================================
 // LOGIN SEMUA ADMIN 
 // ======================================================
-
 Route::get('/login-tefa', function () { return view('admin.login.login-tefa'); });
 Route::get('/login-jurusan', function () { return view('admin.admin_jurusan.login-jurusan'); });
 Route::get('/login-produser', function () { return view('admin.admin_produser.login-produser'); });
 
-
 // ======================================================
 // 1. ADMIN TEFA 
 // ======================================================
-
 Route::get('/dashboard', function () { return view('admin.admin_tefa.dashboard'); });
 
-// Rute Pesanan (Halaman Kosong / Belum Ada Data)
 Route::get('/pesanan', function () { 
     $pesanans = []; 
     return view('admin.admin_tefa.pesanan.index', compact('pesanans')); 
 })->name('pesanan.index');
 
 Route::get('/pesanan/detail', function () { return view('admin.admin_tefa.pesanan.detail'); });
-
-Route::post('/pesanan/{id}/update-status', function ($id) {
-    // Logika update status nanti
-})->name('pesanan.updateStatus');
-
+Route::post('/pesanan/{id}/update-status', function ($id) {})->name('pesanan.updateStatus');
 Route::get('/tefa/jurusan', function () { return view('admin.admin_tefa.jurusan.index'); });
 
-// Rute Akun Admin TEFA dengan Penamaan (Named Routes)
 Route::get('/akun', function () { 
-    return view('admin.admin_tefa.akun.index'); 
+    $akuns = []; 
+    return view('admin.admin_tefa.akun.index', compact('akuns')); 
 })->name('akun.index');
 
-Route::get('/akun/tambah', function () { 
-    return view('admin.admin_tefa.akun.create'); 
-})->name('akun.create');
-
-Route::post('/akun', function () { 
-    // Setelah data diproses, arahkan kembali ke daftar akun
-    return redirect()->route('akun.index');
-})->name('akun.store');
-
+Route::get('/akun/tambah', function () { return view('admin.admin_tefa.akun.create'); })->name('akun.create');
+Route::post('/akun', function () { return redirect()->route('akun.index'); })->name('akun.store');
 Route::get('/profil', function () { return view('admin.admin_tefa.profil.index'); });
 
-// Rute FAQ Admin TEFA
-Route::get('/tefa/faq', function () { return view('admin.admin_tefa.faq.index'); })->name('tefa.faq.index');
+Route::get('/tefa/faq', function () { 
+    $faqs = []; 
+    return view('admin.admin_tefa.faq.index', compact('faqs')); 
+})->name('tefa.faq.index');
+
 Route::get('/buat/fah', function () { return view('admin.admin_tefa.faq.create'); })->name('tefa.faq.create');
 
+Route::get('/tefa/faq/edit', function () { 
+    $faq = (object)[ 'pertanyaan' => '', 'jawaban' => '' ];
+    return view('admin.admin_tefa.faq.edit', compact('faq')); 
+})->name('tefa.faq.edit');
 
 // ======================================================
 // 2. ADMIN JURUSAN
 // ======================================================
-
 Route::get('/jurusan-admin/dashboard', function () { return view('admin.admin_jurusan.dashboard'); });
-Route::get('/jurusan-admin/katalog', function () { return view('admin.admin_jurusan.katalog'); });
+Route::get('/jurusan-admin/katalog', function () { 
+    $katalogs = [];
+    return view('admin.admin_jurusan.katalog', compact('katalogs')); 
+});
 Route::get('/jurusan-admin/katalog/detail', function () { return view('admin.admin_jurusan.katalog-detail'); });
 Route::get('/jurusan-admin/kelola-produk', function () { return view('admin.admin_jurusan.kelola-produk'); });
 Route::get('/jurusan-admin/kelola-jasa', function () { return view('admin.admin_jurusan.kelola-jasa'); });
 Route::get('/jurusan-admin/kelola-portofolio', function () { return view('admin.admin_jurusan.kelola-portofolio'); });
-Route::get('/jurusan-admin/kelola-deskripsi', function () { return view('admin.admin_jurusan.kelola-deskripsi'); });
+
+
+//data dummy nanti ada peribahan kalaun ke sambung di databaae
+Route::get('/jurusan-admin/kelola-deskripsi', function () { 
+    $jurusan = (object) [
+        'nama' => 'Rekayasa Perangkat Lunak',
+        'deskripsi' => 'Mencetak tenaga terampil di bidang pemrograman...'
+    ];
+    return view('admin.admin_jurusan.kelola-deskripsi', compact('jurusan')); 
+});
+
 Route::get('/jurusan-admin/akun', function () { return view('admin.admin_jurusan.akun-index'); });
 Route::get('/jurusan-admin/akun/tambah', function () { return view('admin.admin_jurusan.akun-create'); });
 Route::get('/jurusan-admin/akun/detail', function () { return view('admin.admin_jurusan.akun-detail'); });
 Route::get('/jurusan-admin/akun/edit', function () { return view('admin.admin_jurusan.akun-edit'); });
 Route::get('/jurusan-admin/profil', function () { return view('admin.admin_jurusan.profil'); });
-
 Route::resource('jurusan-admin/faq', FaqController::class);
-
 
 // ======================================================
 // 3. ADMIN PRODUK / JASA (PRODUSER)
 // ======================================================
-
 Route::get('/produser/dashboard', function () { return view('admin.admin_produser.dashboard'); });
 Route::get('/produser/pesanan', function () { return view('admin.admin_produser.pesanan'); });
 Route::get('/produser/pesanan/detail', function () { return view('admin.admin_produser.pesanan-detail'); });

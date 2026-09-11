@@ -5,7 +5,8 @@
 @section('content')
 <div class="page-header">
     <h2>Kelola Deskripsi Jurusan</h2>
-    <p>Perbarui informasi profil jurusan Rekayasa Perangkat Lunak</p>
+    <!-- Teks menjadi dinamis mengikuti variabel rute -->
+    <p>Perbarui informasi profil jurusan {{ $jurusan->nama }}</p>
 </div>
 
 <div class="tefa-card" style="max-width: 700px;">
@@ -14,15 +15,17 @@
             💻
         </div>
         <div>
-            <h3 style="color: var(--accent-rpl);">Rekayasa Perangkat Lunak</h3>
+            <!-- Judul card menjadi dinamis -->
+            <h3 style="color: var(--accent-rpl);">{{ $jurusan->nama }}</h3>
             <p style="font-size: 13px; color: var(--text-muted);">SMK Negeri 4 Tanjungpinang</p>
         </div>
     </div>
 
     <form id="formDeskripsi">
         <label class="detail-label">Deskripsi Profil Jurusan</label>
-        <!-- Textarea dimatikan (readonly) secara default sebelum mode edit diaktifkan -->
-        <textarea id="descText" class="form-control" rows="8" readonly style="background-color: #f8f9fa;">Mencetak tenaga terampil di bidang pemrograman komputer, pengembangan perangkat lunak (web, desktop, dan mobile), serta penguasaan basis data. Lulusan dipersiapkan untuk menjadi Software Engineer, Web Developer, maupun teknopreneur muda yang siap bersaing di era digital.</textarea>
+        
+        <!-- Textarea langsung memuat data dari variabel $jurusan->deskripsi -->
+        <textarea id="descText" class="form-control" rows="8" readonly style="background-color: #f8f9fa;">{{ $jurusan->deskripsi }}</textarea>
         
         <div style="margin-top: 24px; display: flex; gap: 12px;" id="actionButtons">
             <button type="button" id="btnEditDesc" class="btn-primary" style="width: auto;">Edit Deskripsi</button>
@@ -49,11 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const formDeskripsi = document.getElementById('formDeskripsi');
     const toast = document.getElementById('toastDesc');
 
-    // Muat data dari LocalStorage jika ada
-    const savedDesc = localStorage.getItem('rpl_deskripsi');
-    if (savedDesc) {
-        descText.value = savedDesc;
-    }
+    // Hapus logika load localStorage di sini agar tidak menimpa data $jurusan yang ditarik dari web.php
 
     let tempDesc = descText.value; // Simpan sementara jika dibatalkan
 
@@ -78,11 +77,9 @@ document.addEventListener("DOMContentLoaded", function() {
         saveButtons.style.display = 'none';
     });
 
-    // Simpan Perubahan
+    // Simpan Perubahan (Prototipe Visual)
     formDeskripsi.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        localStorage.setItem('rpl_deskripsi', descText.value);
         
         descText.setAttribute('readonly', true);
         descText.style.backgroundColor = '#f8f9fa';

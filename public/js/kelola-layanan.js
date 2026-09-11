@@ -11,7 +11,25 @@ function openTambahModal() {
     const isProduk = document.getElementById('kelolaProdukContainer') !== null;
     document.getElementById('modalFormTitle').textContent = `Tambah ${isProduk ? 'Produk' : 'Jasa'}`;
     
+    // Wajibkan upload foto untuk data baru
+    const formImg = document.getElementById('formImg');
+    if (formImg) {
+        formImg.setAttribute('required', 'true');
+        formImg.value = '';
+    }
+
+    // Kosongkan preview gambar dan array file
+    const preview = document.getElementById('imagePreviewContainer');
+    if (preview) preview.innerHTML = '';
+    if (typeof window.uploadedFiles !== 'undefined') window.uploadedFiles = [];
+    
     openLayananModal('modalAdd');
+}
+
+// Override tombol tambah bawaan HTML agar pakai fungsi khusus
+const btnTambahLayanan = document.querySelector('button[onclick="openLayananModal(\'modalAdd\')"]');
+if (btnTambahLayanan) {
+    btnTambahLayanan.setAttribute('onclick', 'openTambahModal()');
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -48,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <p style="color: var(--text-muted);">Coba gunakan kata kunci pencarian yang lain.</p>
                 </div>
             `;
-            return; // Hentikan fungsi sampai di sini
+            return;
         }
         
         // JIKA ADA DATA
@@ -56,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const card = document.createElement('div');
             card.className = 'catalog-card';
             card.innerHTML = `
-                <img src="${item.img}" alt="${item.name}" class="catalog-img">
+                <img src="${item.img}" alt="${item.name}" class="catalog-img" style="object-fit: cover;">
                 <div class="catalog-content">
                     <div class="catalog-title">${item.name}</div>
                     <div class="catalog-desc">${item.desc.substring(0, 60)}...</div>
@@ -73,21 +91,43 @@ document.addEventListener("DOMContentLoaded", function() {
             container.appendChild(card);
         });
 
-        // Pasang Event Edit & Hapus
+        // Pasang Event Edit
         document.querySelectorAll('.btn-edit').forEach(btn => {
             btn.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
                 const item = dataItems.find(d => d.id === id);
+                
                 document.getElementById('formId').value = item.id;
                 document.getElementById('formName').value = item.name;
                 document.getElementById('formDesc').value = item.desc;
                 document.getElementById('formPrice').value = item.price;
-                document.getElementById('formImg').value = item.img;
+                
+                // PERBAIKAN: Hilangkan required dan kosongkan input file
+                const formImg = document.getElementById('formImg');
+                if (formImg) {
+                    formImg.removeAttribute('required');
+                    formImg.value = ''; 
+                }
+
+                // Tampilkan preview gambar lama
+                const previewContainer = document.getElementById('imagePreviewContainer');
+                if (previewContainer) {
+                    previewContainer.innerHTML = `
+                        <div style="position: relative; display: inline-block;">
+                            <img src="${item.img}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid #CBD5E1;">
+                            <div style="font-size: 11px; text-align: center; margin-top: 4px; color: #64748b;">Gambar Lama</div>
+                        </div>
+                    `;
+                }
+
+                if (typeof window.uploadedFiles !== 'undefined') window.uploadedFiles = [];
+
                 document.getElementById('modalFormTitle').textContent = `Edit ${tipeLayanan}`;
                 openLayananModal('modalAdd');
             });
         });
 
+        // Pasang Event Hapus
         document.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.getElementById('deleteId').value = this.getAttribute('data-id');
@@ -113,13 +153,27 @@ document.addEventListener("DOMContentLoaded", function() {
             const id = document.getElementById('formId').value;
             const isEdit = id !== '';
             
+            // Logika gambar prototype LocalStorage
+            let finalImage = '';
+            // Jika ada file foto baru yang diunggah
+            if (typeof window.uploadedFiles !== 'undefined' && window.uploadedFiles.length > 0) {
+                finalImage = URL.createObjectURL(window.uploadedFiles[0]);
+            } else if (isEdit) {
+                // Jika edit tapi tidak upload foto baru, pakai foto lama
+                const oldItem = dataItems.find(d => d.id === id);
+                finalImage = oldItem.img;
+            } else {
+                // Fallback (seharusnya tidak terjadi)
+                finalImage = 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80';
+            }
+
             const newItem = {
                 id: isEdit ? id : tipeLayanan.charAt(0).toLowerCase() + Date.now(),
                 type: tipeLayanan,
                 name: document.getElementById('formName').value,
                 desc: document.getElementById('formDesc').value,
                 price: document.getElementById('formPrice').value,
-                img: document.getElementById('formImg').value,
+                img: finalImage,
                 orders: isEdit ? dataItems.find(d => d.id === id).orders : 0
             };
 

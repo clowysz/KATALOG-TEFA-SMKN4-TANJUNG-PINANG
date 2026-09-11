@@ -4,10 +4,10 @@
 
 @section('content')
 <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
-    {{-- Link Kembali --}}
-    <div style="margin-bottom: 15px;">
-        <a href="{{ route('faq.index') }}" style="text-decoration: none; color: #3B82F6; font-weight: 500;">
-            ← Kembali ke Kelola FAQ
+    {{-- Tombol Kembali --}}
+    <div style="margin-bottom: 24px;">
+        <a href="/tefa/faq" style="display: inline-block; padding: 8px 16px; border: 1px solid #3B698F; border-radius: 8px; color: #3B698F; background: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px;">
+            &larr; Kembali ke Kelola FAQ
         </a>
     </div>
 
@@ -15,7 +15,8 @@
 
     {{-- Form Tambah FAQ dalam Card Putih --}}
     <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-        <form action="{{ route('faq.store') }}" method="POST">
+        <!-- Action diset '#' sementara agar aman saat mendesain UI -->
+        <form action="#" method="POST">
             @csrf
 
             <div style="margin-bottom: 20px;">
@@ -23,7 +24,7 @@
                 <input type="text" 
                        name="pertanyaan" 
                        id="pertanyaan" 
-                       style="width: 100%; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px;" 
+                       style="width: 100%; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; outline: none;" 
                        placeholder="Masukkan pertanyaan..." 
                        value="{{ old('pertanyaan') }}" 
                        required>
@@ -34,16 +35,16 @@
                 <textarea name="jawaban" 
                           id="jawaban" 
                           rows="5" 
-                          style="width: 100%; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; resize: vertical;" 
+                          style="width: 100%; padding: 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 14px; resize: vertical; outline: none;" 
                           placeholder="Masukkan jawaban..." 
                           required>{{ old('jawaban') }}</textarea>
             </div>
 
             <div style="display: flex; gap: 12px; align-items: center;">
-                <button type="submit" style="background: #1E3A8A; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px;">
+                <button type="submit" style="background: #3B698F; color: white; padding: 10px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px;">
                     Simpan FAQ
                 </button>
-                <a href="{{ route('faq.index') }}" style="text-decoration: none; padding: 12px 20px; border: 1px solid #CBD5E1; border-radius: 8px; color: #64748B; background: #F8FAFC; font-weight: 500; font-size: 14px;">
+                <a href="/tefa/faq" style="text-decoration: none; padding: 10px 24px; border: 1px solid #CBD5E1; border-radius: 8px; color: #64748B; background: #F8FAFC; font-weight: 600; font-size: 14px;">
                     Batal
                 </a>
             </div>
