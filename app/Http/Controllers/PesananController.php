@@ -10,9 +10,11 @@ class PesananController extends Controller
     // Menampilkan semua pesanan
     public function index()
     {
-        $pesanans = Pesanan::latest()->get();
+        // Ambil semua data pesanan dari database
+        $pesanans = Pesanan::all();
 
-        return view('pesanan.index', compact('pesanans'));
+        // Oper variabel $pesanans ke file Blade
+        return view('admin.admin_tefa.pesanan.index', compact('pesanans'));
     }
 
     // Menyimpan pesanan baru

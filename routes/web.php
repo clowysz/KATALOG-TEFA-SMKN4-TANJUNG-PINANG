@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\LoginController;
 
 // ======================================================
 // BAGIAN PUBLIK / PEMBELI
@@ -23,24 +24,96 @@ Route::get('/pencarian', function () { return view('public.pencarian'); });
 // RUTE KATALOG JURUSAN (PUBLIK)
 // ======================================================
 
-
 Route::get('/jurusan', function () { 
     return view('public.jurusan'); 
 });
 
 Route::prefix('jurusan')->group(function () {
-    // SATU RUTE DINAMIS UNTUK SEMUA JURUSAN (rpl, gim, tkj, pspt, dkv, animasi)
     Route::prefix('{slug}')->group(function () {
-        Route::get('/', function ($slug) { return view('public.jurusan.detail-jurusan'); });
         
-        Route::get('/portofolio', function ($slug) { return view('public.portofolio.index'); });
-        Route::get('/portofolio/detail/{id}', function ($slug, $id) { return view('public.portofolio.detail'); })->name('portofolio.detail');
+        // FUNGSI PEMETA DATA DINAMIS PER JURUSAN
+        $getJurusan = function($slug) {
+            $data = [
+                'rpl' => [
+                    'name' => 'REKAYASA PERANGKAT LUNAK',
+                    'description' => 'Di SMKN 4 Tanjungpinang berfokus pada pengembangan bakat dan kompetensi siswa melalui pembelajaran berbasis proyek Teknologi Informasi.',
+                    'logo' => 'images/logo-rpl.png',
+                    'hero' => 'images/rpl-lab.jpeg',
+                ],
+                'tkj' => [
+                    'name' => 'TEKNIK KOMPUTER DAN JARINGAN',
+                    'description' => 'Berfokus pada instalasi jaringan komputer, administrasi server, troubleshooting hardware dan software jaringan secara profesional.',
+                    'logo' => 'images/logo-tkj.png',
+                    'hero' => 'images/tkj-lab.jpeg',
+                ],
+                'dkv' => [
+                    'name' => 'DESAIN KOMUNIKASI VISUAL',
+                    'description' => 'Berfokus pada seni komunikasi visual, desain media cetak, ilustrasi digital, perancangan branding, dan videografi kreatif.',
+                    'logo' => 'images/logo-dkv.png',
+                    'hero' => 'images/dkv-lab.jpeg',
+                ],
+                'gim' => [
+                    'name' => 'PENGEMBANGAN PERANGKAT LUNAK DAN GIM',
+                    'description' => 'Mempelajari logika pemrograman gim, desain aset 2D/3D, animasi interaktif, serta perancangan engine permainan.',
+                    'logo' => 'images/logo-gim.png',
+                    'hero' => 'images/gim-lab.jpeg',
+                ],
+                'pspt' => [
+                    'name' => 'PRODUKSI DAN SIARAN PROGRAM TELEVISI',
+                    'description' => 'Mempelajari teknik produksi film, penyiaran televisi, editing video profesional, dan tata cahaya panggung/studio.',
+                    'logo' => 'images/logo-pspt.png',
+                    'hero' => 'images/pspt-lab.jpeg',
+                ],
+                'animasi' => [
+                    'name' => 'ANIMASI',
+                    'description' => 'Berfokus pada pembuatan animasi 2D dan 3D, modeling karakter, rigging, serta teknik visual effects (VFX) standar industri.',
+                    'logo' => 'images/logo-animasi.png',
+                    'hero' => 'images/anm-lab.jpeg',
+                ],
+            ];
+
+            if (!array_key_exists($slug, $data)) {
+                abort(404);
+            }
+
+            return (object) array_merge(['slug' => $slug], $data[$slug]);
+        };
+
+        // SEMUA RUTE DIBAWAH OTOMATIS MENGIRIM DATA $jurusan KE BLADE
+        Route::get('/', function ($slug) use ($getJurusan) { 
+            $jurusan = $getJurusan($slug);
+            return view('public.jurusan.detail-jurusan', compact('jurusan', 'slug')); 
+        });
         
-        Route::get('/produk', function ($slug) { return view('public.produk.index'); });
-        Route::get('/produk/detail/{id}', function ($slug, $id) { return view('public.produk.detail'); })->name('produk.detail');
+        Route::get('/portofolio', function ($slug) use ($getJurusan) { 
+            $jurusan = $getJurusan($slug);
+            return view('public.portofolio.index', compact('jurusan', 'slug')); 
+        });
         
-        Route::get('/jasa', function ($slug) { return view('public.jasa.index'); });
-        Route::get('/jasa/detail/{id}', function ($slug, $id) { return view('public.jasa.detail'); })->name('jasa.detail');
+        Route::get('/portofolio/detail/{id}', function ($slug, $id) use ($getJurusan) { 
+            $jurusan = $getJurusan($slug);
+            return view('public.portofolio.detail', compact('jurusan', 'slug', 'id')); 
+        })->name('portofolio.detail');
+        
+        Route::get('/produk', function ($slug) use ($getJurusan) { 
+            $jurusan = $getJurusan($slug);
+            return view('public.produk.index', compact('jurusan', 'slug')); 
+        });
+        
+        Route::get('/produk/detail/{id}', function ($slug, $id) use ($getJurusan) { 
+            $jurusan = $getJurusan($slug);
+            return view('public.produk.detail', compact('jurusan', 'slug', 'id')); 
+        })->name('produk.detail');
+        
+        Route::get('/jasa', function ($slug) use ($getJurusan) { 
+            $jurusan = $getJurusan($slug);
+            return view('public.jasa.index', compact('jurusan', 'slug')); 
+        });
+        
+        Route::get('/jasa/detail/{id}', function ($slug, $id) use ($getJurusan) { 
+            $jurusan = $getJurusan($slug);
+            return view('public.jasa.detail', compact('jurusan', 'slug', 'id')); 
+        })->name('jasa.detail');
     });
 });
 
@@ -48,9 +121,20 @@ Route::prefix('jurusan')->group(function () {
 // LOGIN SEMUA ADMIN 
 // ======================================================
 
-Route::get('/login-tefa', function () { return view('admin.login.login-tefa'); });
-Route::get('/login-jurusan', function () { return view('admin.admin_jurusan.login-jurusan'); });
-Route::get('/login-produser', function () { return view('admin.admin_produser.login-produser'); });
+Route::get('/admin/login', [LoginController::class, 'showAdminLogin'])
+    ->name('admin.login');
+
+Route::post('/admin/login', [LoginController::class, 'adminLogin'])
+    ->name('admin.login.proses');
+
+Route::post('/admin/logout', function () {
+    Auth::logout();
+
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect('/admin/login');
+})->name('admin.logout');
 
 
 // ======================================================
@@ -59,23 +143,20 @@ Route::get('/login-produser', function () { return view('admin.admin_produser.lo
 
 Route::get('/dashboard', function () { return view('admin.admin_tefa.dashboard'); });
 
-Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
-Route::put('/pesanan/{id}/status', [PesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
+// Rute Pesanan (Tanpa Database)
+Route::get('/pesanan', function () { return view('admin.admin_tefa.pesanan.index'); });
 Route::get('/pesanan/detail', function () { return view('admin.admin_tefa.pesanan.detail'); });
 
 Route::get('/tefa/jurusan', function () { return view('admin.admin_tefa.jurusan.index'); });
 
-Route::get('/akun', [AkunController::class, 'index'])->name('akun.index');
-Route::get('/akun/tambah', [AkunController::class, 'create'])->name('akun.create');
-Route::post('/akun', [AkunController::class, 'store'])->name('akun.store');
-Route::get('/akun/{id}', [AkunController::class, 'show'])->name('akun.show');
-Route::get('/akun/{id}/edit', [AkunController::class, 'edit'])->name('akun.edit');
-Route::put('/akun/{id}', [AkunController::class, 'update'])->name('akun.update');
-Route::put('/akun/{id}/reset-password', [AkunController::class, 'resetPassword'])->name('akun.reset-password');
-Route::put('/akun/{id}/hapus-akses', [AkunController::class, 'hapusAkses'])->name('akun.hapus-akses');
+// Rute Akun (Tanpa Database)
+Route::get('/akun', function () { return view('admin.admin_tefa.akun.index'); });
 
 Route::get('/profil', function () { return view('admin.admin_tefa.profil.index'); });
-Route::resource('tefa/faq', FaqController::class);
+
+// Rute FAQ (Tanpa Database)
+Route::get('/tefa/faq', function () { return view('admin.admin_tefa.faq.index'); });
+
 
 // ======================================================
 // 2. ADMIN JURUSAN
@@ -94,8 +175,7 @@ Route::get('/jurusan-admin/akun/detail', function () { return view('admin.admin_
 Route::get('/jurusan-admin/akun/edit', function () { return view('admin.admin_jurusan.akun-edit'); });
 Route::get('/jurusan-admin/profil', function () { return view('admin.admin_jurusan.profil'); });
 
-Route::resource('faq', FaqController::class);
-
+Route::resource('jurusan-admin/faq', FaqController::class);
 
 // ======================================================
 // 3. ADMIN PRODUK / JASA (PRODUSER)

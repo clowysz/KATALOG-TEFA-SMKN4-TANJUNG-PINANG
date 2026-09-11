@@ -11,17 +11,18 @@
     <div class="bubble" style="width: 60px; height: 60px; bottom: 40%; right: 20%; animation-duration: 5s;"></div>
 
     <div class="jurusan-hero-content" style="position: relative; z-index: 10;">
-        <div class="jurusan-hero-image">
-            <img src="{{ asset('images/labor.jpeg') }}" alt="Siswa RPL Coding">
-        </div>
-        <div class="jurusan-hero-text">
-            <h3>JURUSAN</h3>
-            <h1>REKAYASA PERANGKAT LUNAK</h1>
-            <p>Di SMKN 4 Tanjungpinang berfokus pada pengembangan bakat dan kompetensi siswa melalui pembelajaran berbasis proyek, menciptakan tenaga kerja yang adaptif, profesional, dan mandiri.</p>
-            <a href="/#jurusan-unggulan" class="btn-kembali-beranda" style="position: relative; z-index: 50;">
-                <i class="ph ph-arrow-u-up-left"></i> Kembali ke Daftar Jurusan
-            </a>
-        </div>
+       <div class="jurusan-hero-image">
+        <img src="{{ asset($jurusan->hero) }}" alt="{{ $jurusan->name }}">
+</div>
+
+    <div class="jurusan-hero-text">
+    <h3>JURUSAN</h3>
+    <h1>{{ $jurusan->name }}</h1>
+    <p>{{ $jurusan->description }}</p>
+    <a href="/#jurusan-unggulan" class="btn-kembali-beranda" style="position: relative; z-index: 50;">
+        <i class="ph ph-arrow-u-up-left"></i> Kembali ke Daftar Jurusan
+    </a>
+</div>
     </div>
 
     <svg class="wave-jurusan" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" style="position: absolute; bottom: -2px; left: 0; width: 100%; display: block; z-index: 1;">

@@ -11,7 +11,7 @@
     
     <div class="jurusan-hero-content" style="position: relative; z-index: 10;">
         <div class="jurusan-hero-image">
-            <img src="{{ asset('images/labor.jpeg') }}" alt="Portofolio RPL">
+            <img src="{{ asset('images/rpl-lab.jpeg') }}" alt="Portofolio RPL">
         </div>
         <div class="jurusan-hero-text">
             <h3>PORTOFOLIO</h3>

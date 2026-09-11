@@ -51,7 +51,14 @@
             <div class="modal-desc" style="color: var(--prod-text-sec);">Anda akan diarahkan kembali ke halaman login.</div>
             <div class="modal-actions">
                 <button type="button" class="btn-outline" onclick="closeModal('modalLogoutProduser')">Batal</button>
-                <a href="/login-tefa" class="btn-primary" style="text-decoration: none; text-align: center; background: var(--prod-error);">Logout</a>
+                <form action="{{ route('admin.logout') }}" method="POST" style="margin: 0;">
+                @csrf
+                <button type="submit"
+                    class="btn-primary"
+                    style="text-decoration: none; text-align: center; background: var(--prod-error); border: none; cursor: pointer;">
+                    Logout
+                </button>
+            </form>
             </div>
         </div>
     </div>

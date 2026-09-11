@@ -56,7 +56,15 @@
             <li class="menu-divider"></li>
 
             <li><a href="/jurusan-admin/profil"><i class="ph ph-user"></i> Profil</a></li>
-            <li><a href="/login-jurusan" class="logout-link"><i class="ph ph-sign-out"></i> Logout</a></li>
+            <li>
+            <form action="{{ route('admin.logout') }}" method="POST">
+                @csrf
+
+                <button type="submit" class="logout-link">
+                    <i class="ph ph-sign-out"></i> Logout
+                </button>
+            </form>
+</li>
         </ul>
 
         <!-- Footer Drawer -->

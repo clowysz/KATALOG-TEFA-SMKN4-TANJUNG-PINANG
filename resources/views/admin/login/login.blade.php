@@ -4,98 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login Admin</title>
+    <title>Login Admin TEFA</title>
 
-    <!-- CSS Global -->
-    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-
-    <!-- CSS Admin TEFA -->
-    <link rel="stylesheet" href="{{ asset('css/admin_tefa.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin-login.css') }}">
 </head>
 
 <body>
 
-<div class="login-container">
+    <div class="login-container">
 
-    <div class="tefa-card login-box">
+        <div class="login-card">
 
-        <!-- HEADER LOGIN -->
-        <div class="login-header">
+            <div class="login-header">
 
-            <h2>Login Admin</h2>
+                <div class="login-icon">
+                    TEFA
+                </div>
 
-            <p>
-                Masuk untuk mengelola Teaching Factory
-            </p>
+                <h2>Login Admin</h2>
 
-        </div>
-
-
-        <!-- FORM LOGIN -->
-        <form action="/dashboard" method="GET">
-
-            <!-- EMAIL -->
-            <label for="email">
-                Email
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                name="email"
-                class="form-control"
-                placeholder="Masukkan email"
-                required
-            >
-
-
-            <!-- PASSWORD -->
-            <label for="password">
-                Password
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                name="password"
-                class="form-control"
-                placeholder="Masukkan password"
-                required
-            >
-
-
-            <!-- SHOW PASSWORD -->
-            <div class="show-password">
-
-                <input
-                    type="checkbox"
-                    id="togglePassword"
-                >
-
-                <label for="togglePassword">
-                    Perlihatkan Password
-                </label>
+                <p>
+                    Silakan masuk sebagai Admin TEFA,
+                    Admin Jurusan, atau Admin Produser.
+                </p>
 
             </div>
 
+            @if ($errors->any())
+                <div class="login-error">
+                    {{ $errors->first() }}
+                </div>
+            @endif
 
-            <!-- TOMBOL LOGIN -->
-            <button
-                type="submit"
-                class="btn-primary"
-            >
-                Masuk
-            </button>
+            <form action="{{ route('admin.login.proses') }}" method="POST">
 
-        </form>
+                @csrf
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Masukkan email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Masukkan password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+            </form>
+
+        </div>
 
     </div>
-
-</div>
-
-
-<!-- JAVASCRIPT -->
-<script src="{{ asset('js/script.js') }}"></script>
 
 </body>
 </html>

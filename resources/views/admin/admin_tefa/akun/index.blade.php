@@ -3,6 +3,39 @@
 @section('title', 'Daftar Akun')
 
 @section('content')
+
+<!-- ==========================================
+     DATA DUMMY SEMENTARA PENGGANTI DATABASE
+     ========================================== -->
+@php
+$akuns = [
+    (object)[
+        'id' => 1,
+        'nama_pengguna' => 'Miftakhul Khoiriyah',
+        'email' => 'miyuki@smkn4tanjungpinang.sch.id',
+        'role' => 'Admin TEFA',
+        'jurusan' => '-',
+        'status' => 'Aktif'
+    ],
+    (object)[
+        'id' => 2,
+        'nama_pengguna' => 'Pak Budi Santoso',
+        'email' => 'budi.rpl@smkn4tanjungpinang.sch.id',
+        'role' => 'Admin Jurusan',
+        'jurusan' => 'Rekayasa Perangkat Lunak',
+        'status' => 'Aktif'
+    ],
+    (object)[
+        'id' => 3,
+        'nama_pengguna' => 'Bu Siti Aminah',
+        'email' => 'siti.dkv@smkn4tanjungpinang.sch.id',
+        'role' => 'Admin Jurusan',
+        'jurusan' => 'Desain Komunikasi Visual',
+        'status' => 'Tidak Aktif'
+    ]
+];
+@endphp
+
 <div class="header-action">
     <div>
         <h2>Daftar Akun</h2>
@@ -44,82 +77,57 @@
                 </tr>
             </thead>
             
-                <tbody>
+            <tbody>
+                @forelse($akuns as $akun)
+                <tr>
+                    <!-- Nama Pengguna -->
+                    <td class="col-nama">
+                        {{ $akun->nama_pengguna }}
+                    </td>
 
-                    @forelse($akuns as $akun)
+                    <!-- Email -->
+                    <td class="col-email">
+                        {{ $akun->email }}
+                    </td>
 
-                    <tr>
+                    <!-- Role -->
+                    <td class="col-role">
+                        {{ $akun->role }}
+                    </td>
 
-                        <!-- Nama Pengguna -->
-                        <td class="col-nama">
-                            {{ $akun->nama_pengguna }}
-                        </td>
+                    <!-- Jurusan -->
+                    <td class="col-jurusan">
+                        {{ $akun->jurusan ?? '-' }}
+                    </td>
 
+                    <!-- Status -->
+                    <td>
+                        @if(strtolower(trim($akun->status)) === 'aktif')
+                            <span class="badge badge-active">
+                                Aktif
+                            </span>
+                        @else
+                            <span class="badge badge-inactive">
+                                Tidak Aktif
+                            </span>
+                        @endif
+                    </td>
 
-                        <!-- Email -->
-                        <td class="col-email">
-                            {{ $akun->email }}
-                        </td>
-
-
-                        <!-- Role -->
-                        <td class="col-role">
-                            {{ $akun->role }}
-                        </td>
-
-
-                        <!-- Jurusan -->
-                        <td class="col-jurusan">
-                            {{ $akun->jurusan ?? '-' }}
-                        </td>
-
-
-                        <!-- Status -->
-                       <td>
-                    @if(strtolower(trim($akun->status)) === 'aktif')
-                        <span class="badge badge-active">
-                            Aktif
-                        </span>
-                    @else
-                        <span class="badge badge-inactive">
-                            Tidak Aktif
-                        </span>
-                    @endif
-                </td>
-
-
-                        <!-- Aksi -->
-                        <td>
-
-                            <a
-                                href="{{ url('/akun/' . $akun->id) }}"
-                                class="btn-outline btn-lihat-detail"
-                            >
-                                Lihat Detail
-                            </a>
-
-                        </td>
-
-                    </tr>
-
-                    @empty
-
-                    <tr>
-
-                        <td
-                            colspan="6"
-                            style="text-align:center; padding:40px;"
-                        >
-                            Belum Ada Akun
-                        </td>
-
-                    </tr>
-
-                    @endforelse
-
-                </tbody>
-
-
+                    <!-- Aksi -->
+                    <td>
+                        <a href="{{ url('/akun/' . $akun->id) }}" class="btn-outline btn-lihat-detail">
+                            Lihat Detail
+                        </a>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="6" style="text-align:center; padding:40px;">
+                        Belum Ada Akun
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
         </table>
     </div>
 
