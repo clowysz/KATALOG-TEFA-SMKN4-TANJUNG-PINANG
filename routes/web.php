@@ -54,7 +54,6 @@ Route::prefix('jurusan')->group(function () {
                 ],
                 'gim' => [
                     'name' => 'PENGEMBANGAN PERANGKAT LUNAK DAN GIM',
-                    'name' => 'GIM',
                     'description' => 'Mempelajari logika pemrograman gim, desain aset 2D/3D, animasi interaktif, serta perancangan engine permainan.',
                     'logo' => 'images/logo-gim.png',
                     'hero' => 'images/gim-lab.jpeg',
@@ -81,8 +80,7 @@ Route::prefix('jurusan')->group(function () {
         };
 
         // SEMUA RUTE DIBAWAH OTOMATIS MENGIRIM DATA $jurusan KE BLADE
-            return (object) array_merge(['slug' => $slug], $data[$slug]);
-        
+
         Route::get('/', function ($slug) use ($getJurusan) { 
             $jurusan = $getJurusan($slug);
             return view('public.jurusan.detail-jurusan', compact('jurusan', 'slug')); 
