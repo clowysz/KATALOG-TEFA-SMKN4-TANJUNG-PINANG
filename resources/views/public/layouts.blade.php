@@ -149,49 +149,31 @@
 </head>
 <body>
 
-    @php
-        $isJurusanPage = Request::is('jurusan/*');
-        $segment = Request::segment(2); 
-        
-        $namaJurusan = 'TEACHING FACTORY';
-        $subNamaJurusan = 'SMKN 4 Tanjungpinang';
-        
-        if($segment == 'rpl') {
-            $namaJurusan = 'REKAYASA PERANGKAT LUNAK';
-        } elseif($segment == 'gim') {
-            $namaJurusan = 'PEMROGRAMAN GIM';
-        } elseif($segment == 'tkj') {
-            $namaJurusan = 'TEKNIK KOMPUTER & JARINGAN';
-        } elseif($segment == 'pspt') {
-            $namaJurusan = 'PSPT';
-        } elseif($segment == 'dkv') {
-            $namaJurusan = 'DESAIN KOMUNIKASI VISUAL';
-        } elseif($segment == 'animasi') {
-            $namaJurusan = 'ANIMASI';
-        }
-    @endphp
+  
 
     <div class="jurusan-sticky-container">
-        <div class="jurusan-nav-pill">
+       <div class="jurusan-nav-pill">
             
-            @if($isJurusanPage && in_array($segment, ['rpl', 'gim', 'tkj', 'pspt', 'dkv', 'animasi']))
-                <a href="/jurusan/{{ $segment }}" class="jurusan-nav-brand">
-                    <img src="{{ asset('images/logo-smk4.png') }}" alt="Logo Jurusan">
+            @if(isset($jurusan))
+                <!-- LOGIKA JIKA HALAMAN JURUSAN -->
+                <a href="/jurusan/{{ $jurusan->slug }}" class="jurusan-nav-brand">
+                    <img src="{{ asset($jurusan->logo) }}" alt="Logo">
                     <div class="jurusan-nav-brand-text">
-                        <h4>{{ $namaJurusan }}</h4>
-                        <p>{{ $subNamaJurusan }}</p>
+                        <h4>{{ $jurusan->name }}</h4>
+                        <p>SMKN 4 Tanjungpinang</p>
                     </div>
                 </a>
 
                 <div class="jurusan-nav-menu">
-                    <a href="/jurusan/{{ $segment }}" class="{{ Request::is('jurusan/' . $segment) ? 'active' : '' }}">DESKRIPSI</a>
-                    <a href="/jurusan/{{ $segment }}/portofolio" class="{{ Request::is('jurusan/' . $segment . '/portofolio*') ? 'active' : '' }}">PORTOFOLIO</a>
-                    <a href="/jurusan/{{ $segment }}/produk" class="{{ Request::is('jurusan/' . $segment . '/produk*') ? 'active' : '' }}">PRODUK</a>
-                    <a href="/jurusan/{{ $segment }}/jasa" class="{{ Request::is('jurusan/' . $segment . '/jasa*') ? 'active' : '' }}">JASA</a>
+                    <a href="/jurusan/{{ $jurusan->slug }}" class="{{ Request::is('jurusan/' . $jurusan->slug) ? 'active' : '' }}">DESKRIPSI</a>
+                    <a href="/jurusan/{{ $jurusan->slug }}/portofolio" class="{{ Request::is('jurusan/' . $jurusan->slug . '/portofolio*') ? 'active' : '' }}">PORTOFOLIO</a>
+                    <a href="/jurusan/{{ $jurusan->slug }}/produk" class="{{ Request::is('jurusan/' . $jurusan->slug . '/produk*') ? 'active' : '' }}">PRODUK</a>
+                    <a href="/jurusan/{{ $jurusan->slug }}/jasa" class="{{ Request::is('jurusan/' . $jurusan->slug . '/jasa*') ? 'active' : '' }}">JASA</a>
                 </div>
 
             @else
-                <a href="/" class="jurusan-nav-brand" onclick="window.location.reload();">
+                <!-- LOGIKA JIKA HALAMAN BERANDA / HOME -->
+                <a href="/" class="jurusan-nav-brand">
                     <img src="{{ asset('images/logo-smk4.png') }}" alt="Logo">
                     <div class="jurusan-nav-brand-text">
                         <h4>TEACHING FACTORY</h4>
@@ -201,11 +183,12 @@
 
                 <div class="jurusan-nav-menu">
                     <a href="/" class="{{ Request::is('/') ? 'active' : '' }}">BERANDA</a>
-                    <!-- PERBAIKAN: Mengubah link agar meluncur ke bagian logo jurusan -->
                     <a href="/#jurusan-unggulan" class="{{ Request::is('jurusan') ? 'active' : '' }}">JURUSAN</a>
                     <a href="/faq" class="{{ Request::is('faq*') ? 'active' : '' }}">FAQ</a>
                 </div>
             @endif
+
+            
 
             <div style="display: flex; align-items: center; gap: 10px;">
                 

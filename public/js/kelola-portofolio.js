@@ -5,6 +5,10 @@ function openTambahPortoModal() {
     document.getElementById('formPorto').reset();
     document.getElementById('portoId').value = '';
     document.getElementById('modalPortoTitle').textContent = 'Tambah Portofolio';
+    
+    // Wajibkan upload foto untuk data baru
+    document.getElementById('portoImg').setAttribute('required', 'true');
+    
     openPortoModal('modalAddPorto');
 }
 
@@ -69,16 +73,32 @@ document.addEventListener("DOMContentLoaded", function() {
             container.appendChild(card);
         });
 
-        // Event Edit
+        // Event Edit (Diperbarui)
         document.querySelectorAll('.btn-edit-porto').forEach(btn => {
             btn.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
                 const item = dataPorto.find(d => d.id === id);
+                
                 document.getElementById('portoId').value = item.id;
                 document.getElementById('portoTitle').value = item.title;
                 document.getElementById('portoDesc').value = item.desc;
                 document.getElementById('portoYear').value = item.year;
-                document.getElementById('portoImg').value = item.img;
+                
+                // Hilangkan required agar user tidak dipaksa upload ulang foto jika hanya ingin edit judul
+                document.getElementById('portoImg').removeAttribute('required');
+                document.getElementById('portoImg').value = ''; 
+                
+                // Tampilkan foto lama di kontainer preview
+                const previewContainer = document.getElementById('imagePreviewContainer');
+                if (previewContainer) {
+                    previewContainer.innerHTML = `
+                        <div style="position: relative; display: inline-block;">
+                            <img src="${item.img}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid #CBD5E1;">
+                            <div style="font-size: 11px; text-align: center; margin-top: 4px; color: #64748b;">Gambar Lama</div>
+                        </div>
+                    `;
+                }
+
                 document.getElementById('modalPortoTitle').textContent = 'Edit Portofolio';
                 openPortoModal('modalAddPorto');
             });
@@ -97,18 +117,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (searchInput) searchInput.addEventListener('keyup', function() { renderPorto(this.value); });
 
-    // Simpan Form
+    // Simpan Form (Diperbarui untuk mendukung LocalStorage sementara)
     document.getElementById('formPorto').addEventListener('submit', function(e) {
         e.preventDefault();
         const id = document.getElementById('portoId').value;
         const isEdit = id !== '';
         
+        // Cek apakah ada file foto baru yang diunggah
+        let finalImage = '';
+        if (window.uploadedFiles && window.uploadedFiles.length > 0) {
+            // Gunakan preview URL sementara untuk localStorage
+            finalImage = URL.createObjectURL(window.uploadedFiles[0]);
+        } else if (isEdit) {
+            // Jika edit tapi tidak upload foto baru, pakai foto lama
+            const oldItem = dataPorto.find(d => d.id === id);
+            finalImage = oldItem.img;
+        } else {
+            // Fallback (seharusnya tidak terjadi karena input file required untuk data baru)
+            finalImage = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80';
+        }
+
         const newItem = {
             id: isEdit ? id : 'pt' + Date.now(),
             title: document.getElementById('portoTitle').value,
             desc: document.getElementById('portoDesc').value,
             year: document.getElementById('portoYear').value,
-            img: document.getElementById('portoImg').value
+            img: finalImage
         };
 
         if (isEdit) {

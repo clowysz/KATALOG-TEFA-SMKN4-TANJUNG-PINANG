@@ -17,21 +17,14 @@
 
     <nav class="drawer" id="navDrawer">
         <div class="drawer-top-header">
-            <h3>TEFA Admin</h3>
+            <h3>TEFA Admin Produser</h3>
             <span class="close-drawer" onclick="toggleDrawer()"><i class="ph ph-x"></i></span>
         </div>
 
-        <!-- Profil Singkat di Drawer -->
-        <div class="drawer-identity-box" style="background: rgba(255,255,255,0.1);">
-            <div class="identity-logo" style="background: white; color: var(--primary);"><i class="ph ph-user-focus"></i></div>
-            <div class="identity-text">
-                <h4 style="color: white;">Admin Produser</h4>
-                <p style="color: rgba(255,255,255,0.7);">Pengelola Pesanan</p>
-            </div>
-        </div>
+       
 
         <ul class="drawer-menu">
-            <li><a href="/produser/dashboard" class="{{ Request::is('produser/dashboard*') ? 'active' : '' }}"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+            <li><a href="/produser/dashboard" class="{{ Request::is('produser/dashboard*') ? 'active' : '' }}"><i class="ph ph-house"></i> Dashboard</a></li>
             <li><a href="/produser/katalog" class="{{ Request::is('produser/katalog*') ? 'active' : '' }}"><i class="ph ph-folder-notch"></i> Produk/Jasa Saya</a></li>
             <li class="menu-divider"></li>
             <li><a href="/produser/profil" class="{{ Request::is('produser/profil*') ? 'active' : '' }}"><i class="ph ph-user-circle"></i> Profil Saya</a></li>
