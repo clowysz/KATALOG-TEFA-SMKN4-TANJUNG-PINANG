@@ -14,7 +14,7 @@ class Jurusan extends Model
 
     // Sesuaikan primary key (default Laravel adalah 'id')
     // Jika di migration kamu memakai $table->id('id_jurusan'), aktifkan baris di bawah ini:
-    // protected $primaryKey = 'id_jurusan';
+     protected $primaryKey = 'id_jurusan';
 
     // Mengizinkan semua kolom diisi secara mass-assignment
     protected $guarded = [];
@@ -33,6 +33,18 @@ class Jurusan extends Model
     public function produkJasas()
     {
         return $this->hasMany(ProdukJasa::class, 'id_jurusan');
+    }
+
+    /**
+     * Relasi ke Portfolio milik Jurusan ini
+     */
+    public function portfolios()
+    {
+        return $this->hasMany(
+            Portfolio::class,
+            'id_jurusan',
+            'id_jurusan'
+        );
     }
 
     /**
