@@ -10,33 +10,36 @@ use Illuminate\Support\Facades\Auth;
 
 class PesananPembeliController extends Controller
 {
-    // Membuat pesanan dari halaman checkout pembeli
     public function store(Request $request)
     {
-        // Pastikan yang membuat pesanan adalah pembeli
         if (Auth::user()->role !== 'pembeli') {
             abort(403, 'Hanya pembeli yang dapat membuat pesanan.');
         }
 
         $request->validate([
             'id_produk_jasa' => 'required|exists:produk_jasa,id_produk_jasa',
+            'jumlah' => 'required|integer|min:1',
+            'catatan' => 'nullable|string|max:2000',
         ]);
 
-        // Produk yang sudah di-soft-delete tidak akan ditemukan
-        // sehingga tidak dapat dipesan lagi.
         $produkJasa = ProdukJasa::findOrFail(
             $request->id_produk_jasa
         );
+
+        $jumlah = (int) $request->jumlah;
+
+        $totalHarga = $produkJasa->harga * $jumlah;
 
         $pesanan = Pesanan::create([
             'id_user' => Auth::id(),
             'id_produk_jasa' => $produkJasa->id_produk_jasa,
             'tanggal_pesan' => now(),
-            'total_harga' => $produkJasa->harga,
+            'jumlah' => $jumlah,
+            'total_harga' => $totalHarga,
+            'catatan' => $request->catatan,
             'status' => 'menunggu konfirmasi',
         ]);
 
-        // Simpan status awal pesanan ke riwayat
         RiwayatStatusPesanan::create([
             'id_pesanan' => $pesanan->id_pesanan,
             'status' => 'menunggu konfirmasi',

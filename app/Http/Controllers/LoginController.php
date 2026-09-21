@@ -19,6 +19,8 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+        $credentials['status'] = 'aktif';
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
@@ -26,23 +28,31 @@ class LoginController extends Controller
             if ($user->role === 'admin_tefa') {
                 return redirect('/dashboard');
             }
+
             if ($user->role === 'admin_jurusan') {
                 return redirect('/jurusan-admin/dashboard');
             }
+
             if ($user->role === 'admin_produser') {
                 return redirect('/produser/dashboard');
             }
 
             Auth::logout();
-            return back()->withErrors(['email' => 'Role akun tidak dikenali.'])->onlyInput('email');
+
+            return back()
+                ->withErrors(['email' => 'Role akun tidak dikenali.'])
+                ->onlyInput('email');
         }
 
-        return back()->withErrors(['email' => 'Email atau password salah.'])->onlyInput('email');
+        return back()
+            ->withErrors(['email' => 'Email atau password salah.'])
+            ->onlyInput('email');
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

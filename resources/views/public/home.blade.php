@@ -48,7 +48,7 @@
                     <h3>Animasi</h3>
                     <div class="jurusan-divider"></div>
                     <p>Mewujudkan imajinasi menjadi animasi inspiratif dan berkarakter.</p>
-                    <a href="/jurusan/animasi" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
+                    <a href="{{ url('/jurusan/animasi') }}" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
                 </div>
 
                 <div class="jurusan-card">
@@ -58,7 +58,7 @@
                     <h3>Rekayasa Perangkat Lunak</h3>
                     <div class="jurusan-divider"></div>
                     <p>Membangun solusi perangkat lunak kreatif, efisien, dan inovatif.</p>
-                    <a href="/jurusan/rpl" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
+                    <a href="{{ url('/jurusan/rpl') }}" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
                 </div>
 
                 <div class="jurusan-card">
@@ -68,7 +68,7 @@
                     <h3>Pemrograman GIM</h3>
                     <div class="jurusan-divider"></div>
                     <p>Mencetak talenta pengembang gim digital yang interaktif dan kompetitif.</p>
-                    <a href="/jurusan/gim" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
+                    <a href="{{ url('/jurusan/gim') }}" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
                 </div>
 
                 <div class="jurusan-card">
@@ -78,7 +78,7 @@
                     <h3>Teknik Komputer &amp; Jaringan</h3>
                     <div class="jurusan-divider"></div>
                     <p>Spesialis infrastruktur jaringan, server handal, dan keamanan sistem komputer.</p>
-                    <a href="/jurusan/tkj" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
+                    <a href="{{ url('/jurusan/tkj') }}" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
                 </div>
 
                 <div class="jurusan-card">
@@ -88,7 +88,7 @@
                     <h3>Produksi &amp; Siaran TV</h3>
                     <div class="jurusan-divider"></div>
                     <p>Menghasilkan karya multimedia penyiaran, video sinematik, dan siaran berkualitas.</p>
-                    <a href="/jurusan/pspt" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
+                    <a href="{{ url('/jurusan/pspt') }}" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
                 </div>
 
                 <div class="jurusan-card">
@@ -98,7 +98,7 @@
                     <h3>Desain Komunikasi Visual</h3>
                     <div class="jurusan-divider"></div>
                     <p>Mengekspresikan pesan dan identitas visual melalui desain grafis profesional.</p>
-                    <a href="/jurusan/dkv" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
+                    <a href="{{ url('/jurusan/dkv') }}" class="btn-lihat-jurusan">Lihat Selengkapnya &gt;</a>
                 </div>
 
             </div>

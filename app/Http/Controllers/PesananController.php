@@ -14,12 +14,25 @@ class PesananController extends Controller
     {
         $pesanans = Pesanan::with([
             'pembeli',
-            'produkJasa'
+            'produkJasa.jurusan'
         ])->get();
 
         return view(
             'admin.admin_tefa.pesanan.index',
             compact('pesanans')
+        );
+    }
+
+    public function show($id)
+    {
+        $pesanan = Pesanan::with([
+            'pembeli',
+            'produkJasa.jurusan'
+        ])->findOrFail($id);
+
+        return view(
+            'admin.admin_tefa.pesanan.detail',
+            compact('pesanan')
         );
     }
 
@@ -32,8 +45,6 @@ class PesananController extends Controller
         $pesanan = Pesanan::with('produkJasa')
             ->findOrFail($id);
 
-        // Jika status menjadi "diproses",
-        // pastikan produk/jasa sudah memiliki Admin Produksi.
         if ($request->status === 'diproses') {
 
             $adaProduser = PenugasanProduser::where(
@@ -48,11 +59,9 @@ class PesananController extends Controller
             }
         }
 
-        // Simpan status baru
         $pesanan->status = $request->status;
         $pesanan->save();
 
-        // Simpan riwayat perubahan status
         RiwayatStatusPesanan::create([
             'id_pesanan' => $pesanan->id_pesanan,
             'status' => $request->status,

@@ -19,14 +19,49 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->redirectGuestsTo(function ($request) {
 
+            // Route admin_jurusan dan admin_produser sudah punya prefix sendiri,
+            // jadi aman dicek dengan wildcard.
             if (
-                $request->is('admin') ||
-                $request->is('admin/*') ||
-                $request->is('dashboard') ||
                 $request->is('jurusan-admin/*') ||
                 $request->is('produser/*')
             ) {
                 return route('admin.login');
+            }
+
+            // Route pembeli yang namanya mirip route admin_tefa
+            // (misal 'profil-pembeli' vs 'profil') harus dicek
+            // LEBIH DULU supaya tidak salah dianggap halaman admin.
+            $rutePembeliMiripAdmin = [
+                'profil-pembeli',
+                'riwayat-pesanan',
+                'riwayat-pesanan/*',
+            ];
+
+            foreach ($rutePembeliMiripAdmin as $ruteMirip) {
+                if ($request->is($ruteMirip)) {
+                    return route('pembeli.login');
+                }
+            }
+
+            // Route admin_tefa TIDAK punya prefix seragam (contoh: /dashboard,
+            // /pesanan, /akun, /profil, /tefa/*), jadi daftar rutenya
+            // dicek satu per satu supaya tidak ada yang kelewat.
+            $ruteAdminTefa = [
+                'admin',
+                'admin/*',
+                'dashboard',
+                'pesanan',
+                'pesanan/*',
+                'akun',
+                'akun/*',
+                'profil',
+                'tefa/*',
+            ];
+
+            foreach ($ruteAdminTefa as $ruteAdmin) {
+                if ($request->is($ruteAdmin)) {
+                    return route('admin.login');
+                }
             }
 
             return route('pembeli.login');

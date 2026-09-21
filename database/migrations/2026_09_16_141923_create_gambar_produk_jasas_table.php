@@ -10,17 +10,17 @@ return new class extends Migration
     {
         Schema::create('gambar_produk_jasa', function (Blueprint $table) {
             $table->id('id_gambar');
-            
-            // Menggunakan unsignedBigInteger agar tipe datanya cocok persis dengan id_produk_jasa
-            $table->unsignedBigInteger('id_produk_jasa'); 
-            $table->string('foto');
+
+            $table->unsignedBigInteger('id_produk_jasa');
+
+            $table->string('path_gambar');
+
             $table->timestamps();
 
-            // Definisi Foreign Key
             $table->foreign('id_produk_jasa')
-                  ->references('id_produk_jasa')
-                  ->on('produk_jasas')
-                  ->onDelete('cascade');
+                ->references('id_produk_jasa')
+                ->on('produk_jasa')
+                ->onDelete('cascade');
         });
     }
 

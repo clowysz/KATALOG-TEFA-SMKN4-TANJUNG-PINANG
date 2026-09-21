@@ -3,65 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title') - Admin TEFA</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>@yield('title') - Admin Produser</title>
+
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin-produser.css') }}">
+
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
+
 <body class="produser-mode">
 
     <header class="header">
-        <span class="hamburger" onclick="toggleDrawer()"><i class="ph ph-list"></i></span>
-        <h2 style="font-family: 'Inter', sans-serif;">@yield('title')</h2>
+        <span class="hamburger" onclick="toggleDrawer()">
+            <i class="ph ph-list"></i>
+        </span>
+
+        <h2 style="font-family: 'Inter', sans-serif;">
+            @yield('title')
+        </h2>
     </header>
 
     <nav class="drawer" id="navDrawer">
+
         <div class="drawer-top-header">
             <h3>TEFA Admin Produser</h3>
-            <span class="close-drawer" onclick="toggleDrawer()"><i class="ph ph-x"></i></span>
+
+            <span class="close-drawer" onclick="toggleDrawer()">
+                <i class="ph ph-x"></i>
+            </span>
         </div>
 
-       
-
         <ul class="drawer-menu">
-            <li><a href="/produser/dashboard" class="{{ Request::is('produser/dashboard*') ? 'active' : '' }}"><i class="ph ph-house"></i> Dashboard</a></li>
-            <li><a href="/produser/katalog" class="{{ Request::is('produser/katalog*') ? 'active' : '' }}"><i class="ph ph-folder-notch"></i> Produk/Jasa Saya</a></li>
+
+            <li>
+                <a href="/produser/dashboard"
+                   class="{{ Request::is('produser/dashboard*') ? 'active' : '' }}">
+                    <i class="ph ph-house"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/produser/pesanan"
+                   class="{{ Request::is('produser/pesanan*') ? 'active' : '' }}">
+                    <i class="ph ph-receipt"></i>
+                    Pesanan
+                </a>
+            </li>
+
+            <li>
+                <a href="/produser/katalog"
+                   class="{{ Request::is('produser/katalog*') ? 'active' : '' }}">
+                    <i class="ph ph-folder-notch"></i>
+                    Produk/Jasa Saya
+                </a>
+            </li>
+
             <li class="menu-divider"></li>
-            <li><a href="/produser/profil" class="{{ Request::is('produser/profil*') ? 'active' : '' }}"><i class="ph ph-user-circle"></i> Profil Saya</a></li>
-            <li><a href="#" onclick="openModal('modalLogoutProduser')" class="logout-link"><i class="ph ph-sign-out"></i> Logout</a></li>
+
+            <li>
+                <a href="/produser/profil"
+                   class="{{ Request::is('produser/profil*') ? 'active' : '' }}">
+                    <i class="ph ph-user-circle"></i>
+                    Profil Saya
+                </a>
+            </li>
+
+            <li>
+                <a href="#"
+                   onclick="openModal('modalLogoutProduser'); return false;"
+                   class="logout-link">
+                    <i class="ph ph-sign-out"></i>
+                    Logout
+                </a>
+            </li>
+
         </ul>
+
     </nav>
-    <div class="overlay" id="overlay" onclick="toggleDrawer()"></div>
+
+    <div class="overlay"
+         id="overlay"
+         onclick="toggleDrawer()">
+    </div>
 
     <main class="main-content">
         @yield('content')
     </main>
 
-    <!-- Modal Logout Global -->
-    <div id="modalLogoutProduser" class="modal-overlay">
-        <div class="modal-box" style="border-radius: 14px;">
-            <div class="modal-title">Keluar dari akun?</div>
-            <div class="modal-desc" style="color: var(--prod-text-sec);">Anda akan diarahkan kembali ke halaman login.</div>
-            <div class="modal-actions">
-                <button type="button" class="btn-outline" onclick="closeModal('modalLogoutProduser')">Batal</button>
-                <form action="{{ route('admin.logout') }}" method="POST" style="margin: 0;">
-                @csrf
-                <button type="submit"
-                    class="btn-primary"
-                    style="text-decoration: none; text-align: center; background: var(--prod-error); border: none; cursor: pointer;">
-                    Logout
-                </button>
-            </form>
+    {{-- Modal Logout --}}
+    <div id="modalLogoutProduser"
+         class="modal-overlay">
+
+        <div class="modal-box"
+             style="border-radius: 14px;">
+
+            <div class="modal-title">
+                Keluar dari akun?
             </div>
+
+            <div class="modal-desc"
+                 style="color: var(--prod-text-sec);">
+                Anda akan diarahkan kembali ke halaman login.
+            </div>
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="btn-outline"
+                        onclick="closeModal('modalLogoutProduser')">
+                    Batal
+                </button>
+
+                {{-- Logout menggunakan POST agar Auth::logout() benar-benar dipanggil --}}
+                <form action="{{ url('/admin/logout') }}"
+                      method="POST"
+                      style="margin: 0;">
+
+                    @csrf
+
+                    <button type="submit"
+                            class="btn-primary"
+                            style="
+                                border: none;
+                                cursor: pointer;
+                                background: var(--prod-error);
+                            ">
+                        Logout
+                    </button>
+
+                </form>
+
+            </div>
+
         </div>
+
     </div>
 
     <script src="{{ asset('js/script.js') }}"></script>
+
     <script src="{{ asset('js/produser-action.js') }}"></script>
+
     <script>
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function openModal(id) {
+            const modal = document.getElementById(id);
+
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
     </script>
-    @yield('scripts')
+
+    @stack('scripts')
+
 </body>
 </html>

@@ -10,13 +10,13 @@ return new class extends Migration
     {
         Schema::create('gambar_portfolio', function (Blueprint $table) {
             $table->id('id_gambar_portfolio');
-            
-            // Mengacu ke nama tabel 'portfolio' (tanpa s)
-            $table->foreignId('id_portfolio')
-                  ->constrained('portfolio', 'id_portfolio')
-                  ->onDelete('cascade');
 
-            $table->string('foto');
+            $table->foreignId('id_portfolio')
+                ->constrained('portfolio', 'id_portfolio')
+                ->onDelete('cascade');
+
+            $table->string('path_gambar');
+
             $table->timestamps();
         });
     }

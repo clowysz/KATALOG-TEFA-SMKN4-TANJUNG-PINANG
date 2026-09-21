@@ -10,9 +10,36 @@ use Illuminate\Support\Facades\Storage;
 
 class ProdukJasaController extends Controller
 {
-    /**
-     * Menambahkan Produk/Jasa.
-     */
+    // Ambil data Produk/Jasa
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        $jurusan = $user->jurusanDipegang;
+
+        if (!$jurusan) {
+            return response()->json([
+                'message' => 'Akun ini belum memiliki jurusan.'
+            ], 404);
+        }
+
+        $query = ProdukJasa::with('gambars')
+            ->withCount('pesanans')
+            ->where('id_jurusan', $jurusan->id_jurusan);
+
+        if ($request->filled('jenis')) {
+            $query->where('jenis', $request->jenis);
+        }
+
+        $data = $query
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    // Tambah Produk/Jasa
     public function store(Request $request)
     {
         $request->validate([
@@ -28,9 +55,9 @@ class ProdukJasaController extends Controller
         $jurusan = $user->jurusanDipegang;
 
         if (!$jurusan) {
-            return redirect()->back()->withErrors([
-                'error' => 'Akun ini belum memiliki jurusan.'
-            ]);
+            return response()->json([
+                'message' => 'Akun ini belum memiliki jurusan.'
+            ], 404);
         }
 
         $produkJasa = ProdukJasa::create([
@@ -50,32 +77,30 @@ class ProdukJasaController extends Controller
             ]);
         }
 
-        return redirect()->back()->with(
-            'success',
-            'Produk/Jasa berhasil ditambahkan!'
-        );
+        return response()->json([
+            'message' => 'Produk/Jasa berhasil ditambahkan!'
+        ]);
     }
 
-    /**
-     * Menghapus Produk/Jasa dari katalog.
-     *
-     * Menggunakan Soft Delete.
-     *
-     * Catatan:
-     * Jangan menghapus file gambar di sini.
-     * Produk hanya diberi deleted_at, sedangkan gambar
-     * tetap disimpan agar riwayat pesanan lama tetap
-     * dapat menampilkan foto produk.
-     */
-    public function destroy($id)
+    // Edit Produk/Jasa
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_produk_jasa' => 'required|string|max:255',
+            'jenis' => 'required|in:produk,jasa',
+            'deskripsi' => 'required|string',
+            'harga' => 'required|numeric',
+            'gambar' => 'nullable|array',
+            'gambar.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
         $user = Auth::user();
         $jurusan = $user->jurusanDipegang;
 
         if (!$jurusan) {
-            return redirect()->back()->withErrors([
-                'error' => 'Akun ini belum memiliki jurusan.'
-            ]);
+            return response()->json([
+                'message' => 'Akun ini belum memiliki jurusan.'
+            ], 404);
         }
 
         $produkJasa = ProdukJasa::where(
@@ -88,31 +113,67 @@ class ProdukJasaController extends Controller
         )
         ->firstOrFail();
 
-        // Soft delete:
-        // Produk hilang dari katalog,
-        // tetapi data produk dan gambar tetap tersimpan.
-        $produkJasa->delete();
+        $produkJasa->update([
+            'nama_produk_jasa' => $request->nama_produk_jasa,
+            'jenis' => $request->jenis,
+            'deskripsi' => $request->deskripsi,
+            'harga' => $request->harga,
+        ]);
 
-        return redirect()->back()->with(
-            'success',
-            'Produk/Jasa berhasil dihapus dari katalog!'
-        );
+        if ($request->hasFile('gambar')) {
+            foreach ($request->file('gambar') as $file) {
+                $path = $file->store('produk_jasa', 'public');
+
+                $produkJasa->gambars()->create([
+                    'path_gambar' => $path,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'message' => 'Produk/Jasa berhasil diperbarui!'
+        ]);
     }
 
-    /**
-     * Menghapus satu gambar Produk/Jasa.
-     *
-     * Ini benar-benar menghapus file gambar yang dipilih.
-     */
+    // Soft delete Produk/Jasa
+    public function destroy($id)
+    {
+        $user = Auth::user();
+        $jurusan = $user->jurusanDipegang;
+
+        if (!$jurusan) {
+            return response()->json([
+                'message' => 'Akun ini belum memiliki jurusan.'
+            ], 404);
+        }
+
+        $produkJasa = ProdukJasa::where(
+            'id_produk_jasa',
+            $id
+        )
+        ->where(
+            'id_jurusan',
+            $jurusan->id_jurusan
+        )
+        ->firstOrFail();
+
+        $produkJasa->delete();
+
+        return response()->json([
+            'message' => 'Produk/Jasa berhasil dihapus dari katalog!'
+        ]);
+    }
+
+    // Hapus satu gambar
     public function destroyGambar($id_gambar)
     {
         $user = Auth::user();
         $jurusan = $user->jurusanDipegang;
 
         if (!$jurusan) {
-            return redirect()->back()->withErrors([
-                'error' => 'Akun ini belum memiliki jurusan.'
-            ]);
+            return response()->json([
+                'message' => 'Akun ini belum memiliki jurusan.'
+            ], 404);
         }
 
         $gambar = GambarProdukJasa::where(
@@ -133,9 +194,8 @@ class ProdukJasaController extends Controller
 
         $gambar->delete();
 
-        return redirect()->back()->with(
-            'success',
-            'Gambar berhasil dihapus!'
-        );
+        return response()->json([
+            'message' => 'Gambar berhasil dihapus!'
+        ]);
     }
 }

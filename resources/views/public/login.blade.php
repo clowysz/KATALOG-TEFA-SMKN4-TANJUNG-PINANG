@@ -24,13 +24,22 @@
             <i class="ph ph-user"></i>
         </div>
 
-        <form action="/profil-pembeli" method="GET">
+        <!-- Form Login -->
+        <form action="{{ route('pembeli.login.proses') }}" method="POST">
+            @csrf
+
             <!-- Hanya Email dan Sandi -->
             <div class="login-form-group">
                 <label>Email</label>
                 <div class="login-input-box">
                     <i class="ph ph-envelope"></i>
-                    <input type="email" placeholder="Masukkan email" required>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Masukkan email"
+                        value="{{ old('email') }}"
+                        required
+                    >
                 </div>
             </div>
 
@@ -38,25 +47,46 @@
                 <label>Sandi</label>
                 <div class="login-input-box">
                     <i class="ph ph-lock-key"></i>
-                    <input type="password" id="passwordPembeli" placeholder="Masukkan sandi" required>
-                    <i class="ph ph-eye" id="togglePasswordPembeli" style="cursor: pointer; margin-right: 0; margin-left: 12px;"></i>
+                    <input
+                        type="password"
+                        name="password"
+                        id="passwordPembeli"
+                        placeholder="Masukkan sandi"
+                        required
+                    >
+                    <i
+                        class="ph ph-eye"
+                        id="togglePasswordPembeli"
+                        style="cursor: pointer; margin-right: 0; margin-left: 12px;"
+                    ></i>
                 </div>
             </div>
 
             <div class="login-options">
                 <label>
-                    <input type="checkbox"> Ingat saya
+                    <input type="checkbox">
+                    Ingat saya
                 </label>
-                <a href="#">Lupa sandi?</a>
+                <a href="#">
+                    Lupa sandi?
+                </a>
             </div>
 
-            <button type="submit" class="btn-login-submit">Masuk</button>
+            <button type="submit" class="btn-login-submit">
+                Masuk
+            </button>
         </form>
     </div>
 
     <!-- Teks Bawah dengan Link Daftar Akun -->
     <p class="login-footer-text">
-        Belum punya akun? <a href="/daftar-pembeli" style="color: white; font-weight: 600; text-decoration: underline;">Daftar akun</a>
+        Belum punya akun?
+        <a
+            href="{{ route('pembeli.register') }}"
+            style="color: white; font-weight: 600; text-decoration: underline;"
+        >
+            Daftar akun
+        </a>
     </p>
 </div>
 
@@ -70,7 +100,7 @@
             togglePassword.addEventListener('click', function () {
                 const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
                 password.setAttribute('type', type);
-                
+
                 if (type === 'password') {
                     this.classList.remove('ph-eye-slash');
                     this.classList.add('ph-eye');

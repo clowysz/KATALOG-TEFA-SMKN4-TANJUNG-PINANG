@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Pesanan extends Model
 {
     protected $table = 'pesanan';
+
     protected $primaryKey = 'id_pesanan';
 
     protected $fillable = [
         'id_user',
         'id_produk_jasa',
         'tanggal_pesan',
+        'jumlah',
         'total_harga',
+        'catatan',
         'status',
     ];
 
@@ -51,5 +54,14 @@ class Pesanan extends Model
             'id_pesanan',
             'id_pesanan'
         );
+    }
+
+    public function tahapanPengerjaan()
+    {
+        return $this->hasMany(
+            TahapanPengerjaan::class,
+            'id_pesanan',
+            'id_pesanan'
+        )->orderBy('urutan');
     }
 }

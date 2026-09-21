@@ -1,167 +1,164 @@
 @extends('admin.layouts.app-produser')
-
-@section('title', 'Detail Pesanan')
-
+@section('title','Detail Pesanan')
 @section('content')
-<div style="margin-bottom: 24px;">
-    <a href="/produser/pesanan" class="btn-outline" style="border: none; padding-left: 0; color: white; background: var(--prod-text-sec); padding: 8px 16px; border-radius: 8px; text-decoration: none;"><i class="ph ph-arrow-left"></i> Kembali ke Daftar</a>
+@php
+$tahapanList=$pesanan->tahapanPengerjaan->sortBy('urutan')->values();
+$bolehKelola=$pesanan->status==='diproses';
+@endphp
+<div class="container-fluid py-4" id="produserOrderPage">
+<div class="d-flex justify-content-between align-items-center mb-4">
+<div><h3 class="fw-bold mb-1">Detail Pesanan</h3><p class="text-muted mb-0">Kelola pengerjaan pesanan dan tahapan pekerjaan.</p></div>
+<a href="{{ route('admin.produser.pesanan') }}" class="btn btn-outline-secondary"><i class="ph ph-arrow-left me-1"></i>Kembali</a>
 </div>
-
-<!-- KOTAK BIRU (HERO CARD) -->
-<div class="order-hero-card">
-    <div class="order-hero-top">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <div style="display: flex; gap: 8px;">
-                <span class="hero-badge-dark" id="heroOrderId">ORD-000</span>
-                <span class="hero-badge-light" id="heroStatusPesanan">Memuat...</span>
-            </div>
-            <span class="hero-badge-light" id="heroStatusPengerjaan" style="color: var(--prod-text-sec);">Memuat...</span>
-        </div>
-        <div>
-            <h2 id="heroTitle" style="font-size: 24px; margin-bottom: 12px; font-weight: 700;">Memuat Judul...</h2>
-            <div style="display: flex; gap: 12px; align-items: center; font-size: 13px; color: rgba(255,255,255,0.8);">
-                <span id="heroType" style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px;">-</span>
-                <span id="heroCode">Kode: -</span>
-            </div>
-        </div>
-    </div>
-    <div class="order-hero-bottom" style="background: white; border-top: 1px solid var(--prod-border);">
-        <div><div class="hero-stat-label">Tanggal Pemesanan</div><div class="hero-stat-value" id="statDate">-</div></div>
-        <div><div class="hero-stat-label">Pelanggan</div><div class="hero-stat-value" id="statCustomer">-</div></div>
-        <div><div class="hero-stat-label">Total Harga</div><div class="hero-stat-value" id="statPrice">-</div></div>
-        <div><div class="hero-stat-label">Status Pengerjaan</div><div class="hero-stat-value" id="statStatus">-</div></div>
-    </div>
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert"><i class="ph ph-check-circle me-1"></i>{{ session('success') }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+@endif
+@if($errors->any())
+<div class="alert alert-danger alert-dismissible fade show" role="alert"><ul class="mb-0">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+@endif
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+<div class="card-body p-4">
+<div class="row align-items-center">
+<div class="col-lg-8">
+<div class="d-flex align-items-center gap-2 mb-2"><span class="badge bg-light text-dark border">#{{ $pesanan->id_pesanan }}</span><span class="badge bg-primary">{{ ucfirst($pesanan->status) }}</span></div>
+<h2 class="fw-bold mb-2">{{ $pesanan->produkJasa->nama_produk_jasa ?? 'Produk/Jasa' }}</h2>
+<div class="text-muted"><span class="me-3"><i class="ph ph-tag me-1"></i>{{ ucfirst($pesanan->produkJasa->jenis ?? '-') }}</span>@if($pesanan->produkJasa?->jurusan)<span><i class="ph ph-buildings me-1"></i>{{ $pesanan->produkJasa->jurusan->nama_jurusan }}</span>@endif</div>
 </div>
-
-<div style="display: grid; grid-template-columns: 1fr 400px; gap: 24px; align-items: start;">
-    <!-- KOLOM KIRI (Kebutuhan & Stepper) -->
-    <div style="display: flex; flex-direction: column; gap: 24px;">
-        <div class="tefa-card" style="padding: 24px; background: white;">
-            <h3 style="font-size: 16px; margin-bottom: 4px;">Kebutuhan Pelanggan</h3>
-            <p style="font-size: 13px; color: var(--prod-text-sec); margin-bottom: 24px;">Informasi permintaan dari pelanggan (read-only)</p>
-            <div id="detNeedTitle" style="font-size: 15px; font-weight: 600; color: var(--prod-text-main); margin-bottom: 12px;"></div>
-            <div id="detNeedDesc" style="font-size: 14px; line-height: 1.6; color: var(--prod-text-sec);">Memuat detail...</div>
-        </div>
-
-        <div class="tefa-card" style="padding: 24px; background: white;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                <div>
-                    <h3 style="font-size: 16px; margin-bottom: 4px;">Tahapan Pengerjaan</h3>
-                    <p style="font-size: 13px; color: var(--prod-text-sec);" id="stepperSubtitle">0 dari 0 tahap selesai</p>
-                </div>
-                <!-- PERBAIKAN: Tombol Kelola Tahapan Diaktifkan -->
-                <button type="button" onclick="openModalTahapan()" class="btn-outline" style="padding: 6px 12px; font-size: 13px; background: #F8FAFC; border-color: var(--prod-border); cursor: pointer;"><i class="ph ph-gear"></i> Kelola Tahapan</button>
-            </div>
-            
-            <div class="stepper-container" id="stepperContainer"></div>
-        </div>
-    </div>
-
-    <!-- KOLOM KANAN (Form Update Interaktif) -->
-    <div class="tefa-card" style="padding: 24px; background: white; position: sticky; top: 24px;">
-        <h3 style="font-size: 16px; margin-bottom: 4px;">Perbarui Progress</h3>
-        <p style="font-size: 13px; color: var(--prod-text-sec); margin-bottom: 20px;" id="formSubtitle">Memperbarui: Tahap...</p>
-        
-        <div id="selectedStageBox" class="selected-stage-box" style="margin-bottom: 24px;">Pilih tahap pengerjaan...</div>
-
-        <form id="formUpdateProgress">
-            <input type="hidden" id="activeStageId">
-            
-            <label class="detail-label" style="font-weight: 600; color: var(--prod-text-main);">Status Tahap</label>
-            <select id="updateStatus" class="form-control" style="margin-bottom: 24px; padding: 12px;" required disabled>
-                <option value="Belum Dimulai">Belum Dimulai</option>
-                <option value="Sedang Dikerjakan">Sedang Dikerjakan</option>
-                <option value="Dalam Revisi">Dalam Revisi</option>
-                <option value="Selesai">Selesai</option>
-            </select>
-
-            <div id="progressSliderBox" style="margin-bottom: 24px;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px;">
-                    <label class="detail-label" style="margin-bottom: 0; font-weight: 600; color: var(--prod-text-main);">Progress Pengerjaan</label>
-                    <div style="font-weight: 700; color: var(--primary);" id="progressText">0%</div>
-                </div>
-                <input type="range" id="updateProgress" class="range-slider" min="0" max="100" value="0" disabled>
-                <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--prod-text-sec); margin-top: 6px;">
-                    <span>0%</span><span>100%</span>
-                </div>
-            </div>
-
-            <label class="detail-label" style="font-weight: 600; color: var(--prod-text-main);">Catatan / Update</label>
-            <textarea id="updateNote" class="form-control" rows="4" placeholder="Ketik catatan progres..." required disabled style="padding: 12px;"></textarea>
-
-            <div style="display: flex; gap: 16px; margin-top: 16px;">
-                <button type="button" class="btn-outline" style="flex: 1; padding: 12px;">Batal</button>
-                <button type="submit" id="btnSimpanUpdate" class="btn-primary" style="flex: 2; padding: 12px;" disabled>Simpan Update</button>
-            </div>
-        </form>
-    </div>
+<div class="col-lg-4 text-lg-end mt-3 mt-lg-0"><div class="small text-muted mb-1">Total Pesanan</div><div class="fs-3 fw-bold">Rp {{ number_format($pesanan->total_harga,0,',','.') }}</div><div class="small text-muted">{{ $pesanan->jumlah }} item</div></div>
 </div>
-
-<!-- ================= MODAL KELOLA TAHAPAN (CRUD) ================= -->
-<div id="modalKelolaTahapan" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
-    <div class="modal-box" style="background: white; border-radius: 16px; width: 100%; max-width: 650px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-height: 90vh; overflow-y: auto;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--prod-border); padding-bottom: 12px;">
-            <div>
-                <h3 style="font-size: 18px; font-weight: 700; color: var(--prod-text-main); margin-bottom: 2px;">Kelola Tahapan Pengerjaan</h3>
-                <p style="font-size: 13px; color: var(--prod-text-sec);">Tambah, ubah, atau hapus tahapan untuk pesanan ini</p>
-            </div>
-            <button type="button" onclick="closeModalTahapan()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--prod-text-sec);"><i class="ph ph-x"></i></button>
-        </div>
-
-        <button type="button" onclick="openFormTambahTahap()" class="btn-primary" style="margin-bottom: 16px; padding: 10px 16px; font-size: 13px; width: auto;"><i class="ph ph-plus"></i> Tambah Tahap Baru</button>
-
-        <div style="overflow-x: auto; border: 1px solid var(--prod-border); border-radius: 8px; margin-bottom: 20px;">
-            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
-                <thead>
-                    <tr style="background: #F8FAFC; border-bottom: 1px solid var(--prod-border); color: var(--prod-text-sec);">
-                        <th style="padding: 12px;">No</th>
-                        <th style="padding: 12px;">Nama Tahap</th>
-                        <th style="padding: 12px;">Status</th>
-                        <th style="padding: 12px; text-align: center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="tabelTahapanBody">
-                    <tr>
-                        <td colspan="4" style="text-align: center; padding: 20px; color: var(--prod-text-sec);">Memuat data tahapan...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div style="display: flex; justify-content: flex-end;">
-            <button type="button" onclick="closeModalTahapan()" class="btn-outline" style="padding: 10px 20px;">Tutup</button>
-        </div>
-    </div>
 </div>
-
-<!-- SUB-MODAL FORM TAMBAH / EDIT TAHAP -->
-<div id="modalFormTahap" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1100; justify-content: center; align-items: center;">
-    <div class="modal-box" style="background: white; border-radius: 16px; width: 100%; max-width: 450px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-        <h3 id="formTahapTitle" style="font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--prod-text-main);">Tambah Tahap</h3>
-        <form id="formSimpanTahap">
-            <input type="hidden" id="editStageId">
-            <label class="detail-label" style="font-weight: 600; color: var(--prod-text-main);">Nama Tahap Pengerjaan</label>
-            <input type="text" id="inputNamaTahap" class="form-control" placeholder="Contoh: Desain UI/UX" required style="margin-bottom: 16px; padding: 10px;">
-            
-            <label class="detail-label" style="font-weight: 600; color: var(--prod-text-main);">Status Awal</label>
-            <select id="inputStatusTahap" class="form-control" style="margin-bottom: 20px; padding: 10px;" required>
-                <option value="Belum Dimulai">Belum Dimulai</option>
-                <option value="Sedang Dikerjakan">Sedang Dikerjakan</option>
-                <option value="Dalam Revisi">Dalam Revisi</option>
-                <option value="Selesai">Selesai</option>
-            </select>
-
-            <div style="display: flex; gap: 12px;">
-                <button type="button" onclick="closeFormTahap()" class="btn-outline" style="flex: 1; padding: 10px;">Batal</button>
-                <button type="submit" class="btn-primary" style="flex: 2; padding: 10px;">Simpan Tahap</button>
-            </div>
-        </form>
-    </div>
 </div>
-
-<div id="toastUpdate" class="toast-notification"></div>
+<div class="row g-4 mb-4">
+<div class="col-lg-8">
+<div class="card border-0 shadow-sm rounded-4 h-100">
+<div class="card-body p-4">
+<h5 class="fw-bold mb-4"><i class="ph ph-info me-2"></i>Informasi Pesanan</h5>
+<div class="row g-4">
+<div class="col-md-6"><div class="small text-muted mb-1">Tanggal Pesanan</div><div class="fw-semibold">{{ \Carbon\Carbon::parse($pesanan->tanggal_pesan)->translatedFormat('d F Y, H:i') }}</div></div>
+<div class="col-md-6"><div class="small text-muted mb-1">Harga Satuan</div><div class="fw-semibold">Rp {{ number_format($pesanan->produkJasa->harga ?? 0,0,',','.') }}</div></div>
+<div class="col-md-6"><div class="small text-muted mb-1">Jumlah</div><div class="fw-semibold">{{ $pesanan->jumlah }} item</div></div>
+<div class="col-md-6"><div class="small text-muted mb-1">Total Harga</div><div class="fw-semibold">Rp {{ number_format($pesanan->total_harga,0,',','.') }}</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="card border-0 shadow-sm rounded-4 h-100">
+<div class="card-body p-4">
+<h5 class="fw-bold mb-3"><i class="ph ph-note me-2"></i>Catatan Pembeli</h5>
+@if($pesanan->catatan)<div class="text-muted" style="white-space:pre-line;">{{ $pesanan->catatan }}</div>@else<div class="text-muted">Tidak ada catatan dari pembeli.</div>@endif
+</div>
+</div>
+</div>
+</div>
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+<div class="card-body p-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
+<div><h5 class="fw-bold mb-1"><i class="ph ph-list-numbers me-2"></i>Tahapan Pengerjaan</h5><p class="text-muted mb-0">Atur tahapan pekerjaan pesanan ini.</p></div>
+@if($bolehKelola)<button type="button" class="btn btn-primary" onclick="openModalTahapan()"><i class="ph ph-list-plus me-1"></i>Kelola Tahapan</button>@endif
+</div>
+@if(!$bolehKelola)
+<div class="alert alert-light border mb-4"><i class="ph ph-info me-1"></i>Tahapan dan progress dapat dikelola setelah pesanan berstatus <strong>diproses</strong>.</div>
+@endif
+@if($tahapanList->count())
+<div class="row g-3">
+@foreach($tahapanList as $index=>$tahapan)
+<div class="col-12"><div class="border rounded-4 p-3"><div class="d-flex align-items-start gap-3"><div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:40px;height:40px;min-width:40px;">{{ $index+1 }}</div><div class="flex-grow-1"><div class="d-flex justify-content-between align-items-start gap-2"><div><h6 class="fw-bold mb-1">{{ $tahapan->nama_tahapan }}</h6><span class="badge bg-light text-dark border">{{ $tahapan->status }}</span></div><div class="fw-bold">{{ $tahapan->persentase_progress }}%</div></div><div class="progress mt-3" style="height:8px;"><div class="progress-bar" role="progressbar" style="width:{{ $tahapan->persentase_progress }}%;"></div></div></div></div></div></div>
+@endforeach
+</div>
+@else
+<div class="text-center py-5 text-muted"><i class="ph ph-list-dashes" style="font-size:48px;"></i><p class="mt-3 mb-2 fw-semibold">Belum ada tahapan pengerjaan</p>@if($bolehKelola)<p class="small mb-3">Tambahkan tahapan agar proses pengerjaan dapat dipantau.</p><button type="button" class="btn btn-primary" onclick="openModalTahapan()"><i class="ph ph-plus me-1"></i>Tambah Tahapan</button>@else<p class="small mb-0">Tahapan belum dapat dibuat sebelum pesanan diproses.</p>@endif</div>
+@endif
+</div>
+</div>
+@if($bolehKelola)
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+<div class="card-body p-4">
+<div class="mb-4"><h5 class="fw-bold mb-1"><i class="ph ph-chart-line-up me-2"></i>Perbarui Progress</h5><p class="text-muted mb-0">Catat perkembangan pengerjaan pesanan.</p></div>
+<form action="{{ route('produser.updateProgress',$pesanan->id_pesanan) }}" method="POST">
+@csrf
+<div class="row g-4">
+<div class="col-md-6"><label class="form-label fw-semibold">Progress Pengerjaan</label><div class="d-flex align-items-center gap-3"><input type="range" class="form-range flex-grow-1" name="persentase_progress" id="updateProgress" min="0" max="100" value="0" oninput="document.getElementById('progressValue').innerText=this.value+'%'"><span id="progressValue" class="fw-bold" style="min-width:45px;">0%</span></div></div>
+<div class="col-md-6"><label class="form-label fw-semibold">Keterangan Progress</label><input type="text" name="keterangan_progress" class="form-control" maxlength="255" placeholder="Contoh: Tahap desain sudah selesai." required></div>
+<div class="col-12"><button type="submit" class="btn btn-primary"><i class="ph ph-floppy-disk me-1"></i>Simpan Progress</button></div>
+</div>
+</form>
+</div>
+</div>
+@endif
+<div class="card border-0 shadow-sm rounded-4">
+<div class="card-body p-4">
+<h5 class="fw-bold mb-4"><i class="ph ph-clock-counter-clockwise me-2"></i>Riwayat Progress</h5>
+@if($pesanan->progressPengerjaan->count())
+<div class="timeline">
+@foreach($pesanan->progressPengerjaan->sortByDesc('tanggal_update') as $progress)
+<div class="border-start border-2 ps-4 pb-4 position-relative"><span class="position-absolute bg-primary rounded-circle" style="width:12px;height:12px;left:-7px;top:4px;"></span><div class="d-flex justify-content-between align-items-start gap-3"><div><div class="fw-bold">{{ $progress->persentase_progress }}%</div><div class="text-muted">{{ $progress->keterangan_progress }}</div><div class="small text-muted mt-1">Oleh: {{ $progress->pelaksana->nama ?? '-' }}</div></div><div class="small text-muted text-end">{{ \Carbon\Carbon::parse($progress->tanggal_update)->translatedFormat('d M Y') }}<br>{{ \Carbon\Carbon::parse($progress->tanggal_update)->format('H:i') }}</div></div></div>
+@endforeach
+</div>
+@else
+<div class="text-center py-4 text-muted"><i class="ph ph-clock" style="font-size:40px;"></i><p class="mb-0 mt-2">Belum ada riwayat progress.</p></div>
+@endif
+</div>
+</div>
+</div>
+@if($bolehKelola)
+<div class="modal fade" id="modalKelolaTahapan" tabindex="-1" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content border-0 rounded-4">
+<div class="modal-header"><div><h5 class="modal-title fw-bold">Kelola Tahapan Pengerjaan</h5><small class="text-muted">Tambah, ubah, hapus, atau atur urutan tahapan.</small></div><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+<div class="modal-body">
+<div class="d-flex justify-content-end mb-3"><button type="button" class="btn btn-primary" onclick="openFormTambahTahap()"><i class="ph ph-plus me-1"></i>Tambah Tahapan</button></div>
+@if($tahapanList->count())
+<div class="table-responsive"><table class="table align-middle"><thead><tr><th width="70">No.</th><th>Tahapan</th><th>Status</th><th width="100">Progress</th><th width="180" class="text-end">Aksi</th></tr></thead><tbody>
+@foreach($tahapanList as $index=>$tahapan)
+<tr>
+<td><span class="fw-bold">{{ $index+1 }}</span></td>
+<td><div class="fw-semibold">{{ $tahapan->nama_tahapan }}</div></td>
+<td><span class="badge bg-light text-dark border">{{ $tahapan->status }}</span></td>
+<td>{{ $tahapan->persentase_progress }}%</td>
+<td class="text-end"><div class="d-flex justify-content-end gap-1">
+@if($index>0)<button type="button" class="btn btn-sm btn-outline-secondary" title="Naik" onclick="reorderTahapan({{ $tahapan->id_tahapan }},'up')"><i class="ph ph-caret-up"></i></button>@endif
+@if($index<$tahapanList->count()-1)<button type="button" class="btn btn-sm btn-outline-secondary" title="Turun" onclick="reorderTahapan({{ $tahapan->id_tahapan }},'down')"><i class="ph ph-caret-down"></i></button>@endif
+<button type="button" class="btn btn-sm btn-outline-primary" onclick="openEditTahap({{ $tahapan->id_tahapan }},@js($tahapan->nama_tahapan),@js($tahapan->status),{{ $tahapan->persentase_progress }})"><i class="ph ph-pencil-simple"></i></button>
+<form action="{{ route('produser.tahapan.destroy',[$pesanan->id_pesanan,$tahapan->id_tahapan]) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus tahapan ini?')">@csrf @method('DELETE')<button type="submit" class="btn btn-sm btn-outline-danger"><i class="ph ph-trash"></i></button></form>
+</div></td>
+</tr>
+@endforeach
+</tbody></table></div>
+@else
+<div class="text-center py-4 text-muted"><p class="mb-0">Belum ada tahapan.</p></div>
+@endif
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="modalFormTahap" tabindex="-1" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content border-0 rounded-4">
+<div class="modal-header"><h5 class="modal-title fw-bold" id="modalFormTahapTitle">Tambah Tahapan</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+<form id="formSimpanTahap" method="POST" action="{{ route('produser.tahapan.store',$pesanan->id_pesanan) }}">@csrf<div id="methodContainer"></div>
+<div class="modal-body">
+<div class="mb-3"><label class="form-label fw-semibold">Nama Tahapan</label><input type="text" name="nama_tahapan" id="inputNamaTahap" class="form-control" maxlength="255" placeholder="Contoh: Analisis Kebutuhan" required></div>
+<div class="mb-3"><label class="form-label fw-semibold">Status</label><select name="status" id="inputStatusTahap" class="form-select" required><option value="Belum Dimulai">Belum Dimulai</option><option value="Sedang Dikerjakan">Sedang Dikerjakan</option><option value="Dalam Revisi">Dalam Revisi</option><option value="Selesai">Selesai</option></select></div>
+<div class="mb-3"><label class="form-label fw-semibold">Progress</label><div class="d-flex align-items-center gap-3"><input type="range" name="persentase_progress" id="inputProgressTahap" class="form-range" min="0" max="100" value="0" oninput="document.getElementById('tahapProgressValue').innerText=this.value+'%'"><span id="tahapProgressValue" class="fw-bold" style="min-width:45px;">0%</span></div></div>
+</div>
+<div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button><button type="submit" class="btn btn-primary"><i class="ph ph-floppy-disk me-1"></i>Simpan</button></div>
+</form>
+</div>
+</div>
+</div>
+<form id="formReorderTahapan" action="{{ route('produser.tahapan.reorder',$pesanan->id_pesanan) }}" method="POST" style="display:none;">@csrf<div id="reorderInputs"></div></form>
+@endif
 @endsection
-
-@section('scripts')
-<script src="{{ asset('js/produser-action.js') }}"></script>
-@endsection
+@push('scripts')
+<script>
+const modalKelolaElement=document.getElementById('modalKelolaTahapan');
+const modalFormElement=document.getElementById('modalFormTahap');
+const modalKelolaTahapan=modalKelolaElement&&typeof bootstrap!=='undefined'?new bootstrap.Modal(modalKelolaElement):null;
+const modalFormTahap=modalFormElement&&typeof bootstrap!=='undefined'?new bootstrap.Modal(modalFormElement):null;
+function openModalTahapan(){if(modalKelolaTahapan)modalKelolaTahapan.show();}
+function openFormTambahTahap(){document.getElementById('modalFormTahapTitle').innerText='Tambah Tahapan';document.getElementById('formSimpanTahap').action="{{ route('produser.tahapan.store',$pesanan->id_pesanan) }}";document.getElementById('methodContainer').innerHTML='';document.getElementById('inputNamaTahap').value='';document.getElementById('inputStatusTahap').value='Belum Dimulai';document.getElementById('inputProgressTahap').value=0;document.getElementById('tahapProgressValue').innerText='0%';if(modalKelolaTahapan)modalKelolaTahapan.hide();setTimeout(()=>{if(modalFormTahap)modalFormTahap.show();},250);}
+function openEditTahap(idTahapan,namaTahapan,statusTahapan,progressTahapan){document.getElementById('modalFormTahapTitle').innerText='Edit Tahapan';document.getElementById('formSimpanTahap').action="{{ url('/produser/pesanan/'.$pesanan->id_pesanan.'/tahapan') }}/"+idTahapan;document.getElementById('methodContainer').innerHTML='<input type="hidden" name="_method" value="PUT">';document.getElementById('inputNamaTahap').value=namaTahapan;document.getElementById('inputStatusTahap').value=statusTahapan;document.getElementById('inputProgressTahap').value=progressTahapan;document.getElementById('tahapProgressValue').innerText=progressTahapan+'%';if(modalKelolaTahapan)modalKelolaTahapan.hide();setTimeout(()=>{if(modalFormTahap)modalFormTahap.show();},250);}
+function reorderTahapan(idTahapan,arah){const rows=Array.from(document.querySelectorAll('#modalKelolaTahapan tbody tr'));const ids=rows.map(row=>{const button=row.querySelector('button[onclick^="openEditTahap"]');if(!button)return null;const match=button.getAttribute('onclick').match(/openEditTahap\(\s*(\d+)/);return match?parseInt(match[1]):null;}).filter(Boolean);const index=ids.indexOf(idTahapan);if(index===-1)return;if(arah==='up'&&index>0)[ids[index-1],ids[index]]=[ids[index],ids[index-1]];if(arah==='down'&&index<ids.length-1)[ids[index],ids[index+1]]=[ids[index+1],ids[index]];const container=document.getElementById('reorderInputs');container.innerHTML='';ids.forEach(id=>{const input=document.createElement('input');input.type='hidden';input.name='urutan[]';input.value=id;container.appendChild(input);});document.getElementById('formReorderTahapan').submit();}
+</script>
+@endpush

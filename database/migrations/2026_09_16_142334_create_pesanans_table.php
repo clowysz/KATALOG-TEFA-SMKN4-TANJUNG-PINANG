@@ -12,27 +12,27 @@ return new class extends Migration
             $table->id('id_pesanan');
 
             // Pembeli
-            $table->unsignedBigInteger('id_user');
-
-            // Produk / Jasa yang dipesan
-            $table->unsignedBigInteger('id_produk_jasa');
-
-            $table->dateTime('tanggal_pesan');
-            $table->decimal('total_harga', 12, 2);
-            $table->string('status')->default('menunggu konfirmasi');
-            $table->timestamps();
-
-            // Jika akun pembeli dihapus, pesanan milik pembeli ikut dihapus.
-            $table->foreign('id_user')
-                ->references('id')
-                ->on('users')
+            $table->foreignId('id_user')
+                ->constrained('users')
                 ->onDelete('cascade');
 
-            // PERBAIKAN: Diubah ke 'produk_jasas' (sesuai nama tabel migration produk/jasa)
-            $table->foreign('id_produk_jasa')
-                ->references('id_produk_jasa')
-                ->on('produk_jasas')
+            // Produk / Jasa yang dipesan
+            $table->foreignId('id_produk_jasa')
+                ->constrained('produk_jasa', 'id_produk_jasa')
                 ->onDelete('restrict');
+
+            $table->dateTime('tanggal_pesan');
+
+            $table->unsignedInteger('jumlah')->default(1);
+
+            $table->decimal('total_harga', 12, 2);
+
+            $table->text('catatan')->nullable();
+
+            $table->string('status')
+                ->default('menunggu konfirmasi');
+
+            $table->timestamps();
         });
     }
 

@@ -19,6 +19,7 @@ class User extends Authenticatable
         'role',
         'nomor_hp',
         'id_jurusan_asal',
+        'status',
     ];
 
     protected $hidden = [
@@ -54,7 +55,7 @@ class User extends Authenticatable
         );
     }
 
-    // Relasi: User (Admin Produksi) memiliki penugasan produk/jasa
+    // Relasi: User (Admin Produser) memiliki penugasan produk/jasa
     public function penugasanProduser()
     {
         return $this->hasMany(

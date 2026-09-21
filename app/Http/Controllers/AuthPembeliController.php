@@ -9,9 +9,11 @@ use App\Models\User;
 
 class AuthPembeliController extends Controller
 {
-    public function showLogin()
+    public function showLogin(Request $request)
     {
-        return view('public.login');
+        $redirect = $request->query('redirect');
+
+        return view('public.login', compact('redirect'));
     }
 
     public function login(Request $request)
@@ -26,13 +28,26 @@ class AuthPembeliController extends Controller
 
             if (Auth::user()->role !== 'pembeli') {
                 Auth::logout();
-                return back()->withErrors(['email' => 'Akun ini bukan akun pembeli.']);
+
+                return back()->withErrors([
+                    'email' => 'Akun ini bukan akun pembeli.'
+                ]);
+            }
+
+            $redirect = $request->input('redirect');
+
+            if ($redirect && str_starts_with($redirect, '/')) {
+                return redirect($redirect);
             }
 
             return redirect()->intended('/');
         }
 
-        return back()->withErrors(['email' => 'Email atau password salah.'])->onlyInput('email');
+        return back()
+            ->withErrors([
+                'email' => 'Email atau password salah.'
+            ])
+            ->onlyInput('email');
     }
 
     public function showRegister()
@@ -54,7 +69,7 @@ class AuthPembeliController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'nomor_hp' => $request->nomor_hp,
-            'role' => 'pembeli', // sudah default di migration, tapi eksplisit lebih aman
+            'role' => 'pembeli',
         ]);
 
         Auth::login($user);
@@ -65,6 +80,7 @@ class AuthPembeliController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

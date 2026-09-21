@@ -1,401 +1,1433 @@
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // ================= DATA DEFAULT DARI FIGMA =================
-    const defaultOrders = [
-        {
-            id: 'ORD-2026-001', productName: 'Website Edukasi', productType: 'Jasa', code: 'PRD-001',
-            customer: 'Budi Santoso', price: 'Rp 3.500.000', orderDate: '5 Agustus 2026',
-            statusPengerjaan: 'Sedang Dikerjakan', statusPesanan: 'Diproses',
-            needTitle: 'Membuat website edukasi untuk lembaga bimbingan belajar.',
-            needDesc: 'Website memiliki halaman Beranda, Profil, Program Pembelajaran, Jadwal, Informasi Kontak, dan Formulir Pendaftaran. Website harus responsive dan dapat digunakan melalui perangkat mobile.',
-            stages: [
-                { id: 1, name: 'Analisis Kebutuhan', status: 'Selesai', progress: 100, date: '10 Agustus 2026', note: 'Diskusi kebutuhan dengan klien selesai. Semua requirement telah didokumentasikan.' },
-                { id: 2, name: 'UI/UX Design', status: 'Selesai', progress: 100, date: '12 Agustus 2026', note: 'Wireframe dan mockup telah disetujui oleh klien.' },
-                { id: 3, name: 'Development', status: 'Sedang Dikerjakan', progress: 65, date: '-', note: 'Mengembangkan fitur halaman dashboard pengguna dan integrasi database.' },
-                { id: 4, name: 'Testing', status: 'Belum Dimulai', progress: 0, date: '-', note: '' },
-                { id: 5, name: 'Deployment', status: 'Belum Dimulai', progress: 0, date: '-', note: '' }
-            ]
-        },
-        {
-            id: 'ORD-2026-002', productName: 'Website Edukasi', productType: 'Jasa', code: 'PRD-001',
-            customer: 'Sari Dewi', price: 'Rp 3.500.000', orderDate: '10 Agustus 2026',
-            statusPengerjaan: 'Dalam Revisi', statusPesanan: 'Revisi', needTitle: 'Website Profil Sekolah', needDesc: 'Kebutuhan revisi pada bagian warna tema utama.',
-            stages: [{ id: 1, name: 'Development', status: 'Dalam Revisi', progress: 80, date: '15 Agustus 2026', note: 'Revisi warna tema sesuai permintaan.' }]
+document.addEventListener('DOMContentLoaded', function () {
+
+    const detailPage = document.getElementById('formUpdateProgress');
+
+    function getCsrfToken() {
+        const meta = document.querySelector('meta[name="csrf-token"]');
+
+        if (meta) {
+            return meta.getAttribute('content');
         }
-    ];
 
-    if (!localStorage.getItem('produser_orders') || JSON.parse(localStorage.getItem('produser_orders')).length < 2) {
-        localStorage.setItem('produser_orders', JSON.stringify(defaultOrders));
-    }
-    let dataOrders = JSON.parse(localStorage.getItem('produser_orders'));
-
-    // Fungsi Render Badge Warna Warni
-    function getBadge(status) {
-        if(status === 'Selesai') return 'badge-soft-green';
-        if(status === 'Sedang Dikerjakan' || status === 'Diproses') return 'badge-soft-blue';
-        if(status === 'Dalam Revisi' || status === 'Revisi') return 'badge-soft-yellow';
-        return 'badge-soft-gray';
+        return null;
     }
 
-   // ================= HALAMAN DASHBOARD & SEMUA PESANAN =================
-    const allOrderTable = document.getElementById('allOrderTable');
-    const dashboardOrderTable = document.getElementById('dashboardOrderTable');
+    function submitForm(action, method, fields = {}) {
+        const form = document.createElement('form');
 
-    function renderTableRows(container, isDashboard = false) {
-        if (!container) return;
-        container.innerHTML = '';
-        const dataToRender = isDashboard ? dataOrders.slice(0, 5) : dataOrders;
+        form.method = 'POST';
+        form.action = action;
+        form.style.display = 'none';
 
-        dataToRender.forEach(order => {
-            const typeClass = order.productType === 'Produk' ? 'badge-tipe-produk-new' : 'badge-tipe-jasa-new';
-            
-            let htmlRow = `<tr>`;
-            htmlRow += `<td class="order-id-col">${order.id}</td>`;
-            htmlRow += `<td><div style="font-weight: 600; color: var(--prod-text-main); margin-bottom: 6px;">${order.productName}</div><span class="${typeClass}">${order.productType}</span></td>`;
-            htmlRow += `<td style="font-weight: 500; color: var(--prod-text-main);">${order.customer}</td>`;
-            htmlRow += `<td><span class="${getBadge(order.statusPengerjaan)}">${order.statusPengerjaan}</span></td>`;
-            htmlRow += `<td><span class="${getBadge(order.statusPesanan)}">${order.statusPesanan}</span></td>`;
-            htmlRow += `<td style="text-align: center;"><a href="/produser/pesanan/detail?id=${order.id}" class="btn-light-blue">Lihat Detail</a></td>`;
-            htmlRow += `</tr>`;
-            container.innerHTML += htmlRow;
+        const token = getCsrfToken();
+
+        if (token) {
+            const csrf = document.createElement('input');
+            csrf.type = 'hidden';
+            csrf.name = '_token';
+            csrf.value = token;
+            form.appendChild(csrf);
+        }
+
+        if (method !== 'POST') {
+            const methodInput = document.createElement('input');
+            methodInput.type = 'hidden';
+            methodInput.name = '_method';
+            methodInput.value = method;
+            form.appendChild(methodInput);
+        }
+
+        Object.keys(fields).forEach(function (key) {
+            const input = document.createElement('input');
+
+            input.type = 'hidden';
+            input.name = key;
+            input.value = fields[key] ?? '';
+
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+
+    function showToast(message, success = true) {
+        const toast = document.getElementById('toastUpdate');
+
+        if (!toast) {
+            return;
+        }
+
+        toast.textContent = message;
+        toast.style.backgroundColor = success
+            ? '#16A34A'
+            : '#DC2626';
+
+        toast.classList.add('show');
+
+        setTimeout(function () {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+
+    function formatRupiah(number) {
+        return 'Rp' + new Intl.NumberFormat('id-ID').format(number);
+    }
+
+
+    function formatTanggal(tanggal) {
+        if (!tanggal) {
+            return '-';
+        }
+
+        const date = new Date(tanggal);
+
+        if (Number.isNaN(date.getTime())) {
+            return tanggal;
+        }
+
+        return date.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
         });
     }
 
-    renderTableRows(allOrderTable, false);
-    renderTableRows(dashboardOrderTable, true);
 
-    // ================= HALAMAN DETAIL PESANAN INTERAKTIF =================
-    const detOrderId = document.getElementById('heroOrderId'); 
-    if (detOrderId) {
-        const urlParams = new URLSearchParams(window.location.search);
-        let orderId = urlParams.get('id') || 'ORD-2026-001'; 
-        const orderIndex = dataOrders.findIndex(o => o.id === orderId);
-        let order = dataOrders[orderIndex];
-        
-        
-        let activeStageId = order.stages.find(s => s.status !== 'Selesai')?.id || order.stages[order.stages.length - 1].id;
-
-
-        document.getElementById('heroOrderId').textContent = order.id;
-        document.getElementById('heroStatusPesanan').textContent = order.statusPesanan;
-        document.getElementById('heroStatusPengerjaan').textContent = order.statusPengerjaan;
-        document.getElementById('heroTitle').textContent = order.productName;
-        document.getElementById('heroType').textContent = order.productType;
-        document.getElementById('heroCode').textContent = `Kode: ${order.code}`;
-        document.getElementById('statDate').textContent = order.orderDate;
-        document.getElementById('statCustomer').textContent = order.customer;
-        document.getElementById('statPrice').textContent = order.price;
-        document.getElementById('statStatus').textContent = order.statusPengerjaan;
-        
-        document.getElementById('detNeedTitle').textContent = order.needTitle;
-        document.getElementById('detNeedDesc').innerText = order.needDesc;
-
-
-        const updateProgressSlider = document.getElementById('updateProgress');
-        const progressSliderBox = document.getElementById('progressSliderBox');
-        
-        function applySliderColor(slider) {
-            const val = slider.value;
-            slider.style.background = `linear-gradient(to right, var(--primary) ${val}%, #E2E8F0 ${val}%)`;
-            document.getElementById('progressText').textContent = `${val}%`;
+    function getStatusClass(status) {
+        if (status === 'Selesai') {
+            return 'badge-soft-green';
         }
-        if (updateProgressSlider) updateProgressSlider.addEventListener('input', function() { applySliderColor(this); });
+
+        if (
+            status === 'Sedang Dikerjakan' ||
+            status === 'Diproses' ||
+            status === 'konfirmasi'
+        ) {
+            return 'badge-soft-blue';
+        }
+
+        if (
+            status === 'Dalam Revisi' ||
+            status === 'Revisi'
+        ) {
+            return 'badge-soft-yellow';
+        }
+
+        return 'badge-soft-gray';
+    }
 
 
-        const stepperContainer = document.getElementById('stepperContainer');
+    /*
+     * DETAIL PESANAN
+     */
+
+    if (detailPage) {
+
+        const orderId = detailPage.dataset.orderId;
+
+        let stages = [];
+
+        try {
+            stages = JSON.parse(
+                detailPage.dataset.stages || '[]'
+            );
+        } catch (error) {
+            stages = [];
+        }
+
+
+        const heroOrderId =
+            document.getElementById('heroOrderId');
+
+        const heroStatusPesanan =
+            document.getElementById('heroStatusPesanan');
+
+        const heroStatusPengerjaan =
+            document.getElementById('heroStatusPengerjaan');
+
+        const heroTitle =
+            document.getElementById('heroTitle');
+
+        const heroType =
+            document.getElementById('heroType');
+
+        const heroCode =
+            document.getElementById('heroCode');
+
+        const statDate =
+            document.getElementById('statDate');
+
+        const statCustomer =
+            document.getElementById('statCustomer');
+
+        const statPrice =
+            document.getElementById('statPrice');
+
+        const statStatus =
+            document.getElementById('statStatus');
+
+        const detNeedTitle =
+            document.getElementById('detNeedTitle');
+
+        const detNeedDesc =
+            document.getElementById('detNeedDesc');
+
+        const stepperContainer =
+            document.getElementById('stepperContainer');
+
+        const stepperSubtitle =
+            document.getElementById('stepperSubtitle');
+
+        const formSubtitle =
+            document.getElementById('formSubtitle');
+
+        const selectedStageBox =
+            document.getElementById('selectedStageBox');
+
+        const activeStageId =
+            document.getElementById('activeStageId');
+
+        const updateStatus =
+            document.getElementById('updateStatus');
+
+        const updateProgress =
+            document.getElementById('updateProgress');
+
+        const updateNote =
+            document.getElementById('updateNote');
+
+        const progressText =
+            document.getElementById('progressText');
+
+        const progressSliderBox =
+            document.getElementById('progressSliderBox');
+
+        const btnSimpanUpdate =
+            document.getElementById('btnSimpanUpdate');
+
+
+        let activeStage = null;
+
+
+        if (heroOrderId) {
+            heroOrderId.textContent =
+                'ORD-' + String(orderId).padStart(3, '0');
+        }
+
+
+        if (heroStatusPesanan) {
+            heroStatusPesanan.textContent =
+                detailPage.dataset.statusPesanan || '-';
+        }
+
+
+        if (heroStatusPengerjaan) {
+            heroStatusPengerjaan.textContent =
+                stages.length > 0
+                    ? getStatusPengerjaan(stages)
+                    : 'Belum Dimulai';
+        }
+
+
+        if (heroTitle) {
+            heroTitle.textContent =
+                detailPage.dataset.productName || '-';
+        }
+
+
+        if (heroType) {
+            heroType.textContent =
+                detailPage.dataset.productType || '-';
+        }
+
+
+        if (heroCode) {
+            heroCode.textContent =
+                'Kode: ' +
+                (detailPage.dataset.productCode || '-');
+        }
+
+
+        if (statDate) {
+            statDate.textContent =
+                formatTanggal(detailPage.dataset.orderDate);
+        }
+
+
+        if (statCustomer) {
+            statCustomer.textContent =
+                detailPage.dataset.customer || '-';
+        }
+
+
+        if (statPrice) {
+            statPrice.textContent =
+                formatRupiah(
+                    Number(detailPage.dataset.totalPrice || 0)
+                );
+        }
+
+
+        if (statStatus) {
+            statStatus.textContent =
+                stages.length > 0
+                    ? getStatusPengerjaan(stages)
+                    : 'Belum Dimulai';
+        }
+
+
+        if (detNeedTitle) {
+            detNeedTitle.textContent =
+                detailPage.dataset.productName || '-';
+        }
+
+
+        if (detNeedDesc) {
+            detNeedDesc.textContent =
+                detailPage.dataset.note || 'Tidak ada catatan dari pelanggan.';
+        }
+
+
+        function getStatusPengerjaan(data) {
+
+            if (!data.length) {
+                return 'Belum Dimulai';
+            }
+
+            const selesai = data.filter(function (stage) {
+                return stage.status === 'Selesai';
+            }).length;
+
+            if (selesai === data.length) {
+                return 'Selesai';
+            }
+
+            const revisi = data.find(function (stage) {
+                return stage.status === 'Dalam Revisi';
+            });
+
+            if (revisi) {
+                return 'Dalam Revisi';
+            }
+
+            const proses = data.find(function (stage) {
+                return stage.status === 'Sedang Dikerjakan';
+            });
+
+            if (proses) {
+                return 'Sedang Dikerjakan';
+            }
+
+            return 'Belum Dimulai';
+        }
+
+
+        function applySliderColor() {
+
+            if (!updateProgress) {
+                return;
+            }
+
+            const value =
+                Number(updateProgress.value || 0);
+
+            updateProgress.style.background =
+                `linear-gradient(
+                    to right,
+                    var(--primary) ${value}%,
+                    #E2E8F0 ${value}%
+                )`;
+
+            if (progressText) {
+                progressText.textContent =
+                    value + '%';
+            }
+        }
+
+
         function renderStepper() {
-            stepperContainer.innerHTML = '';
-            const totalSelesai = order.stages.filter(s => s.status === 'Selesai').length;
-            document.getElementById('stepperSubtitle').textContent = `${totalSelesai} dari ${order.stages.length} tahap selesai`;
 
-            order.stages.forEach(stage => {
-                let circleClass = 'belum'; let icon = stage.id;
-                let statText = `<span style="font-size: 13px; color: var(--prod-text-sec); font-weight: 500;">Belum Dimulai</span>`;
-                
-                if (stage.status === 'Selesai') { 
-                    circleClass = 'selesai'; icon = '<i class="ph ph-check"></i>'; 
-                    statText = `<span style="font-size: 13px; color: var(--prod-success); font-weight: 500;">Selesai</span>`;
-                } else if (stage.status === 'Sedang Dikerjakan') { 
-                    circleClass = 'proses'; 
-                    statText = `<span style="font-size: 13px; color: var(--primary); font-weight: 500;">Sedang Dikerjakan</span>`;
-                } else if (stage.status === 'Dalam Revisi') {
-                    circleClass = 'proses'; 
-                    statText = `<span style="font-size: 13px; color: #D97706; font-weight: 500;">Dalam Revisi</span>`;
+            if (!stepperContainer) {
+                return;
+            }
+
+            stepperContainer.innerHTML = '';
+
+
+            const totalSelesai =
+                stages.filter(function (stage) {
+                    return stage.status === 'Selesai';
+                }).length;
+
+
+            if (stepperSubtitle) {
+                stepperSubtitle.textContent =
+                    `${totalSelesai} dari ${stages.length} tahap selesai`;
+            }
+
+
+            if (stages.length === 0) {
+
+                stepperContainer.innerHTML = `
+                    <div style="
+                        padding: 24px;
+                        text-align: center;
+                        color: var(--prod-text-sec);
+                        font-size: 14px;
+                    ">
+                        Belum ada tahapan pengerjaan.
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            stages.forEach(function (stage, index) {
+
+                let circleClass = 'belum';
+                let icon = index + 1;
+                let statusColor = 'var(--prod-text-sec)';
+
+
+                if (stage.status === 'Selesai') {
+
+                    circleClass = 'selesai';
+                    icon = '<i class="ph ph-check"></i>';
+                    statusColor = 'var(--prod-success)';
+
+                } else if (
+                    stage.status === 'Sedang Dikerjakan'
+                ) {
+
+                    circleClass = 'proses';
+                    statusColor = 'var(--primary)';
+
+                } else if (
+                    stage.status === 'Dalam Revisi'
+                ) {
+
+                    circleClass = 'proses';
+                    statusColor = '#D97706';
                 }
 
-                const isActive = stage.id === activeStageId ? 'active-step' : '';
-                
+
+                const isActive =
+                    activeStage &&
+                    Number(activeStage.id_tahapan) ===
+                    Number(stage.id_tahapan);
+
+
                 let extraContent = '';
+
+
                 if (isActive || stage.status !== 'Belum Dimulai') {
-                    if (stage.status === 'Selesai') {
-                        extraContent = stage.note ? `<div style="background: #F8FAFC; padding: 12px; border-radius: 8px; font-size: 13px; border: 1px solid var(--prod-border); margin-top: 12px;"><strong style="color:var(--prod-text-main);">Catatan:</strong> ${stage.note}</div>` : '';
-                    } else if (stage.status === 'Sedang Dikerjakan' || stage.status === 'Dalam Revisi') {
+
+                    if (
+                        stage.status === 'Sedang Dikerjakan' ||
+                        stage.status === 'Dalam Revisi'
+                    ) {
+
                         extraContent = `
-                            <div class="mini-progress-bg"><div class="mini-progress-fill" style="width: ${stage.progress}%;"></div></div>
-                            <div style="font-size: 12px; color: var(--primary); font-weight: 600;">Progress ${stage.progress}%</div>
-                            ${stage.note ? `<div style="font-size: 13px; color: var(--prod-text-sec); margin-top: 8px;"><strong style="color:var(--prod-text-main);">Catatan:</strong> ${stage.note}</div>` : ''}
+                            <div style="margin-top: 12px;">
+                                <div class="mini-progress-bg">
+                                    <div
+                                        class="mini-progress-fill"
+                                        style="width: ${stage.persentase_progress || 0}%;">
+                                    </div>
+                                </div>
+
+                                <div style="
+                                    font-size: 12px;
+                                    color: var(--primary);
+                                    font-weight: 600;
+                                    margin-top: 5px;
+                                ">
+                                    Progress ${stage.persentase_progress || 0}%
+                                </div>
+                            </div>
                         `;
                     }
+
                 }
 
+
                 stepperContainer.innerHTML += `
-                    <div class="stepper-item ${isActive}" data-id="${stage.id}">
+                    <div
+                        class="stepper-item ${isActive ? 'active-step' : ''}"
+                        data-id="${stage.id_tahapan}"
+                        style="cursor: pointer;"
+                    >
+
                         <div class="stepper-line"></div>
-                        <div class="stepper-circle ${circleClass}">${icon}</div>
+
+                        <div class="stepper-circle ${circleClass}">
+                            ${icon}
+                        </div>
+
                         <div style="flex-grow: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+
+                            <div style="
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: flex-start;
+                                gap: 12px;
+                            ">
+
                                 <div>
-                                    <div style="font-weight: 700; color: var(--prod-text-main); font-size: 15px; margin-bottom: 4px;">Tahap ${stage.id}: ${stage.name}</div>
-                                    ${stage.status === 'Selesai' ? `<div style="font-size: 12px; color: var(--prod-success);"><i class="ph ph-check"></i> Selesai • ${stage.date}</div>` : `<div style="font-size: 12px; color: var(--prod-text-sec);">${stage.status}</div>`}
+
+                                    <div style="
+                                        font-weight: 700;
+                                        color: var(--prod-text-main);
+                                        font-size: 15px;
+                                        margin-bottom: 4px;
+                                    ">
+                                        Tahap ${index + 1}: ${stage.nama_tahapan}
+                                    </div>
+
+                                    <div style="
+                                        font-size: 12px;
+                                        color: ${statusColor};
+                                    ">
+                                        ${stage.status}
+                                    </div>
+
                                 </div>
-                                ${statText}
+
+                                <span style="
+                                    font-size: 13px;
+                                    color: ${statusColor};
+                                    font-weight: 500;
+                                ">
+                                    ${stage.persentase_progress || 0}%
+                                </span>
+
                             </div>
+
                             ${extraContent}
+
                         </div>
                     </div>
                 `;
             });
 
 
-            document.querySelectorAll('.stepper-item').forEach(el => {
-                el.addEventListener('click', function() {
-                    activeStageId = parseInt(this.getAttribute('data-id'));
-                    renderStepper(); populateForm(); 
+            document
+                .querySelectorAll('.stepper-item')
+                .forEach(function (element) {
+
+                    element.addEventListener(
+                        'click',
+                        function () {
+
+                            const id =
+                                Number(
+                                    this.getAttribute('data-id')
+                                );
+
+                            activeStage =
+                                stages.find(function (stage) {
+                                    return Number(stage.id_tahapan) === id;
+                                }) || null;
+
+                            populateForm();
+                            renderStepper();
+                        }
+                    );
                 });
-            });
         }
 
 
         function populateForm() {
-            const stage = order.stages.find(s => s.id === activeStageId);
-            document.getElementById('formSubtitle').textContent = `Memperbarui: Tahap ${stage.id} — ${stage.name}`;
-            document.getElementById('selectedStageBox').textContent = `Tahap ${stage.id}: ${stage.name}`;
-            
-            document.getElementById('updateStatus').disabled = false;
-            document.getElementById('updateNote').disabled = false;
-            document.getElementById('btnSimpanUpdate').disabled = false;
-            document.getElementById('activeStageId').value = stage.id;
-            
-            document.getElementById('updateStatus').value = stage.status;
-            document.getElementById('updateNote').value = stage.note;
+
+            if (!activeStage) {
+
+                if (formSubtitle) {
+                    formSubtitle.textContent =
+                        'Belum ada tahap yang dipilih.';
+                }
+
+                if (selectedStageBox) {
+                    selectedStageBox.textContent =
+                        'Pilih tahap pengerjaan...';
+                }
+
+                if (updateStatus) {
+                    updateStatus.disabled = true;
+                }
+
+                if (updateProgress) {
+                    updateProgress.disabled = true;
+                }
+
+                if (updateNote) {
+                    updateNote.disabled = true;
+                }
+
+                if (btnSimpanUpdate) {
+                    btnSimpanUpdate.disabled = true;
+                }
+
+                if (progressSliderBox) {
+                    progressSliderBox.style.display = 'none';
+                }
+
+                return;
+            }
 
 
-            if(stage.status === 'Belum Dimulai') {
-                progressSliderBox.style.display = 'none';
+            const stageNumber =
+                stages.findIndex(function (stage) {
+                    return Number(stage.id_tahapan) ===
+                        Number(activeStage.id_tahapan);
+                }) + 1;
+
+
+            if (formSubtitle) {
+                formSubtitle.textContent =
+                    `Memperbarui: Tahap ${stageNumber} — ${activeStage.nama_tahapan}`;
+            }
+
+
+            if (selectedStageBox) {
+                selectedStageBox.textContent =
+                    `Tahap ${stageNumber}: ${activeStage.nama_tahapan}`;
+            }
+
+
+            if (activeStageId) {
+                activeStageId.value =
+                    activeStage.id_tahapan;
+            }
+
+
+            if (updateStatus) {
+
+                updateStatus.disabled = false;
+
+                updateStatus.value =
+                    activeStage.status;
+            }
+
+
+            if (updateProgress) {
+
+                updateProgress.disabled =
+                    activeStage.status === 'Selesai';
+
+                updateProgress.value =
+                    activeStage.status === 'Selesai'
+                        ? 100
+                        : Number(
+                            activeStage.persentase_progress || 0
+                        );
+            }
+
+
+            if (updateNote) {
+
+                updateNote.disabled = false;
+
+                updateNote.value = '';
+            }
+
+
+            if (btnSimpanUpdate) {
+                btnSimpanUpdate.disabled = false;
+            }
+
+
+            if (
+                activeStage.status === 'Belum Dimulai'
+            ) {
+
+                if (progressSliderBox) {
+                    progressSliderBox.style.display = 'none';
+                }
+
             } else {
-                progressSliderBox.style.display = 'block';
-                updateProgressSlider.disabled = false;
-                updateProgressSlider.value = stage.status === 'Selesai' ? 100 : stage.progress;
-                if(stage.status === 'Selesai') updateProgressSlider.disabled = true;
-                applySliderColor(updateProgressSlider);
+
+                if (progressSliderBox) {
+                    progressSliderBox.style.display = 'block';
+                }
+
+                if (updateProgress) {
+                    updateProgress.disabled =
+                        activeStage.status === 'Selesai';
+                }
+
+                applySliderColor();
             }
         }
 
-        renderStepper(); populateForm();
+
+        if (updateProgress) {
+
+            updateProgress.addEventListener(
+                'input',
+                function () {
+                    applySliderColor();
+                }
+            );
+        }
 
 
-        document.getElementById('formUpdateProgress').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const stageId = parseInt(document.getElementById('activeStageId').value);
-            const newStatus = document.getElementById('updateStatus').value;
-            const newProgress = newStatus === 'Belum Dimulai' ? 0 : (newStatus === 'Selesai' ? 100 : document.getElementById('updateProgress').value);
-            
-            const stageIndex = order.stages.findIndex(s => s.id === stageId);
-            order.stages[stageIndex].status = newStatus;
-            order.stages[stageIndex].progress = newProgress;
-            order.stages[stageIndex].note = document.getElementById('updateNote').value;
-            
+        if (updateStatus) {
 
-            if(newStatus === 'Selesai') order.stages[stageIndex].date = '27 Agustus 2026';
+            updateStatus.addEventListener(
+                'change',
+                function () {
+
+                    if (
+                        this.value === 'Belum Dimulai'
+                    ) {
+
+                        if (progressSliderBox) {
+                            progressSliderBox.style.display = 'none';
+                        }
+
+                        if (updateProgress) {
+                            updateProgress.value = 0;
+                        }
+
+                    } else {
+
+                        if (progressSliderBox) {
+                            progressSliderBox.style.display = 'block';
+                        }
+
+                        if (
+                            this.value === 'Selesai'
+                        ) {
+
+                            if (updateProgress) {
+                                updateProgress.value = 100;
+                                updateProgress.disabled = true;
+                            }
+
+                        } else {
+
+                            if (updateProgress) {
+                                updateProgress.disabled = false;
+                            }
+                        }
+
+                        applySliderColor();
+                    }
+                }
+            );
+        }
 
 
-            order.statusPengerjaan = newStatus;
-            document.getElementById('statStatus').textContent = newStatus;
-            document.getElementById('heroStatusPengerjaan').textContent = newStatus;
+        if (detailPage) {
 
-            dataOrders[orderIndex] = order;
-            localStorage.setItem('produser_orders', JSON.stringify(dataOrders));
-            
-            renderStepper(); populateForm();
-            
-            const toast = document.getElementById('toastUpdate');
-            toast.textContent = '✓ Perubahan progress berhasil disimpan.';
-            toast.style.backgroundColor = '#16A34A';
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        });
+            detailPage.addEventListener(
+                'submit',
+                function (event) {
+
+                    event.preventDefault();
+
+                    if (!activeStage) {
+                        showToast(
+                            'Pilih tahap pengerjaan terlebih dahulu.',
+                            false
+                        );
+
+                        return;
+                    }
 
 
-        document.getElementById('updateStatus').addEventListener('change', function() {
-            if(this.value === 'Belum Dimulai' || this.value === 'Selesai') { 
-                progressSliderBox.style.display = 'none'; 
-            } else { 
-                progressSliderBox.style.display = 'block'; 
-                updateProgressSlider.disabled = false;
-            }
-        });
+                    const status =
+                        updateStatus.value;
+
+                    let percentage =
+                        Number(updateProgress.value || 0);
+
+
+                    if (
+                        status === 'Belum Dimulai'
+                    ) {
+                        percentage = 0;
+                    }
+
+
+                    if (
+                        status === 'Selesai'
+                    ) {
+                        percentage = 100;
+                    }
+
+
+                    const note =
+                        updateNote.value.trim();
+
+
+                    if (!note) {
+                        showToast(
+                            'Catatan / update wajib diisi.',
+                            false
+                        );
+
+                        return;
+                    }
+
+
+                    submitForm(
+                        detailPage.dataset.updateProgressUrl,
+                        'POST',
+                        {
+                            persentase_progress: percentage,
+                            keterangan_progress: note
+                        }
+                    );
+                }
+            );
+        }
+
+
+        renderStepper();
+
+
+        if (stages.length > 0) {
+
+            activeStage =
+                stages.find(function (stage) {
+
+                    return stage.status !== 'Selesai';
+
+                }) || stages[stages.length - 1];
+
+        }
+
+
+        populateForm();
     }
 
-    // ================= HALAMAN PRODUK/JASA SAYA =================
-    const katalogContainer = document.getElementById('katalogContainer');
+
+    /*
+     * MODAL KELOLA TAHAPAN
+     */
+
+    window.openModalTahapan = function () {
+
+        const modal =
+            document.getElementById('modalKelolaTahapan');
+
+        if (!modal) {
+            return;
+        }
+
+        modal.style.display = 'flex';
+
+        renderTabelTahapan();
+    };
+
+
+    window.closeModalTahapan = function () {
+
+        const modal =
+            document.getElementById('modalKelolaTahapan');
+
+        if (!modal) {
+            return;
+        }
+
+        modal.style.display = 'none';
+    };
+
+
+    window.openFormTambahTahap = function () {
+
+        const modal =
+            document.getElementById('modalFormTahap');
+
+        const title =
+            document.getElementById('formTahapTitle');
+
+        const editId =
+            document.getElementById('editStageId');
+
+        const nama =
+            document.getElementById('inputNamaTahap');
+
+        const status =
+            document.getElementById('inputStatusTahap');
+
+
+        if (title) {
+            title.textContent =
+                'Tambah Tahap Baru';
+        }
+
+        if (editId) {
+            editId.value = '';
+        }
+
+        if (nama) {
+            nama.value = '';
+        }
+
+        if (status) {
+            status.value = 'Belum Dimulai';
+        }
+
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    };
+
+
+    window.closeFormTahap = function () {
+
+        const modal =
+            document.getElementById('modalFormTahap');
+
+        if (!modal) {
+            return;
+        }
+
+        modal.style.display = 'none';
+    };
+
+
+    function getDetailPage() {
+
+        return document.getElementById(
+            'formUpdateProgress'
+        );
+    }
+
+
+    function getStagesFromPage() {
+
+        const detailPage =
+            getDetailPage();
+
+        if (!detailPage) {
+            return [];
+        }
+
+        try {
+
+            return JSON.parse(
+                detailPage.dataset.stages || '[]'
+            );
+
+        } catch (error) {
+
+            return [];
+        }
+    }
+
+
+    function renderTabelTahapan() {
+
+        const tbody =
+            document.getElementById('tabelTahapanBody');
+
+        if (!tbody) {
+            return;
+        }
+
+
+        const stages =
+            getStagesFromPage();
+
+
+        if (stages.length === 0) {
+
+            tbody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="4"
+                        style="
+                            text-align: center;
+                            padding: 20px;
+                            color: var(--prod-text-sec);
+                        "
+                    >
+                        Belum ada tahapan pengerjaan.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        tbody.innerHTML = '';
+
+
+        stages.forEach(function (stage, index) {
+
+            tbody.innerHTML += `
+                <tr
+                    draggable="true"
+                    data-id="${stage.id_tahapan}"
+                    style="border-bottom: 1px solid var(--prod-border);"
+                >
+
+                    <td style="padding: 12px;">
+                        ${index + 1}
+                    </td>
+
+                    <td style="
+                        padding: 12px;
+                        font-weight: 600;
+                    ">
+                        ${stage.nama_tahapan}
+                    </td>
+
+                    <td style="padding: 12px;">
+                        ${stage.status}
+                    </td>
+
+                    <td style="
+                        padding: 12px;
+                        text-align: center;
+                        white-space: nowrap;
+                    ">
+
+                        <button
+                            type="button"
+                            onclick="editTahapan(
+                                ${stage.id_tahapan}
+                            )"
+                            style="
+                                background: none;
+                                border: none;
+                                color: #2563EB;
+                                cursor: pointer;
+                                margin-right: 8px;
+                            "
+                        >
+                            <i class="ph ph-pencil-simple"></i>
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="hapusTahapan(
+                                ${stage.id_tahapan}
+                            )"
+                            style="
+                                background: none;
+                                border: none;
+                                color: #DC2626;
+                                cursor: pointer;
+                            "
+                        >
+                            <i class="ph ph-trash"></i>
+                        </button>
+
+                    </td>
+                </tr>
+            `;
+        });
+
+
+        enableDragAndDrop();
+    }
+
+
+    window.editTahapan = function (id) {
+
+        const stages =
+            getStagesFromPage();
+
+        const stage =
+            stages.find(function (item) {
+                return Number(item.id_tahapan) ===
+                    Number(id);
+            });
+
+
+        if (!stage) {
+            return;
+        }
+
+
+        const modal =
+            document.getElementById('modalFormTahap');
+
+        const title =
+            document.getElementById('formTahapTitle');
+
+        const editId =
+            document.getElementById('editStageId');
+
+        const nama =
+            document.getElementById('inputNamaTahap');
+
+        const status =
+            document.getElementById('inputStatusTahap');
+
+
+        if (title) {
+            title.textContent =
+                'Edit Tahap';
+        }
+
+        if (editId) {
+            editId.value =
+                stage.id_tahapan;
+        }
+
+        if (nama) {
+            nama.value =
+                stage.nama_tahapan;
+        }
+
+        if (status) {
+            status.value =
+                stage.status;
+        }
+
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    };
+
+
+    window.hapusTahapan = function (id) {
+
+        const confirmed =
+            confirm(
+                'Yakin ingin menghapus tahapan ini?'
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        const detailPage =
+            getDetailPage();
+
+        if (!detailPage) {
+            return;
+        }
+
+
+        submitForm(
+            detailPage.dataset.deleteTahapanBaseUrl +
+            '/' + id,
+            'DELETE'
+        );
+    };
+
+
+    const formSimpanTahap =
+        document.getElementById(
+            'formSimpanTahap'
+        );
+
+
+    if (formSimpanTahap) {
+
+        formSimpanTahap.addEventListener(
+            'submit',
+            function (event) {
+
+                event.preventDefault();
+
+
+                const detailPage =
+                    getDetailPage();
+
+                if (!detailPage) {
+                    return;
+                }
+
+
+                const editId =
+                    document.getElementById(
+                        'editStageId'
+                    ).value;
+
+
+                const nama =
+                    document.getElementById(
+                        'inputNamaTahap'
+                    ).value.trim();
+
+
+                const status =
+                    document.getElementById(
+                        'inputStatusTahap'
+                    ).value;
+
+
+                if (!nama) {
+
+                    showToast(
+                        'Nama tahapan wajib diisi.',
+                        false
+                    );
+
+                    return;
+                }
+
+
+                if (editId) {
+
+                    submitForm(
+                        detailPage.dataset.updateTahapanBaseUrl +
+                        '/' + editId,
+                        'PUT',
+                        {
+                            nama_tahapan: nama,
+                            status: status,
+                            persentase_progress:
+                                status === 'Selesai'
+                                    ? 100
+                                    : 0
+                        }
+                    );
+
+                } else {
+
+                    submitForm(
+                        detailPage.dataset.storeTahapanUrl,
+                        'POST',
+                        {
+                            nama_tahapan: nama,
+                            status: status,
+                            persentase_progress:
+                                status === 'Selesai'
+                                    ? 100
+                                    : 0
+                        }
+                    );
+                }
+            }
+        );
+    }
+
+
+    function enableDragAndDrop() {
+
+        const tbody =
+            document.getElementById(
+                'tabelTahapanBody'
+            );
+
+        if (!tbody) {
+            return;
+        }
+
+
+        let draggedRow = null;
+
+
+        tbody
+            .querySelectorAll('tr[data-id]')
+            .forEach(function (row) {
+
+                row.addEventListener(
+                    'dragstart',
+                    function () {
+                        draggedRow = this;
+                    }
+                );
+
+
+                row.addEventListener(
+                    'dragover',
+                    function (event) {
+
+                        event.preventDefault();
+
+                        if (
+                            draggedRow &&
+                            draggedRow !== this
+                        ) {
+
+                            const rect =
+                                this.getBoundingClientRect();
+
+                            const middle =
+                                rect.top +
+                                rect.height / 2;
+
+
+                            if (
+                                event.clientY <
+                                middle
+                            ) {
+
+                                tbody.insertBefore(
+                                    draggedRow,
+                                    this
+                                );
+
+                            } else {
+
+                                tbody.insertBefore(
+                                    draggedRow,
+                                    this.nextSibling
+                                );
+                            }
+                        }
+                    }
+                );
+
+
+                row.addEventListener(
+                    'dragend',
+                    function () {
+
+                        saveTahapanOrder();
+                    }
+                );
+            });
+    }
+
+
+    function saveTahapanOrder() {
+
+        const detailPage =
+            getDetailPage();
+
+        const tbody =
+            document.getElementById(
+                'tabelTahapanBody'
+            );
+
+
+        if (!detailPage || !tbody) {
+            return;
+        }
+
+
+        const ids = [];
+
+
+        tbody
+            .querySelectorAll('tr[data-id]')
+            .forEach(function (row) {
+
+                ids.push(
+                    row.getAttribute('data-id')
+                );
+            });
+
+
+        if (ids.length === 0) {
+            return;
+        }
+
+
+        submitForm(
+            detailPage.dataset.reorderTahapanUrl,
+            'POST',
+            {
+                urutan: ids
+            }
+        );
+    }
+
+
+    /*
+     * KATALOG PRODUSER
+     *
+     * Bagian katalog tidak lagi memakai localStorage.
+     * Data katalog sekarang diberikan langsung oleh Laravel.
+     */
+
+    const katalogContainer =
+        document.getElementById(
+            'katalogContainer'
+        );
+
+
     if (katalogContainer) {
-        const dProduk = JSON.parse(localStorage.getItem('rpl_produk')) || [
-            { id: 'p1', type: 'Produk', name: 'Aplikasi Kasir', desc: 'Sistem kasir digital untuk UMKM.', price: 'Rp 2.500.000', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80' },
-            { id: 'p2', type: 'Produk', name: 'Desain Logo & Branding', desc: 'Paket identitas visual profesional.', price: 'Rp 750.000', img: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&q=80' }
-        ];
-        const dJasa = JSON.parse(localStorage.getItem('rpl_jasa')) || [
-            { id: 'j1', type: 'Jasa', name: 'Website Edukasi', desc: 'Pembuatan website profesional untuk lembaga pendidikan.', price: 'Rp 3.500.000', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80' },
-            { id: 'j2', type: 'Jasa', name: 'Aplikasi Mobile Sekolah', desc: 'Pembuatan aplikasi absensi dan jadwal untuk siswa.', price: 'Rp 7.000.000', img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&q=80' }
-        ];
-        
-        const myKatalog = [...dProduk, ...dJasa];
-        const searchInput = document.getElementById('searchKatalogProduser');
-        const emptyKatalog = document.getElementById('emptyKatalog');
 
-        function renderKatalog() {
-            katalogContainer.innerHTML = '';
-            const searchVal = searchInput ? searchInput.value.toLowerCase() : '';
-            
-            const filteredData = myKatalog.filter(k => k.name.toLowerCase().includes(searchVal));
+        const searchInput =
+            document.getElementById(
+                'searchKatalogProduser'
+            );
 
-            if (filteredData.length === 0) {
-                emptyKatalog.style.display = 'block';
-                katalogContainer.style.display = 'none';
-            } else {
-                emptyKatalog.style.display = 'none';
-                katalogContainer.style.display = 'grid';
+        const cards =
+            katalogContainer.querySelectorAll(
+                '[data-katalog-name]'
+            );
 
-                filteredData.forEach(item => {
-                    const badgeClass = item.type === 'Produk' ? 'badge-tipe-produk-new' : 'badge-tipe-jasa-new';
-                    katalogContainer.innerHTML += `
-                        <div class="tefa-card" style="background: white; overflow: hidden; display: flex; flex-direction: column;">
-                            <img src="${item.img}" alt="${item.name}" style="width: 100%; height: 180px; object-fit: cover;">
-                            <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-                                    <h3 style="font-size: 16px; color: var(--prod-text-main); margin: 0;">${item.name}</h3>
-                                </div>
-                                <div style="margin-bottom: 12px;"><span class="${badgeClass}">${item.type}</span></div>
-                                <p style="font-size: 13px; color: var(--prod-text-sec); margin-bottom: 20px; flex-grow: 1;">${item.desc.substring(0, 80)}...</p>
-                                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--prod-border); padding-top: 16px;">
-                                    <span style="font-weight: 700; color: var(--primary); font-size: 14px;">${item.price}</span>
-                                    <button class="btn-outline btn-detail-katalog" data-id="${item.id}" style="padding: 6px 12px; font-size: 12px;">Lihat Detail</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
+        function filterKatalog() {
+
+            const keyword =
+                searchInput
+                    ? searchInput.value
+                        .toLowerCase()
+                        .trim()
+                    : '';
 
 
-                document.querySelectorAll('.btn-detail-katalog').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        const selectedItem = myKatalog.find(k => k.id === id);
-                        localStorage.setItem('produser_selected_katalog', JSON.stringify(selectedItem));
-                        window.location.href = '/produser/katalog/detail';
-                    });
-                });
-            }
+            cards.forEach(function (card) {
+
+                const name =
+                    (
+                        card.dataset.katalogName ||
+                        ''
+                    ).toLowerCase();
+
+
+                card.style.display =
+                    name.includes(keyword)
+                        ? ''
+                        : 'none';
+            });
         }
-        renderKatalog();
-        if (searchInput) searchInput.addEventListener('keyup', renderKatalog);
-    }
-
-    // ================= HALAMAN DETAIL KATALOG =================
-    const detKatalogName = document.getElementById('detKatalogName');
-    if (detKatalogName) {
-        const item = JSON.parse(localStorage.getItem('produser_selected_katalog'));
-        if (item) {
-            document.getElementById('detKatalogImg').src = item.img;
-            detKatalogName.textContent = item.name;
-            document.getElementById('detKatalogTypeBadge').textContent = item.type;
-            document.getElementById('detKatalogType').textContent = item.type;
-            document.getElementById('detKatalogCode').textContent = item.type === 'Produk' ? 'Kode: PRD-003' : 'Kode: PRD-001';
-            document.getElementById('detKatalogPrice').textContent = item.price;
-            document.getElementById('detKatalogDesc').textContent = item.desc;
-            document.getElementById('detKatalogKategori').textContent = item.type === 'Produk' ? 'Graphic Design' : 'Web Development';
 
 
-            const features = item.type === 'Jasa' ? 
-                ['Responsive Design (Mobile-Friendly)', 'CMS untuk Pengelolaan Konten', 'SEO Friendly', 'SSL Certificate', '3 Bulan Free Maintenance'] : 
-                ['3 Pilihan Konsep Logo', 'Revisi Maksimal 3 Kali', 'File Master (.AI, .EPS)', 'Panduan Warna & Tipografi', 'Desain Kartu Nama'];
-            
-            document.getElementById('detKatalogFeatures').innerHTML = features.map(f => `<li><i class="ph ph-check-circle"></i> ${f}</li>`).join('');
+        if (searchInput) {
 
-
-            const relatedOrders = dataOrders.filter(o => o.productName === item.name);
-            document.getElementById('detKatalogTotalOrders').textContent = relatedOrders.length;
-            document.getElementById('totalRelatedOrders').textContent = relatedOrders.length;
-
-            const relatedTable = document.getElementById('relatedOrderTable');
-            relatedTable.innerHTML = '';
-            
-            if(relatedOrders.length === 0) {
-                relatedTable.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--prod-text-sec); padding: 24px;">Belum ada pesanan terkait.</td></tr>`;
-            } else {
-                relatedOrders.forEach(order => {
-                    const tClass = order.productType === 'Produk' ? 'badge-tipe-produk-new' : 'badge-tipe-jasa-new';
-                    relatedTable.innerHTML += `
-                        <tr>
-                            <td style="font-weight: 600; color: var(--prod-text-sec);">${order.id}</td>
-                            <td><div style="font-weight: 600; color: var(--prod-text-main); margin-bottom: 6px;">${order.productName}</div><span class="${tClass}">${order.productType}</span></td>
-                            <td style="font-weight: 500; color: var(--prod-text-main);">${order.customer}</td>
-                            <td><span class="${getBadge(order.statusPengerjaan)}">${order.statusPengerjaan}</span></td>
-                            <td><span class="${getBadge(order.statusPesanan)}">${order.statusPesanan}</span></td>
-                            <td style="text-align: center;"><a href="/produser/pesanan/detail?id=${order.id}" class="btn-light-blue">Lihat Detail</a></td>
-                        </tr>
-                    `;
-                });
-            }
+            searchInput.addEventListener(
+                'input',
+                filterKatalog
+            );
         }
     }
+
+
+    /*
+     * TUTUP MODAL SAAT KLIK AREA LUAR
+     */
+
+    document.addEventListener(
+        'click',
+        function (event) {
+
+            const modalTahapan =
+                document.getElementById(
+                    'modalKelolaTahapan'
+                );
+
+            const modalForm =
+                document.getElementById(
+                    'modalFormTahap'
+                );
+
+
+            if (
+                modalTahapan &&
+                event.target === modalTahapan
+            ) {
+
+                window.closeModalTahapan();
+            }
+
+
+            if (
+                modalForm &&
+                event.target === modalForm
+            ) {
+
+                window.closeFormTahap();
+            }
+        }
+    );
+
 });
-
-// ================= MODAL KELOLA TAHAPAN (TAMBAHAN BARU DI LUAR DOMContentLoaded) =================
-
-// Fungsi Membuka & Menutup Modal Kelola Tahapan
-function openModalTahapan() {
-    document.getElementById('modalKelolaTahapan').style.display = 'flex';
-    renderTabelTahapanDummy();
-}
-
-function closeModalTahapan() {
-    document.getElementById('modalKelolaTahapan').style.display = 'none';
-}
-
-// Fungsi Form Sub-Modal (Tambah/Edit)
-function openFormTambahTahap() {
-    document.getElementById('formTahapTitle').textContent = 'Tambah Tahap Baru';
-    document.getElementById('editStageId').value = '';
-    document.getElementById('inputNamaTahap').value = '';
-    document.getElementById('inputStatusTahap').value = 'Belum Dimulai';
-    document.getElementById('modalFormTahap').style.display = 'flex';
-}
-
-function closeFormTahap() {
-    document.getElementById('modalFormTahap').style.display = 'none';
-}
-
-// Render tabel dummy untuk preview UI
-function renderTabelTahapanDummy() {
-    const tbody = document.getElementById('tabelTahapanBody');
-    tbody.innerHTML = `
-        <tr>
-            <td style="padding: 12px;">1</td>
-            <td style="padding: 12px; font-weight: 600;">Analisis Kebutuhan & Perancangan Sistem</td>
-            <td style="padding: 12px;"><span style="background: #E0F2FE; color: #0369A1; padding: 4px 8px; border-radius: 4px; font-size: 11px;">Selesai</span></td>
-            <td style="padding: 12px; text-align: center;">
-                <button onclick="alert('Fitur Edit')" style="background: none; border: none; color: #2563EB; cursor: pointer; margin-right: 8px;"><i class="ph ph-pencil-simple" style="font-size: 16px;"></i></button>
-                <button onclick="alert('Fitur Hapus')" style="background: none; border: none; color: #DC2626; cursor: pointer;"><i class="ph ph-trash" style="font-size: 16px;"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;">2</td>
-            <td style="padding: 12px; font-weight: 600;">Pengembangan Frontend & Backend</td>
-            <td style="padding: 12px;"><span style="background: #FEF3C7; color: #D97706; padding: 4px 8px; border-radius: 4px; font-size: 11px;">Sedang Dikerjakan</span></td>
-            <td style="padding: 12px; text-align: center;">
-                <button onclick="alert('Fitur Edit')" style="background: none; border: none; color: #2563EB; cursor: pointer; margin-right: 8px;"><i class="ph ph-pencil-simple" style="font-size: 16px;"></i></button>
-                <button onclick="alert('Fitur Hapus')" style="background: none; border: none; color: #DC2626; cursor: pointer;"><i class="ph ph-trash" style="font-size: 16px;"></i></button>
-            </td>
-        </tr>
-    `;
-}

@@ -10,15 +10,22 @@ return new class extends Migration
     {
         Schema::create('portfolio', function (Blueprint $table) {
             $table->id('id_portfolio');
-            
-            // Mengacu ke tabel 'jurusans' (pake huruf S di akhir)
-            $table->foreignId('id_jurusan')
-                  ->constrained('jurusans', 'id_jurusan')
-                  ->onDelete('cascade');
 
-            $table->string('judul_portfolio');
-            $table->text('deskripsi_portfolio');
-            $table->string('gambar_portfolio')->nullable();
+            $table->foreignId('id_jurusan')
+                ->constrained('jurusans', 'id_jurusan')
+                ->onDelete('cascade');
+
+            $table->string('judul');
+
+            $table->text('deskripsi');
+
+            $table->year('tahun')->nullable();
+
+            $table->foreignId('id_user')
+                ->nullable()
+                ->constrained('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

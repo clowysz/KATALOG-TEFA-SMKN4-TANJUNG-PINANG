@@ -10,21 +10,16 @@ return new class extends Migration
     {
         Schema::create('penugasan_produser', function (Blueprint $table) {
             $table->id('id_penugasan');
-            $table->unsignedBigInteger('id_user'); // Siswa / Produser
-            $table->unsignedBigInteger('id_produk_jasa');
+
+            $table->foreignId('id_user_produser')
+                ->constrained('users')
+                ->onDelete('cascade');
+
+            $table->foreignId('id_produk_jasa')
+                ->constrained('produk_jasa', 'id_produk_jasa')
+                ->onDelete('cascade');
+
             $table->timestamps();
-
-            // Relasi ke tabel users
-            $table->foreign('id_user')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-
-            // PERBAIKAN: Diubah ke 'produk_jasas' (sesuai nama tabel produk/jasa)
-            $table->foreign('id_produk_jasa')
-                ->references('id_produk_jasa')
-                ->on('produk_jasas')
-                ->onDelete('cascade');
         });
     }
 

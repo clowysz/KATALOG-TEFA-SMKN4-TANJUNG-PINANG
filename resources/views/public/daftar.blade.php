@@ -24,12 +24,22 @@
             <i class="ph ph-user-plus"></i>
         </div>
 
-        <form action="/login-pembeli" method="GET">
+        <!-- Form Registrasi -->
+        <form action="{{ route('pembeli.register.proses') }}" method="POST">
+
+            @csrf
+
             <div class="login-form-group">
                 <label>Nama Lengkap</label>
                 <div class="login-input-box">
                     <i class="ph ph-user"></i>
-                    <input type="text" placeholder="Masukkan nama lengkap" required>
+                    <input
+                        type="text"
+                        name="nama"
+                        placeholder="Masukkan nama lengkap"
+                        value="{{ old('nama') }}"
+                        required
+                    >
                 </div>
             </div>
 
@@ -37,7 +47,15 @@
                 <label>No. Telepon</label>
                 <div class="login-input-box">
                     <i class="ph ph-phone"></i>
-                    <input type="text" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Contoh: 08123456789" required>
+                    <input
+                        type="text"
+                        name="nomor_hp"
+                        inputmode="numeric"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                        placeholder="Contoh: 08123456789"
+                        value="{{ old('nomor_hp') }}"
+                        required
+                    >
                 </div>
             </div>
 
@@ -45,7 +63,13 @@
                 <label>Email</label>
                 <div class="login-input-box">
                     <i class="ph ph-envelope"></i>
-                    <input type="email" placeholder="Masukkan email" required>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Masukkan email"
+                        value="{{ old('email') }}"
+                        required
+                    >
                 </div>
             </div>
 
@@ -53,8 +77,18 @@
                 <label>Password</label>
                 <div class="login-input-box">
                     <i class="ph ph-lock-key"></i>
-                    <input type="password" id="passwordDaftar" placeholder="Minimal 8 karakter" required>
-                    <i class="ph ph-eye" id="togglePasswordDaftar" style="cursor: pointer; margin-right: 0; margin-left: 12px;"></i>
+                    <input
+                        type="password"
+                        name="password"
+                        id="passwordDaftar"
+                        placeholder="Minimal 8 karakter"
+                        required
+                    >
+                    <i
+                        class="ph ph-eye"
+                        id="togglePasswordDaftar"
+                        style="cursor: pointer; margin-right: 0; margin-left: 12px;"
+                    ></i>
                 </div>
             </div>
 
@@ -62,47 +96,108 @@
                 <label>Konfirmasi Password</label>
                 <div class="login-input-box">
                     <i class="ph ph-lock-key"></i>
-                    <input type="password" id="passwordKonfirmasi" placeholder="Ulangi password" required>
-                    <i class="ph ph-eye" id="togglePasswordKonfirmasi" style="cursor: pointer; margin-right: 0; margin-left: 12px;"></i>
+                    <input
+                        type="password"
+                        name="password_confirmation"
+                        id="passwordKonfirmasi"
+                        placeholder="Ulangi password"
+                        required
+                    >
+                    <i
+                        class="ph ph-eye"
+                        id="togglePasswordKonfirmasi"
+                        style="cursor: pointer; margin-right: 0; margin-left: 12px;"
+                    ></i>
                 </div>
             </div>
 
-            <button type="submit" class="btn-login-submit" style="margin-top: 10px;">Daftar</button>
+            <button
+                type="submit"
+                class="btn-login-submit"
+                style="margin-top: 10px;"
+            >
+                Daftar
+            </button>
+
         </form>
     </div>
 
     <!-- Teks Bawah Kembali ke Login -->
     <p class="login-footer-text">
-        Sudah punya akun? <a href="/login-pembeli" style="color: white; font-weight: 600; text-decoration: underline;">Masuk di sini</a>
+        Sudah punya akun?
+
+        <a
+            href="{{ route('pembeli.login') }}"
+            style="color: white; font-weight: 600; text-decoration: underline;"
+        >
+            Masuk di sini
+        </a>
     </p>
 </div>
 
 <!-- Script untuk Toggle Password -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+
         // Toggle Password 1
-        const togglePass1 = document.querySelector('#togglePasswordDaftar');
-        const pass1 = document.querySelector('#passwordDaftar');
-        if(togglePass1 && pass1) {
+        const togglePass1 =
+            document.querySelector('#togglePasswordDaftar');
+
+        const pass1 =
+            document.querySelector('#passwordDaftar');
+
+        if (togglePass1 && pass1) {
+
             togglePass1.addEventListener('click', function () {
-                const type = pass1.getAttribute('type') === 'password' ? 'text' : 'password';
+
+                const type =
+                    pass1.getAttribute('type') === 'password'
+                        ? 'text'
+                        : 'password';
+
                 pass1.setAttribute('type', type);
-                this.classList.toggle('ph-eye');
-                this.classList.toggle('ph-eye-slash');
+
+                if (type === 'password') {
+                    this.classList.remove('ph-eye-slash');
+                    this.classList.add('ph-eye');
+                } else {
+                    this.classList.remove('ph-eye');
+                    this.classList.add('ph-eye-slash');
+                }
+
             });
         }
 
+
         // Toggle Password 2
-        const togglePass2 = document.querySelector('#togglePasswordKonfirmasi');
-        const pass2 = document.querySelector('#passwordKonfirmasi');
-        if(togglePass2 && pass2) {
+        const togglePass2 =
+            document.querySelector('#togglePasswordKonfirmasi');
+
+        const pass2 =
+            document.querySelector('#passwordKonfirmasi');
+
+        if (togglePass2 && pass2) {
+
             togglePass2.addEventListener('click', function () {
-                const type = pass2.getAttribute('type') === 'password' ? 'text' : 'password';
+
+                const type =
+                    pass2.getAttribute('type') === 'password'
+                        ? 'text'
+                        : 'password';
+
                 pass2.setAttribute('type', type);
-                this.classList.toggle('ph-eye');
-                this.classList.toggle('ph-eye-slash');
+
+                if (type === 'password') {
+                    this.classList.remove('ph-eye-slash');
+                    this.classList.add('ph-eye');
+                } else {
+                    this.classList.remove('ph-eye');
+                    this.classList.add('ph-eye-slash');
+                }
+
             });
         }
+
     });
 </script>
 

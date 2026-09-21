@@ -1,81 +1,87 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Edit Akun')
+@section('title','Edit Akun')
 
 @section('content')
-
-{{-- Link Kembali --}}
 <div class="back-link-wrapper">
-    <a href="{{ route('akun.show', $akun->id) }}" class="back-link">
-        ← Kembali ke Detail Akun
-    </a>
+    <a href="{{ route('akun.show',$akun->id) }}" class="back-link">← Kembali ke Detail Akun</a>
 </div>
 
-{{-- Judul Halaman --}}
 <h2 class="page-title">Edit Akun</h2>
 
-{{-- Card Form --}}
 <div class="edit-card">
-    <form action="{{ route('akun.update', $akun->id) }}" method="POST">
+    @if($errors->any())
+    <div class="alert alert-danger" style="margin-bottom:20px;">
+        <ul style="margin:0;padding-left:20px;">
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <form action="{{ route('akun.update',$akun->id) }}" method="POST">
         @csrf
         @method('PUT')
 
-        {{-- Nama Pengguna --}}
+        <!-- NAMA -->
         <div class="form-group">
-            <label>Nama Pengguna</label>
-            <input type="text" 
-                   name="nama_pengguna" 
-                   class="form-control" 
-                   value="{{ old('nama_pengguna', $akun->nama_pengguna) }}" 
-                   required>
+            <label for="nama">Nama Pengguna</label>
+            <input type="text" id="nama" name="nama" class="form-control" value="{{ old('nama',$akun->nama) }}" required>
         </div>
 
-        {{-- Email --}}
+        <!-- EMAIL -->
         <div class="form-group">
-            <label>Email</label>
-            <input type="email" 
-                   name="email" 
-                   class="form-control" 
-                   value="{{ old('email', $akun->email) }}" 
-                   required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" value="{{ old('email',$akun->email) }}" required>
         </div>
 
-        {{-- Role --}}
+        <!-- ROLE -->
         <div class="form-group">
-            <label>Role</label>
-            <select name="role" id="roleSelect" class="form-control" required>
-                <option value="Admin TEFA" {{ old('role', $akun->role) == 'Admin TEFA' ? 'selected' : '' }}>Admin TEFA</option>
-                <option value="Admin Jurusan" {{ old('role', $akun->role) == 'Admin Jurusan' ? 'selected' : '' }}>Admin Jurusan</option>
+            <label for="role">Role</label>
+            <select name="role" id="role" class="form-control" required>
+                <option value="admin_tefa" {{ old('role',$akun->role)==='admin_tefa'?'selected':'' }}>
+                    Admin TEFA
+                </option>
+                <option value="admin_jurusan" {{ old('role',$akun->role)==='admin_jurusan'?'selected':'' }}>
+                    Admin Jurusan
+                </option>
             </select>
         </div>
 
-        {{-- Jurusan (Dinamis) --}}
-        <div class="form-group" id="jurusanWrapper">
-            <label>Jurusan</label>
-            <select name="jurusan" id="jurusanSelect" class="form-control">
+        <!-- JURUSAN -->
+        <div class="form-group" id="jurusanContainer">
+            <label for="id_jurusan">Jurusan</label>
+            <select name="id_jurusan" id="id_jurusan" class="form-control">
                 <option value="">-- Pilih Jurusan --</option>
-                <option value="Rekayasa Perangkat Lunak" {{ old('jurusan', $akun->jurusan) == 'Rekayasa Perangkat Lunak' ? 'selected' : '' }}>Rekayasa Perangkat Lunak</option>
-                <option value="Teknik Komputer Jaringan" {{ old('jurusan', $akun->jurusan) == 'Teknik Komputer Jaringan' ? 'selected' : '' }}>Teknik Komputer Jaringan</option>
-                <option value="Desain Komunikasi Visual" {{ old('jurusan', $akun->jurusan) == 'Desain Komunikasi Visual' ? 'selected' : '' }}>Desain Komunikasi Visual</option>
-                <option value="Pengembangan GIM" {{ old('jurusan', $akun->jurusan) == 'Pengembangan GIM' ? 'selected' : '' }}>Pengembangan GIM</option>
-                <option value="Animasi" {{ old('jurusan', $akun->jurusan) == 'Animasi' ? 'selected' : '' }}>Animasi</option>
-                <option value="Produksi Siaran dan Program Televisi" {{ old('jurusan', $akun->jurusan) == 'Produksi Siaran dan Program Televisi' ? 'selected' : '' }}>Produksi Siaran dan Program Televisi</option>
 
+                @foreach($jurusanKosong as $jurusan)
+                <option value="{{ $jurusan->id_jurusan }}"
+                    {{ old('id_jurusan',$akun->jurusanDipegang->id_jurusan ?? '')==$jurusan->id_jurusan?'selected':'' }}>
+                    {{ $jurusan->nama_jurusan }}
+                </option>
+                @endforeach
             </select>
         </div>
 
-        {{-- Status Akun --}}
+        <p id="helpTextJurusan" style="color:#64748b;font-size:13px;margin-bottom:20px;"></p>
+
+        <!-- STATUS -->
         <div class="form-group mb-large">
-            <label>Status Akun</label>
-            <select name="status" class="form-control" required>
-                <option value="aktif" {{ old('status', strtolower($akun->status)) == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                <option value="nonaktif" {{ old('status', strtolower($akun->status)) == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+            <label for="status">Status Akun</label>
+            <select name="status" id="status" class="form-control" required>
+                <option value="aktif" {{ old('status',$akun->status)==='aktif'?'selected':'' }}>
+                    Aktif
+                </option>
+                <option value="tidak_aktif" {{ old('status',$akun->status)==='tidak_aktif'?'selected':'' }}>
+                    Tidak Aktif
+                </option>
             </select>
         </div>
 
-        {{-- Tombol Aksi --}}
+        <!-- TOMBOL -->
         <div class="form-actions">
-            <a href="{{ route('akun.show', $akun->id) }}" class="btn-cancel">
+            <a href="{{ route('akun.show',$akun->id) }}" class="btn-cancel">
                 Batal
             </a>
 
@@ -83,12 +89,35 @@
                 Simpan Perubahan
             </button>
         </div>
-
     </form>
 </div>
-
 @endsection
 
-@push('scripts')
-    <script src="{{ asset('js/edit-akun.js') }}"></script>
-@endpush
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+    const roleSelect=document.getElementById('role');
+    const jurusanContainer=document.getElementById('jurusanContainer');
+    const jurusanSelect=document.getElementById('id_jurusan');
+    const helpText=document.getElementById('helpTextJurusan');
+
+    function updateJurusan(){
+        if(roleSelect.value==='admin_jurusan'){
+            jurusanContainer.style.display='block';
+            jurusanSelect.disabled=false;
+            jurusanSelect.required=true;
+            helpText.textContent='Pilih jurusan yang menjadi tanggung jawab akun ini.';
+        }else{
+            jurusanContainer.style.display='none';
+            jurusanSelect.disabled=true;
+            jurusanSelect.required=false;
+            jurusanSelect.value='';
+            helpText.textContent='Admin TEFA tidak terikat pada jurusan tertentu.';
+        }
+    }
+
+    roleSelect.addEventListener('change',updateJurusan);
+    updateJurusan();
+});
+</script>
+@endsection
