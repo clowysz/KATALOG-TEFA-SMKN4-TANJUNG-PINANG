@@ -1,7 +1,7 @@
 /* ================= HEADER & NAVIGASI JURUSAN (Figma Layout) ================= */
 .jurusan-hero-section {
-    background: #1E3A8A;
-    color: white;
+    background: white;
+    color: #1E3A8A;
     position: relative;
     /* PERBAIKAN: Tambah padding atas agar tidak tertutup Navbar */
     padding: 120px 5% 0 5%; 

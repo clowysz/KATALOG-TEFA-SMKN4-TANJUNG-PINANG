@@ -35,15 +35,15 @@
         */
 
         .jurusan-sticky-container {
-            background: #1E3A8A;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            box-sizing: border-box;
+          background: white !important;
+          position: sticky;
+          top: 0;
+          z-index: 999;
+          padding: 12px 20px;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .jurusan-nav-pill {

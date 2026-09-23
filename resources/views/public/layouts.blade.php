@@ -29,7 +29,7 @@
             position: sticky;
             top: 0;
             z-index: 999;
-            padding: 5px 20px;
+            padding: 8px 1px;
             display: flex;
             justify-content: center;
             width: 100%;
