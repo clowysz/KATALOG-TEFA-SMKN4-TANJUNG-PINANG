@@ -126,11 +126,13 @@
 .k-card-btn:hover { background: #1E3A8A; color: white; border-color: #1E3A8A; }
 
 /* ================= DETAIL PRODUK & JASA PAGE ================= */
-.detail-page-wrapper { background: #1E3A8A; padding: 40px 5% 100px 5%; min-height: 100vh; }
-.back-link { color: white; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; font-weight: 600; transition: 0.3s; }
+.detail-page-wrapper { background: #F4F8FC; padding: 40px 5% 100px 5%; min-height: 100vh; }
+.back-link { color: #1E3A8A;text-decoration: none;font-size: 20px;font-weight: 700;display: inline-flex;align-items: center;gap: 8px;margin-bottom: 30px;transition: 0.3s;}
 .back-link:hover { opacity: 0.8; transform: translateX(-5px); }
 
-.detail-top-container { display: flex; flex-direction: column; gap: 40px; max-width: 1200px; margin: 0 auto; }
+.detail-top-container {  max-width: 1200px;margin: 30px auto 40px;padding: 40px;background: #ffffff;border-radius: 24px;display: grid;grid-template-columns: 1.1fr 0.9fr;gap: 50px;align-items: center;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06); }
 @media (min-width: 992px) { .detail-top-container { flex-direction: row; align-items: flex-start; } }
 
 /* Bagian Kiri: Galeri Gambar */
@@ -141,12 +143,37 @@
 .thumb-item:hover, .thumb-item.active { border-color: white; }
 
 /* Bagian Kanan: Info Produk */
-.detail-info { flex: 1; width: 100%; color: white; padding-top: 20px; }
-.detail-badge { background: white; color: #1E3A8A; font-weight: 700; padding: 6px 16px; border-radius: 20px; font-size: 12px; display: inline-block; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
-.detail-title { font-size: 36px; font-weight: 800; font-family: 'Poppins', sans-serif; margin-bottom: 40px; line-height: 1.2; }
+.detail-info {  flex: 1; 
+    flex: 1;
+    width: 100%;
+    color: #1E3A8A;
+    padding-top: 20px;}
+.detail-badge { background: white; 
+    color: #1E3A8A; 
+    font-weight: 700; 
+    padding: 6px 16px; 
+    border-radius: 20px; 
+    font-size: 35px; 
+    display: inline-block; 
+    margin-bottom: 16px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; }
+.detail-title { font-size: 36px; 
+    font-size: 50px;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 40px;
+    line-height: 1.2;
+    color: #1E3A8A;}
+.detail-price {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1E3A8A;
+    margin-bottom: 20px;
+}
 
 /* Tombol Pesan Sekarang (Mengarah ke Login) */
-.btn-pesan { background: white; color: #1E3A8A; font-size: 16px; font-weight: 700; padding: 14px 32px; border-radius: 12px; display: inline-flex; align-items: center; gap: 12px; text-decoration: none; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.15); border: none; cursor: pointer; }
+.btn-pesan { background: white; color: #1E3A8A; font-size: 20px; font-weight: 700; padding: 14px 32px; border-radius: 12px; display: inline-flex; align-items: center; gap: 12px; text-decoration: none; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.15); border: none; cursor: pointer; }
 .btn-pesan:hover { background: #F8FAFC; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
 
 /* Bagian Bawah: Kartu Putih Detail */
@@ -167,7 +194,7 @@
 
 /* ================= PERBAIKAN GAP PUTIH DI ATAS FOOTER ================= */
 .detail-page-wrapper {
-    padding-bottom: 0 !important;
+    padding-bottom: 50px !important;
     margin-bottom: 0 !important;
 }
 
