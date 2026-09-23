@@ -89,7 +89,7 @@ class AkunController extends Controller
 
             'id_jurusan' => [
                 'nullable',
-                'exists:jurusan,id_jurusan',
+                'exists:jurusans,id_jurusan',
                 'required_if:role,admin_jurusan',
             ],
         ]);
@@ -258,7 +258,7 @@ class AkunController extends Controller
 
             'id_jurusan' => [
                 'nullable',
-                'exists:jurusan,id_jurusan',
+                'exists:jurusans,id_jurusan',
                 'required_if:role,admin_jurusan',
             ],
         ]);
