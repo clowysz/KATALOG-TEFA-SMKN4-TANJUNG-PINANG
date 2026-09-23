@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 img.src = event.target.result;
                 img.style.width = '70px';
                 img.style.height = '70px';
-                img.style.objectFit = 'cover';
+                img.style.objectFit = 'contain';
                 img.style.borderRadius = '8px';
                 img.style.border = '1px solid #CBD5E1';
                 img.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
