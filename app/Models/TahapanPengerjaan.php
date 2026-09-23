@@ -8,7 +8,7 @@ class TahapanPengerjaan extends Model
 {
     protected $table = 'tahapan_pengerjaans';
 
-    protected $primaryKey = 'id_tahapan';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'id_pesanan',

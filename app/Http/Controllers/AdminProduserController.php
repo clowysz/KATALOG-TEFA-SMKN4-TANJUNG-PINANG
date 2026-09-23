@@ -190,7 +190,7 @@ class AdminProduserController extends Controller
 
         $pesanan=$this->pesananProduser($id_pesanan);
 
-        $tahapan=TahapanPengerjaan::where('id_tahapan',$id_tahapan)
+        $tahapan=TahapanPengerjaan::where('id',$id_tahapan)
             ->where('id_pesanan',$pesanan->id_pesanan)
             ->firstOrFail();
 
@@ -208,7 +208,7 @@ class AdminProduserController extends Controller
     {
         $pesanan=$this->pesananProduser($id_pesanan);
 
-        $tahapan=TahapanPengerjaan::where('id_tahapan',$id_tahapan)
+        $tahapan=TahapanPengerjaan::where('id',$id_tahapan)
             ->where('id_pesanan',$pesanan->id_pesanan)
             ->firstOrFail();
 
@@ -228,7 +228,7 @@ class AdminProduserController extends Controller
         $pesanan=$this->pesananProduser($id_pesanan);
 
         foreach($request->urutan as $index=>$idTahapan){
-            TahapanPengerjaan::where('id_tahapan',$idTahapan)
+            TahapanPengerjaan::where('id',$idTahapan)
                 ->where('id_pesanan',$pesanan->id_pesanan)
                 ->update([
                     'urutan'=>$index+1,
