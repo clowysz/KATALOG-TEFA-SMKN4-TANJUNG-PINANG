@@ -89,10 +89,19 @@
             </div>
 
 
-            <a
-                href="/login-pembeli"
-                class="btn-pesan"
-            >
+          <a
+    href="{{ auth()->check() && auth()->user()->role === 'pembeli'
+        ? '/checkout?id_produk_jasa=' . $jasa->id_produk_jasa
+        : '/login-pembeli?redirect=' . urlencode('/checkout?id_produk_jasa=' . $jasa->id_produk_jasa)
+    }}"
+    class="btn-pesan"
+>
+    <i
+        class="ph ph-shopping-cart"
+        style="font-size: 24px;"
+    ></i>
+    Pesan Jasa Ini
+</a>
                 <i
                     class="ph ph-shopping-cart"
                     style="font-size: 24px;"

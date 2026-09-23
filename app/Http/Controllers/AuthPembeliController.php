@@ -50,11 +50,12 @@ class AuthPembeliController extends Controller
             ->onlyInput('email');
     }
 
-    public function showRegister()
-    {
-        return view('public.daftar');
-    }
+    public function showRegister(Request $request)
+{
+    $redirect = $request->query('redirect');
 
+    return view('public.daftar', compact('redirect'));
+}
     public function register(Request $request)
     {
         $request->validate([
@@ -72,9 +73,15 @@ class AuthPembeliController extends Controller
             'role' => 'pembeli',
         ]);
 
-        Auth::login($user);
+      Auth::login($user);
 
-        return redirect('/');
+$redirect = $request->input('redirect');
+
+if ($redirect && str_starts_with($redirect, '/')) {
+    return redirect($redirect);
+}
+
+return redirect('/');
     }
 
     public function logout(Request $request)

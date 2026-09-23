@@ -25,9 +25,13 @@
         </div>
 
         <!-- Form Registrasi -->
-        <form action="{{ route('pembeli.register.proses') }}" method="POST">
+     <form action="{{ route('pembeli.register.proses') }}" method="POST">
 
-            @csrf
+    @csrf
+
+    @if($redirect)
+        <input type="hidden" name="redirect" value="{{ $redirect }}">
+    @endif
 
             <div class="login-form-group">
                 <label>Nama Lengkap</label>
@@ -125,11 +129,12 @@
     <!-- Teks Bawah Kembali ke Login -->
     <p class="login-footer-text">
         Sudah punya akun?
-
-        <a
-            href="{{ route('pembeli.login') }}"
-            style="color: white; font-weight: 600; text-decoration: underline;"
-        >
+<a
+    href="{{ route('pembeli.login', ['redirect' => $redirect]) }}"
+    style="color: white; font-weight: 600; text-decoration: underline;"
+>
+    Masuk di sini
+</a>
             Masuk di sini
         </a>
     </p>

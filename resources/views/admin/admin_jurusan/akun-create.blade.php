@@ -122,34 +122,73 @@
             <span class="required-star">*</span>
         </label>
 
-        <div
-            id="checkboxContainer"
-            class="chip-checkbox-grid"
+      <div
+    id="checkboxContainer"
+    style="
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    "
+>
+    @forelse ($produkJasas as $produkJasa)
+
+        <label
+            style="
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 14px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                cursor: pointer;
+                background: #fff;
+            "
         >
 
-            @forelse ($produkJasas as $produkJasa)
+            <input
+                type="checkbox"
+                name="layanan[]"
+                value="{{ $produkJasa->id_produk_jasa }}"
+                style="
+                    width: 18px;
+                    height: 18px;
+                    cursor: pointer;
+                    margin: 0;
+                "
+            >
 
-                <label style="cursor: pointer;">
-                    <input
-                        type="checkbox"
-                        name="layanan[]"
-                        value="{{ $produkJasa->id_produk_jasa }}"
-                        style="display: none;"
-                    >
+            <span>
+                {{ $produkJasa->nama_produk_jasa }}
+            </span>
 
-                    <span
-                        class="chip-checkbox"
-                        onclick="
-                            const checkbox = this.previousElementSibling;
-                            checkbox.checked = !checkbox.checked;
-                            this.classList.toggle('active', checkbox.checked);
-                        "
-                    >
-                        {{ $produkJasa->nama_produk_jasa }}
-                    </span>
-                </label>
+        </label>
 
-            @empty
+    @empty
+
+        <p style="color: #6c757d;">
+            Belum ada produk atau jasa yang tersedia untuk jurusan Anda.
+        </p>
+
+    @endforelse
+</div>
+
+           @forelse ($produkJasas as $produkJasa)
+
+    <label style="cursor: pointer;">
+        <input
+            type="checkbox"
+            name="layanan[]"
+            value="{{ $produkJasa->id_produk_jasa }}"
+            style="display: none;"
+        >
+
+        <span class="chip-checkbox">
+            {{ $produkJasa->nama_produk_jasa }}
+        </span>
+    </label>
+
+@empty
 
                 <p style="color: #6c757d;">
                     Belum ada produk atau jasa yang tersedia untuk jurusan Anda.
@@ -204,6 +243,10 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
+    // =========================================================
+    // TOGGLE PASSWORD
+    // =========================================================
+
     const toggleEye = document.getElementById('togglePassEye');
     const passInput = document.getElementById('password');
 
@@ -222,6 +265,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     }
+
+
+   
 
 });
 </script>

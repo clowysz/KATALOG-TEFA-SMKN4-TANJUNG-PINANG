@@ -25,8 +25,12 @@
         </div>
 
         <!-- Form Login -->
-        <form action="{{ route('pembeli.login.proses') }}" method="POST">
-            @csrf
+      <form action="{{ route('pembeli.login.proses') }}" method="POST">
+    @csrf
+
+    @if($redirect)
+        <input type="hidden" name="redirect" value="{{ $redirect }}">
+    @endif
 
             <!-- Hanya Email dan Sandi -->
             <div class="login-form-group">
