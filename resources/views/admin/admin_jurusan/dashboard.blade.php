@@ -29,88 +29,77 @@
 
 @else
 
-    <!-- SUMMARY -->
+    <!-- SUMMARY (Sudah Diperbarui Sesuai Referensi Gambar) -->
     <div
         class="summary-grid"
         style="
+            display: grid;
             grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
             margin-bottom: 24px;
         "
     >
 
-        <div class="tefa-card" style="padding: 24px;">
-            <div style="font-size: 24px; margin-bottom: 12px;">📦</div>
-
-            <h2
-                style="
-                    color: var(--primary);
-                    font-size: 28px;
-                    margin-bottom: 4px;
-                "
-            >
-                {{ $totalProduk }}
-            </h2>
-
-            <p style="color: var(--text-muted); font-size: 13px; margin: 0;">
-                Total Produk
-            </p>
+        <!-- CARD 1: TOTAL PRODUK -->
+        <div class="tefa-card" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
+            <!-- Icon Box -->
+            <div style="background-color: var(--primary, #3B698F); min-width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px;">
+                📦
+            </div>
+            <!-- Text Info -->
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+                <p style="color: var(--text-muted); font-size: 13px; font-weight: 500; margin: 0 0 4px 0;">
+                    Total Produk
+                </p>
+                <h2 style="color: var(--primary); font-size: 24px; font-weight: 700; margin: 0; line-height: 1;">
+                    {{ $totalProduk }}
+                </h2>
+            </div>
         </div>
 
-
-        <div class="tefa-card" style="padding: 24px;">
-            <div style="font-size: 24px; margin-bottom: 12px;">🔧</div>
-
-            <h2
-                style="
-                    color: var(--accent-rpl);
-                    font-size: 28px;
-                    margin-bottom: 4px;
-                "
-            >
-                {{ $totalJasa }}
-            </h2>
-
-            <p style="color: var(--text-muted); font-size: 13px; margin: 0;">
-                Total Jasa
-            </p>
+        <!-- CARD 2: TOTAL JASA -->
+        <div class="tefa-card" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
+            <div style="background-color: var(--accent-rpl, #D8893D); min-width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px;">
+                🔧
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+                <p style="color: var(--text-muted); font-size: 13px; font-weight: 500; margin: 0 0 4px 0;">
+                    Total Jasa
+                </p>
+                <h2 style="color: var(--accent-rpl); font-size: 24px; font-weight: 700; margin: 0; line-height: 1;">
+                    {{ $totalJasa }}
+                </h2>
+            </div>
         </div>
 
-
-        <div class="tefa-card" style="padding: 24px;">
-            <div style="font-size: 24px; margin-bottom: 12px;">📁</div>
-
-            <h2
-                style="
-                    color: #5F9275;
-                    font-size: 28px;
-                    margin-bottom: 4px;
-                "
-            >
-                {{ $totalPortfolio }}
-            </h2>
-
-            <p style="color: var(--text-muted); font-size: 13px; margin: 0;">
-                Total Portofolio
-            </p>
+        <!-- CARD 3: TOTAL PORTOFOLIO -->
+        <div class="tefa-card" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
+            <div style="background-color: #5F9275; min-width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px;">
+                📁
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+                <p style="color: var(--text-muted); font-size: 13px; font-weight: 500; margin: 0 0 4px 0;">
+                    Total Portofolio
+                </p>
+                <h2 style="color: #5F9275; font-size: 24px; font-weight: 700; margin: 0; line-height: 1;">
+                    {{ $totalPortfolio }}
+                </h2>
+            </div>
         </div>
 
-
-        <div class="tefa-card" style="padding: 24px;">
-            <div style="font-size: 24px; margin-bottom: 12px;">🛒</div>
-
-            <h2
-                style="
-                    color: #8A5F92;
-                    font-size: 28px;
-                    margin-bottom: 4px;
-                "
-            >
-                {{ $totalPesananJurusan }}
-            </h2>
-
-            <p style="color: var(--text-muted); font-size: 13px; margin: 0;">
-                Total Pesanan
-            </p>
+        <!-- CARD 4: TOTAL PESANAN -->
+        <div class="tefa-card" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
+            <div style="background-color: #8A5F92; min-width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px;">
+                🛒
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+                <p style="color: var(--text-muted); font-size: 13px; font-weight: 500; margin: 0 0 4px 0;">
+                    Total Pesanan
+                </p>
+                <h2 style="color: #8A5F92; font-size: 24px; font-weight: 700; margin: 0; line-height: 1;">
+                    {{ $totalPesananJurusan }}
+                </h2>
+            </div>
         </div>
 
     </div>

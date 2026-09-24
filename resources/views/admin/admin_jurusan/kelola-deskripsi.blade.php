@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="page-header">
+<div class="page-header" style="margin: 16px 24px;">
     <h2>Kelola Deskripsi Jurusan</h2>
 
     <p>
@@ -13,7 +13,8 @@
     </p>
 </div>
 
-<div class="tefa-card" style="max-width: 700px;">
+<!-- Mengubah max-width menjadi margin agar full namun menyisakan gap di semua sisi -->
+<div class="tefa-card" style="margin: 24px; padding: 24px;">
 
     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0;">
 
@@ -22,11 +23,11 @@
         </div>
 
         <div>
-            <h3 style="color: var(--accent-rpl);">
+            <h3 style="color: var(--accent-rpl); margin-bottom: 4px;">
                 {{ $jurusan->nama_jurusan }}
             </h3>
 
-            <p style="font-size: 13px; color: var(--text-muted);">
+            <p style="font-size: 13px; color: var(--text-muted); margin: 0;">
                 SMK Negeri 4 Tanjungpinang
             </p>
         </div>
@@ -77,6 +78,7 @@
         <label
             for="descText"
             class="detail-label"
+            style="font-weight: 600; margin-bottom: 8px; display: block;"
         >
             Deskripsi Profil Jurusan
         </label>
@@ -85,10 +87,10 @@
             id="descText"
             name="deskripsi"
             class="form-control"
-            rows="8"
+            rows="10"
             readonly
             required
-            style="background-color: #f8f9fa;"
+            style="background-color: #f8f9fa; width: 100%; box-sizing: border-box; padding: 12px;"
         >{{ old('deskripsi', $jurusan->deskripsi) }}</textarea>
 
         {{-- Tombol awal --}}
@@ -122,7 +124,7 @@
             <button
                 type="submit"
                 class="btn-primary"
-                style="width: auto; background-color: var(--accent-rpl);"
+                style="width: auto; background-color: var(--accent-rpl); border: none;"
             >
                 Simpan Perubahan
             </button>
@@ -155,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         descText.removeAttribute('readonly');
         descText.style.backgroundColor = '#fff';
+        descText.style.border = '1px solid var(--accent-rpl)';
 
         descText.focus();
 
@@ -170,6 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         descText.setAttribute('readonly', true);
         descText.style.backgroundColor = '#f8f9fa';
+        descText.style.border = '1px solid #ced4da';
 
         actionButtons.style.display = 'flex';
         saveButtons.style.display = 'none';

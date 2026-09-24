@@ -62,3 +62,81 @@ body.produser-mode .tefa-card { border-radius: 12px; border: 1px solid var(--pro
 .check-list { list-style: none; padding: 0; margin: 0; }
 .check-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 14px; color: var(--prod-text-sec); }
 .check-list li i { color: var(--prod-success); font-size: 18px; margin-top: 2px; }
+
+/* ================================
+   HEADER DETAIL PESANAN
+================================ */
+
+.order-hero-top-v2 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    align-items: center;
+    gap: 32px;
+    padding: 24px;
+    background: var(--primary);
+    color: white;
+}
+
+.order-hero-left {
+    min-width: 0;
+}
+
+.order-hero-code-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.order-hero-name {
+    margin: 0 0 12px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.order-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.order-hero-right {
+    text-align: right;
+    padding-left: 28px;
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.order-hero-total-label {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.8;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.order-hero-total {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.order-hero-items {
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+@media (max-width: 700px) {
+    .order-hero-top-v2 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .order-hero-right {
+        text-align: left;
+        padding-left: 0;
+        padding-top: 18px;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.25);
+    }
+}

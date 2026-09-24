@@ -46,7 +46,7 @@
             >
 
             <label class="detail-label" style="color: #1E2D3D; font-size: 13px; font-weight: 600; margin-bottom: 6px; display: block;">
-                Password
+                Kata sandi
             </label>
 
             <div style="position: relative;">
@@ -55,14 +55,14 @@
                     id="loginPass"
                     name="password"
                     class="form-control"
-                    placeholder="Masukkan password"
+                    placeholder="Masukkan Kata sandi"
                     required
                     style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid #E2E8F0; box-sizing: border-box;"
                 >
 
                 <span
                     id="toggleLoginPass"
-                    style="position: absolute; right: 16px; top: 12px; cursor: pointer; color: #94A3B8; font-size: 18px;"
+                    style="position: absolute; right: 16px; top: 17px; cursor: pointer; color: #94A3B8; font-size: 18px;"
                 >
                     <i class="ph ph-eye"></i>
                 </span>

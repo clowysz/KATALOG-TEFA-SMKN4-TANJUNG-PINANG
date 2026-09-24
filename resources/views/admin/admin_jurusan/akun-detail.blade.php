@@ -1,372 +1,240 @@
 @extends('admin.layouts.app-jurusan')
 
-@section('title', 'Detail Akun')
+@section('title', 'Tambah Akun')
 
 @section('content')
-
-<div style="max-width: 600px; margin: 40px auto 24px auto;">
-
-    <div
-        class="tefa-card"
-        style="
-            padding: 32px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        "
+<div class="page-header">
+    <a
+        href="/jurusan-admin/akun"
+        class="btn-outline"
+        style="margin-bottom: 16px; border: none; padding-left: 0;"
     >
+        ← Kembali
+    </a>
+</div>
 
-        <!-- IDENTITAS AKUN -->
-        <div class="detail-avatar-box">
+<div
+    class="tefa-card"
+    style="max-width: 650px; padding: 32px; border-radius: 16px; margin: 0 auto;"
+>
 
-            <div class="avatar-square">
-                <i class="ph ph-user"></i>
-            </div>
+    <form
+        action="{{ route('jurusan.akun.store') }}"
+        method="POST"
+    >
+        @csrf
 
-            <div>
-                <h2
-                    style="
-                        font-size: 20px;
-                        color: var(--text-dark);
-                        margin-bottom: 4px;
-                    "
-                >
-                    {{ $akun->nama }}
-                </h2>
-
-                <p
-                    style="
-                        color: var(--text-muted);
-                        font-size: 14px;
-                    "
-                >
-                    {{ $akun->email }}
-                </p>
-            </div>
-
-        </div>
-
-        <!-- ROLE -->
-        <div class="detail-row">
-
-            <div class="detail-row-label">
-                Role
-            </div>
-
-            <div class="detail-row-value">
-                Admin Produser
-            </div>
-
-        </div>
-
-        <!-- PASSWORD -->
-        <div class="detail-row">
-
-            <div class="detail-row-label">
-                Password
-            </div>
-
-            <div class="detail-row-value">
-                ••••••••
-            </div>
-
-        </div>
-
-        <!-- STATUS -->
-        <div class="detail-row">
-
-            <div class="detail-row-label">
-                Status Akun
-            </div>
-
-            <div class="detail-row-value">
-
-                @if ($akun->status === 'aktif')
-
-                    <span class="badge">
-                        Aktif
-                    </span>
-
-                @else
-
-                    <span class="badge">
-                        Tidak Aktif
-                    </span>
-
-                @endif
-
-            </div>
-
-        </div>
-
-        <!-- JURUSAN -->
-        <div class="detail-row">
-
-            <div class="detail-row-label">
-                Jurusan
-            </div>
-
-            <div class="detail-row-value">
-                {{ $jurusan->nama_jurusan ?? '-' }}
-            </div>
-
-        </div>
-
-        <!-- PRODUK / JASA -->
-        <div style="padding-top: 16px;">
-
+        {{-- POINT 1: Mengubah pesan error Bahasa Inggris ke Bahasa Indonesia --}}
+        @if ($errors->any())
             <div
-                class="detail-row-label"
-                style="margin-bottom: 12px;"
-            >
-                Produk/Jasa Tanggung Jawab
-            </div>
-
-            <div
-                id="detLayanan"
                 style="
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 8px;
+                    background: #f8d7da;
+                    color: #842029;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
                 "
             >
-
-                @forelse ($akun->penugasanProduser as $penugasan)
-
-                    @if ($penugasan->produkJasa)
-
-                        <span class="badge">
-                            {{ $penugasan->produkJasa->nama_produk_jasa }}
-                        </span>
-
-                    @endif
-
-                @empty
-
-                    <span style="color: #6c757d;">
-                        Belum ada produk/jasa yang ditugaskan.
-                    </span>
-
-                @endforelse
-
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as$error)
+                        <li>
+                            {{ str_replace('The layanan field is required.', 'Kolom produk/jasa tanggung jawab wajib dipilih.', $error) }}
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-
-        </div>
-
-    </div>
-
-    <!-- TOMBOL AKSI -->
-    <div>
-
-        <!-- EDIT AKUN -->
-        <button
-            id="btnToEdit"
-            class="stacked-btn stacked-btn-primary"
-            type="button"
-            onclick="
-                window.location.href =
-                '/jurusan-admin/akun/edit?id={{ $akun->id }}'
-            "
-        >
-            <i class="ph ph-pencil-simple"></i>
-            Edit Akun
-        </button>
-
-        <!-- RESET PASSWORD -->
-        <button
-            onclick="openModal('modalReset')"
-            class="stacked-btn stacked-btn-outline"
-            type="button"
-        >
-            <i class="ph ph-key"></i>
-            Reset Password
-        </button>
-
-        @if ($akun->status === 'aktif')
-
-            <!-- HAPUS AKSES -->
-            <button
-                id="btnHapusAkses"
-                onclick="openModal('modalHapus')"
-                class="stacked-btn stacked-btn-danger"
-                type="button"
-            >
-                <i class="ph ph-shield-warning"></i>
-                Hapus Akses
-            </button>
-
-        @else
-
-            <!-- AKTIFKAN KEMBALI -->
-            <button
-                id="btnAktifkan"
-                class="stacked-btn stacked-btn-outline"
-                type="button"
-                style="
-                    color:#28a745;
-                    border-color:#28a745;
-                "
-            >
-                <i class="ph ph-check-circle"></i>
-                Aktifkan Kembali
-            </button>
-
         @endif
 
-    </div>
+        <label class="detail-label">
+            Nama Pengguna
+            <span class="required-star">*</span>
+        </label>
 
-</div>
+        <input
+            type="text"
+            name="nama"
+            class="form-control"
+            placeholder="Masukkan nama lengkap"
+            value="{{ old('nama') }}"
+            required
+        >
 
-<!-- ===================================================== -->
-<!-- MODAL RESET PASSWORD -->
-<!-- ===================================================== -->
+        <label class="detail-label">
+            Email
+            <span class="required-star">*</span>
+        </label>
 
-<div id="modalReset" class="modal-overlay">
+        <input
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="Masukkan email"
+            value="{{ old('email') }}"
+            required
+        >
 
-    <div class="modal-box">
+        <label class="detail-label">
+            Kata sandi
+            <span class="required-star">*</span>
+        </label>
 
-        <div class="modal-title">
-            Reset Password?
-        </div>
-
-        <div class="modal-desc">
-            Apakah Anda yakin ingin mereset password akun ini?
-        </div>
-
-        <form id="formResetPassword">
-            @csrf
-
-            <label class="detail-label">
-                Password Baru
-            </label>
-
+        {{-- POINT 2: Ikon Mata Abu-Abu & Posisi Presisi di Tengah --}}
+        <div style="position: relative;">
             <input
                 type="password"
-                id="newPass"
+                name="password"
+                id="password"
                 class="form-control"
-                placeholder="Masukkan password baru"
+                placeholder="Buat password"
                 required
             >
 
-            <label class="detail-label">
-                Konfirmasi Password Baru
-            </label>
-
-            <input
-                type="password"
-                id="confirmPass"
-                class="form-control"
-                placeholder="Ulangi password baru"
-                required
-            >
-
-            <div
-                class="show-password"
-                style="margin-top: 8px;"
-            >
-                <input
-                    type="checkbox"
-                    id="toggleModalPass"
-                >
-
-                <label for="toggleModalPass">
-                    Perlihatkan Password
-                </label>
-            </div>
-
-            <div
-                id="errorReset"
+            <span
+                id="togglePassEye"
                 style="
-                    color: #dc3545;
-                    font-size: 13px;
-                    display: none;
-                    margin-top: 8px;
+                    position: absolute;
+                    right: 16px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
                 "
             >
-                Password tidak cocok.
-            </div>
+                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </span>
+        </div>
 
-            <div class="modal-actions">
+        <label
+            class="detail-label"
+            style="margin-top: 16px;"
+        >
+            Role
+        </label>
 
-                <button
-                    type="button"
-                    class="btn-outline"
-                    onclick="closeModal('modalReset')"
+        <input
+            type="text"
+            class="form-control"
+            value="Admin Produser"
+            readonly
+            style="background-color: #f8f9fa;"
+        >
+
+        <label
+            class="detail-label"
+            style="margin-top: 24px;"
+        >
+            Produk/Jasa Tanggung Jawab
+            <span class="required-star">*</span>
+        </label>
+
+        <div
+            id="checkboxContainer"
+            style="
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 10px;
+            "
+        >
+            @forelse ($produkJasas as$produkJasa)
+                <label
+                    style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        padding: 10px 14px;
+                        border: 1px solid #ccc;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        background: #fff;
+                    "
                 >
-                    Batal
-                </button>
-
-                <button
-                    type="submit"
-                    class="btn-primary"
-                    style="width: auto;"
-                >
-                    Reset Password
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-<!-- ===================================================== -->
-<!-- MODAL HAPUS AKSES -->
-<!-- ===================================================== -->
-
-<div id="modalHapus" class="modal-overlay">
-
-    <div class="modal-box">
-
-        <div class="modal-title">
-            Hapus Akses Akun?
+                    <input
+                        type="checkbox"
+                        name="layanan[]"
+                        value="{{ $produkJasa->id_produk_jasa }}"
+                        style="
+                            width: 18px;
+                            height: 18px;
+                            cursor: pointer;
+                            margin: 0;
+                        "
+                    >
+                    <span>
+                        {{ $produkJasa->nama_produk_jasa }}
+                    </span>
+                </label>
+            @empty
+                <p style="color: #6c757d;">
+                    Belum ada produk atau jasa yang tersedia untuk jurusan Anda.
+                </p>
+            @endforelse
         </div>
 
         <div
-            class="modal-desc"
-            id="hapusDesc"
+            style="
+                color: #6c757d;
+                font-size: 13px;
+                margin-top: 8px;
+            "
         >
-            Akun ini tidak dapat lagi mengakses halaman internal
-            setelah akses dihapus. Data akun tetap tersimpan
-            di dalam daftar akun.
+            Pilih minimal satu produk/jasa yang menjadi tanggung jawab Admin Produser.
         </div>
 
-        <div class="modal-actions">
-
+        <div
+            style="
+                display: flex;
+                gap: 16px;
+                margin-top: 32px;
+            "
+        >
             <button
-                type="button"
+                type="reset"
                 class="btn-outline"
-                onclick="closeModal('modalHapus')"
+                style="flex: 1;"
             >
-                Batal
+                Reset
             </button>
 
             <button
-                type="button"
-                id="btnConfirmStatus"
+                type="submit"
                 class="btn-primary"
-                style="
-                    width: auto;
-                    background-color: #dc3545;
-                "
+                style="flex: 1;"
             >
-                Hapus Akses
+                Tambah Akun
             </button>
-
         </div>
 
-    </div>
+    </form>
 
 </div>
-
-<div id="toastAction" class="toast-notification"></div>
-
 @endsection
 
 @section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleEye = document.getElementById('togglePassEye');
+    const passInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
 
-<script src="{{ asset('js/akun-jurusan-action.js') }}"></script>
+    const eyeOpenSvg = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>`;
+    const eyeClosedSvg = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>`;
 
+    if (toggleEye && passInput && eyeIcon) {
+        toggleEye.addEventListener('click', function () {
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                eyeIcon.innerHTML = eyeClosedSvg;
+            } else {
+                passInput.type = 'password';
+                eyeIcon.innerHTML = eyeOpenSvg;
+            }
+        });
+    }
+});
+</script>
 @endsection

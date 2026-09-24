@@ -3,117 +3,110 @@
 @section('title', 'Detail Produk/Jasa')
 
 @section('content')
-<div class="page-header" style="margin-bottom: 16px;">
-    <a href="/jurusan-admin/katalog" class="btn-outline" style="border: none; padding-left: 0;">
-        ← Kembali
-    </a>
-</div>
+<div style="max-width: 900px; margin: 0 auto; padding-bottom: 2rem; font-family: 'Inter', -apple-system, sans-serif;">
 
-<div id="detailLoading" class="tefa-card" style="max-width: 850px; padding: 60px 20px; text-align: center;">
-    <div style="font-size: 40px; margin-bottom: 12px;">⏳</div>
-    <h3 style="color: #1e293b;">Memuat detail...</h3>
-</div>
-
-<div id="detailError" class="tefa-card" style="display: none; max-width: 850px; padding: 60px 20px; text-align: center;">
-    <div style="font-size: 50px; margin-bottom: 16px;">⚠️</div>
-    <h3 style="color: #1e293b; margin-bottom: 8px;">Data tidak ditemukan</h3>
-    <p style="color: #64748b;">Produk atau jasa yang dipilih tidak ditemukan.</p>
-</div>
-
-<div id="detailContent" class="tefa-card" style="display: none; max-width: 850px; padding: 0; overflow: hidden; border-radius: 12px;">
-
-    <div style="background: #F8FAFC; text-align: center; padding: 20px 0; border-bottom: 1px solid #E2E8F0;">
-
-        <img
-            id="detailImg"
-            src=""
-            alt="Gambar Utama"
-            style="width: 100%; max-height: 400px; object-fit: contain; margin-bottom: 16px;"
-        >
-
-        <div
-            id="thumbnailContainer"
-            style="display: flex; gap: 12px; justify-content: center; padding: 0 20px; overflow-x: auto;"
-        ></div>
-
+    <!-- Navigation Header -->
+    <div style="margin-bottom: 16px;">
+        <a href="/jurusan-admin/katalog" style="display: inline-flex; align-items: center; gap: 8px; color: #475569; font-size: 13px; font-weight: 600; text-decoration: none; padding: 8px 16px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; transition: all 0.2s ease;">
+            <i class="ph ph-arrow-left" style="font-size: 16px;"></i> Kembali ke Katalog
+        </a>
     </div>
 
-    <div style="padding: 32px;">
+    <!-- State Loading -->
+    <div id="detailLoading" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 50px 20px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
+        <div style="font-size: 36px; margin-bottom: 12px; animation: spin 2s linear infinite;">⏳</div>
+        <h3 style="color: #0f172a; font-size: 16px; font-weight: 700; margin-bottom: 4px;">Memuat detail...</h3>
+        <p style="color: #64748b; font-size: 13px; margin: 0;">Mohon tunggu sebentar, sedang mengambil data produk/jasa.</p>
+    </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px;">
+    <!-- State Error -->
+    <div id="detailError" style="display: none; background: #ffffff; border: 1px solid #fee2e2; border-radius: 14px; padding: 50px 20px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
+        <div style="font-size: 40px; margin-bottom: 12px; color: #ef4444;">⚠️</div>
+        <h3 style="color: #0f172a; font-size: 18px; font-weight: 700; margin-bottom: 6px;">Data tidak ditemukan</h3>
+        <p style="color: #64748b; font-size: 13px; margin: 0;">Produk atau jasa yang dipilih tidak tersedia atau telah dihapus.</p>
+    </div>
 
-            <h2
-                id="detailTitle"
-                style="color: var(--primary); font-size: 26px; margin: 0;"
-            >
-                Memuat...
-            </h2>
+    <!-- Main Detail Content Card -->
+    <div id="detailContent" style="display: none; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03); padding: 20px;">
 
-            <span
-                id="detailBadge"
-                class="badge-tipe-produk"
-            >
-                Memuat...
-            </span>
-
+        <!-- Header Gambar Utama (Full Cover, tanpa gap) -->
+        <div id="mainImageContainer" style="width: 100%; height: 320px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0;">
+            <img id="detailImg" src="" alt="Gambar Utama" style="width: 100%; height: 100%; object-fit: cover; display: block;">
         </div>
 
-        <div
-            id="detailPrice"
-            style="font-size: 22px; font-weight: 700; color: var(--primary); margin-bottom: 24px;"
-        >
-            Rp 0
-        </div>
+        <!-- Container Galeri Thumbnail -->
+        <div id="thumbnailContainer" style="display: flex; gap: 10px; justify-content: center; padding: 12px 0 0 0; overflow-x: auto;"></div>
 
-        <div
-            id="detailDesc"
-            style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px;"
-        >
-            Memuat deskripsi...
-        </div>
+        <!-- Section Informasi Detail -->
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
 
-        <div class="stat-grid-3">
+            <!-- Title & Badge -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 8px;">
+                <h2 id="detailTitle" style="color: #0f172a; font-size: 20px; font-weight: 800; line-height: 1.3; margin: 0;">
+                    Memuat...
+                </h2>
 
-            <div class="stat-box">
-                <h3 id="statPesanan" style="color: var(--primary); font-size: 24px;">
-                    0
-                </h3>
-                <p style="font-size: 12px; color: var(--text-muted);">
-                    Pesanan
-                </p>
+                <span id="detailBadge" class="badge-tipe-produk" style="display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; background: #e0f2fe; color: #0369a1; white-space: nowrap;">
+                    Memuat...
+                </span>
             </div>
 
-            <div class="stat-box">
-                <h3 id="statPencarian" style="color: var(--accent-rpl); font-size: 24px;">
-                    —
-                </h3>
-                <p style="font-size: 12px; color: var(--text-muted);">
-                    Pencarian
-                </p>
+            <!-- Price -->
+            <div id="detailPrice" style="font-size: 22px; font-weight: 800; color: #2563eb; margin-bottom: 20px;">
+                Rp 0
             </div>
 
-            <div class="stat-box">
-                <h3 id="statTampilan" style="color: #28a745; font-size: 24px;">
-                    —
-                </h3>
-                <p style="font-size: 12px; color: var(--text-muted);">
-                    Tampilan
-                </p>
+            <!-- Description Box -->
+            <div style="margin-bottom: 20px;">
+                <h3 style="font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Deskripsi</h3>
+                <div id="detailDesc" style="font-size: 13.5px; color: #334155; line-height: 1.6; white-space: pre-line; background: #fafafa; padding: 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+                    Memuat deskripsi...
+                </div>
             </div>
 
-        </div>
+            <!-- Stats Grid -->
+            <div class="stat-grid-3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px;">
 
-        <div class="info-box">
+                <div class="stat-box" style="background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 10px; padding: 14px 12px; text-align: center;">
+                    <h3 id="statPesanan" style="color: #2563eb; font-size: 20px; font-weight: 800; margin: 0 0 2px 0;">
+                        0
+                    </h3>
+                    <p style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">
+                        Total Pesanan
+                    </p>
+                </div>
 
-            <div class="info-box-title">
-                Informasi Tambahan
+                <div class="stat-box" style="background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 10px; padding: 14px 12px; text-align: center;">
+                    <h3 id="statPencarian" style="color: #0284c7; font-size: 20px; font-weight: 800; margin: 0 0 2px 0;">
+                        —
+                    </h3>
+                    <p style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">
+                        Pencarian
+                    </p>
+                </div>
+
+                <div class="stat-box" style="background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 10px; padding: 14px 12px; text-align: center;">
+                    <h3 id="statTampilan" style="color: #16a34a; font-size: 20px; font-weight: 800; margin: 0 0 2px 0;">
+                        —
+                    </h3>
+                    <p style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">
+                        Tampilan Halaman
+                    </p>
+                </div>
+
             </div>
 
-            <div
-                style="font-size: 13px; color: #855b35; line-height: 1.5;"
-            >
-                Data produk atau jasa ini berasal dari katalog jurusan
-                dan dikelola oleh Admin Jurusan.
+            <!-- Info Box Callout -->
+            <div class="info-box" style="background: #fefce8; border: 1px solid #fef08a; border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px;">
+                <span style="font-size: 18px;">💡</span>
+                <div>
+                    <div class="info-box-title" style="font-size: 12px; font-weight: 700; color: #854d0e; margin-bottom: 2px;">
+                        Informasi Pengelolaan
+                    </div>
+                    <div style="font-size: 12px; color: #a16207; line-height: 1.5;">
+                        Data produk atau jasa ini berasal dari katalog jurusan dan dikelola penuh oleh Admin Jurusan.
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -227,16 +220,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 thumb.alt = 'Gambar ' + (index + 1);
 
-                thumb.style.width = '70px';
-                thumb.style.height = '70px';
+                thumb.style.width = '56px';
+                thumb.style.height = '56px';
                 thumb.style.objectFit = 'cover';
                 thumb.style.borderRadius = '8px';
                 thumb.style.cursor = 'pointer';
                 thumb.style.border =
                     index === 0
-                        ? '2px solid var(--primary)'
-                        : '1px solid #CBD5E1';
-                thumb.style.transition = '0.2s';
+                        ? '2px solid #2563eb'
+                        : '1px solid #cbd5e1';
+                thumb.style.transition = 'all 0.2s ease';
 
                 thumb.addEventListener('click', function () {
 
@@ -249,11 +242,11 @@ document.addEventListener('DOMContentLoaded', async function () {
                         thumbnailContainer.children
                     ).forEach(function (child) {
                         child.style.border =
-                            '1px solid #CBD5E1';
+                            '1px solid #cbd5e1';
                     });
 
                     this.style.border =
-                        '2px solid var(--primary)';
+                        '2px solid #2563eb';
                 });
 
                 thumbnailContainer.appendChild(thumb);
@@ -281,10 +274,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         badge.textContent = jenis;
 
-        badge.className =
-            jenis === 'Produk'
-                ? 'badge-tipe-produk'
-                : 'badge-tipe-jasa';
+        badge.style.background = jenis === 'Produk' ? '#dcfce7' : '#e0f2fe';
+        badge.style.color = jenis === 'Produk' ? '#15803d' : '#0369a1';
 
         document.getElementById('statPesanan').textContent =
             item.pesanans_count || 0;
