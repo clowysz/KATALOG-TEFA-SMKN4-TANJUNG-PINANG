@@ -342,45 +342,116 @@
 
 
             <!-- TAHAPAN PENGERJAAN -->
-            @if($pesanan->tahapanPengerjaan->count())
+@if($pesanan->tahapanPengerjaan->count())
 
-                <div class="rd-card">
+    <div class="rd-card">
 
-                    <h3 class="rd-card-title">
-                        Tahapan Pengerjaan
-                    </h3>
+        <h3 class="rd-card-title">
+            Tahapan Pengerjaan
+        </h3>
 
-                    <div>
+        <div>
 
-                        @foreach($pesanan->tahapanPengerjaan as $tahapan)
+            @foreach($pesanan->tahapanPengerjaan->sortBy('urutan') as $tahapan)
 
-                            <div
-                                style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid #E2E8F0;"
-                            >
+                <div style="
+                    padding:18px 0;
+                    border-bottom:1px solid #E2E8F0;
+                ">
 
-                                <div
-                                    style="width:32px;height:32px;border-radius:50%;background:#1E3A8A;color:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;"
-                                >
-                                    {{ $loop->iteration }}
-                                </div>
+                    <div style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        gap:15px;
+                    ">
 
-                                <div>
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            gap:12px;
+                        ">
 
-                                    <strong>
-                                        {{ $tahapan->nama_tahapan ?? $tahapan->tahapan ?? 'Tahapan Pengerjaan' }}
-                                    </strong>
-
-                                </div>
-
+                            <div style="
+                                width:32px;
+                                height:32px;
+                                border-radius:50%;
+                                background:#1E3A8A;
+                                color:white;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                flex-shrink:0;
+                                font-weight:700;
+                            ">
+                                {{ $loop->iteration }}
                             </div>
 
-                        @endforeach
+                            <strong>
+                                {{ $tahapan->nama_tahapan }}
+                            </strong>
+
+                        </div>
+
+                        <strong>
+                            {{ $tahapan->persentase_progress }}%
+                        </strong>
+
+                    </div>
+
+
+                    <div style="
+                        margin-top:12px;
+                        margin-left:44px;
+                    ">
+
+                        <div style="
+                            display:flex;
+                            justify-content:space-between;
+                            margin-bottom:6px;
+                            font-size:13px;
+                            color:#64748B;
+                        ">
+
+                            <span>
+                                {{ $tahapan->status }}
+                            </span>
+
+                            <span>
+                                Progress
+                            </span>
+
+                        </div>
+
+
+                        <div style="
+                            width:100%;
+                            height:8px;
+                            background:#E2E8F0;
+                            border-radius:20px;
+                            overflow:hidden;
+                        ">
+
+                            <div style="
+                                width:{{ min(100, max(0, $tahapan->persentase_progress)) }}%;
+                                height:100%;
+                                background:#1E3A8A;
+                                border-radius:20px;
+                            "></div>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            @endif
+            @endforeach
+
+        </div>
+
+    </div>
+
+@endif
 
 
             <!-- GRID INFORMASI -->

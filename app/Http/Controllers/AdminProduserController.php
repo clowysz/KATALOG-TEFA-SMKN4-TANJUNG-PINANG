@@ -155,6 +155,7 @@ class AdminProduserController extends Controller
     // Tambah tahapan pengerjaan
     public function storeTahapan(Request $request,$id_pesanan)
     {
+
         $request->validate([
             'nama_tahapan'=>'required|string|max:255',
             'status'=>'required|string|max:50',
@@ -222,7 +223,7 @@ class AdminProduserController extends Controller
     {
         $request->validate([
             'urutan'=>'required|array',
-            'urutan.*'=>'integer|exists:tahapan_pengerjaan,id_tahapan',
+            'urutan.*'=>'integer|exists:tahapan_pengerjaans,id',
         ]);
 
         $pesanan=$this->pesananProduser($id_pesanan);

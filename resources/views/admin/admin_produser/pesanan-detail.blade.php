@@ -1797,9 +1797,8 @@
 
             <form
                 id="formSimpanTahap"
-                method="POST"
-                action="{{ route('produser.tahapan.store', $pesanan->id_pesanan) }}">
-
+                action="{{ route('produser.tahapan.store', $pesanan->id_pesanan) }}"
+                method="POST">
                 @csrf
 
                 <div id="methodContainer"></div>
@@ -1911,8 +1910,9 @@
 
                     <button
                         type="submit"
-                        class="prod-btn prod-btn-primary">
-
+                        class="prod-btn prod-btn-primary"
+                        onclick="document.getElementById('formSimpanTahap').submit();">
+                      
                         <i class="ph ph-floppy-disk"></i>
                         Simpan
 
