@@ -47,6 +47,12 @@
             </li>
 
             <li>
+                <a href="/katalog-gabungan">
+                    <i class="ph ph-squares-four"></i> Katalog Gabungan
+                </a>
+            </li>
+
+            <li>
                 <a href="/pesanan">
                     <i class="ph ph-shopping-bag"></i> Kelola Pesanan
                 </a>

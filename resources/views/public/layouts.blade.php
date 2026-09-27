@@ -279,6 +279,14 @@
                     JURUSAN
                 </a>
 
+                {{-- MENU KATALOG DITAMBAHKAN DI SINI --}}
+                <a
+                    href="/katalog"
+                    class="{{ Request::is('katalog*') ? 'active' : '' }}"
+                >
+                    KATALOG
+                </a>
+
                 <a
                     href="/faq"
                     class="{{ Request::is('faq*') ? 'active' : '' }}"
@@ -335,7 +343,7 @@
 
 </div>
 
-         
+          
 
     <!-- KONTEN -->
     <main>
@@ -398,6 +406,14 @@
                         <a href="/#jurusan-unggulan">
                             <i class="ph ph-caret-right"></i>
                             Jurusan
+                        </a>
+                    </li>
+
+                    {{-- DITAMBAHKAN DI LINK CEPAT FOOTER JUGA --}}
+                    <li>
+                        <a href="/katalog">
+                            <i class="ph ph-caret-right"></i>
+                            Katalog
                         </a>
                     </li>
 
