@@ -146,6 +146,26 @@
         color: #1D4ED8;
     }
 
+    .btn-generate-pdf {
+    margin-top: 28px;
+    padding: 12px 22px;
+    background: #1E40AF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease;
+}
+
+.btn-generate-pdf:hover {
+    background: #1D4ED8;
+}
+
     /* EMPTY STATE */
     .empty-state {
         grid-column: 1 / -1;
@@ -235,19 +255,42 @@
         <p>Seluruh produk dan jasa dari semua jurusan.</p>
     </div>
 
+
+    <form action="{{ route('admin.tefa.katalog.pdf') }}" method="POST">
+        @csrf
+
     <div class="katalog-grid">
-        @forelse($katalog as $item)
-            <div class="katalog-card">
-                <div class="card-img-wrapper">
-                    @if($item->gambars && $item->gambars->first())
-                        <img src="{{ asset('storage/'.$item->gambars->first()->path_gambar) }}" alt="{{ $item->nama_produk_jasa }}">
-                    @else
-                        <div class="no-img">
-                            <i class="ph ph-image"></i>
-                        </div>
-                    @endif
-                    <span class="badge-jenis {{ strtolower($item->jenis) }}">{{ strtoupper($item->jenis) }}</span>
-                </div>
+    @forelse($katalog as $item)
+        <div class="katalog-card">
+
+            {{-- CHECKBOX PILIH --}}
+            <div style="padding: 12px 20px 0;">
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700;">
+                    <input
+                        type="checkbox"
+                        name="produk_jasa[]"
+                        value="{{ $item->id_produk_jasa }}"
+                    >
+                    Pilih untuk katalog PDF
+                </label>
+            </div>
+
+            <div class="card-img-wrapper">
+                @if($item->gambars && $item->gambars->first())
+                    <img
+                        src="{{ asset('storage/'.$item->gambars->first()->path_gambar) }}"
+                        alt="{{ $item->nama_produk_jasa }}"
+                    >
+                @else
+                    <div class="no-img">
+                        <i class="ph ph-image"></i>
+                    </div>
+                @endif
+
+                <span class="badge-jenis {{ strtolower($item->jenis) }}">
+                    {{ strtoupper($item->jenis) }}
+                </span>
+            </div>
 
                 <div class="card-body-content">
                     <h4 class="card-title">{{ $item->nama_produk_jasa }}</h4>
@@ -269,6 +312,14 @@
             </div>
         @endforelse
     </div>
+
+     <button type="submit" class="btn-generate-pdf">
+        <i class="ph ph-file-pdf"></i>
+        Generate PDF
+    </button>
+
+</form>
+
 
     <!-- NAVBAR PAGINATION KUSTOM 2 MODE (SATU-SATU & PALING AWAL/AKHIR) -->
     @if($katalog->hasPages())
