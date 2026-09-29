@@ -161,14 +161,14 @@
                 "
             >
 
-                <div
-                    style="
-                        font-size: 56px;
-                        margin-bottom: 16px;
-                    "
-                >
-                    📂
-                </div>
+                <i
+    class="ph ph-folder"
+    style="
+        font-size: 56px;
+        color: #94A3B8;
+        margin-bottom: 16px;
+    "
+></i>
 
                 <h3
                     style="

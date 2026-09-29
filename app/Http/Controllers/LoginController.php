@@ -7,45 +7,66 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function showAdminLogin()
+    public function showLogin(Request $request)
     {
-        return view('admin.login.login');
+        $redirect = $request->query('redirect');
+        $back = $request->query('back');
+
+        return view('public.login', compact('redirect', 'back'));
     }
 
-    public function adminLogin(Request $request)
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        $credentials['status'] = 'aktif';
-
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
             $user = Auth::user();
 
+            // PEMBELI
+            if ($user->role === 'pembeli') {
+                $redirect = $request->input('redirect');
+
+                if ($redirect && str_starts_with($redirect, '/')) {
+                    return redirect($redirect);
+                }
+
+                return redirect()->intended('/');
+            }
+
+            // ADMIN TEFA
             if ($user->role === 'admin_tefa') {
                 return redirect('/dashboard');
             }
 
+            // ADMIN JURUSAN
             if ($user->role === 'admin_jurusan') {
                 return redirect('/jurusan-admin/dashboard');
             }
 
+            // ADMIN PRODUSER
             if ($user->role === 'admin_produser') {
                 return redirect('/produser/dashboard');
             }
 
+            // Role tidak dikenali
             Auth::logout();
 
             return back()
-                ->withErrors(['email' => 'Role akun tidak dikenali.'])
+                ->withErrors([
+                    'email' => 'Role akun tidak dikenali.'
+                ])
                 ->onlyInput('email');
         }
 
         return back()
-            ->withErrors(['email' => 'Email atau password salah.'])
+            ->withErrors([
+                'email' => 'Email atau password salah.'
+            ])
             ->onlyInput('email');
     }
 
@@ -53,9 +74,9 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+    return redirect()->route('login');
     }
 }

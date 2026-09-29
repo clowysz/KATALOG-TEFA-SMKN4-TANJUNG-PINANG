@@ -50,8 +50,8 @@
 .jurusan-hero-text p { font-size: 15px; opacity: 0.9; line-height: 1.8; max-width: 500px; margin-bottom: 32px; }
 
 .btn-kembali-beranda {
-    background: white;
-    color: #1E3A8A;
+    background: #1E3A8A;
+    color: white;
     padding: 10px 24px;
     border-radius: 30px;
     text-decoration: none;

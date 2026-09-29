@@ -11,19 +11,23 @@ class CheckRole
 {
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        // Cek apakah user sudah login
+        // Kalau user belum login,
+        // arahkan ke satu halaman login bersama.
         if (!Auth::check()) {
-            return redirect('/admin/login')->withErrors(['email' => 'Silakan login terlebih dahulu.']);
+            return redirect('/login');
         }
 
+        // Ambil data user yang sedang login.
         $user = Auth::user();
 
-        // Cek apakah role user yang login ada di dalam daftar izin middleware
+        // Cek apakah role user sesuai dengan role
+        // yang diizinkan oleh route.
         if (in_array($user->role, $roles)) {
             return $next($request);
         }
 
-        // Kalau tidak punya hak akses, tendang ke halaman dashboard masing-masing atau abort 403
+        // Kalau sudah login tetapi role-nya tidak sesuai,
+        // tampilkan 403.
         abort(403, 'Unauthorized action. Kamu tidak punya hak akses ke halaman ini.');
     }
 }

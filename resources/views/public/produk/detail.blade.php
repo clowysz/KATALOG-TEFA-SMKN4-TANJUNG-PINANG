@@ -9,22 +9,33 @@
 <div class="detail-page-wrapper">
 
     <!-- Tombol Kembali -->
+
     <div style="max-width: 1200px; margin: 0 auto;">
-        <a href="/jurusan/{{ $jurusan->slug }}/produk" class="back-link">
+
+        <a
+            href="/jurusan/{{ $jurusan->slug }}/produk"
+            class="back-link"
+        >
             <i class="ph ph-arrow-left"></i>
             Kembali ke Produk
         </a>
+
     </div>
 
+
     <!-- Bagian Atas: Gambar & Judul -->
+
     <div class="detail-top-container">
 
+
         <!-- Galeri Gambar -->
+
         <div class="detail-gallery">
 
             @php
                 $gambarUtama = $produk->gambars->first();
             @endphp
+
 
             @if($gambarUtama)
 
@@ -34,6 +45,7 @@
                     id="mainProductImage"
                     alt="{{ $produk->nama_produk_jasa }}"
                 >
+
 
                 <div class="thumbnail-list">
 
@@ -62,38 +74,47 @@
 
         </div>
 
+
         <!-- Info Produk -->
+
         <div class="detail-info">
 
             <div class="detail-badge">
                 PRODUK
             </div>
 
+
             <h1 class="detail-title">
                 {{ $produk->nama_produk_jasa }}
             </h1>
+
 
             <div class="detail-price">
                 Rp{{ number_format($produk->harga, 0, ',', '.') }}
             </div>
 
-          <a
-    href="{{ auth()->check() && auth()->user()->role === 'pembeli'
-        ? '/checkout?id_produk_jasa=' . $produk->id_produk_jasa
-        : '/login-pembeli?redirect=' . urlencode('/checkout?id_produk_jasa=' . $produk->id_produk_jasa)
-    }}"
-    class="btn-pesan"
->
-    <i
-        class="ph ph-shopping-cart"
-        style="font-size: 24px;"
-    ></i>
-    Pesan Sekarang
-</a>
+
+            @php
+                $checkoutUrl = '/checkout?id_produk_jasa=' . $produk->id_produk_jasa;
+
+                $loginUrl = route('login', [
+                    'back' => request()->getRequestUri(),
+                    'redirect' => $checkoutUrl,
+                ]);
+            @endphp
+
+
+            <a
+                href="{{ auth()->check() && auth()->user()->role === 'pembeli'
+                    ? $checkoutUrl
+                    : $loginUrl }}"
+                class="btn-pesan"
+            >
                 <i
                     class="ph ph-shopping-cart"
                     style="font-size: 24px;"
                 ></i>
+
                 Pesan Sekarang
             </a>
 
@@ -101,7 +122,9 @@
 
     </div>
 
+
     <!-- Bagian Bawah: Deskripsi -->
+
     <div class="detail-card">
 
         <h2 class="detail-section-title">
@@ -116,24 +139,34 @@
 
 </div>
 
+
 <script>
+
     function changeProductImage(element) {
 
         const mainImage =
             document.getElementById('mainProductImage');
 
-        if (!mainImage) return;
+        if (!mainImage) {
+            return;
+        }
 
         mainImage.src = element.src;
+
 
         document
             .querySelectorAll('.thumb-item')
             .forEach(function (thumb) {
+
                 thumb.classList.remove('active');
+
             });
 
+
         element.classList.add('active');
+
     }
+
 </script>
 
 @endsection

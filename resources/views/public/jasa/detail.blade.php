@@ -89,23 +89,27 @@
             </div>
 
 
-          <a
-    href="{{ auth()->check() && auth()->user()->role === 'pembeli'
-        ? '/checkout?id_produk_jasa=' . $jasa->id_produk_jasa
-        : '/login-pembeli?redirect=' . urlencode('/checkout?id_produk_jasa=' . $jasa->id_produk_jasa)
-    }}"
-    class="btn-pesan"
->
-    <i
-        class="ph ph-shopping-cart"
-        style="font-size: 24px;"
-    ></i>
-    Pesan Jasa Ini
-</a>
+            @php
+                $checkoutUrl = '/checkout?id_produk_jasa=' . $jasa->id_produk_jasa;
+
+                $loginUrl = route('login', [
+                    'back' => request()->getRequestUri(),
+                    'redirect' => $checkoutUrl,
+                ]);
+            @endphp
+
+
+            <a
+                href="{{ auth()->check() && auth()->user()->role === 'pembeli'
+                    ? $checkoutUrl
+                    : $loginUrl }}"
+                class="btn-pesan"
+            >
                 <i
                     class="ph ph-shopping-cart"
                     style="font-size: 24px;"
                 ></i>
+
                 Pesan Jasa Ini
             </a>
 
@@ -119,7 +123,6 @@
         <h2 class="detail-section-title">
             Deskripsi Jasa
         </h2>
-
 
         <div class="detail-text">
             {!! nl2br(e($jasa->deskripsi)) !!}
