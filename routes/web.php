@@ -66,7 +66,25 @@ Route::get('/faq', function () {
 
 })->name('public.faq');
 
+// CUSTOMER SERVICE
+Route::get('/customer-service', function () {
 
+    // Belum login
+   if (!Auth::check()) {
+    return redirect()->route('login', [
+        'redirect' => '/customer-service'
+    ]);
+}
+
+    // Cek apakah akun ini punya pesanan
+    $hasPesanan = \App\Models\Pesanan::where('id_user', Auth::id())->exists();
+
+    if ($hasPesanan) {
+        return 'Punya pesanan   ';
+    }
+        return view('public.customer-service');
+        
+})->name('customer.service');
 // =====================================================
 // PENCARIAN PUBLIK
 // =====================================================

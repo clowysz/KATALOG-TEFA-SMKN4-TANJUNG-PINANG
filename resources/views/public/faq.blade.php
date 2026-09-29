@@ -118,10 +118,10 @@
             </div>
 
             <!-- Link WhatsApp dapat diganti setelah nomor TEFA ditentukan -->
-            <a href="#" class="btn-hubungi">
-                <i class="ph ph-chat-circle-text"></i>
-                Hubungi Kami
-            </a>
+           <a href="{{ route('customer.service') }}" class="btn-hubungi">
+    <i class="ph ph-chat-circle-text"></i>
+       Hubungi Kami
+           </a>
 
         </div>
 
