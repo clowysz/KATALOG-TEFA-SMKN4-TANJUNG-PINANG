@@ -15,7 +15,31 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\AdminProduserController;
 use App\Http\Controllers\PesananPembeliController;
 
+Route::get('/debug-chrome', function () {
+    $chrome = config('laravel-pdf.chrome.chrome_binary');
 
+    $profile = storage_path('app/debug-chrome-profile');
+
+    if (!is_dir($profile)) {
+        mkdir($profile, 0777, true);
+    }
+
+    $command = '"' . $chrome . '"'
+        . ' --headless'
+        . ' --disable-gpu'
+        . ' --no-sandbox'
+        . ' --remote-debugging-port=9224'
+        . ' --user-data-dir="' . $profile . '"'
+        . ' about:blank';
+
+    exec($command . ' 2>&1', $output, $exitCode);
+
+    return response()->json([
+        'exit_code' => $exitCode,
+        'output' => $output,
+        'command' => $command,
+    ]);
+});
 // =========================================================================
 // PUBLIK
 // =========================================================================
@@ -786,6 +810,10 @@ Route::middleware([
 
     Route::get('/katalog-gabungan/{id}', [KatalogTefaController::class, 'show'])
     ->name('admin.tefa.katalog_detail');
+    Route::post(
+    '/katalog-gabungan/pdf',
+    [KatalogTefaController::class, 'generatePdf']
+)->name('admin.tefa.katalog_pdf');
 
 
     // Akun

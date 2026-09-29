@@ -51,9 +51,9 @@
                 <div style="display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:16px;">
                     <div>
                         <div style="font-size:11px;color:var(--prod-text-sec);margin-bottom:3px;">Harga</div>
-                        <div style="font-size:17px;color:var(--primary);font-weight:700;">
-                            Rp {{ number_format($produk->harga,0,',','.') }}
-                        </div>
+<div style="font-size:17px;color:var(--primary);font-weight:700;">
+    Rp {{ number_format($produk->harga,0,',','.') }}{{ $produk->satuan_harga ? '/' . $produk->satuan_harga : '' }}
+</div>
                     </div>
 
                     <div style="text-align:right;">
