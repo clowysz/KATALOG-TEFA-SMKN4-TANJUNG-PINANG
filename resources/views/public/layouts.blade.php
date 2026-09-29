@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html lang="id" style="scroll-behavior:smooth;">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'TEFA SMKN 4 Tanjungpinang')</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="{{ asset('css/front.css') }}">
+    <meta
+        name="csrf-token"
+        content="{{ csrf_token() }}"
+    >
+
+    <title>
+        @yield('title', 'TEFA SMKN 4 Tanjungpinang')
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/front.css') }}"
+    >
 
     @stack('css')
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
+
         body {
             margin: 0;
             padding: 0;
@@ -143,6 +159,7 @@
         }
 
         @media (max-width:850px) {
+
             .jurusan-nav-pill {
                 flex-direction: column;
                 border-radius: 20px;
@@ -165,121 +182,141 @@
                 width: 100%;
                 justify-content: center;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-  <!-- NAVBAR -->
-<div class="jurusan-sticky-container">
 
-    <div class="jurusan-nav-pill">
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
 
-        @if(isset($jurusan))
+    <div class="jurusan-sticky-container">
 
-            <!-- NAVBAR KHUSUS JURUSAN -->
-
-            <a
-                href="/jurusan/{{ $jurusan->slug }}"
-                class="jurusan-nav-brand"
-            >
-
-                <img
-                    src="{{ asset($jurusan->logo) }}"
-                    alt="Logo {{ $jurusan->name }}"
-                >
-
-                <div class="jurusan-nav-brand-text">
-
-                    <h4>
-                        {{ $jurusan->name }}
-                    </h4>
-
-                    <p>
-                        SMKN 4 Tanjungpinang
-                    </p>
-
-                </div>
-
-            </a>
+        <div class="jurusan-nav-pill">
 
 
-            <div class="jurusan-nav-menu">
+            @if(isset($jurusan))
+
+
+                <!-- =================================================
+                     NAVBAR KHUSUS JURUSAN
+                ================================================== -->
 
                 <a
                     href="/jurusan/{{ $jurusan->slug }}"
-                    class="{{ Request::is('jurusan/' . $jurusan->slug) ? 'active' : '' }}"
+                    class="jurusan-nav-brand"
                 >
-                    DESKRIPSI
+
+                    <img
+                        src="{{ asset($jurusan->logo) }}"
+                        alt="Logo {{ $jurusan->name }}"
+                    >
+
+                    <div class="jurusan-nav-brand-text">
+
+                        <h4>
+                            {{ $jurusan->name }}
+                        </h4>
+
+                        <p>
+                            SMKN 4 Tanjungpinang
+                        </p>
+
+                    </div>
+
                 </a>
 
-                <a
-                    href="/jurusan/{{ $jurusan->slug }}/portofolio"
-                    class="{{ Request::is('jurusan/' . $jurusan->slug . '/portofolio*') ? 'active' : '' }}"
-                >
-                    PORTOFOLIO
-                </a>
 
-                <a
-                    href="/jurusan/{{ $jurusan->slug }}/produk"
-                    class="{{ Request::is('jurusan/' . $jurusan->slug . '/produk*') ? 'active' : '' }}"
-                >
-                    PRODUK
-                </a>
+                <div class="jurusan-nav-menu">
 
-                <a
-                    href="/jurusan/{{ $jurusan->slug }}/jasa"
-                    class="{{ Request::is('jurusan/' . $jurusan->slug . '/jasa*') ? 'active' : '' }}"
-                >
-                    JASA
-                </a>
+                    <a
+                        href="/jurusan/{{ $jurusan->slug }}"
+                        class="{{ Request::is('jurusan/' . $jurusan->slug) ? 'active' : '' }}"
+                    >
+                        DESKRIPSI
+                    </a>
 
-            </div>
 
-        @else
+                    <a
+                        href="/jurusan/{{ $jurusan->slug }}/portofolio"
+                        class="{{ Request::is('jurusan/' . $jurusan->slug . '/portofolio*') ? 'active' : '' }}"
+                    >
+                        PORTOFOLIO
+                    </a>
 
-            <!-- NAVBAR HOME -->
 
-            <a
-                href="/"
-                class="jurusan-nav-brand"
-            >
+                    <a
+                        href="/jurusan/{{ $jurusan->slug }}/produk"
+                        class="{{ Request::is('jurusan/' . $jurusan->slug . '/produk*') ? 'active' : '' }}"
+                    >
+                        PRODUK
+                    </a>
 
-                <img
-                    src="{{ asset('images/logo-smk4.png') }}"
-                    alt="Logo SMKN 4"
-                >
 
-                <div class="jurusan-nav-brand-text">
-
-                    <h4>
-                        TEACHING FACTORY
-                    </h4>
-
-                    <p>
-                        SMKN 4 Tanjungpinang
-                    </p>
+                    <a
+                        href="/jurusan/{{ $jurusan->slug }}/jasa"
+                        class="{{ Request::is('jurusan/' . $jurusan->slug . '/jasa*') ? 'active' : '' }}"
+                    >
+                        JASA
+                    </a>
 
                 </div>
 
-            </a>
+
+            @else
 
 
-            <div class="jurusan-nav-menu">
+                <!-- =================================================
+                     NAVBAR HOME
+                ================================================== -->
 
                 <a
                     href="/"
-                    class="{{ Request::is('/') ? 'active' : '' }}"
+                    class="jurusan-nav-brand"
                 >
-                    BERANDA
+
+                    <img
+                        src="{{ asset('images/logo-smk4.png') }}"
+                        alt="Logo SMKN 4"
+                    >
+
+                    <div class="jurusan-nav-brand-text">
+
+                        <h4>
+                            TEACHING FACTORY
+                        </h4>
+
+                        <p>
+                            SMKN 4 Tanjungpinang
+                        </p>
+
+                    </div>
+
                 </a>
 
-                <a href="/#jurusan-unggulan">
-                    JURUSAN
-                </a>
 
-                {{-- MENU KATALOG DITAMBAHKAN DI SINI --}}
+                <div class="jurusan-nav-menu">
+
+                    <a
+                        href="/"
+                        class="{{ Request::is('/') ? 'active' : '' }}"
+                    >
+                        BERANDA
+                    </a>
+
+
+                    <a href="/#jurusan-unggulan">
+                        JURUSAN
+                    </a>
+
+ {{-- MENU KATALOG DITAMBAHKAN DI SINI --}}
                 <a
                     href="/katalog"
                     class="{{ Request::is('katalog*') ? 'active' : '' }}"
@@ -287,76 +324,122 @@
                     KATALOG
                 </a>
 
-                <a
-                    href="/faq"
-                    class="{{ Request::is('faq*') ? 'active' : '' }}"
+                    <a
+                        href="/faq"
+                        class="{{ Request::is('faq*') ? 'active' : '' }}"
+                    >
+                        FAQ
+                    </a>
+
+                </div>
+
+
+            @endif
+
+
+            <!-- =================================================
+                 PENCARIAN & PROFIL
+            ================================================== -->
+
+            <div
+                style="
+                    display:flex;
+                    align-items:center;
+                    gap:10px;
+                "
+            >
+
+
+                <!-- SEARCH -->
+
+                <form
+                    action="/pencarian"
+                    method="GET"
+                    class="jurusan-nav-search"
+                    style="margin:0;"
                 >
-                    FAQ
+
+                    <button
+                        type="submit"
+                        style="
+                            background:transparent;
+                            border:none;
+                            cursor:pointer;
+                            padding:0;
+                            display:flex;
+                            align-items:center;
+                            outline:none;
+                        "
+                    >
+
+                        <i
+                            class="ph ph-magnifying-glass"
+                            style="
+                                color:#64748B;
+                                font-size:16px;
+                            "
+                        ></i>
+
+                    </button>
+
+
+                    <input
+                        type="text"
+                        name="keyword"
+                        placeholder="Cari produk, jasa..."
+                        required
+                    >
+
+                </form>
+
+
+                <!-- =================================================
+                     PROFILE / LOGIN
+                ================================================== -->
+
+            
+                <a
+                    href="{{ Auth::check() && Auth::user()->role === 'pembeli'
+                        ? route('profil.pembeli')
+                        : route('login', [
+                            'back' => request()->getRequestUri()
+                        ]) }}"
+                    class="jurusan-nav-profile"
+                    title="{{ Auth::check() && Auth::user()->role === 'pembeli'
+                        ? 'Profil Pembeli'
+                        : 'Login' }}"
+                >
+
+                    <i class="ph ph-user"></i>
+
                 </a>
 
+
             </div>
-
-        @endif
-
-
-        <!-- PENCARIAN & PROFIL -->
-
-        <div style="display:flex;align-items:center;gap:10px;">
-
-            <form
-                action="/pencarian"
-                method="GET"
-                class="jurusan-nav-search"
-                style="margin:0;"
-            >
-
-                <button
-                    type="submit"
-                    style="background:transparent;border:none;cursor:pointer;padding:0;display:flex;align-items:center;outline:none;"
-                >
-                    <i
-                        class="ph ph-magnifying-glass"
-                        style="color:#64748B;font-size:16px;"
-                    ></i>
-                </button>
-
-                <input
-                    type="text"
-                    name="keyword"
-                    placeholder="Cari produk, jasa..."
-                    required
-                >
-
-            </form>
-
-            <a
-                href="/profil-pembeli"
-                class="jurusan-nav-profile"
-                title="Profil Pembeli"
-            >
-                <i class="ph ph-user"></i>
-            </a>
 
         </div>
 
     </div>
 
-</div>
 
-          
-
-    <!-- KONTEN -->
     <main>
+
         @yield('content')
+
     </main>
 
 
-    <!-- FOOTER -->
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
     <footer class="footer">
 
         <div class="footer-grid">
 
+
             <!-- IDENTITAS SMKN 4 -->
+
             <div class="footer-col">
 
                 <div class="footer-logo">
@@ -372,7 +455,13 @@
 
                         <br>
 
-                        <span style="font-size:11px;font-weight:400;color:white;">
+                        <span
+                            style="
+                                font-size:11px;
+                                font-weight:400;
+                                color:white;
+                            "
+                        >
                             SMKN 4 Tanjungpinang
                         </span>
 
@@ -380,36 +469,54 @@
 
                 </div>
 
+
                 <p class="footer-desc">
+
                     Mewujudkan pendidikan vokasi berbasis dunia kerja yang
                     inovatif, kreatif, dan berdaya saing global.
+
                 </p>
 
             </div>
 
 
             <!-- LINK CEPAT -->
+
             <div class="footer-col">
 
-                <h3>LINK CEPAT</h3>
+                <h3>
+                    LINK CEPAT
+                </h3>
+
 
                 <ul class="footer-links">
 
                     <li>
+
                         <a href="/">
+
                             <i class="ph ph-caret-right"></i>
+
                             Beranda
+
                         </a>
+
                     </li>
+
 
                     <li>
+
                         <a href="/#jurusan-unggulan">
+
                             <i class="ph ph-caret-right"></i>
+
                             Jurusan
+
                         </a>
+
                     </li>
 
-                    {{-- DITAMBAHKAN DI LINK CEPAT FOOTER JUGA --}}
+        
                     <li>
                         <a href="/katalog">
                             <i class="ph ph-caret-right"></i>
@@ -417,11 +524,17 @@
                         </a>
                     </li>
 
+
                     <li>
+
                         <a href="/faq">
+
                             <i class="ph ph-caret-right"></i>
+
                             FAQ
+
                         </a>
+
                     </li>
 
                 </ul>
@@ -430,9 +543,13 @@
 
 
             <!-- INFORMASI -->
+
             <div class="footer-col">
 
-                <h3>INFORMASI</h3>
+                <h3>
+                    INFORMASI
+                </h3>
+
 
                 <div class="footer-contact">
 
@@ -443,6 +560,7 @@
                     </span>
 
                 </div>
+
 
                 <div class="footer-contact">
 
@@ -458,9 +576,13 @@
 
 
             <!-- HUBUNGI KAMI -->
+
             <div class="footer-col">
 
-                <h3>HUBUNGI KAMI</h3>
+                <h3>
+                    HUBUNGI KAMI
+                </h3>
+
 
                 <img
                     src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Halo+Admin+TEFA"
@@ -474,19 +596,34 @@
 
 
         <!-- COPYRIGHT -->
+
         <div class="footer-bottom">
-            &copy; 2026 SMKN 4 Tanjungpinang. All Rights Reserved.
+
+            &copy; 2026 SMKN 4 Tanjungpinang.
+            All Rights Reserved.
+
         </div>
 
     </footer>
 
 
-    <!-- WHATSAPP -->
-    <a href="#" class="fab-wa">
+    <!-- =====================================================
+         WHATSAPP
+    ====================================================== -->
+
+    <a
+        href="#"
+        class="fab-wa"
+    >
+
         <i class="ph ph-whatsapp-logo"></i>
+
     </a>
+
 
     @stack('scripts')
 
+
 </body>
+
 </html>

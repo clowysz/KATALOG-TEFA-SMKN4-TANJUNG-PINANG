@@ -123,9 +123,9 @@
                 style="width:100%;display:flex;justify-content:flex-end;"
             >
 
-                <form
-                    action="{{ route('pembeli.logout') }}"
-                    method="POST"
+               <form
+    action="{{ route('logout') }}"
+    method="POST"
                     style="margin:0;"
                 >
                     @csrf

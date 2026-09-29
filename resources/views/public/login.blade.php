@@ -25,12 +25,16 @@
         </div>
 
         <!-- Form Login -->
-      <form action="{{ route('pembeli.login.proses') }}" method="POST">
-    @csrf
+        <form action="{{ route('login.proses') }}" method="POST">
+            @csrf
 
-    @if($redirect)
-        <input type="hidden" name="redirect" value="{{ $redirect }}">
-    @endif
+            @if($redirect)
+                <input type="hidden" name="redirect" value="{{ $redirect }}">
+            @endif
+
+            @if($back)
+                <input type="hidden" name="back" value="{{ $back }}">
+            @endif
 
             <!-- Hanya Email dan Sandi -->
             <div class="login-form-group">
@@ -82,11 +86,26 @@
         </form>
     </div>
 
+    <!-- Tombol Kembali -->
+    @if($back)
+        <p class="login-footer-text">
+            <a
+                href="{{ $back }}"
+                style="color: white; font-weight: 600; text-decoration: underline;"
+            >
+                ← Kembali
+            </a>
+        </p>
+    @endif
+
     <!-- Teks Bawah dengan Link Daftar Akun -->
     <p class="login-footer-text">
         Belum punya akun?
         <a
-            href="{{ route('pembeli.register') }}"
+            href="{{ route('pembeli.register', array_filter([
+                'back' => $back,
+                'redirect' => $redirect
+            ])) }}"
             style="color: white; font-weight: 600; text-decoration: underline;"
         >
             Daftar akun

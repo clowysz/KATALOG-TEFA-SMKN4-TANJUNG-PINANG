@@ -25,13 +25,17 @@
         </div>
 
         <!-- Form Registrasi -->
-     <form action="{{ route('pembeli.register.proses') }}" method="POST">
+        <form action="{{ route('pembeli.register.proses') }}" method="POST">
 
-    @csrf
+            @csrf
 
-    @if($redirect)
-        <input type="hidden" name="redirect" value="{{ $redirect }}">
-    @endif
+            @if($redirect)
+                <input type="hidden" name="redirect" value="{{ $redirect }}">
+            @endif
+
+            @if($back)
+                <input type="hidden" name="back" value="{{ $back }}">
+            @endif
 
             <div class="login-form-group">
                 <label>Nama Lengkap</label>
@@ -126,15 +130,28 @@
         </form>
     </div>
 
+    <!-- Tombol Kembali -->
+    @if($back)
+        <p class="login-footer-text">
+            <a
+                href="{{ $back }}"
+                style="color: white; font-weight: 600; text-decoration: underline;"
+            >
+                ← Kembali
+            </a>
+        </p>
+    @endif
+
     <!-- Teks Bawah Kembali ke Login -->
     <p class="login-footer-text">
         Sudah punya akun?
-<a
-    href="{{ route('pembeli.login', ['redirect' => $redirect]) }}"
-    style="color: white; font-weight: 600; text-decoration: underline;"
->
-    Masuk di sini
-</a>
+        <a
+            href="{{ route('login', array_filter([
+                'back' => $back,
+                'redirect' => $redirect
+            ])) }}"
+            style="color: white; font-weight: 600; text-decoration: underline;"
+        >
             Masuk di sini
         </a>
     </p>
