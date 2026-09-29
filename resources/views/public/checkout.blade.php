@@ -62,8 +62,8 @@
                         </p>
 
                         <div class="c-product-price">
-                            Rp{{ number_format($produkJasa->harga, 0, ',', '.') }}
-                        </div>
+    Rp{{ number_format($produkJasa->harga, 0, ',', '.') }}{{ $produkJasa->satuan_harga ? '/' . $produkJasa->satuan_harga : '' }}
+</div>
 
                     </div>
                 </div>
@@ -196,9 +196,9 @@
 
                 <div class="summary-row">
                     <span>Harga Satuan</span>
-                    <span>
-                        Rp{{ number_format($produkJasa->harga, 0, ',', '.') }}
-                    </span>
+<span>
+    Rp{{ number_format($produkJasa->harga, 0, ',', '.') }}{{ $produkJasa->satuan_harga ? '/' . $produkJasa->satuan_harga : '' }}
+</span>
                 </div>
 
                 <div class="summary-row">

@@ -76,6 +76,17 @@
                 placeholder="Contoh: Rp 500.000"
                 required
             >
+            <label for="formUnit" class="detail-label">
+          Satuan Harga <span style="color:#94A3B8;">(Opsional)</span>
+           </label>
+
+           <input
+          type="text"
+          id="formUnit"
+          class="form-control"
+          placeholder="Contoh: pcs, meter, titik"
+          maxlength="50"
+          >
 
             <label for="formImg" class="detail-label">
                 Upload Gambar Jasa

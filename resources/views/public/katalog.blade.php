@@ -372,9 +372,9 @@
                         <h5 class="item-title">{{ $item->nama_produk_jasa }}</h5>
                         <p class="item-jurusan">{{ $item->jurusan->nama_jurusan ?? 'SMKN 4 Tanjungpinang' }}</p>
 
-                        <div class="item-price">
-                            Rp {{ number_format($item->harga, 0, ',', '.') }}
-                        </div>
+<div class="item-price">
+    Rp {{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
+</div>
 
                         <a href="{{ $detailRoute }}" class="btn-detail-pub">
                             Lihat Selengkapnya <i class="ph ph-arrow-right"></i>

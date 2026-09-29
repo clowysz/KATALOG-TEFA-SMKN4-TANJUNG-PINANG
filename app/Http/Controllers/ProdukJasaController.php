@@ -47,6 +47,7 @@ class ProdukJasaController extends Controller
             'jenis' => 'required|in:produk,jasa',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric',
+            'satuan_harga' => 'nullable|string|max:50',
             'gambar' => 'required|array|min:1',
             'gambar.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -65,6 +66,7 @@ class ProdukJasaController extends Controller
             'jenis' => $request->jenis,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
+            'satuan_harga' => $request->satuan_harga,
             'id_jurusan' => $jurusan->id_jurusan,
             'id_user' => $user->id,
         ]);
@@ -90,6 +92,7 @@ class ProdukJasaController extends Controller
             'jenis' => 'required|in:produk,jasa',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric',
+            'satuan_harga' => 'nullable|string|max:50',
             'gambar' => 'nullable|array',
             'gambar.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -118,6 +121,7 @@ class ProdukJasaController extends Controller
             'jenis' => $request->jenis,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
+            'satuan_harga' => $request->satuan_harga,
         ]);
 
         if ($request->hasFile('gambar')) {

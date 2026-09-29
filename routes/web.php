@@ -381,7 +381,7 @@ Route::prefix('jurusan')->group(function () {
                         'images/logo-rpl.png',
 
                     'hero' =>
-                        'images/rpl-lab.jpeg',
+                        'images/rpl1.jpeg',
                 ],
 
                 'tkj' => [
@@ -395,7 +395,7 @@ Route::prefix('jurusan')->group(function () {
                         'images/logo-tkj.png',
 
                     'hero' =>
-                        'images/tkj-lab.jpeg',
+                        'images/tkj1.jpeg',
                 ],
 
                 'dkv' => [
@@ -409,7 +409,7 @@ Route::prefix('jurusan')->group(function () {
                         'images/logo-dkv.png',
 
                     'hero' =>
-                        'images/dkv-lab.jpeg',
+                        'images/dkv1.jpeg',
                 ],
 
                 'gim' => [
@@ -423,7 +423,7 @@ Route::prefix('jurusan')->group(function () {
                         'images/logo-gim.png',
 
                     'hero' =>
-                        'images/gim-lab.jpeg',
+                        'images/gim1.jpeg',
                 ],
 
                 'pspt' => [
@@ -437,7 +437,7 @@ Route::prefix('jurusan')->group(function () {
                         'images/logo-pspt.png',
 
                     'hero' =>
-                        'images/pspt-lab.jpeg',
+                        'images/pspt1.jpeg',
                 ],
 
                 'animasi' => [
@@ -451,7 +451,7 @@ Route::prefix('jurusan')->group(function () {
                         'images/logo-animasi.png',
 
                     'hero' =>
-                        'images/anm-lab.jpeg',
+                        'images/anm1.jpeg',
                 ],
 
             ];
@@ -783,6 +783,9 @@ Route::middleware([
         '/katalog-gabungan',
         [KatalogTefaController::class, 'index']
     )->name('admin.tefa.katalog_gabungan');
+
+    Route::get('/katalog-gabungan/{id}', [KatalogTefaController::class, 'show'])
+    ->name('admin.tefa.katalog_detail');
 
 
     // Akun

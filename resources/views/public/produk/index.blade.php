@@ -120,8 +120,8 @@
                     </p>
 
                     <div class="k-card-price">
-                        Rp{{ number_format($item->harga, 0, ',', '.') }}
-                    </div>
+    Rp{{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
+</div>
 
                     <a
                         href="/jurusan/{{ $jurusan->slug }}/produk/detail/{{ $item->id_produk_jasa }}"

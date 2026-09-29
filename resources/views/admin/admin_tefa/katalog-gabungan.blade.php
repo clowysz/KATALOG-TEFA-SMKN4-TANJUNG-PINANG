@@ -253,13 +253,12 @@
                     <h4 class="card-title">{{ $item->nama_produk_jasa }}</h4>
                     <p class="card-jurusan">{{ $item->jurusan->nama_jurusan ?? 'Semua Jurusan' }}</p>
                     
-                    <div class="card-price">
-                        Rp{{ number_format($item->harga, 0, ',', '.') }}
-                    </div>
-
-                    <a href="#" class="btn-detail">
-                        Lihat Selengkapnya <i class="ph ph-caret-right"></i>
-                    </a>
+<div class="card-price">
+    Rp{{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
+</div>
+                    <a href="{{ route('admin.tefa.katalog_detail', $item->id_produk_jasa) }}" class="btn-detail">
+    Lihat Selengkapnya <i class="ph ph-caret-right"></i>
+</a>
                 </div>
             </div>
         @empty

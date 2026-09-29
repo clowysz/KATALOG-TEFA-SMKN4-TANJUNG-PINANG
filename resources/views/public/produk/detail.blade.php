@@ -166,8 +166,8 @@
         </div>
 
         <div class="detail-price">
-            Rp{{ number_format($produk->harga, 0, ',', '.') }}
-        </div>
+    Rp{{ number_format($produk->harga, 0, ',', '.') }}{{ $produk->satuan_harga ? '/' . $produk->satuan_harga : '' }}
+</div>
 
 
         @php

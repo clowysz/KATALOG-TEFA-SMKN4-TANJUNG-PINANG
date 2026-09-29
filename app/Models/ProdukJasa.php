@@ -17,6 +17,7 @@ class ProdukJasa extends Model
         'jenis',
         'deskripsi',
         'harga',
+        'satuan_harga',
         'id_jurusan',
         'id_user',
     ];

@@ -218,7 +218,11 @@ document.addEventListener('DOMContentLoaded', function () {
             card.className = 'catalog-card';
 
             const imageUrl = getImageUrl(item);
-            const harga = formatRupiah(item.harga);
+            const satuanHarga = item.satuan_harga
+    ? `/${item.satuan_harga}`
+    : '';
+
+const harga = formatRupiah(item.harga) + satuanHarga;
             const pesanan = item.pesanans_count || 0;
 
             card.innerHTML = `
@@ -390,6 +394,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 harga = harga.replace(/[^0-9]/g, '');
 
                 formData.append('harga', harga);
+                const satuanHarga =
+    document.getElementById('formUnit')?.value.trim() || '';
+
+formData.append('satuan_harga', satuanHarga);
                 formData.append('_token', csrf);
 
                 if (window.uploadedFiles.length > 0) {

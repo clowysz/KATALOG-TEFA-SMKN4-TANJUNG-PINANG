@@ -82,8 +82,8 @@
 
             <div class="price-label">HARGA</div>
             <div class="detail-price">
-                Rp{{ number_format($jasa->harga, 0, ',', '.') }}
-            </div>
+    Rp{{ number_format($produk->harga, 0, ',', '.') }}{{ $jasa->satuan_harga ? '/' . $jasa->satuan_harga : '' }}
+</div>
 
             @php
                 $checkoutUrl = '/checkout?id_produk_jasa=' . $jasa->id_produk_jasa;
