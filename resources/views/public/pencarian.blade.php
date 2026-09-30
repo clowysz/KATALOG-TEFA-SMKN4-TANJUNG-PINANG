@@ -64,9 +64,8 @@
                         </div>
 
                         <div class="k-card-price">
-                            Rp{{ number_format($item->harga,0,',','.') }}
-                        </div>
-
+    Rp{{ number_format($item->harga,0,',','.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
+</div>
                         <a href="{{ $detailUrl }}" class="k-card-btn">
                             Lihat Detail
                         </a>

@@ -11,7 +11,6 @@
     <div class="bubble" style="width: 60px; height: 60px; bottom: 40%; right: 20%; animation-duration: 5s;"></div>
 
     <div class="jurusan-hero-content" style="position: relative; z-index: 10;">
-
         <div class="jurusan-hero-image">
             <img
                 src="{{ asset($jurusan->hero) }}"
@@ -20,17 +19,13 @@
         </div>
 
         <div class="jurusan-hero-text">
-
             <h3>PRODUK</h3>
-
             <h1>PRODUK {{ $jurusan->name }}</h1>
-
             <p>
                 Berbagai produk inovatif yang dikembangkan oleh
                 siswa-siswi SMKN 4 Tanjungpinang untuk memenuhi
                 kebutuhan di era digital.
             </p>
-
             <a
                 href="/#jurusan-unggulan"
                 class="btn-kembali-beranda"
@@ -39,9 +34,7 @@
                 <i class="ph ph-arrow-u-up-left"></i>
                 Kembali ke Daftar Jurusan
             </a>
-
         </div>
-
     </div>
 
     <svg
@@ -66,76 +59,59 @@
 </section>
 
 <section class="katalog-section">
-
     <div class="katalog-header">
         <h2>Produk Terlaris</h2>
-
         <a href="/jurusan/{{ $jurusan->slug }}/produk">
             Lihat Semua Produk &gt;
         </a>
     </div>
 
     <div class="katalog-grid">
-
         @forelse($produks as $item)
-
             @php
                 $gambar = $item->gambars->first();
             @endphp
 
             <div class="k-card">
-
                 <div class="k-card-img">
-
-                    <div class="k-badge">
-                        Produk
-                    </div>
+                    <span class="k-badge">
+                        PRODUK
+                    </span>
 
                     @if($gambar)
-
                         <img
                             src="{{ asset('storage/' . $gambar->path_gambar) }}"
                             alt="{{ $item->nama_produk_jasa }}"
                         >
-
                     @else
-
-                        <img
-                            src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Produk"
-                            alt="{{ $item->nama_produk_jasa }}"
-                        >
-
+                        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#E2E8F0;color:#64748B;">
+                            <i class="ph ph-image" style="font-size:48px;"></i>
+                        </div>
                     @endif
-
                 </div>
 
                 <div class="k-card-body">
-
-                    <h3 class="k-card-title">
+                    <div class="k-card-title">
                         {{ $item->nama_produk_jasa }}
-                    </h3>
+                    </div>
 
-                    <p class="k-card-desc">
-                        {{ Str::limit($item->deskripsi, 100) }}
-                    </p>
+                    <div class="k-card-desc">
+                        {{ \Illuminate\Support\Str::limit($item->deskripsi, 90) }}
+                    </div>
 
                     <div class="k-card-price">
-    Rp{{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
-</div>
+                        Rp{{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
+                    </div>
 
                     <a
                         href="/jurusan/{{ $jurusan->slug }}/produk/detail/{{ $item->id_produk_jasa }}"
                         class="k-card-btn"
                     >
-                        Lihat Selengkapnya &gt;
+                        Lihat Detail
                     </a>
-
                 </div>
-
             </div>
-
         @empty
-
             <div
                 style="
                     grid-column: 1 / -1;
@@ -146,7 +122,6 @@
                     border: 1px dashed #CBD5E1;
                 "
             >
-
                 <i
                     class="ph ph-package"
                     style="
@@ -155,7 +130,6 @@
                         margin-bottom: 16px;
                     "
                 ></i>
-
                 <h3
                     style="
                         font-size: 18px;
@@ -166,7 +140,6 @@
                 >
                     Belum ada data Produk
                 </h3>
-
                 <p
                     style="
                         font-size: 14px;
@@ -176,13 +149,9 @@
                 >
                     Katalog produk untuk jurusan ini belum tersedia.
                 </p>
-
             </div>
-
         @endforelse
-
     </div>
-
 </section>
 
 @endsection

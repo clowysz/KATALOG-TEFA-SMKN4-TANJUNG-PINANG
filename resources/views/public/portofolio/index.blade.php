@@ -7,7 +7,6 @@
 @section('content')
 
 <section class="jurusan-hero-section" style="padding-top: 80px; position: relative;">
-
     <div
         class="bubble"
         style="
@@ -23,18 +22,14 @@
         class="jurusan-hero-content"
         style="position: relative; z-index: 10;"
     >
-
         <div class="jurusan-hero-image">
-
             <img
                 src="{{ asset($jurusan->hero) }}"
                 alt="Portofolio {{ $jurusan->name }}"
             >
-
         </div>
 
         <div class="jurusan-hero-text">
-
             <h3>PORTFOLIO</h3>
 
             <h1>
@@ -54,9 +49,7 @@
                 <i class="ph ph-arrow-u-up-left"></i>
                 Kembali ke Daftar Jurusan
             </a>
-
         </div>
-
     </div>
 
     <svg
@@ -69,110 +62,87 @@
             fill="#ffffff"
         ></path>
     </svg>
-
 </section>
 
-
 <section class="katalog-section">
-
     <div class="katalog-header">
-
         <div>
             <h2>Portofolio Terbaru</h2>
         </div>
-
     </div>
 
-
     <div class="katalog-grid">
-
         @forelse($portofolios as $item)
-
             @php
                 $gambar = $item->gambars->first();
             @endphp
 
             <div class="k-card">
-
                 <div class="k-card-img">
-
-                    <div class="k-badge">
-                        Karya
-                    </div>
+                    <span class="k-badge">
+                        KARYA
+                    </span>
 
                     @if($gambar)
-
                         <img
                             src="{{ asset('storage/' . $gambar->path_gambar) }}"
                             alt="{{ $item->judul }}"
                         >
-
                     @else
-
-                        <img
-                            src="https://placehold.co/600x400/E2E8F0/1E3A8A?text=Portofolio"
-                            alt="{{ $item->judul }}"
-                        >
-
+                        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#E2E8F0;color:#64748B;">
+                            <i class="ph ph-image" style="font-size:48px;"></i>
+                        </div>
                     @endif
-
                 </div>
 
-
                 <div class="k-card-body">
-
                     @if($item->tahun)
-
                         <div class="k-card-year">
                             {{ $item->tahun }}
                         </div>
-
                     @endif
 
-
-                    <h3 class="k-card-title">
+                    <div class="k-card-title">
                         {{ $item->judul }}
-                    </h3>
+                    </div>
 
-
-                    <p class="k-card-desc">
-                        {{ \Illuminate\Support\Str::limit($item->deskripsi, 100) }}
-                    </p>
-
+                    <div class="k-card-desc">
+                        {{ \Illuminate\Support\Str::limit($item->deskripsi, 90) }}
+                    </div>
 
                     <a
                         href="/jurusan/{{ $jurusan->slug }}/portofolio/detail/{{ $item->id_portfolio }}"
                         class="k-card-btn"
                     >
-                        Lihat Selengkapnya &gt;
+                        Lihat Detail
                     </a>
-
                 </div>
-
             </div>
-
         @empty
-
             <div
                 style="
                     grid-column: 1 / -1;
                     text-align: center;
-                    padding: 80px 20px;
+                    padding: 60px 20px;
+                    background: white;
+                    border-radius: 12px;
+                    border: 1px dashed #CBD5E1;
                 "
             >
-
                 <i
-    class="ph ph-folder"
-    style="
-        font-size: 56px;
-        color: #94A3B8;
-        margin-bottom: 16px;
-    "
-></i>
+                    class="ph ph-folder"
+                    style="
+                        font-size: 48px;
+                        color: #94A3B8;
+                        margin-bottom: 16px;
+                    "
+                ></i>
 
                 <h3
                     style="
-                        color: var(--text-dark);
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: #1E2D3D;
                         margin-bottom: 8px;
                     "
                 >
@@ -181,19 +151,17 @@
 
                 <p
                     style="
-                        color: var(--text-muted);
+                        font-size: 14px;
+                        color: #64748B;
+                        margin: 0;
                     "
                 >
                     Belum ada karya atau proyek yang
                     ditambahkan oleh jurusan ini.
                 </p>
-
             </div>
-
         @endforelse
-
     </div>
-
 </section>
 
 @endsection

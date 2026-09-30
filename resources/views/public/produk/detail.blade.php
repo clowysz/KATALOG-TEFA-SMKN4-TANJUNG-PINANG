@@ -7,7 +7,7 @@
 
 <div class="detail-page-wrapper">
 
-```
+
 <div style="max-width: 1200px; margin: 0 auto;">
 
     <a
@@ -286,7 +286,7 @@
     </div>
 
 </div>
-```
+
 
 </div>
 
