@@ -152,7 +152,7 @@
 @endpush
 
 @section('content')
-<div style="padding:40px 5% 80px;min-height:85vh;background:#F8FAFC;font-family:'Inter',system-ui,-apple-system,sans-serif;">
+<div id="katalog-section" style="padding:40px 5% 80px;min-height:85vh;background:#F8FAFC;font-family:'Inter',system-ui,-apple-system,sans-serif;">
     <div style="max-width:1200px;margin:0 auto;">
         
         <!-- HEADER TEXT -->
@@ -196,8 +196,8 @@
             
         </div>
 
-        <!-- GRID KATALOG (MENGGUNAKAN CLASS DARI KIRI / JURUSAN DETAIL) -->
-        <div class="katalog-grid">
+        <!-- GRID KATALOG -->
+        <div class="katalog-grid" id="katalog-grid">
             @forelse($katalog as $item)
                 @php
                     $gambar = $item->gambars->first();
@@ -273,14 +273,14 @@
                 @if($katalog->onFirstPage())
                     <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
                 @else
-                    <li class="page-item"><a class="page-link" href="{{ $katalog->url(1) }}" title="Halaman Pertama">&laquo;&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $katalog->url(1) }}#katalog-grid" title="Halaman Pertama">&laquo;&laquo;</a></li>
                 @endif
 
                 {{-- 2. TOMBOL MUNDUR 1 HALAMAN (<) --}}
                 @if($katalog->onFirstPage())
                     <li class="page-item disabled"><span class="page-link">&lsaquo;</span></li>
                 @else
-                    <li class="page-item"><a class="page-link" href="{{ $katalog->previousPageUrl() }}" title="Halaman Sebelumnya">&lsaquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $katalog->previousPageUrl() }}#katalog-grid" title="Halaman Sebelumnya">&lsaquo;</a></li>
                 @endif
 
                 {{-- 3. NOMOR-NOMOR HALAMAN --}}
@@ -288,20 +288,20 @@
                     @if($page == $katalog->currentPage())
                         <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
                     @else
-                        <li class="page-item"><a class="page-link" href="{{ $katalog->url($page) }}">{{ $page }}</a></li>
+                        <li class="page-item"><a class="page-link" href="{{ $katalog->url($page) }}#katalog-grid">{{ $page }}</a></li>
                     @endif
                 @endforeach
 
                 {{-- 4. TOMBOL MAJU 1 HALAMAN (>) --}}
                 @if($katalog->hasMorePages())
-                    <li class="page-item"><a class="page-link" href="{{ $katalog->nextPageUrl() }}" title="Halaman Selanjutnya">&rsaquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $katalog->nextPageUrl() }}#katalog-grid" title="Halaman Selanjutnya">&rsaquo;</a></li>
                 @else
                     <li class="page-item disabled"><span class="page-link">&rsaquo;</span></li>
                 @endif
 
                 {{-- 5. TOMBOL PALING AKHIR (>>) --}}
                 @if($katalog->hasMorePages())
-                    <li class="page-item"><a class="page-link" href="{{ $katalog->url($katalog->lastPage()) }}" title="Halaman Terakhir">&raquo;&raquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $katalog->url($katalog->lastPage()) }}#katalog-grid" title="Halaman Terakhir">&raquo;&raquo;</a></li>
                 @else
                     <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
                 @endif
@@ -312,3 +312,35 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    // Matikan autoscroll otomatis dari browser saat reload
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const savedScrollPos = sessionStorage.getItem("katalogScrollPos");
+
+        if (savedScrollPos !== null) {
+            // Beri sedikit jeda waktu (10ms) agar DOM dirender utuh baru dipindahkan scrollnya
+            setTimeout(function() {
+                window.scrollTo({
+                    top: parseInt(savedScrollPos, 10),
+                    behavior: 'instant'
+                });
+                sessionStorage.removeItem("katalogScrollPos");
+            }, 10);
+        }
+
+        // Tangkap klik pada pagination
+        const paginationLinks = document.querySelectorAll(".custom-pagination .page-link");
+        paginationLinks.forEach(function (link) {
+            link.addEventListener("click", function () {
+                sessionStorage.setItem("katalogScrollPos", window.scrollY);
+            });
+        });
+    });
+</script>
+@endpush

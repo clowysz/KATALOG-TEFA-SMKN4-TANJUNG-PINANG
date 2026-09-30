@@ -195,7 +195,7 @@ Route::get('/katalog', function (Request $request) {
 
     $katalog = $query
         ->latest()
-        ->paginate(8)
+        ->paginate(15)
         ->withQueryString();
 
     $daftarJurusan = \App\Models\Jurusan::orderBy(
