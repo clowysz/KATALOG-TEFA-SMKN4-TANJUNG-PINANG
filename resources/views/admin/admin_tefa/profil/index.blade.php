@@ -62,22 +62,13 @@
 
 
     <!-- Logout -->
-    <form
-        action="{{ route('admin.logout') }}"
-        method="POST"
-        style="margin: 0;"
+    <button
+        type="button"
+        class="btn-outline btn-logout"
+        onclick="openLogoutModal()"
     >
-
-        @csrf
-
-        <button
-            type="submit"
-            class="btn-outline btn-logout"
-        >
-            Logout dari Sistem
-        </button>
-
-    </form>
+        Logout
+    </button>
 
 </div>
 
