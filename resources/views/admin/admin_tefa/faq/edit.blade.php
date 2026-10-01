@@ -5,38 +5,42 @@
 @section('content')
 
 <style>
-    .page-header {
-        margin-top: 16px;
-        margin-bottom: 24px;
+    .faq-create-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
     }
 
     .btn-back {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: #fff;
-        color: #3B698F;
+        display: inline-block;
         padding: 8px 16px;
+        border: 1px solid #1E3A8A;
         border-radius: 8px;
-        border: 1px solid #3B698F;
+        color: #1E3A8A;
+        background: #fff;
         text-decoration: none;
         font-weight: 600;
         font-size: 14px;
         margin-bottom: 24px;
-        margin-top: 10px;
-        transition: all 0.3s;
     }
 
     .btn-back:hover {
-        background: #3B698F;
+        background: #1E3A8A;
         color: #fff;
     }
 
-    .faq-edit-card {
-        background: #fff;
+    .faq-create-title {
+        margin-bottom: 20px;
+        color: #1E2D3D;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .faq-form-card {
+        background: white;
+        padding: 30px;
         border-radius: 12px;
-        padding: 24px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         border: 1px solid #f1f5f9;
     }
 
@@ -47,21 +51,21 @@
     .form-label {
         display: block;
         font-weight: 600;
-        color: #1e293b;
         margin-bottom: 8px;
+        color: #1E2D3D;
         font-size: 14px;
     }
 
     .form-control {
         width: 100%;
-        padding: 12px 14px;
-        border: 1px solid #cbd5e1;
+        padding: 12px;
+        border: 1px solid #CBD5E1;
         border-radius: 8px;
         font-size: 14px;
         color: #334155;
+        outline: none;
         box-sizing: border-box;
         font-family: inherit;
-        outline: none;
     }
 
     .form-control:focus {
@@ -71,51 +75,59 @@
 
     textarea.form-control {
         resize: vertical;
-        min-height: 140px;
+        min-height: 130px;
     }
 
     .form-actions {
         display: flex;
         gap: 12px;
-        margin-top: 24px;
+        align-items: center;
+        margin-top: 30px;
     }
 
     .btn-primary {
-        background: #3B698F;
-        color: #fff;
+        background: rgba(30, 58, 138, 0.85);
+        color: white;
         padding: 10px 24px;
-        border-radius: 8px;
         border: none;
+        border-radius: 8px;
         cursor: pointer;
         font-weight: 600;
         font-size: 14px;
+        transition: all 0.2s ease;
     }
 
-    .btn-primary:hover {
-        background: #2c5270;
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background: #1E3A8A;
+        color: white;
+    }
+
+    .btn-primary:active {
+        background: #172E6F;
+        color: white;
     }
 
     .btn-secondary {
-        background: #f8fafc;
-        color: #475569;
-        padding: 10px 24px;
-        border-radius: 8px;
         text-decoration: none;
+        padding: 10px 24px;
+        border: 1px solid #CBD5E1;
+        border-radius: 8px;
+        color: #1E3A8A;
+        background: #F8FAFC;
         font-weight: 600;
         font-size: 14px;
-        cursor: pointer;
-        border: 1px solid #cbd5e1;
     }
 
     .btn-secondary:hover {
-        background: #e2e8f0;
-        color: #1e293b;
+        background: #E2E8F0;
+        color: #1E293B;
     }
 
     .error-message {
-        background: #fef2f2;
-        color: #991b1b;
-        border: 1px solid #fecaca;
+        background: #FEF2F2;
+        color: #991B1B;
+        border: 1px solid #FECACA;
         padding: 12px 16px;
         border-radius: 8px;
         margin-bottom: 20px;
@@ -128,12 +140,17 @@
     }
 
     @media (max-width: 768px) {
-        .faq-edit-card {
+        .faq-create-container {
+            padding: 15px;
+        }
+
+        .faq-form-card {
             padding: 20px;
         }
 
         .form-actions {
             flex-direction: column;
+            align-items: stretch;
         }
 
         .btn-primary,
@@ -145,110 +162,103 @@
     }
 </style>
 
-{{-- Tombol kembali --}}
-<a
-    href="{{ route('tefa.faq.index') }}"
-    class="btn-back"
->
-    &larr; Kembali ke Kelola FAQ
-</a>
+<div class="faq-create-container">
 
-<div class="page-header">
-    <h2
-        style="
-            font-size:24px;
-            font-weight:bold;
-            color:#1e293b;
-        "
-    >
+    {{-- Tombol kembali --}}
+    <a href="{{ route('tefa.faq.index') }}" class="btn-back">
+        &larr; Kembali ke Kelola FAQ
+    </a>
+
+    <h2 class="faq-create-title">
         Edit FAQ
     </h2>
-</div>
 
-{{-- Pesan error validasi --}}
-@if($errors->any())
-    <div class="error-message">
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+    {{-- Pesan error validasi --}}
+    @if($errors->any())
+        <div class="error-message">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="faq-form-card">
+
+        <form
+            action="{{ route('tefa.faq.update', $faq->id_faq) }}"
+            method="POST"
+        >
+
+            @csrf
+            @method('PUT')
+
+            {{-- Pertanyaan --}}
+            <div class="form-group">
+
+                <label
+                    for="pertanyaan"
+                    class="form-label"
+                >
+                    Pertanyaan
+                </label>
+
+                <input
+                    type="text"
+                    name="pertanyaan"
+                    id="pertanyaan"
+                    class="form-control"
+                    placeholder="Masukkan pertanyaan..."
+                    value="{{ old('pertanyaan', $faq->pertanyaan) }}"
+                    required
+                >
+
+            </div>
+
+            {{-- Jawaban --}}
+            <div class="form-group">
+
+                <label
+                    for="jawaban"
+                    class="form-label"
+                >
+                    Jawaban
+                </label>
+
+                <textarea
+                    name="jawaban"
+                    id="jawaban"
+                    class="form-control"
+                    rows="5"
+                    placeholder="Masukkan jawaban..."
+                    required
+                >{{ old('jawaban', $faq->jawaban) }}</textarea>
+
+            </div>
+
+            {{-- Tombol --}}
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    Simpan Perubahan
+                </button>
+
+                <a
+                    href="{{ route('tefa.faq.index') }}"
+                    class="btn-secondary"
+                >
+                    Batal
+                </a>
+
+            </div>
+
+        </form>
+
     </div>
-@endif
-
-<div class="faq-edit-card">
-
-    <form
-        action="{{ route('tefa.faq.update', $faq->id_faq) }}"
-        method="POST"
-    >
-
-        @csrf
-        @method('PUT')
-
-        {{-- Pertanyaan --}}
-        <div class="form-group">
-
-            <label
-                class="form-label"
-                for="pertanyaan"
-            >
-                Pertanyaan
-            </label>
-
-            <input
-                type="text"
-                name="pertanyaan"
-                id="pertanyaan"
-                class="form-control"
-                placeholder="Masukkan pertanyaan..."
-                value="{{ old('pertanyaan', $faq->pertanyaan) }}"
-                required
-            >
-
-        </div>
-
-        {{-- Jawaban --}}
-        <div class="form-group">
-
-            <label
-                class="form-label"
-                for="jawaban"
-            >
-                Jawaban
-            </label>
-
-            <textarea
-                name="jawaban"
-                id="jawaban"
-                rows="5"
-                class="form-control"
-                placeholder="Masukkan jawaban..."
-                required
-            >{{ old('jawaban', $faq->jawaban) }}</textarea>
-
-        </div>
-
-        {{-- Tombol --}}
-        <div class="form-actions">
-
-            <button
-                type="submit"
-                class="btn-primary"
-            >
-                Simpan Perubahan
-            </button>
-
-            <a
-                href="{{ route('tefa.faq.index') }}"
-                class="btn-secondary"
-            >
-                Batal
-            </a>
-
-        </div>
-
-    </form>
 
 </div>
 

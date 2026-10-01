@@ -13,7 +13,9 @@
 <div class="summary-grid">
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #3B698F;">📦</div>
+        <div class="summary-icon" style="background-color: #3B698F;">
+            <i class="ph ph-package"></i>
+        </div>
 
         <div class="summary-info">
             <p>Total Pesanan</p>
@@ -26,7 +28,9 @@
 
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #D89B4A;">⏳</div>
+        <div class="summary-icon" style="background-color: #D89B4A;">
+            <i class="ph ph-hourglass"></i>
+        </div>
 
         <div class="summary-info">
             <p>Menunggu Konfirmasi</p>
@@ -39,7 +43,9 @@
 
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #5B8FB9;">📋</div>
+        <div class="summary-icon" style="background-color: #5B8FB9;">
+            <i class="ph ph-clipboard-text"></i>
+        </div>
 
         <div class="summary-info">
             <p>Dikonfirmasi</p>
@@ -52,7 +58,9 @@
 
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #8067A8;">⚙️</div>
+        <div class="summary-icon" style="background-color: #8067A8;">
+            <i class="ph ph-gear"></i>
+        </div>
 
         <div class="summary-info">
             <p>Sedang Diproses</p>
@@ -65,7 +73,9 @@
 
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #5F9275;">✅</div>
+        <div class="summary-icon" style="background-color: #5F9275;">
+            <i class="ph ph-check-circle"></i>
+        </div>
 
         <div class="summary-info">
             <p>Selesai</p>
@@ -85,7 +95,9 @@
     <div class="tefa-card">
 
         <div class="perf-header">
-            <div class="perf-icon">🛒</div>
+            <div class="perf-icon">
+                <i class="ph ph-shopping-cart"></i>
+            </div>
 
             <h3>Produk Terlaris</h3>
         </div>
@@ -169,7 +181,7 @@
                                 font-size:24px;
                             "
                         >
-                            📦
+                            <i class="ph ph-package"></i>
                         </div>
 
                     @endif

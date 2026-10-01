@@ -199,17 +199,24 @@
         <!-- GRID KATALOG -->
         <div class="katalog-grid" id="katalog-grid">
             @forelse($katalog as $item)
-                @php
-                    $gambar = $item->gambars->first();
-                    $slug = $item->jurusan->slug ?? null;
-                    $isProduk = $item->jenis === 'produk';
+@php
+    $gambar = $item->gambars->first();
+    $slug = $item->jurusan->slug ?? null;
+    $isProduk = $item->jenis === 'produk';
 
-                    $detailRoute = $slug
-                        ? ($isProduk
-                            ? url('/jurusan/'.$slug.'/produk/detail/'.$item->id_produk_jasa)
-                            : url('/jurusan/'.$slug.'/jasa/detail/'.$item->id_produk_jasa))
-                        : '#';
-                @endphp
+    $detailRoute = $slug
+        ? ($isProduk
+            ? url('/jurusan/'.$slug.'/produk/detail/'.$item->id_produk_jasa)
+            : url('/jurusan/'.$slug.'/jasa/detail/'.$item->id_produk_jasa))
+        : '#';
+
+    if ($detailRoute !== '#') {
+        $detailRoute .= '?' . http_build_query([
+            'from' => 'katalog',
+            'back' => request()->getRequestUri(),
+        ]);
+    }
+@endphp
 
                 <div class="k-card">
                     <div class="k-card-img">

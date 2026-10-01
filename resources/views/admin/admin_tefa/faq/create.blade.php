@@ -14,9 +14,9 @@
     .btn-back {
         display: inline-block;
         padding: 8px 16px;
-        border: 1px solid #3B698F;
+        border: 1px solid #1E3A8A;
         border-radius: 8px;
-        color: #3B698F;
+        color: #1E3A8A;
         background: #fff;
         text-decoration: none;
         font-weight: 600;
@@ -25,7 +25,7 @@
     }
 
     .btn-back:hover {
-        background: #3B698F;
+        background: #1E3A8A;
         color: #fff;
     }
 
@@ -86,26 +86,33 @@
     }
 
     .btn-primary {
-        background: #3B698F;
-        color: white;
-        padding: 10px 24px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 14px;
-    }
+    background: rgba(30, 58, 138, 0.85);
+    color: white;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
 
-    .btn-primary:hover {
-        background: #2c5270;
-    }
+.btn-primary:hover,
+.btn-primary:focus {
+    background: #1E3A8A;
+    color: white;
+}
 
+.btn-primary:active {
+    background: #172E6F;
+    color: white;
+}
     .btn-secondary {
         text-decoration: none;
         padding: 10px 24px;
         border: 1px solid #CBD5E1;
         border-radius: 8px;
-        color: #64748B;
+        color: #1E3A8A;
         background: #F8FAFC;
         font-weight: 600;
         font-size: 14px;

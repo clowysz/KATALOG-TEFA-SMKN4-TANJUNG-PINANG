@@ -9,9 +9,22 @@
 <div class="detail-page-wrapper">
 
     <div style="max-width: 1200px; margin: 0 auto;">
-        <a href="/jurusan/{{ $jurusan->slug }}/jasa" class="back-link">
+        @php
+            $isFromKatalog = request()->query('from') === 'katalog';
+
+            $backFromKatalog = request()->query('back');
+
+            $backUrl = $isFromKatalog
+                && $backFromKatalog
+                && str_starts_with($backFromKatalog, '/')
+                ? $backFromKatalog
+                : url('/jurusan/' . $jurusan->slug . '/jasa');
+        @endphp
+
+        <a href="{{ $backUrl }}" class="back-link">
             <i class="ph ph-arrow-left"></i>
-            Kembali ke Jasa
+
+            {{ $isFromKatalog ? 'Kembali ke Katalog' : 'Kembali ke Jasa' }}
         </a>
     </div>
 
@@ -82,8 +95,8 @@
 
             <div class="price-label">HARGA</div>
             <div class="detail-price">
-    Rp{{ number_format($jasa->harga, 0, ',', '.') }}{{ $jasa->satuan_harga ? '/' . $jasa->satuan_harga : '' }}
-</div>
+                Rp{{ number_format($jasa->harga, 0, ',', '.') }}{{ $jasa->satuan_harga ? '/' . $jasa->satuan_harga : '' }}
+            </div>
 
             @php
                 $checkoutUrl = '/checkout?id_produk_jasa=' . $jasa->id_produk_jasa;

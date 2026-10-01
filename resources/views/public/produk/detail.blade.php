@@ -10,12 +10,24 @@
 
 <div style="max-width: 1200px; margin: 0 auto;">
 
+    @php
+        $isFromKatalog = request()->query('from') === 'katalog';
+
+        $backFromKatalog = request()->query('back');
+
+        $backUrl = $isFromKatalog
+            && $backFromKatalog
+            && str_starts_with($backFromKatalog, '/')
+            ? $backFromKatalog
+            : url('/jurusan/' . $jurusan->slug . '/produk');
+    @endphp
+
     <a
-        href="/jurusan/{{ $jurusan->slug }}/produk"
+        href="{{ $backUrl }}"
         class="back-link"
     >
         <i class="ph ph-arrow-left"></i>
-        Kembali ke Produk
+        {{ $isFromKatalog ? 'Kembali ke Katalog' : 'Kembali ke Produk' }}
     </a>
 
 </div>
@@ -166,8 +178,8 @@
         </div>
 
         <div class="detail-price">
-    Rp{{ number_format($produk->harga, 0, ',', '.') }}{{ $produk->satuan_harga ? '/' . $produk->satuan_harga : '' }}
-</div>
+            Rp{{ number_format($produk->harga, 0, ',', '.') }}{{ $produk->satuan_harga ? '/' . $produk->satuan_harga : '' }}
+        </div>
 
 
         @php
