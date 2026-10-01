@@ -9,35 +9,54 @@
     .detail-wrapper {
         padding: 16px 24px;
         max-width: 700px;
-        margin: 24px auto; /* Properti ini yang bikin posisinya ke tengah secara horizontal */
+        margin: 24px auto;
     }
+
     .back-link {
+        display: inline-block;
+        padding: 8px 16px;
+        border: 1px solid #1E3A8A;
+        border-radius: 8px;
+        color: #1E3A8A;
+        background: #fff;
         text-decoration: none;
-        color: var(--primary, #3B698F);
+        font-weight: 600;
         font-size: 14px;
-        font-weight: 500;
-        display: inline-flex;
-        align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
     }
+
     .back-link:hover {
-        text-decoration: underline;
+        background: #1E3A8A;
+        color: #fff;
+        text-decoration: none;
     }
+
     .page-title {
         font-size: 22px;
         font-weight: 700;
         color: #1e293b;
         margin: 0 0 24px 0;
     }
+
     .alert-custom {
         padding: 14px 20px;
         border-radius: 8px;
         margin-bottom: 24px;
         font-size: 14px;
     }
-    .alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-    .alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-    
+
+    .alert-success {
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #bbf7d0;
+    }
+
+    .alert-danger {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fecaca;
+    }
+
     /* Card Detail */
     .detail-card {
         background: #fff;
@@ -47,29 +66,33 @@
         border: 1px solid #e2e8f0;
         margin-bottom: 24px;
     }
+
     .info-row {
         display: flex;
         padding: 16px 0;
         border-bottom: 1px solid #f1f5f9;
         align-items: center;
     }
+
     .info-row:last-child {
         border-bottom: none;
         padding-bottom: 0;
     }
+
     .info-label {
         width: 35%;
         color: #64748b;
         font-weight: 600;
         font-size: 14px;
     }
+
     .info-value {
         width: 65%;
         color: #0f172a;
         font-size: 15px;
         font-weight: 600;
     }
-    
+
     /* Badges */
     .badge-role {
         background: #e0e7ff;
@@ -79,6 +102,7 @@
         font-size: 12px;
         font-weight: 700;
     }
+
     .badge-status {
         padding: 6px 14px;
         border-radius: 20px;
@@ -88,15 +112,24 @@
         align-items: center;
         gap: 6px;
     }
-    .status-active { background: #dcfce7; color: #166534; }
-    .status-inactive { background: #fee2e2; color: #991b1b; }
-    
+
+    .status-active {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .status-inactive {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
     /* Buttons */
     .action-buttons {
         display: flex;
         gap: 12px;
         margin-bottom: 24px;
     }
+
     .btn-custom {
         padding: 10px 18px;
         border-radius: 8px;
@@ -105,15 +138,49 @@
         cursor: pointer;
         text-decoration: none;
         border: 1px solid transparent;
-        transition: 0.2s;
+        transition: all 0.2s ease;
     }
-    .btn-primary-custom { background: var(--primary, #3B698F); color: #fff; }
-    .btn-primary-custom:hover { background: #2c5273; color: #fff; }
-    .btn-outline-primary-custom { background: #fff; color: var(--primary, #3B698F); border-color: var(--primary, #3B698F); }
-    .btn-outline-primary-custom:hover { background: #f0f7ff; }
-    .btn-outline-danger-custom { background: #fff; color: #ef4444; border-color: #ef4444; }
-    .btn-outline-danger-custom:hover { background: #fef2f2; }
-    
+
+    /* Edit Akun - disamakan dengan primary sebelumnya */
+    .btn-primary-custom {
+        background: #1e3a8ad9;
+        color: #fff;
+    }
+
+    .btn-primary-custom:hover,
+    .btn-primary-custom:focus {
+        background: #1E3A8A;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .btn-primary-custom:active {
+        background: #172E6F;
+        color: #fff;
+    }
+
+    .btn-outline-primary-custom {
+        background: #fff;
+        color: #1E3A8A;
+        border-color: #1E3A8A;
+    }
+
+    .btn-outline-primary-custom:hover {
+        background: #F0F4FF;
+        color: #1E3A8A;
+    }
+
+    .btn-outline-danger-custom {
+        background: #fff;
+        color: #ef4444;
+        border-color: #ef4444;
+    }
+
+    .btn-outline-danger-custom:hover {
+        background: #fef2f2;
+        color: #ef4444;
+    }
+
     /* Form Reset */
     .reset-form-box {
         background: #f8fafc;
@@ -121,143 +188,654 @@
         padding: 24px;
         border: 1px solid #e2e8f0;
     }
-    .form-group-custom { margin-bottom: 16px; }
-    .form-group-custom label { display: block; margin-bottom: 8px; font-weight: 600; color: #475569; font-size: 14px; }
-    .form-control-custom { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box; }
-    .form-control-custom:focus { outline: none; border-color: #3B698F; }
+
+    .form-group-custom {
+        margin-bottom: 16px;
+    }
+
+    .form-group-custom label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #475569;
+        font-size: 14px;
+    }
+
+    .form-control-custom {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .form-control-custom:focus {
+        outline: none;
+        border-color: #3B698F;
+    }
+
+
+    /* =========================
+       MODAL AKSES AKUN
+    ========================== */
+
+    .modal-access-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.45);
+        backdrop-filter: blur(2px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+    }
+
+    .modal-access-box {
+        background: #fff;
+        padding: 32px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 440px;
+        box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        text-align: left;
+        animation: accessModalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes accessModalFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .modal-access-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #20456E;
+        margin: 0 0 8px;
+        font-family: sans-serif;
+    }
+
+    .modal-access-desc {
+        font-size: 14px;
+        color: #64748B;
+        margin: 0 0 24px;
+        font-family: sans-serif;
+        line-height: 1.5;
+    }
+
+    .modal-access-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .btn-modal-access-cancel {
+        background: #fff;
+        color: #334155;
+        border: 1px solid #CBD5E1;
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .2s;
+        flex: 1;
+    }
+
+    .btn-modal-access-cancel:hover {
+        background: #F8FAFC;
+    }
+
+    .btn-modal-access-confirm {
+        display: block;
+        background: #DC2626;
+        color: #fff;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        text-align: center;
+        transition: .2s;
+        cursor: pointer;
+        flex: 1;
+    }
+
+    .btn-modal-access-confirm:hover {
+        background: #B91C1C;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 768px) {
+
+        .detail-wrapper {
+            padding: 15px;
+        }
+
+        .action-buttons {
+            flex-wrap: wrap;
+        }
+
+        .modal-access-box {
+            padding: 24px;
+        }
+
+        .modal-access-actions {
+            flex-direction: column;
+        }
+
+        .btn-modal-access-cancel,
+        .btn-modal-access-confirm {
+            width: 100%;
+        }
+    }
 </style>
 
-<div class="detail-wrapper">
-    <a href="{{ route('akun.index') }}" class="back-link">← Kembali ke Daftar Akun</a>
 
-    <h2 class="page-title">Detail Akun</h2>
+<div class="detail-wrapper">
+
+    <a
+        href="{{ route('akun.index') }}"
+        class="back-link"
+    >
+        &larr; Kembali ke Daftar Akun
+    </a>
+
+
+    <h2 class="page-title">
+        Detail Akun
+    </h2>
+
 
     @if(session('success'))
-    <div class="alert-custom alert-success">
-        {{ session('success') }}
-    </div>
+
+        <div class="alert-custom alert-success">
+            {{ session('success') }}
+        </div>
+
     @endif
+
 
     @if($errors->any())
-    <div class="alert-custom alert-danger">
-        <ul style="margin:0; padding-left:20px;">
-            @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+
+        <div class="alert-custom alert-danger">
+
+            <ul style="margin:0; padding-left:20px;">
+
+                @foreach($errors->all() as $error)
+
+                    <li>
+                        {{ $error }}
+                    </li>
+
+                @endforeach
+
+            </ul>
+
+        </div>
+
     @endif
 
+
     <div class="detail-card">
-        <div class="info-row">
-            <span class="info-label">Nama Pengguna</span>
-            <span class="info-value">{{ $akun->nama }}</span>
-        </div>
 
         <div class="info-row">
-            <span class="info-label">Email</span>
-            <span class="info-value">{{ $akun->email }}</span>
-        </div>
 
-        <div class="info-row">
-            <span class="info-label">Role</span>
+            <span class="info-label">
+                Nama Pengguna
+            </span>
+
             <span class="info-value">
+                {{ $akun->nama }}
+            </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                Email
+            </span>
+
+            <span class="info-value">
+                {{ $akun->email }}
+            </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                Role
+            </span>
+
+            <span class="info-value">
+
                 <span class="badge-role">
                     {{ $akun->role === 'admin_tefa' ? 'Admin TEFA' : 'Admin Jurusan' }}
                 </span>
+
             </span>
+
         </div>
 
+
         <div class="info-row">
-            <span class="info-label">Jurusan</span>
+
+            <span class="info-label">
+                Jurusan
+            </span>
+
             <span class="info-value">
                 {{ $akun->jurusanDipegang->nama_jurusan ?? '—' }}
             </span>
+
         </div>
 
+
         <div class="info-row">
-            <span class="info-label">Status Akun</span>
+
+            <span class="info-label">
+                Status Akun
+            </span>
+
             <span class="info-value">
+
                 @if($akun->status === 'aktif')
+
                     <span class="badge-status status-active">
                         ● Aktif
                     </span>
+
                 @else
+
                     <span class="badge-status status-inactive">
                         ● Nonaktif
                     </span>
+
                 @endif
+
             </span>
+
         </div>
 
+
         <div class="info-row">
-            <span class="info-label">Password</span>
-            <span class="info-value" style="letter-spacing: 2px;">••••••••</span>
+
+            <span class="info-label">
+                Password
+            </span>
+
+            <span
+                class="info-value"
+                style="letter-spacing: 2px;"
+            >
+                ••••••••
+            </span>
+
         </div>
+
     </div>
+
 
     <!-- Tombol Aksi -->
     <div class="action-buttons">
-        <a href="{{ route('akun.edit',$akun->id) }}" class="btn-custom btn-primary-custom">
+
+        <a
+            href="{{ route('akun.edit',$akun->id) }}"
+            class="btn-custom btn-primary-custom"
+        >
             Edit Akun
         </a>
 
-        <button type="button" id="btnResetPassword" class="btn-custom btn-outline-primary-custom">
+
+        <button
+            type="button"
+            id="btnResetPassword"
+            class="btn-custom btn-outline-primary-custom"
+        >
             Reset Password
         </button>
 
+
         @if($akun->status === 'aktif')
-        <form action="{{ route('akun.updateStatus',$akun->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Yakin ingin menonaktifkan akses akun ini?');">
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="status" value="tidak_aktif">
-            <button type="submit" class="btn-custom btn-outline-danger-custom">
-                Hapus Akses
-            </button>
-        </form>
+
+            <form
+                id="accessActionForm"
+                action="{{ route('akun.updateStatus',$akun->id) }}"
+                method="POST"
+                style="margin: 0;"
+            >
+
+                @csrf
+
+                @method('PUT')
+
+                <input
+                    type="hidden"
+                    name="status"
+                    value="tidak_aktif"
+                >
+
+                <button
+                    type="button"
+                    class="btn-custom btn-outline-danger-custom"
+                    onclick="openAccessModal('nonaktifkan')"
+                >
+                    Hapus Akses
+                </button>
+
+            </form>
+
         @else
-        <form action="{{ route('akun.updateStatus',$akun->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Aktifkan kembali akses akun ini?');">
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="status" value="aktif">
-            <button type="submit" class="btn-custom btn-outline-primary-custom">
-                Aktifkan Akses
-            </button>
-        </form>
+
+            <form
+                id="accessActionForm"
+                action="{{ route('akun.updateStatus',$akun->id) }}"
+                method="POST"
+                style="margin: 0;"
+            >
+
+                @csrf
+
+                @method('PUT')
+
+                <input
+                    type="hidden"
+                    name="status"
+                    value="aktif"
+                >
+
+                <button
+                    type="button"
+                    class="btn-custom btn-outline-primary-custom"
+                    onclick="openAccessModal('aktifkan')"
+                >
+                    Aktifkan Akses
+                </button>
+
+            </form>
+
         @endif
+
     </div>
+
 
     <!-- Form Reset Password -->
-    <div id="resetPasswordForm" class="reset-form-box" style="display:none;">
-        <h3 style="margin-top: 0; color: #1e293b; font-size: 18px; margin-bottom: 20px;">Reset Password</h3>
+    <div
+        id="resetPasswordForm"
+        class="reset-form-box"
+        style="display:none;"
+    >
 
-        <form action="{{ route('akun.resetPassword',$akun->id) }}" method="POST">
+        <h3
+            style="
+                margin-top:0;
+                color:#1e293b;
+                font-size:18px;
+                margin-bottom:20px;
+            "
+        >
+            Reset Password
+        </h3>
+
+
+        <form
+            action="{{ route('akun.resetPassword',$akun->id) }}"
+            method="POST"
+        >
+
             @csrf
+
             @method('PUT')
 
-            <div class="form-group-custom">
-                <label for="password">Password Baru</label>
-                <input type="password" id="password" name="password" class="form-control-custom" required minlength="6">
-            </div>
 
             <div class="form-group-custom">
-                <label for="password_confirmation">Konfirmasi Password</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control-custom" required minlength="6">
+
+                <label for="password">
+                    Password Baru
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control-custom"
+                    required
+                    minlength="6"
+                >
+
             </div>
 
-            <div style="display: flex; gap: 12px; margin-top: 24px;">
-                <button type="button" id="cancelReset" class="btn-custom btn-outline-primary-custom">
+
+            <div class="form-group-custom">
+
+                <label for="password_confirmation">
+                    Konfirmasi Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password_confirmation"
+                    name="password_confirmation"
+                    class="form-control-custom"
+                    required
+                    minlength="6"
+                >
+
+            </div>
+
+
+            <div
+                style="
+                    display:flex;
+                    gap:12px;
+                    margin-top:24px;
+                "
+            >
+
+                <button
+                    type="button"
+                    id="cancelReset"
+                    class="btn-custom btn-outline-primary-custom"
+                >
                     Batal
                 </button>
-                <button type="submit" class="btn-custom btn-primary-custom">
+
+
+                <button
+                    type="submit"
+                    class="btn-custom btn-primary-custom"
+                >
                     Simpan Perubahan
                 </button>
+
             </div>
+
         </form>
+
     </div>
+
 </div>
+
+
+{{-- =========================
+     MODAL KONFIRMASI AKSES
+========================== --}}
+
+<div
+    id="accessModal"
+    class="modal-access-overlay"
+    style="display:none;"
+>
+
+    <div class="modal-access-box">
+
+        <h3
+            id="accessModalTitle"
+            class="modal-access-title"
+        >
+            Hapus Akses?
+        </h3>
+
+
+        <p
+            id="accessModalDesc"
+            class="modal-access-desc"
+        >
+            Apakah Anda yakin ingin menonaktifkan akses akun ini?
+        </p>
+
+
+        <div class="modal-access-actions">
+
+            <button
+                type="button"
+                class="btn-modal-access-cancel"
+                onclick="closeAccessModal()"
+            >
+                Batal
+            </button>
+
+
+            <button
+                type="button"
+                class="btn-modal-access-confirm"
+                onclick="submitAccessForm()"
+            >
+                Hapus Akses
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 @endsection
 
+
 @section('scripts')
+
 <script src="{{ asset('js/akun-detail.js') }}"></script>
+
+
+<script>
+
+    let accessActionForm = null;
+
+
+    function openAccessModal(action) {
+
+        accessActionForm =
+            document.getElementById('accessActionForm');
+
+
+        const modal =
+            document.getElementById('accessModal');
+
+
+        const title =
+            document.getElementById('accessModalTitle');
+
+
+        const desc =
+            document.getElementById('accessModalDesc');
+
+
+        const confirmButton =
+            document.querySelector(
+                '.btn-modal-access-confirm'
+            );
+
+
+        if (action === 'aktifkan') {
+
+            title.textContent = 'Aktifkan Akses?';
+
+            desc.textContent =
+                'Apakah Anda yakin ingin mengaktifkan kembali akses akun ini?';
+
+            confirmButton.textContent =
+                'Aktifkan Akses';
+
+            confirmButton.style.background =
+                '#1E3A8A';
+
+        } else {
+
+            title.textContent = 'Hapus Akses?';
+
+            desc.textContent =
+                'Apakah Anda yakin ingin menonaktifkan akses akun ini?';
+
+            confirmButton.textContent =
+                'Hapus Akses';
+
+            confirmButton.style.background =
+                '#DC2626';
+
+        }
+
+
+        modal.style.display = 'flex';
+
+    }
+
+
+    function closeAccessModal() {
+
+        const modal =
+            document.getElementById('accessModal');
+
+        modal.style.display = 'none';
+
+        accessActionForm = null;
+
+    }
+
+
+    function submitAccessForm() {
+
+        if (accessActionForm) {
+
+            accessActionForm.submit();
+
+        }
+
+    }
+
+
+    window.addEventListener(
+        'click',
+        function(e) {
+
+            const modal =
+                document.getElementById('accessModal');
+
+            if (e.target === modal) {
+
+                closeAccessModal();
+
+            }
+
+        }
+    );
+
+</script>
+
 @endsection
