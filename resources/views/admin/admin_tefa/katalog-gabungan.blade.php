@@ -148,59 +148,69 @@
     }
 
     /* =========================
-       GRID LAYOUT
+       GRID KATALOG
+       DISAMAKAN DENGAN KATALOG PEMBELI
     ========================= */
 
     .katalog-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 24px;
+
+        max-width: 1200px;
+        margin: 0 auto;
     }
 
     /* =========================
-       CARD STYLE
+       CARD
+       DISAMAKAN DENGAN KATALOG PEMBELI
     ========================= */
 
     .katalog-card {
         background: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 20px;
+        border-radius: 16px;
         overflow: hidden;
 
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        border: 1px solid #E2E8F0;
 
-        transition:
-            transform 0.2s ease,
-            box-shadow 0.2s ease,
-            border-color 0.2s ease,
-            background 0.2s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 
         display: flex;
         flex-direction: column;
 
-        position: relative;
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease,
+            border-color 0.2s ease,
+            background 0.2s ease;
 
+        position: relative;
         cursor: pointer;
     }
 
     .katalog-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(30, 58, 138, 0.1);
     }
 
-    /* CARD TERPILIH */
+    /* =========================
+       CARD TERPILIH
+       LOGIC SELECTION TETAP
+    ========================= */
 
     .katalog-card.selected {
-        border-color: #1E3A8A;
-        background: #F1F5FF;
+        border-color: #1E40AF;
+
+        background: #F8FAFF;
 
         box-shadow:
-            0 0 0 3px rgba(30, 58, 138, 0.12),
-            0 12px 20px rgba(30, 58, 138, 0.12);
+            0 0 0 3px rgba(30, 64, 175, 0.10),
+            0 10px 25px rgba(30, 58, 138, 0.12);
     }
 
     /* =========================
        CHECK INDICATOR
+       KHUSUS ADMIN
     ========================= */
 
     .card-check {
@@ -237,21 +247,23 @@
     }
 
     .katalog-card.selected .card-check {
-        background: #1E3A8A;
-        border-color: #1E3A8A;
+        background: #1E40AF;
+        border-color: #1E40AF;
         color: #FFFFFF;
     }
 
     /* =========================
-       IMAGE SECTION
+       IMAGE
+       DISAMAKAN DENGAN PEMBELI
     ========================= */
 
     .card-img-wrapper {
         position: relative;
-        width: 100%;
-        height: 190px;
 
-        background: #F8FAFC;
+        width: 100%;
+        height: 150px;
+
+        background: #E2E8F0;
 
         overflow: hidden;
     }
@@ -262,7 +274,7 @@
 
         object-fit: cover;
 
-        transition: transform 0.25s ease;
+        transition: transform 0.3s ease;
     }
 
     .katalog-card:hover .card-img-wrapper img {
@@ -277,13 +289,15 @@
         align-items: center;
         justify-content: center;
 
-        color: #94A3B8;
+        background: #E2E8F0;
+        color: #64748B;
 
-        font-size: 32px;
+        font-size: 48px;
     }
 
     /* =========================
-       BADGE ON IMAGE
+       BADGE
+       DISAMAKAN DENGAN PEMBELI
     ========================= */
 
     .badge-jenis {
@@ -292,32 +306,27 @@
         top: 12px;
         right: 12px;
 
-        background: #1E3A8A;
+        background: rgba(30, 58, 138, 0.9);
 
         color: #FFFFFF;
 
-        padding: 6px 14px;
+        padding: 4px 12px;
+
+        font-size: 11px;
+        font-weight: 700;
 
         border-radius: 20px;
 
-        font-size: 11px;
-        font-weight: 800;
-
-        letter-spacing: 0.5px;
-
         text-transform: uppercase;
 
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        letter-spacing: 1px;
 
         z-index: 3;
     }
 
-    .badge-jenis.jasa {
-        background: #0284C7;
-    }
-
     /* =========================
        CARD BODY
+       DISAMAKAN DENGAN PEMBELI
     ========================= */
 
     .card-body-content {
@@ -330,65 +339,83 @@
     }
 
     .card-title {
-        font-size: 18px;
-        font-weight: 800;
+        font-size: 16px;
+        font-weight: 700;
 
-        color: #0F172A;
+        color: #1E2D3D;
 
-        margin: 0 0 6px 0;
+        margin-bottom: 8px;
 
-        line-height: 1.3;
+        font-family: 'Poppins', sans-serif;
+
+        line-height: 1.4;
     }
 
     .card-jurusan {
-        font-size: 13px;
+        font-size: 12px;
 
         color: #64748B;
 
-        margin: 0 0 18px 0;
+        line-height: 1.5;
+
+        margin-bottom: 8px;
+    }
+
+    .card-desc {
+        font-size: 12px;
+
+        color: #64748B;
+
+        line-height: 1.5;
+
+        margin-bottom: 16px;
+
+        flex-grow: 1;
     }
 
     .card-price {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
 
-        color: #1E40AF;
+        color: #1E3A8A;
 
-        margin-bottom: 18px;
-        margin-top: auto;
+        margin-bottom: 16px;
     }
 
     /* =========================
        DETAIL BUTTON
+       DISAMAKAN DENGAN PEMBELI
     ========================= */
 
     .btn-detail {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: block;
 
-        gap: 6px;
+        text-align: center;
 
-        background: #F1F5F9;
-        color: #1E40AF;
+        padding: 10px;
 
-        padding: 12px;
+        background: #F8FAFC;
 
-        border-radius: 12px;
+        color: #1E3A8A;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        border-radius: 8px;
+
+        border: 1px solid #E2E8F0;
 
         text-decoration: none;
 
-        font-weight: 700;
-        font-size: 14px;
-
-        transition:
-            background 0.2s ease,
-            color 0.2s ease;
+        transition: 0.3s;
     }
 
     .btn-detail:hover {
-        background: #E2E8F0;
-        color: #1D4ED8;
+        background: #1E3A8A;
+        color: #FFFFFF;
+
+        border-color: #1E3A8A;
     }
 
     /* =========================
@@ -404,9 +431,11 @@
 
         background: #FFFFFF;
 
-        border-radius: 20px;
+        border-radius: 12px;
 
-        border: 1px solid #E2E8F0;
+        border: 1px dashed #CBD5E1;
+
+        margin-top: 10px;
 
         color: #64748B;
     }
@@ -672,9 +701,7 @@
 
                     <!-- JENIS -->
 
-                    <span
-                        class="badge-jenis {{ strtolower($item->jenis) }}"
-                    >
+                    <span class="badge-jenis">
                         {{ strtoupper($item->jenis) }}
                     </span>
 
@@ -695,6 +722,11 @@
                     </p>
 
 
+                    <p class="card-desc">
+                        {{ \Illuminate\Support\Str::limit($item->deskripsi, 90) }}
+                    </p>
+
+
                     <div class="card-price">
 
                         Rp{{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
@@ -708,9 +740,8 @@
                         href="{{ route('admin.tefa.katalog_detail', $item->id_produk_jasa) }}"
                         class="btn-detail"
                     >
-                        Lihat Selengkapnya
-
-                        <i class="ph ph-caret-right"></i>
+                        Lihat Detail
+                        
                     </a>
 
                 </div>
@@ -771,9 +802,11 @@
                 @if($katalog->onFirstPage())
 
                     <li class="page-item disabled">
+
                         <span class="page-link">
                             &laquo;&laquo;
                         </span>
+
                     </li>
 
                 @else
