@@ -7,6 +7,17 @@
 @section('content')
 
 <div class="login-page-wrapper">
+
+    {{-- Tombol Kembali --}}
+    @if($back)
+        <div class="login-back-button">
+            <a href="{{ $back }}">
+                <i class="ph ph-arrow-left"></i>
+                <span>Kembali</span>
+            </a>
+        </div>
+    @endif
+
     <!-- Animasi Gelembung -->
     <div class="bubble" style="width: 80px; height: 80px; top: 15%; left: 15%; animation-duration: 5s;"></div>
     <div class="bubble" style="width: 120px; height: 120px; top: 40%; right: 15%; animation-duration: 7s;"></div>
@@ -75,6 +86,7 @@
                     <input type="checkbox">
                     Ingat saya
                 </label>
+
                 <a href="#">
                     Lupa sandi?
                 </a>
@@ -85,18 +97,6 @@
             </button>
         </form>
     </div>
-
-    <!-- Tombol Kembali -->
-    @if($back)
-        <p class="login-footer-text">
-            <a
-                href="{{ $back }}"
-                style="color: white; font-weight: 600; text-decoration: underline;"
-            >
-                ← Kembali
-            </a>
-        </p>
-    @endif
 
     <!-- Teks Bawah dengan Link Daftar Akun -->
     <p class="login-footer-text">
@@ -111,6 +111,7 @@
             Daftar akun
         </a>
     </p>
+
 </div>
 
 <!-- Script untuk Tombol Mata Password -->
@@ -121,7 +122,10 @@
 
         if (togglePassword && password) {
             togglePassword.addEventListener('click', function () {
-                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                const type = password.getAttribute('type') === 'password'
+                    ? 'text'
+                    : 'password';
+
                 password.setAttribute('type', type);
 
                 if (type === 'password') {

@@ -95,7 +95,8 @@ Route::get('/customer-service', function () {
     // Belum login
    if (!Auth::check()) {
     return redirect()->route('login', [
-        'redirect' => '/customer-service'
+        'redirect' => '/customer-service',
+        'back' => url()->previous()
     ]);
 }
 
@@ -103,10 +104,11 @@ Route::get('/customer-service', function () {
     $hasPesanan = \App\Models\Pesanan::where('id_user', Auth::id())->exists();
 
     if ($hasPesanan) {
-    return redirect()->away('https://wa.me/6289653628650');
-}
-        return view('public.customer-service');
-        
+        return redirect()->away('https://wa.me/6289653628650');
+    }
+
+    return view('public.customer-service');
+
 })->name('customer.service');
 // =====================================================
 // PENCARIAN PUBLIK
