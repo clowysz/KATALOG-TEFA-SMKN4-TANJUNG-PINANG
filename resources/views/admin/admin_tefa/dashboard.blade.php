@@ -13,14 +13,14 @@
 <div class="summary-grid">
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #3B698F;">
+        <div class="summary-icon" style="background-color: #1E3A8A;">
             <i class="ph ph-package"></i>
         </div>
 
         <div class="summary-info">
             <p>Total Pesanan</p>
 
-            <h3 style="color: #3B698F;">
+            <h3 style="color: #1E3A8A;">
                 {{ $totalPesanan }}
             </h3>
         </div>
@@ -28,14 +28,14 @@
 
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #D89B4A;">
+        <div class="summary-icon" style="background-color: #573911;">
             <i class="ph ph-hourglass"></i>
         </div>
 
         <div class="summary-info">
             <p>Menunggu Konfirmasi</p>
 
-            <h3 style="color: #D89B4A;">
+            <h3 style="color: #573911;">
                 {{ $menungguKonfirmasi }}
             </h3>
         </div>
@@ -43,14 +43,14 @@
 
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #5B8FB9;">
+        <div class="summary-icon" style="background-color: #002f56;">
             <i class="ph ph-clipboard-text"></i>
         </div>
 
         <div class="summary-info">
             <p>Dikonfirmasi</p>
 
-            <h3 style="color: #5B8FB9;">
+            <h3 style="color: #002f56;">
                 {{ $dikonfirmasi }}
             </h3>
         </div>
@@ -58,14 +58,14 @@
 
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #8067A8;">
+        <div class="summary-icon" style="background-color: #470d4f;">
             <i class="ph ph-gear"></i>
         </div>
 
         <div class="summary-info">
             <p>Sedang Diproses</p>
 
-            <h3 style="color: #8067A8;">
+            <h3 style="color: #470d4f;">
                 {{ $sedangDiproses }}
             </h3>
         </div>
@@ -73,14 +73,14 @@
 
 
     <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #5F9275;">
+        <div class="summary-icon" style="background-color: #016e30;">
             <i class="ph ph-check-circle"></i>
         </div>
 
         <div class="summary-info">
             <p>Selesai</p>
 
-            <h3 style="color: #5F9275;">
+            <h3 style="color: #016e30;">
                 {{ $selesai }}
             </h3>
         </div>
@@ -127,7 +127,7 @@
 
         @else
 
-            <p style="color:#64748b;font-size:14px;margin-top:16px;">
+            <p style="color: #64748b;font-size:14px;margin-top:16px;">
                 Belum ada data produk atau jasa yang dipesan.
             </p>
 
@@ -177,7 +177,7 @@
                                 align-items:center;
                                 justify-content:center;
                                 background:#EBF3F9;
-                                color:#3B698F;
+                                color: #1E3A8A;
                                 font-size:24px;
                             "
                         >
@@ -218,7 +218,7 @@
                 style="
                     padding:30px 0;
                     text-align:center;
-                    color:#64748b;
+                    color: #64748b;
                 "
             >
                 Belum ada pesanan.
@@ -247,7 +247,7 @@
                 style="
                     padding:40px 20px;
                     text-align:center;
-                    color:#64748b;
+                    color: #64748b;
                 "
             >
                 Belum ada data jurusan.

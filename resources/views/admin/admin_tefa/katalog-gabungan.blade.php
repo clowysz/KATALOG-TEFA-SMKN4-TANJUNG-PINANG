@@ -6,19 +6,19 @@
 
 <style>
     .katalog-container {
-        padding: 24px;
+        padding: 8px 24px 24px 24px; /* Padding atas diperkecil agar lebih rapat dengan nav */
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
     .katalog-header {
-        margin-bottom: 20px;
+        margin-bottom: 16px;
     }
 
     .katalog-header h3 {
         font-size: 24px;
         font-weight: 800;
         color: #0F172A;
-        margin: 0 0 6px 0;
+        margin: 0 0 4px 0;
     }
 
     .katalog-header p {
@@ -149,7 +149,6 @@
 
     /* =========================
        GRID KATALOG
-       DISAMAKAN DENGAN KATALOG PEMBELI
     ========================= */
 
     .katalog-grid {
@@ -163,7 +162,6 @@
 
     /* =========================
        CARD
-       DISAMAKAN DENGAN KATALOG PEMBELI
     ========================= */
 
     .katalog-card {
@@ -195,7 +193,6 @@
 
     /* =========================
        CARD TERPILIH
-       LOGIC SELECTION TETAP
     ========================= */
 
     .katalog-card.selected {
@@ -210,7 +207,6 @@
 
     /* =========================
        CHECK INDICATOR
-       KHUSUS ADMIN
     ========================= */
 
     .card-check {
@@ -254,7 +250,6 @@
 
     /* =========================
        IMAGE
-       DISAMAKAN DENGAN PEMBELI
     ========================= */
 
     .card-img-wrapper {
@@ -297,7 +292,6 @@
 
     /* =========================
        BADGE
-       DISAMAKAN DENGAN PEMBELI
     ========================= */
 
     .badge-jenis {
@@ -326,7 +320,6 @@
 
     /* =========================
        CARD BODY
-       DISAMAKAN DENGAN PEMBELI
     ========================= */
 
     .card-body-content {
@@ -384,7 +377,6 @@
 
     /* =========================
        DETAIL BUTTON
-       DISAMAKAN DENGAN PEMBELI
     ========================= */
 
     .btn-detail {
@@ -552,9 +544,8 @@
     ========================= */
 
     @media (max-width: 768px) {
-
         .katalog-container {
-            padding: 16px;
+            padding: 8px 16px 16px 16px;
         }
 
         .katalog-toolbar {
@@ -576,650 +567,270 @@
     }
 </style>
 
-
 <div class="katalog-container">
-
     <!-- HEADER -->
-
     <div class="katalog-header">
-
-        <h3>
-            Katalog Gabungan Tefa
-        </h3>
-
-        <p>
-            Seluruh produk dan jasa dari semua jurusan.
-        </p>
-
+        <h3>Katalog Gabungan Tefa</h3>
+        <p>Seluruh produk dan jasa dari semua jurusan.</p>
     </div>
 
-
     <!-- PESAN ERROR -->
-
     @if($errors->has('produk_jasa_ids'))
-
         <div class="katalog-alert">
             {{ $errors->first('produk_jasa_ids') }}
         </div>
-
     @endif
 
-
     <!-- TOOLBAR PDF -->
-
     <div class="katalog-toolbar">
-
         <div class="toolbar-left">
-
             <div class="selected-info">
-
                 <i class="ph ph-check-circle"></i>
-
                 <span>
-                    <span id="selected-count">0</span>
-                    item dipilih
+                    <span id="selected-count">0</span> item dipilih
                 </span>
-
             </div>
 
-            <button
-                type="button"
-                class="btn-select-all"
-                id="btn-select-all"
-            >
+            <button type="button" class="btn-select-all" id="btn-select-all">
                 Pilih Semua
             </button>
-
         </div>
 
-
-        <form
-            action="{{ route('admin.tefa.katalog_pdf') }}"
-            method="POST"
-            id="pdf-form"
-        >
-
+        <form action="{{ route('admin.tefa.katalog_pdf') }}" method="POST" id="pdf-form">
             @csrf
-
             <div id="selected-inputs"></div>
 
-            <button
-                type="submit"
-                class="btn-generate-pdf"
-                id="btn-generate-pdf"
-                disabled
-            >
+            <button type="submit" class="btn-generate-pdf" id="btn-generate-pdf" disabled>
                 <i class="ph ph-file-pdf"></i>
-
                 Generate PDF
             </button>
-
         </form>
-
     </div>
 
-
     <!-- GRID KATALOG -->
-
     <div class="katalog-grid">
-
         @forelse($katalog as $item)
-
-            <div
-                class="katalog-card"
-                data-id="{{ $item->id_produk_jasa }}"
-            >
-
+            <div class="katalog-card" data-id="{{ $item->id_produk_jasa }}">
                 <!-- CHECK INDICATOR -->
-
                 <div class="card-check">
-
                     <i class="ph ph-check"></i>
-
                 </div>
 
-
                 <!-- IMAGE -->
-
                 <div class="card-img-wrapper">
-
                     @if($item->gambars && $item->gambars->first())
-
-                        <img
-                            src="{{ asset('storage/' . $item->gambars->first()->path_gambar) }}"
-                            alt="{{ $item->nama_produk_jasa }}"
-                        >
-
+                        <img src="{{ asset('storage/' . $item->gambars->first()->path_gambar) }}" alt="{{ $item->nama_produk_jasa }}">
                     @else
-
                         <div class="no-img">
                             <i class="ph ph-image"></i>
                         </div>
-
                     @endif
 
-
                     <!-- JENIS -->
-
                     <span class="badge-jenis">
                         {{ strtoupper($item->jenis) }}
                     </span>
-
                 </div>
 
-
                 <!-- CARD BODY -->
-
                 <div class="card-body-content">
-
                     <h4 class="card-title">
                         {{ $item->nama_produk_jasa }}
                     </h4>
-
 
                     <p class="card-jurusan">
                         {{ $item->jurusan->nama_jurusan ?? 'Semua Jurusan' }}
                     </p>
 
-
                     <p class="card-desc">
                         {{ \Illuminate\Support\Str::limit($item->deskripsi, 90) }}
                     </p>
 
-
                     <div class="card-price">
-
                         Rp{{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
-
                     </div>
 
-
                     <!-- DETAIL -->
-
-                    <a
-                        href="{{ route('admin.tefa.katalog_detail', $item->id_produk_jasa) }}"
-                        class="btn-detail"
-                    >
+                    <a href="{{ route('admin.tefa.katalog_detail', $item->id_produk_jasa) }}" class="btn-detail">
                         Lihat Detail
-                        
                     </a>
-
                 </div>
-
             </div>
-
         @empty
-
             <div class="empty-state">
-
-                <i
-                    class="ph ph-squares-four"
-                    style="
-                        font-size: 48px;
-                        color: #CBD5E1;
-                        margin-bottom: 12px;
-                        display: block;
-                    "
-                ></i>
-
-                <p style="
-                    font-weight: 600;
-                    margin: 0;
-                ">
+                <i class="ph ph-squares-four" style="font-size: 48px; color: #CBD5E1; margin-bottom: 12px; display: block;"></i>
+                <p style="font-weight: 600; margin: 0;">
                     Belum ada produk atau jasa yang tersedia.
                 </p>
-
             </div>
-
         @endforelse
-
     </div>
 
-
     <!-- PAGINATION -->
-
     @if($katalog->hasPages())
-
         <div class="pagination-wrapper">
-
             <p class="pagination-info">
-
-                Menampilkan
-                {{ $katalog->firstItem() }}
-                sampai
-                {{ $katalog->lastItem() }}
-                dari
-                {{ $katalog->total() }}
-                hasil
-
+                Menampilkan {{ $katalog->firstItem() }} sampai {{ $katalog->lastItem() }} dari {{ $katalog->total() }} hasil
             </p>
 
-
             <ul class="custom-pagination">
-
                 {{-- PALING AWAL --}}
-
                 @if($katalog->onFirstPage())
-
                     <li class="page-item disabled">
-
-                        <span class="page-link">
-                            &laquo;&laquo;
-                        </span>
-
+                        <span class="page-link">&laquo;&laquo;</span>
                     </li>
-
                 @else
-
                     <li class="page-item">
-
-                        <a
-                            class="page-link"
-                            href="{{ $katalog->url(1) }}"
-                            title="Halaman Pertama"
-                        >
-                            &laquo;&laquo;
-                        </a>
-
+                        <a class="page-link" href="{{ $katalog->url(1) }}" title="Halaman Pertama">&laquo;&laquo;</a>
                     </li>
-
                 @endif
-
 
                 {{-- SEBELUMNYA --}}
-
                 @if($katalog->onFirstPage())
-
                     <li class="page-item disabled">
-
-                        <span class="page-link">
-                            &lsaquo;
-                        </span>
-
+                        <span class="page-link">&lsaquo;</span>
                     </li>
-
                 @else
-
                     <li class="page-item">
-
-                        <a
-                            class="page-link"
-                            href="{{ $katalog->previousPageUrl() }}"
-                            title="Halaman Sebelumnya"
-                        >
-                            &lsaquo;
-                        </a>
-
+                        <a class="page-link" href="{{ $katalog->previousPageUrl() }}" title="Halaman Sebelumnya">&lsaquo;</a>
                     </li>
-
                 @endif
-
 
                 {{-- NOMOR HALAMAN --}}
-
                 @foreach(range(1, $katalog->lastPage()) as $page)
-
                     @if($page == $katalog->currentPage())
-
                         <li class="page-item active">
-
-                            <span class="page-link">
-                                {{ $page }}
-                            </span>
-
+                            <span class="page-link">{{ $page }}</span>
                         </li>
-
                     @else
-
                         <li class="page-item">
-
-                            <a
-                                class="page-link"
-                                href="{{ $katalog->url($page) }}"
-                            >
-                                {{ $page }}
-                            </a>
-
+                            <a class="page-link" href="{{ $katalog->url($page) }}">{{ $page }}</a>
                         </li>
-
                     @endif
-
                 @endforeach
 
-
                 {{-- BERIKUTNYA --}}
-
                 @if($katalog->hasMorePages())
-
                     <li class="page-item">
-
-                        <a
-                            class="page-link"
-                            href="{{ $katalog->nextPageUrl() }}"
-                            title="Halaman Selanjutnya"
-                        >
-                            &rsaquo;
-                        </a>
-
+                        <a class="page-link" href="{{ $katalog->nextPageUrl() }}" title="Halaman Selanjutnya">&rsaquo;</a>
                     </li>
-
                 @else
-
                     <li class="page-item disabled">
-
-                        <span class="page-link">
-                            &rsaquo;
-                        </span>
-
+                        <span class="page-link">&rsaquo;</span>
                     </li>
-
                 @endif
-
 
                 {{-- PALING AKHIR --}}
-
                 @if($katalog->hasMorePages())
-
                     <li class="page-item">
-
-                        <a
-                            class="page-link"
-                            href="{{ $katalog->url($katalog->lastPage()) }}"
-                            title="Halaman Terakhir"
-                        >
-                            &raquo;&raquo;
-                        </a>
-
+                        <a class="page-link" href="{{ $katalog->url($katalog->lastPage()) }}" title="Halaman Terakhir">&raquo;&raquo;</a>
                     </li>
-
                 @else
-
                     <li class="page-item disabled">
-
-                        <span class="page-link">
-                            &raquo;&raquo;
-                        </span>
-
+                        <span class="page-link">&raquo;&raquo;</span>
                     </li>
-
                 @endif
-
             </ul>
-
         </div>
-
     @endif
-
 </div>
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-
-    /*
-    |--------------------------------------------------------------------------
-    | PENYIMPANAN ITEM TERPILIH
-    |--------------------------------------------------------------------------
-    */
-
     let selectedItems = new Set();
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | AMBIL ELEMENT
-    |--------------------------------------------------------------------------
-    */
-
     const cards = document.querySelectorAll('.katalog-card[data-id]');
-
-    const selectedCount =
-        document.getElementById('selected-count');
-
-    const selectAllButton =
-        document.getElementById('btn-select-all');
-
-    const generateButton =
-        document.getElementById('btn-generate-pdf');
-
-    const selectedInputs =
-        document.getElementById('selected-inputs');
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | UPDATE TAMPILAN
-    |--------------------------------------------------------------------------
-    */
+    const selectedCount = document.getElementById('selected-count');
+    const selectAllButton = document.getElementById('btn-select-all');
+    const generateButton = document.getElementById('btn-generate-pdf');
+    const selectedInputs = document.getElementById('selected-inputs');
 
     function updateSelectedUI() {
-
-        selectedCount.textContent =
-            selectedItems.size;
-
-        generateButton.disabled =
-            selectedItems.size === 0;
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | UPDATE CARD
-        |--------------------------------------------------------------------------
-        */
+        selectedCount.textContent = selectedItems.size;
+        generateButton.disabled = selectedItems.size === 0;
 
         cards.forEach(function (card) {
-
-            const id =
-                card.dataset.id;
-
+            const id = card.dataset.id;
             if (selectedItems.has(id)) {
-
                 card.classList.add('selected');
-
             } else {
-
                 card.classList.remove('selected');
-
             }
-
         });
 
+        const visibleIds = Array.from(cards).map(function (card) {
+            return card.dataset.id;
+        });
 
-        /*
-        |--------------------------------------------------------------------------
-        | UPDATE TOMBOL PILIH SEMUA
-        |--------------------------------------------------------------------------
-        */
-
-        const visibleIds =
-            Array.from(cards).map(function (card) {
-                return card.dataset.id;
-            });
-
-
-        const allVisibleSelected =
-            visibleIds.length > 0 &&
-            visibleIds.every(function (id) {
-                return selectedItems.has(id);
-            });
-
+        const allVisibleSelected = visibleIds.length > 0 && visibleIds.every(function (id) {
+            return selectedItems.has(id);
+        });
 
         if (allVisibleSelected) {
-
-            selectAllButton.textContent =
-                'Batalkan Semua';
-
+            selectAllButton.textContent = 'Batalkan Semua';
         } else {
-
-            selectAllButton.textContent =
-                'Pilih Semua';
-
+            selectAllButton.textContent = 'Pilih Semua';
         }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | UPDATE INPUT FORM
-        |--------------------------------------------------------------------------
-        */
 
         selectedInputs.innerHTML = '';
-
-
         selectedItems.forEach(function (id) {
-
-            const input =
-                document.createElement('input');
-
+            const input = document.createElement('input');
             input.type = 'hidden';
-
-            input.name =
-                'produk_jasa_ids[]';
-
-            input.value =
-                id;
-
+            input.name = 'produk_jasa_ids[]';
+            input.value = id;
             selectedInputs.appendChild(input);
-
         });
-
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | KLIK KARTU
-    |--------------------------------------------------------------------------
-    */
-
     cards.forEach(function (card) {
-
         card.addEventListener('click', function (event) {
-
-            /*
-            |--------------------------------------------------------------------------
-            | JIKA YANG DIKLIK ADALAH TOMBOL DETAIL
-            |--------------------------------------------------------------------------
-            */
-
-            if (
-                event.target.closest('.btn-detail')
-            ) {
+            if (event.target.closest('.btn-detail')) {
                 return;
             }
 
-
-            const id =
-                card.dataset.id;
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | TOGGLE PILIHAN
-            |--------------------------------------------------------------------------
-            */
-
+            const id = card.dataset.id;
             if (selectedItems.has(id)) {
-
                 selectedItems.delete(id);
-
             } else {
-
                 selectedItems.add(id);
-
             }
 
-
             updateSelectedUI();
-
         });
-
     });
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | PILIH SEMUA ITEM YANG SEDANG TAMPIL
-    |--------------------------------------------------------------------------
-    */
-
-    selectAllButton.addEventListener(
-        'click',
-        function () {
-
-            const visibleIds =
-                Array.from(cards).map(function (card) {
-                    return card.dataset.id;
-                });
-
-
-            if (visibleIds.length === 0) {
-                return;
-            }
-
-
-            const allVisibleSelected =
-                visibleIds.every(function (id) {
-                    return selectedItems.has(id);
-                });
-
-
-            if (allVisibleSelected) {
-
-                visibleIds.forEach(function (id) {
-
-                    selectedItems.delete(id);
-
-                });
-
-            } else {
-
-                visibleIds.forEach(function (id) {
-
-                    selectedItems.add(id);
-
-                });
-
-            }
-
-
-            updateSelectedUI();
-
-        }
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | CEGAH SUBMIT KOSONG
-    |--------------------------------------------------------------------------
-    */
-
-    document
-        .getElementById('pdf-form')
-        .addEventListener('submit', function (event) {
-
-            if (selectedItems.size === 0) {
-
-                event.preventDefault();
-
-                alert(
-                    'Silakan pilih minimal satu produk atau jasa.'
-                );
-
-            }
-
+    selectAllButton.addEventListener('click', function () {
+        const visibleIds = Array.from(cards).map(function (card) {
+            return card.dataset.id;
         });
 
+        if (visibleIds.length === 0) return;
 
-    /*
-    |--------------------------------------------------------------------------
-    | INIT
-    |--------------------------------------------------------------------------
-    */
+        const allVisibleSelected = visibleIds.every(function (id) {
+            return selectedItems.has(id);
+        });
+
+        if (allVisibleSelected) {
+            visibleIds.forEach(function (id) {
+                selectedItems.delete(id);
+            });
+        } else {
+            visibleIds.forEach(function (id) {
+                selectedItems.add(id);
+            });
+        }
+
+        updateSelectedUI();
+    });
+
+    document.getElementById('pdf-form').addEventListener('submit', function (event) {
+        if (selectedItems.size === 0) {
+            event.preventDefault();
+            alert('Silakan pilih minimal satu produk atau jasa.');
+        }
+    });
 
     updateSelectedUI();
-
 });
 </script>
 

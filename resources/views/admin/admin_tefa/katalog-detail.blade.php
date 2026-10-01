@@ -3,1494 +3,713 @@
 @section('title', 'Detail Katalog')
 
 @push('css')
-
 <link rel="stylesheet" href="{{ asset('css/jurusan-detail.css') }}">
 
 <style>
-
 /* =========================================================
-   HALAMAN DETAIL
+   HALAMAN DETAIL (SPACING DI-DEMPETKAN)
 ========================================================= */
-
 .detail-page-wrapper {
-    background: #F4F8FC;
+    background-color: #f8fafc;
     min-height: 100vh;
-    padding: 40px 5% 50px;
+    padding: 16px 24px 40px; /* Padding atas dikurangi dari 32px menjadi 16px */
 }
 
-
 /* =========================================================
-   BACK
+   TOMBOL KEMBALI
 ========================================================= */
-
-.detail-page-wrapper > div:first-child {
-    max-width: 1200px;
-    margin: 0 auto 24px;
+.back-link-wrapper {
+    margin-bottom: 14px; /* Margin bawah dikurangi dari 24px menjadi 14px */
 }
 
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px; /* Padding tombol sedikit dirapatkan */
+    background: #1E3A8A;
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 30px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-link i {
+    font-size: 16px;
+    color: #ffffff;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.back-link:hover {
+    background: #172e6e;
+    color: #ffffff;
+    border-color: #172e6e;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.22);
+    transform: translateY(-2px);
+}
+
+.back-link:hover i {
+    color: #ffffff;
+    transform: translateX(-4px);
+}
 
 /* =========================================================
-   CONTAINER ATAS
+   CONTAINER UTAMA (GALERI + INFO)
 ========================================================= */
-
-.detail-top-container {
-    max-width: 1200px;
-    margin: 0 auto 40px;
-
-    padding: 40px;
-
-    background: #FFFFFF;
-
-    border-radius: 24px;
-
+.detail-top-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px 32px; /* Padding atas/bawah kartu dikurangi dari 32px ke 24px */
     display: grid;
-
-    grid-template-columns: 1.1fr 0.9fr;
-
-    gap: 50px;
-
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
     align-items: start;
-
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+    border: 1px solid #f1f5f9;
+    margin-bottom: 20px;
 }
 
-
 /* =========================================================
-   GALERI
+   GALERI & SLIDER
 ========================================================= */
-
 .detail-gallery {
     width: 100%;
 }
-
-
-/* =========================================================
-   GALERI UTAMA
-========================================================= */
 
 .admin-product-gallery {
     width: 100%;
 }
 
-
 .admin-main-image {
     position: relative;
-
     width: 100%;
-
     height: 380px;
-
     overflow: hidden;
-
-    border-radius: 16px;
-
-    background: #E2E8F0;
-
-    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
 }
-
-
-/* =========================================================
-   GAMBAR
-========================================================= */
 
 .admin-gallery-image {
     position: absolute;
-
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-
     opacity: 0;
-
     visibility: hidden;
-
-    transition:
-        opacity 0.3s ease,
-        visibility 0.3s ease;
-
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     cursor: zoom-in;
 }
 
-
 .admin-gallery-image.active {
     opacity: 1;
-
     visibility: visible;
-
     z-index: 1;
 }
 
-
-/* =========================================================
-   TOMBOL KIRI / KANAN
-========================================================= */
-
+/* TOMBOL NAVIGASI GALERI */
 .admin-gallery-arrow {
     position: absolute;
-
     top: 50%;
-
     transform: translateY(-50%);
-
-    width: 46px;
-    height: 46px;
-
+    width: 40px;
+    height: 40px;
     padding: 0;
-
     border: none;
-
     border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.95);
-
-    color: #1E3A8A;
-
-    font-size: 36px;
-
-    line-height: 36px;
-
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f172a;
+    font-size: 24px;
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     cursor: pointer;
-
     z-index: 10;
-
-    box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.20);
-
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease, transform 0.2s ease;
 }
-
 
 .admin-gallery-arrow:hover {
-    background: #FFFFFF;
-
-    transform:
-        translateY(-50%)
-        scale(1.06);
+    background: #ffffff;
+    transform: translateY(-50%) scale(1.08);
 }
 
+.admin-gallery-prev { left: 14px; }
+.admin-gallery-next { right: 14px; }
 
-.admin-gallery-prev {
-    left: 16px;
-}
-
-
-.admin-gallery-next {
-    right: 16px;
-}
-
-
-/* =========================================================
-   DOT
-========================================================= */
-
+/* DOTS */
 .admin-gallery-dots {
     position: absolute;
-
-    bottom: 16px;
-
+    bottom: 14px;
     left: 0;
     right: 0;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    gap: 8px;
-
+    gap: 6px;
     z-index: 10;
 }
 
-
 .admin-gallery-dot {
-    width: 9px;
-    height: 9px;
-
+    width: 8px;
+    height: 8px;
     padding: 0;
-
     border: none;
-
     border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.70);
-
+    background: rgba(255, 255, 255, 0.6);
     cursor: pointer;
-
-    transition:
-        width 0.2s ease,
-        background 0.2s ease;
+    transition: all 0.2s ease;
 }
-
 
 .admin-gallery-dot.active {
-    width: 24px;
-
+    width: 20px;
     border-radius: 10px;
-
-    background: #FFFFFF;
+    background: #ffffff;
 }
 
-
-/* =========================================================
-   THUMBNAIL
-========================================================= */
-
+/* THUMBNAILS */
 .admin-gallery-thumbnails {
     display: flex;
-
-    gap: 12px;
-
+    gap: 10px;
     width: 100%;
-
-    margin-top: 16px;
-
-    padding-bottom: 6px;
-
+    margin-top: 14px;
+    padding-bottom: 4px;
     overflow-x: auto;
-
-    overflow-y: hidden;
-
-    scroll-behavior: smooth;
-
     scrollbar-width: thin;
 }
 
-
 .admin-gallery-thumbnails::-webkit-scrollbar {
-    height: 5px;
+    height: 4px;
 }
-
-
-.admin-gallery-thumbnails::-webkit-scrollbar-track {
-    background: transparent;
-}
-
 
 .admin-gallery-thumbnails::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
-
-    border-radius: 5px;
+    background: #cbd5e1;
+    border-radius: 4px;
 }
-
-
-/* =========================================================
-   THUMB ITEM
-========================================================= */
 
 .admin-gallery-thumb {
-    flex: 0 0 75px;
-
-    width: 75px;
-    height: 60px;
-
+    flex: 0 0 70px;
+    width: 70px;
+    height: 55px;
     padding: 0;
-
     border: 2px solid transparent;
-
-    border-radius: 10px;
-
+    border-radius: 8px;
     overflow: hidden;
-
-    background: #E2E8F0;
-
+    background: #e2e8f0;
     opacity: 0.6;
-
     cursor: pointer;
-
-    transition:
-        opacity 0.2s ease,
-        border-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-
-.admin-gallery-thumb:hover {
-    opacity: 1;
-}
-
-
+.admin-gallery-thumb:hover,
 .admin-gallery-thumb.active {
     opacity: 1;
-
-    border-color: #1E3A8A;
+    border-color: #1e3a8a;
 }
 
-
 .admin-gallery-thumb img {
-    display: block;
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
 }
 
-
 /* =========================================================
-   INFORMASI
+   INFORMASI PRODUK / JASA
 ========================================================= */
-
 .detail-info {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
-
 
 .detail-badge {
+    align-self: flex-start;
     display: inline-flex;
-
     align-items: center;
-
-    padding: 7px 14px;
-
+    padding: 6px 14px;
     border-radius: 20px;
-
-    background: #E8EEF9;
-
-    color: #1E3A8A;
-
-    font-size: 13px;
-
-    font-weight: 800;
-
-    margin-bottom: 15px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
 }
-
 
 .detail-title {
-    color: #1E2D3D;
-
-    font-size: 34px;
-
+    color: #0f172a;
+    font-size: 28px;
     font-weight: 800;
-
-    line-height: 1.2;
-
-    margin: 0 0 25px;
+    line-height: 1.3;
+    margin: 0 0 20px;
 }
 
+.price-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+}
 
 .price-label {
-    color: #64748B;
-
-    font-size: 13px;
-
+    color: #64748b;
+    font-size: 12px;
     font-weight: 700;
-
-    margin-bottom: 5px;
-}
-
-
-.detail-price {
-    color: #1E3A8A;
-
-    font-size: 30px;
-
-    font-weight: 800;
-}
-
-
-/* =========================================================
-   META CARD
-========================================================= */
-
-.detail-meta-cards {
-    max-width: 1200px;
-
-    margin: 30px auto 0;
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 20px;
-}
-
-
-.meta-card-item {
-    background: #FFFFFF;
-
-    border-radius: 16px;
-
-    padding: 20px 24px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 16px;
-
-    border: 1px solid #E2E8F0;
-
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.04);
-}
-
-
-.meta-icon {
-    width: 44px;
-    height: 44px;
-
-    flex-shrink: 0;
-
-    border-radius: 12px;
-
-    background: #E8EEF9;
-
-    color: #1E3A8A;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-}
-
-
-.meta-icon i {
-    font-size: 22px;
-}
-
-
-.meta-label {
-    display: block;
-
-    color: #64748B;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
+    letter-spacing: 0.5px;
     margin-bottom: 4px;
 }
 
-
-.meta-value {
-    display: block;
-
-    color: #1E2D3D;
-
-    font-size: 15px;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   DESKRIPSI
-========================================================= */
-
-.detail-card {
-    max-width: 1200px;
-
-    margin: 30px auto 0;
-
-    padding: 40px;
-
-    background: #FFFFFF;
-
-    border-radius: 24px;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.06);
-
-    color: #1E2D3D;
-}
-
-
-.detail-section-title {
-    margin: 0 0 20px;
-
-    color: #1E2D3D;
-
-    font-size: 22px;
-
+.detail-price {
+    color: #1e3a8a;
+    font-size: 28px;
     font-weight: 800;
 }
 
-
-.detail-text {
-    color: #475569;
-
-    font-size: 16px;
-
-    line-height: 1.8;
+/* =========================================================
+   META CARDS (JENIS, JURUSAN, PESANAN)
+========================================================= */
+.detail-meta-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
+.meta-card-item {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+}
+
+.meta-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.meta-icon i {
+    font-size: 20px;
+}
+
+.meta-label {
+    display: block;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+}
+
+.meta-value {
+    display: block;
+    color: #0f172a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   CARD DESKRIPSI
+========================================================= */
+.detail-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+    border: 1px solid #f1f5f9;
+    color: #0f172a;
+}
+
+.detail-section-title {
+    margin: 0 0 16px;
+    color: #0f172a;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.detail-text {
+    color: #334155;
+    font-size: 15px;
+    line-height: 1.8;
+}
 
 /* =========================================================
    LIGHTBOX
 ========================================================= */
-
 .admin-gallery-lightbox {
     position: fixed;
-
     inset: 0;
-
     z-index: 99999;
-
     display: none;
-
     align-items: center;
-
     justify-content: center;
-
-    padding: 30px;
-
-    background: rgba(15, 23, 42, 0.92);
+    padding: 24px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(4px);
 }
-
 
 .admin-gallery-lightbox.active {
     display: flex;
 }
 
-
 .admin-lightbox-image {
     max-width: 90vw;
-
-    max-height: 90vh;
-
+    max-height: 85vh;
     object-fit: contain;
-
     border-radius: 12px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
-
 
 .admin-lightbox-close {
     position: absolute;
-
     top: 20px;
-
-    right: 25px;
-
-    width: 45px;
-
-    height: 45px;
-
+    right: 24px;
+    width: 40px;
+    height: 40px;
     border: none;
-
     border-radius: 50%;
-
-    background: #FFFFFF;
-
-    color: #1E293B;
-
-    font-size: 30px;
-
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 24px;
     line-height: 1;
-
     cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.admin-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
-
 @media (max-width: 992px) {
-
-    .detail-top-container {
+    .detail-top-card {
         grid-template-columns: 1fr;
-
-        gap: 30px;
-
+        gap: 28px;
         padding: 24px;
     }
-
     .admin-main-image {
-        height: 300px;
+        height: 320px;
     }
-
 }
 
-
 @media (max-width: 768px) {
-
     .detail-meta-cards {
         grid-template-columns: 1fr;
     }
-
 }
-
 
 @media (max-width: 600px) {
-
     .detail-page-wrapper {
-        padding: 25px 20px 40px;
+        padding: 20px 16px 36px;
     }
-
-    .detail-top-container {
-        padding: 18px;
-
-        border-radius: 20px;
-    }
-
-    .admin-main-image {
-        height: 260px;
-    }
-
-    .admin-gallery-arrow {
-        width: 38px;
-        height: 38px;
-
-        font-size: 30px;
-    }
-
-    .admin-gallery-prev {
-        left: 10px;
-    }
-
-    .admin-gallery-next {
-        right: 10px;
-    }
-
-    .detail-title {
-        font-size: 27px;
-    }
-
-    .detail-price {
-        font-size: 25px;
-    }
-
+    .detail-top-card,
     .detail-card {
-        padding: 24px;
+        padding: 20px;
+        border-radius: 16px;
     }
-
+    .admin-main-image {
+        height: 250px;
+    }
+    .detail-title {
+        font-size: 22px;
+    }
+    .detail-price {
+        font-size: 24px;
+    }
 }
-
 </style>
-
 @endpush
 
 
 @section('content')
-
 <div class="detail-page-wrapper">
+    <div class="detail-container-inner">
 
+       {{-- BACK BUTTON --}}
+<div class="back-link-wrapper">
+    <a href="{{ route('admin.tefa.katalog_gabungan') }}" class="back-link">
+        <i class="ph ph-arrow-left"></i>
+        <span>Kembali ke Katalog</span>
+    </a>
+</div>
 
-    {{-- =====================================================
-         BACK
-    ====================================================== --}}
+        {{-- CONTAINER ATAS: GALERI & DETAIL --}}
+        <div class="detail-top-card">
 
-    <div style="max-width:1200px;margin:0 auto 24px;">
+            {{-- GALERI --}}
+            <div class="detail-gallery">
+                @php
+                    $gambars = $produk->gambars;
+                @endphp
 
-        <a
-            href="{{ route('admin.tefa.katalog_gabungan') }}"
-            class="back-link"
-        >
-            <i class="ph ph-arrow-left"></i>
-
-            Kembali ke Katalog
-
-        </a>
-
-    </div>
-
-
-    {{-- =====================================================
-         DETAIL ATAS
-    ====================================================== --}}
-
-    <div class="detail-top-container">
-
-
-        {{-- =================================================
-             GALERI
-        ================================================== --}}
-
-        <div class="detail-gallery">
-
-            @php
-                $gambars = $produk->gambars;
-            @endphp
-
-
-            <div class="admin-product-gallery">
-
-
-                {{-- =========================================
-                     GAMBAR UTAMA
-                ========================================== --}}
-
-                <div class="admin-main-image">
-
-
-                    @if($gambars->count() > 0)
-
-
-                        @foreach($gambars as $index => $gambar)
-
-                            <img
-                                src="{{ asset('storage/' . $gambar->path_gambar) }}"
-                                class="admin-gallery-image {{ $index === 0 ? 'active' : '' }}"
-                                data-index="{{ $index }}"
-                                alt="{{ $produk->nama_produk_jasa }}"
-                            >
-
-                        @endforeach
-
-
-                        {{-- =================================
-                             TOMBOL KIRI
-                        ================================== --}}
-
-                        @if($gambars->count() > 1)
-
-                            <button
-                                type="button"
-                                class="admin-gallery-arrow admin-gallery-prev"
-                                onclick="adminGalleryPrev()"
-                                aria-label="Gambar sebelumnya"
-                            >
-                                ‹
-                            </button>
-
-
-                            {{-- =============================
-                                 TOMBOL KANAN
-                            ============================== --}}
-
-                            <button
-                                type="button"
-                                class="admin-gallery-arrow admin-gallery-next"
-                                onclick="adminGalleryNext()"
-                                aria-label="Gambar berikutnya"
-                            >
-                                ›
-                            </button>
-
-
-                            {{-- =============================
-                                 DOT
-                            ============================== --}}
-
-                            <div class="admin-gallery-dots">
-
-                                @foreach($gambars as $index => $gambar)
-
-                                    <button
-                                        type="button"
-                                        class="admin-gallery-dot {{ $index === 0 ? 'active' : '' }}"
-                                        onclick="adminGalleryGo({{ $index }})"
-                                        aria-label="Gambar {{ $index + 1 }}"
-                                    ></button>
-
-                                @endforeach
-
-                            </div>
-
-                        @endif
-
-
-                    @else
-
-
-                        {{-- =================================
-                             PLACEHOLDER
-                        ================================== --}}
-
-                        <img
-                            src="https://placehold.co/800x600/E2E8F0/1E3A8A?text={{ ucfirst($produk->jenis) }}"
-                            class="admin-gallery-image active"
-                            alt="{{ $produk->nama_produk_jasa }}"
-                        >
-
-
-                    @endif
-
-
-                </div>
-
-
-                {{-- =================================================
-                     THUMBNAIL
-                ================================================== --}}
-
-                @if($gambars->count() > 1)
-
-                    <div class="admin-gallery-thumbnails">
-
-                        @foreach($gambars as $index => $gambar)
-
-                            <button
-                                type="button"
-                                class="admin-gallery-thumb {{ $index === 0 ? 'active' : '' }}"
-                                onclick="adminGalleryGo({{ $index }})"
-                            >
-
+                <div class="admin-product-gallery">
+                    <div class="admin-main-image">
+                        @if($gambars->count() > 0)
+                            @foreach($gambars as $index => $gambar)
                                 <img
                                     src="{{ asset('storage/' . $gambar->path_gambar) }}"
-                                    alt="Gambar {{ $index + 1 }}"
+                                    class="admin-gallery-image {{ $index === 0 ? 'active' : '' }}"
+                                    data-index="{{ $index }}"
+                                    alt="{{ $produk->nama_produk_jasa }}"
                                 >
+                            @endforeach
 
-                            </button>
+                            @if($gambars->count() > 1)
+                                <button type="button" class="admin-gallery-arrow admin-gallery-prev" onclick="adminGalleryPrev()" aria-label="Gambar sebelumnya">‹</button>
+                                <button type="button" class="admin-gallery-arrow admin-gallery-next" onclick="adminGalleryNext()" aria-label="Gambar berikutnya">›</button>
 
-                        @endforeach
-
+                                <div class="admin-gallery-dots">
+                                    @foreach($gambars as $index => $gambar)
+                                        <button type="button" class="admin-gallery-dot {{ $index === 0 ? 'active' : '' }}" onclick="adminGalleryGo({{ $index }})" aria-label="Gambar {{ $index + 1 }}"></button>
+                                    @endforeach
+                                </div>
+                            @endif
+                        @else
+                            <img
+                                src="https://placehold.co/800x600/E2E8F0/1E3A8A?text={{ ucfirst($produk->jenis) }}"
+                                class="admin-gallery-image active"
+                                alt="{{ $produk->nama_produk_jasa }}"
+                            >
+                        @endif
                     </div>
 
-                @endif
+                    @if($gambars->count() > 1)
+                        <div class="admin-gallery-thumbnails">
+                            @foreach($gambars as $index => $gambar)
+                                <button type="button" class="admin-gallery-thumb {{ $index === 0 ? 'active' : '' }}" onclick="adminGalleryGo({{ $index }})">
+                                    <img src="{{ asset('storage/' . $gambar->path_gambar) }}" alt="Gambar {{ $index + 1 }}">
+                                </button>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
 
+            {{-- INFORMASI PRODUK / JASA --}}
+            <div class="detail-info">
+                <div class="detail-badge">
+                    {{ strtoupper($produk->jenis) }}
+                </div>
 
+                <h1 class="detail-title">
+                    {{ $produk->nama_produk_jasa }}
+                </h1>
+
+                <div class="price-box">
+                    <div class="price-label">HARGA</div>
+                    <div class="detail-price">
+                        Rp{{ number_format($produk->harga, 0, ',', '.') }}{{ $produk->satuan_harga ? '/' . $produk->satuan_harga : '' }}
+                    </div>
+                </div>
             </div>
 
         </div>
 
-
-        {{-- =================================================
-             INFORMASI PRODUK / JASA
-        ================================================== --}}
-
-        <div class="detail-info">
-
-
-            <div class="detail-badge">
-
-                {{ strtoupper($produk->jenis) }}
-
+        {{-- META CARDS --}}
+        <div class="detail-meta-cards">
+            {{-- JENIS --}}
+            <div class="meta-card-item">
+                <div class="meta-icon">
+                    <i class="ph ph-tag"></i>
+                </div>
+                <div>
+                    <span class="meta-label">JENIS</span>
+                    <span class="meta-value">{{ ucfirst($produk->jenis) }}</span>
+                </div>
             </div>
 
-
-            <h1 class="detail-title">
-
-                {{ $produk->nama_produk_jasa }}
-
-            </h1>
-
-
-            <div class="price-label">
-
-                HARGA
-
+            {{-- JURUSAN --}}
+            <div class="meta-card-item">
+                <div class="meta-icon">
+                    <i class="ph ph-graduation-cap"></i>
+                </div>
+                <div>
+                    <span class="meta-label">JURUSAN</span>
+                    <span class="meta-value">{{ $produk->jurusan->nama_jurusan ?? 'Semua Jurusan' }}</span>
+                </div>
             </div>
 
-
-            <div class="detail-price">
-
-                Rp{{ number_format($produk->harga, 0, ',', '.') }}{{ $produk->satuan_harga ? '/' . $produk->satuan_harga : '' }}
-
+            {{-- JUMLAH PESANAN --}}
+            <div class="meta-card-item">
+                <div class="meta-icon">
+                    <i class="ph ph-shopping-cart"></i>
+                </div>
+                <div>
+                    <span class="meta-label">JUMLAH PESANAN</span>
+                    <span class="meta-value">{{ $produk->pesanans_count }}</span>
+                </div>
             </div>
-
-
         </div>
 
-    </div>
-
-
-    {{-- =====================================================
-         META
-    ====================================================== --}}
-
-    <div class="detail-meta-cards">
-
-
-        {{-- JENIS --}}
-
-        <div class="meta-card-item">
-
-            <div class="meta-icon">
-
-                <i class="ph ph-tag"></i>
-
+        {{-- DESKRIPSI --}}
+        <div class="detail-card">
+            <h2 class="detail-section-title">DESKRIPSI</h2>
+            <div class="detail-text">
+                {!! nl2br(e($produk->deskripsi)) !!}
             </div>
-
-            <div>
-
-                <span class="meta-label">
-
-                    JENIS
-
-                </span>
-
-                <span class="meta-value">
-
-                    {{ ucfirst($produk->jenis) }}
-
-                </span>
-
-            </div>
-
-        </div>
-
-
-        {{-- JURUSAN --}}
-
-        <div class="meta-card-item">
-
-            <div class="meta-icon">
-
-                <i class="ph ph-graduation-cap"></i>
-
-            </div>
-
-            <div>
-
-                <span class="meta-label">
-
-                    JURUSAN
-
-                </span>
-
-                <span class="meta-value">
-
-                    {{ $produk->jurusan->nama_jurusan ?? 'Semua Jurusan' }}
-
-                </span>
-
-            </div>
-
-        </div>
-
-
-        {{-- JUMLAH PESANAN --}}
-
-        <div class="meta-card-item">
-
-            <div class="meta-icon">
-
-                <i class="ph ph-shopping-cart"></i>
-
-            </div>
-
-            <div>
-
-                <span class="meta-label">
-
-                    JUMLAH PESANAN
-
-                </span>
-
-                <span class="meta-value">
-
-                    {{ $produk->pesanans_count }}
-
-                </span>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-    {{-- =====================================================
-         DESKRIPSI
-    ====================================================== --}}
-
-    <div class="detail-card">
-
-        <h2 class="detail-section-title">
-
-            DESKRIPSI
-
-        </h2>
-
-
-        <div class="detail-text">
-
-            {!! nl2br(e($produk->deskripsi)) !!}
-
         </div>
 
     </div>
-
-
 </div>
 
-
-{{-- =========================================================
-     LIGHTBOX
-========================================================= --}}
-
-<div
-    class="admin-gallery-lightbox"
-    id="adminGalleryLightbox"
->
-
-    <button
-        type="button"
-        class="admin-lightbox-close"
-        onclick="adminGalleryCloseLightbox()"
-    >
-        &times;
-    </button>
-
-
-    <img
-        src=""
-        class="admin-lightbox-image"
-        id="adminLightboxImage"
-        alt="Preview gambar"
-    >
-
+{{-- LIGHTBOX --}}
+<div class="admin-gallery-lightbox" id="adminGalleryLightbox">
+    <button type="button" class="admin-lightbox-close" onclick="adminGalleryCloseLightbox()">&times;</button>
+    <img src="" class="admin-lightbox-image" id="adminLightboxImage" alt="Preview gambar">
 </div>
-
 
 <script>
-
 /* =========================================================
-   GALERI
+   GALERI LOGIC (DIPERTAHANKAN 100%)
 ========================================================= */
-
 let adminGalleryIndex = 0;
 
-
-/* =========================================================
-   AMBIL GAMBAR
-========================================================= */
-
-function adminGalleryImages()
-{
-    return document.querySelectorAll(
-        '.admin-gallery-image'
-    );
+function adminGalleryImages() {
+    return document.querySelectorAll('.admin-gallery-image');
 }
 
+function adminGalleryUpdate() {
+    const images = adminGalleryImages();
+    const dots = document.querySelectorAll('.admin-gallery-dot');
+    const thumbs = document.querySelectorAll('.admin-gallery-thumb');
 
-/* =========================================================
-   UPDATE GALERI
-========================================================= */
+    if (!images.length) return;
 
-function adminGalleryUpdate()
-{
-    const images =
-        adminGalleryImages();
+    images.forEach((image, index) => {
+        image.classList.toggle('active', index === adminGalleryIndex);
+    });
 
-    const dots =
-        document.querySelectorAll(
-            '.admin-gallery-dot'
-        );
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === adminGalleryIndex);
+    });
 
-    const thumbs =
-        document.querySelectorAll(
-            '.admin-gallery-thumb'
-        );
+    thumbs.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === adminGalleryIndex);
+    });
 
-
-    if (!images.length) {
-        return;
-    }
-
-
-    /* ============================
-       GAMBAR
-    ============================ */
-
-    images.forEach(
-        function(image, index)
-        {
-
-            image.classList.toggle(
-                'active',
-                index === adminGalleryIndex
-            );
-
-        }
-    );
-
-
-    /* ============================
-       DOT
-    ============================ */
-
-    dots.forEach(
-        function(dot, index)
-        {
-
-            dot.classList.toggle(
-                'active',
-                index === adminGalleryIndex
-            );
-
-        }
-    );
-
-
-    /* ============================
-       THUMBNAIL
-    ============================ */
-
-    thumbs.forEach(
-        function(thumb, index)
-        {
-
-            thumb.classList.toggle(
-                'active',
-                index === adminGalleryIndex
-            );
-
-        }
-    );
-
-
-    /* ============================
-       SCROLL THUMBNAIL AKTIF
-    ============================ */
-
-    const activeThumb =
-        document.querySelector(
-            '.admin-gallery-thumb.active'
-        );
-
-
+    const activeThumb = document.querySelector('.admin-gallery-thumb.active');
     if (activeThumb) {
-
         activeThumb.scrollIntoView({
             behavior: 'smooth',
             block: 'nearest',
             inline: 'center'
         });
-
     }
-
 }
 
-
-/* =========================================================
-   NEXT
-========================================================= */
-
-function adminGalleryNext()
-{
-    const images =
-        adminGalleryImages();
-
-
-    if (images.length <= 1) {
-        return;
-    }
-
-
+function adminGalleryNext() {
+    const images = adminGalleryImages();
+    if (images.length <= 1) return;
     adminGalleryIndex++;
-
-
-    if (
-        adminGalleryIndex >= images.length
-    ) {
-
-        adminGalleryIndex = 0;
-
-    }
-
-
+    if (adminGalleryIndex >= images.length) adminGalleryIndex = 0;
     adminGalleryUpdate();
 }
 
-
-/* =========================================================
-   PREVIOUS
-========================================================= */
-
-function adminGalleryPrev()
-{
-    const images =
-        adminGalleryImages();
-
-
-    if (images.length <= 1) {
-        return;
-    }
-
-
+function adminGalleryPrev() {
+    const images = adminGalleryImages();
+    if (images.length <= 1) return;
     adminGalleryIndex--;
-
-
-    if (adminGalleryIndex < 0) {
-
-        adminGalleryIndex =
-            images.length - 1;
-
-    }
-
-
+    if (adminGalleryIndex < 0) adminGalleryIndex = images.length - 1;
     adminGalleryUpdate();
 }
 
-
-/* =========================================================
-   GO TO
-========================================================= */
-
-function adminGalleryGo(index)
-{
-    const images =
-        adminGalleryImages();
-
-
-    if (
-        index < 0 ||
-        index >= images.length
-    ) {
-
-        return;
-
-    }
-
-
+function adminGalleryGo(index) {
+    const images = adminGalleryImages();
+    if (index < 0 || index >= images.length) return;
     adminGalleryIndex = index;
-
     adminGalleryUpdate();
 }
 
-
-/* =========================================================
-   LIGHTBOX
-========================================================= */
-
-function adminGalleryOpenLightbox(src)
-{
-    const modal =
-        document.getElementById(
-            'adminGalleryLightbox'
-        );
-
-
-    const image =
-        document.getElementById(
-            'adminLightboxImage'
-        );
-
-
-    if (!modal || !image) {
-        return;
-    }
-
-
+function adminGalleryOpenLightbox(src) {
+    const modal = document.getElementById('adminGalleryLightbox');
+    const image = document.getElementById('adminLightboxImage');
+    if (!modal || !image) return;
     image.src = src;
-
     modal.classList.add('active');
 }
 
-
-function adminGalleryCloseLightbox()
-{
-    const modal =
-        document.getElementById(
-            'adminGalleryLightbox'
-        );
-
-
-    if (!modal) {
-        return;
-    }
-
-
+function adminGalleryCloseLightbox() {
+    const modal = document.getElementById('adminGalleryLightbox');
+    if (!modal) return;
     modal.classList.remove('active');
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    adminGalleryUpdate();
 
-/* =========================================================
-   DOM READY
-========================================================= */
+    const images = adminGalleryImages();
+    images.forEach(function(image) {
+        image.addEventListener('click', function() {
+            adminGalleryOpenLightbox(this.src);
+        });
+    });
 
-document.addEventListener(
-    'DOMContentLoaded',
-    function()
-    {
-
-
-        /* ============================
-           INIT
-        ============================ */
-
-        adminGalleryUpdate();
-
-
-        /* ============================
-           KLIK GAMBAR
-        ============================ */
-
-        const images =
-            adminGalleryImages();
-
-
-        images.forEach(
-            function(image)
-            {
-
-                image.addEventListener(
-                    'click',
-                    function()
-                    {
-
-                        adminGalleryOpenLightbox(
-                            this.src
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-        /* ============================
-           ESC LIGHTBOX
-        ============================ */
-
-        document.addEventListener(
-            'keydown',
-            function(event)
-            {
-
-                if (
-                    event.key === 'Escape'
-                ) {
-
-                    adminGalleryCloseLightbox();
-
-                }
-
-            }
-        );
-
-
-        /* ============================
-           KLIK LUAR LIGHTBOX
-        ============================ */
-
-        const modal =
-            document.getElementById(
-                'adminGalleryLightbox'
-            );
-
-
-        if (modal) {
-
-            modal.addEventListener(
-                'click',
-                function(event)
-                {
-
-                    if (
-                        event.target === modal
-                    ) {
-
-                        adminGalleryCloseLightbox();
-
-                    }
-
-                }
-            );
-
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            adminGalleryCloseLightbox();
         }
+    });
 
-
-        /* ============================
-           SWIPE HP
-        ============================ */
-
-        const mainImage =
-            document.querySelector(
-                '.admin-main-image'
-            );
-
-
-        if (mainImage) {
-
-            let startX = 0;
-            let startY = 0;
-
-
-            mainImage.addEventListener(
-                'touchstart',
-                function(event)
-                {
-
-                    if (
-                        !event.touches.length
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    startX =
-                        event.touches[0].clientX;
-
-                    startY =
-                        event.touches[0].clientY;
-
-                },
-                {
-                    passive: true
-                }
-            );
-
-
-            mainImage.addEventListener(
-                'touchend',
-                function(event)
-                {
-
-                    if (
-                        !event.changedTouches.length
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    const endX =
-                        event.changedTouches[0].clientX;
-
-                    const endY =
-                        event.changedTouches[0].clientY;
-
-
-                    const diffX =
-                        startX - endX;
-
-                    const diffY =
-                        startY - endY;
-
-
-                    /* Hanya swipe horizontal */
-
-                    if (
-                        Math.abs(diffX) > 50 &&
-                        Math.abs(diffX) > Math.abs(diffY)
-                    ) {
-
-
-                        if (diffX > 0) {
-
-                            adminGalleryNext();
-
-                        } else {
-
-                            adminGalleryPrev();
-
-                        }
-
-                    }
-
-                },
-                {
-                    passive: true
-                }
-            );
-
-        }
-
+    const modal = document.getElementById('adminGalleryLightbox');
+    if (modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                adminGalleryCloseLightbox();
+            }
+        });
     }
-);
 
+    const mainImage = document.querySelector('.admin-main-image');
+    if (mainImage) {
+        let startX = 0;
+        let startY = 0;
+
+        mainImage.addEventListener('touchstart', function(event) {
+            if (!event.touches.length) return;
+            startX = event.touches[0].clientX;
+            startY = event.touches[0].clientY;
+        }, { passive: true });
+
+        mainImage.addEventListener('touchend', function(event) {
+            if (!event.changedTouches.length) return;
+            const endX = event.changedTouches[0].clientX;
+            const endY = event.changedTouches[0].clientY;
+            const diffX = startX - endX;
+            const diffY = startY - endY;
+
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0) {
+                    adminGalleryNext();
+                } else {
+                    adminGalleryPrev();
+                }
+            }
+        }, { passive: true });
+    }
+});
 </script>
-
 @endsection

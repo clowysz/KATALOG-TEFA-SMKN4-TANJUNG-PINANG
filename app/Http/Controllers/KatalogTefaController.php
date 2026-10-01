@@ -15,7 +15,7 @@ class KatalogTefaController extends Controller
             'gambars'
         ])
             ->latest()
-            ->paginate(10);
+            ->paginate(12);
 
         return view(
             'admin.admin_tefa.katalog-gabungan',
