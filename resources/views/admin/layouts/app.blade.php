@@ -114,7 +114,7 @@
             <li>
                 <a href="/katalog-gabungan">
                     <i class="ph ph-squares-four"></i>
-                    Katalog Gabungan
+                    Katalog TEFA
                 </a>
             </li>
 

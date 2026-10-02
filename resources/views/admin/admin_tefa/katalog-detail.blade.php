@@ -12,51 +12,51 @@
 .detail-page-wrapper {
     background-color: #f8fafc;
     min-height: 100vh;
-    padding: 16px 24px 40px; /* Padding atas dikurangi dari 32px menjadi 16px */
+    padding: 0px 24px 40px; /* Padding atas dikurangi dari 32px menjadi 16px */
 }
 
 /* =========================================================
    TOMBOL KEMBALI
+   Disamakan dengan tombol kembali halaman FAQ
 ========================================================= */
 .back-link-wrapper {
-    margin-bottom: 14px; /* Margin bawah dikurangi dari 24px menjadi 14px */
+    margin-bottom: 2px;
 }
 
 .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 16px; /* Padding tombol sedikit dirapatkan */
-    background: #1E3A8A;
-    color: #ffffff;
-    font-size: 13.5px;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 30px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block !important;
+    padding: 8px 16px !important;
+    border: 1px solid #1E3A8A !important;
+    border-radius: 8px !important;
+    color: #1E3A8A !important;
+    background: #FFFFFF !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    opacity: 1 !important;
+    filter: none !important;
+    box-shadow: none !important;
+    transform: none !important;
 }
 
 .back-link i {
-    font-size: 16px;
-    color: #ffffff;
-    transition: transform 0.25s ease, color 0.25s ease;
+    color: #1E3A8A !important;
+    opacity: 1 !important;
+    filter: none !important;
 }
 
 .back-link:hover {
-    background: #172e6e;
-    color: #ffffff;
-    border-color: #172e6e;
-    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.22);
-    transform: translateY(-2px);
+    background: #1E3A8A !important;
+    color: #FFFFFF !important;
+    border-color: #1E3A8A !important;
+    opacity: 1 !important;
+    filter: none !important;
 }
 
 .back-link:hover i {
-    color: #ffffff;
-    transform: translateX(-4px);
+    color: #FFFFFF !important;
+    opacity: 1 !important;
 }
-
 /* =========================================================
    CONTAINER UTAMA (GALERI + INFO)
 ========================================================= */

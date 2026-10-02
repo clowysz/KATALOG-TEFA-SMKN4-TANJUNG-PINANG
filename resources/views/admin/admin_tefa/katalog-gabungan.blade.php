@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Katalog Gabungan')
+@section('title', 'Katalog')
 
 @section('content')
 
@@ -570,7 +570,7 @@
 <div class="katalog-container">
     <!-- HEADER -->
     <div class="katalog-header">
-        <h3>Katalog Gabungan Tefa</h3>
+        <h3>Katalog TEFA</h3>
         <p>Seluruh produk dan jasa dari semua jurusan.</p>
     </div>
 
