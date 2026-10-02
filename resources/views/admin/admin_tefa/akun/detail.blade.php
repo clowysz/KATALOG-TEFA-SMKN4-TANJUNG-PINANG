@@ -7,7 +7,7 @@
 <style>
     /* Styling khusus untuk halaman detail */
     .detail-wrapper {
-        padding: 16px 24px;
+        padding: 0px 24px;
         max-width: 700px;
         margin: 24px auto;
     }

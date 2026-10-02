@@ -15,7 +15,7 @@
     }
 
     .katalog-header h3 {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 800;
         color: #0F172A;
         margin: 0 0 4px 0;
