@@ -29,7 +29,7 @@
 
 @else
 
-    <!-- SUMMARY (Sudah Diperbarui Sesuai Referensi Gambar) -->
+    <!-- SUMMARY -->
     <div
         class="summary-grid"
         style="
@@ -41,65 +41,246 @@
     >
 
         <!-- CARD 1: TOTAL PRODUK -->
-        <div class="tefa-card" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
-            <!-- Icon Box -->
-            <div style="background-color: var(--primary, #3B698F); min-width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px;">
-                📦
+        <div
+            class="tefa-card"
+            style="
+                padding: 20px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            "
+        >
+
+            <div
+                style="
+                    background-color: #1E3A8A;
+                    min-width: 56px;
+                    height: 56px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 26px;
+                    color: #FFFFFF;
+                "
+            >
+                <i class="ph ph-package"></i>
             </div>
-            <!-- Text Info -->
-            <div style="display: flex; flex-direction: column; justify-content: center;">
-                <p style="color: var(--text-muted); font-size: 13px; font-weight: 500; margin: 0 0 4px 0;">
+
+            <div
+                style="
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                "
+            >
+                <p
+                    style="
+                        color: var(--text-muted);
+                        font-size: 13px;
+                        font-weight: 500;
+                        margin: 0 0 4px 0;
+                    "
+                >
                     Total Produk
                 </p>
-                <h2 style="color: var(--primary); font-size: 24px; font-weight: 700; margin: 0; line-height: 1;">
+
+                <h2
+                    style="
+                        color: #1E3A8A;
+                        font-size: 24px;
+                        font-weight: 700;
+                        margin: 0;
+                        line-height: 1;
+                    "
+                >
                     {{ $totalProduk }}
                 </h2>
             </div>
+
         </div>
 
+
         <!-- CARD 2: TOTAL JASA -->
-        <div class="tefa-card" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
-            <div style="background-color: var(--accent-rpl, #D8893D); min-width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px;">
-                🔧
+        <div
+            class="tefa-card"
+            style="
+                padding: 20px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            "
+        >
+
+            <div
+                style="
+                    background-color: #573911;
+                    min-width: 56px;
+                    height: 56px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 26px;
+                    color: #FFFFFF;
+                "
+            >
+                <i class="ph ph-wrench"></i>
             </div>
-            <div style="display: flex; flex-direction: column; justify-content: center;">
-                <p style="color: var(--text-muted); font-size: 13px; font-weight: 500; margin: 0 0 4px 0;">
+
+            <div
+                style="
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                "
+            >
+                <p
+                    style="
+                        color: var(--text-muted);
+                        font-size: 13px;
+                        font-weight: 500;
+                        margin: 0 0 4px 0;
+                    "
+                >
                     Total Jasa
                 </p>
-                <h2 style="color: var(--accent-rpl); font-size: 24px; font-weight: 700; margin: 0; line-height: 1;">
+
+                <h2
+                    style="
+                        color: #573911;
+                        font-size: 24px;
+                        font-weight: 700;
+                        margin: 0;
+                        line-height: 1;
+                    "
+                >
                     {{ $totalJasa }}
                 </h2>
             </div>
+
         </div>
 
+
         <!-- CARD 3: TOTAL PORTOFOLIO -->
-        <div class="tefa-card" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
-            <div style="background-color: #5F9275; min-width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px;">
-                📁
+        <div
+            class="tefa-card"
+            style="
+                padding: 20px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            "
+        >
+
+            <div
+                style="
+                    background-color: #002F56;
+                    min-width: 56px;
+                    height: 56px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 26px;
+                    color: #FFFFFF;
+                "
+            >
+                <i class="ph ph-folder-open"></i>
             </div>
-            <div style="display: flex; flex-direction: column; justify-content: center;">
-                <p style="color: var(--text-muted); font-size: 13px; font-weight: 500; margin: 0 0 4px 0;">
+
+            <div
+                style="
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                "
+            >
+                <p
+                    style="
+                        color: var(--text-muted);
+                        font-size: 13px;
+                        font-weight: 500;
+                        margin: 0 0 4px 0;
+                    "
+                >
                     Total Portofolio
                 </p>
-                <h2 style="color: #5F9275; font-size: 24px; font-weight: 700; margin: 0; line-height: 1;">
+
+                <h2
+                    style="
+                        color: #002F56;
+                        font-size: 24px;
+                        font-weight: 700;
+                        margin: 0;
+                        line-height: 1;
+                    "
+                >
                     {{ $totalPortfolio }}
                 </h2>
             </div>
+
         </div>
 
+
         <!-- CARD 4: TOTAL PESANAN -->
-        <div class="tefa-card" style="padding: 20px; display: flex; align-items: center; gap: 16px;">
-            <div style="background-color: #8A5F92; min-width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px;">
-                🛒
+        <div
+            class="tefa-card"
+            style="
+                padding: 20px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            "
+        >
+
+            <div
+                style="
+                    background-color: #470D4F;
+                    min-width: 56px;
+                    height: 56px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 26px;
+                    color: #FFFFFF;
+                "
+            >
+                <i class="ph ph-shopping-cart"></i>
             </div>
-            <div style="display: flex; flex-direction: column; justify-content: center;">
-                <p style="color: var(--text-muted); font-size: 13px; font-weight: 500; margin: 0 0 4px 0;">
+
+            <div
+                style="
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                "
+            >
+                <p
+                    style="
+                        color: var(--text-muted);
+                        font-size: 13px;
+                        font-weight: 500;
+                        margin: 0 0 4px 0;
+                    "
+                >
                     Total Pesanan
                 </p>
-                <h2 style="color: #8A5F92; font-size: 24px; font-weight: 700; margin: 0; line-height: 1;">
+
+                <h2
+                    style="
+                        color: #470D4F;
+                        font-size: 24px;
+                        font-weight: 700;
+                        margin: 0;
+                        line-height: 1;
+                    "
+                >
                     {{ $totalPesananJurusan }}
                 </h2>
             </div>
+
         </div>
 
     </div>
@@ -116,6 +297,7 @@
                 margin-bottom: 16px;
             "
         >
+
             <h3
                 style="
                     font-size: 16px;
@@ -123,7 +305,14 @@
                     margin: 0;
                 "
             >
-                📈 Produk/Jasa dengan Pesanan Terbanyak
+                <i
+                    class="ph ph-chart-line-up"
+                    style="
+                        color: #1E3A8A;
+                        margin-right: 6px;
+                    "
+                ></i>
+                Produk/Jasa dengan Pesanan Terbanyak
             </h3>
 
             <span
@@ -134,6 +323,7 @@
             >
                 Berdasarkan data pesanan
             </span>
+
         </div>
 
 
@@ -145,9 +335,9 @@
                     $gambar = $item->gambars->first();
 
                     $rankColors = [
-                        0 => '#E5B95C',
-                        1 => '#A8A8A8',
-                        2 => '#B9825A',
+                        0 => '#1E3A8A',
+                        1 => '#573911',
+                        2 => '#002F56',
                     ];
 
                     $rankColor = $rankColors[$index] ?? '#CBD5E1';
@@ -199,11 +389,14 @@
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
-                                    background: #F1F5F9;
+                                    background: #EBF3F9;
+                                    color: #1E3A8A;
                                     font-size: 22px;
                                 "
                             >
-                                {{ $item->jenis === 'produk' ? '📦' : '🔧' }}
+                                <i
+                                    class="{{ $item->jenis === 'produk' ? 'ph ph-package' : 'ph ph-wrench' }}"
+                                ></i>
                             </div>
 
                         @endif
@@ -227,7 +420,8 @@
                     <span
                         class="catalog-stats"
                         style="
-                            background: #f0f7ff;
+                            background: #EBF3F9;
+                            color: #1E3A8A;
                             white-space: nowrap;
                         "
                     >
@@ -247,13 +441,21 @@
                     color: var(--text-muted);
                 "
             >
-                <div style="font-size: 42px; margin-bottom: 12px;">
-                    🛒
+
+                <div
+                    style="
+                        font-size: 42px;
+                        margin-bottom: 12px;
+                        color: #1E3A8A;
+                    "
+                >
+                    <i class="ph ph-shopping-cart"></i>
                 </div>
 
                 <p style="margin: 0;">
                     Belum ada pesanan untuk produk atau jasa jurusan.
                 </p>
+
             </div>
 
         @endif
@@ -271,7 +473,14 @@
                 margin-bottom: 24px;
             "
         >
-            📊 Performa Pesanan
+            <i
+                class="ph ph-chart-donut"
+                style="
+                    color: #1E3A8A;
+                    margin-right: 6px;
+                "
+            ></i>
+            Performa Pesanan
         </h3>
 
 
@@ -309,7 +518,7 @@
                     <div
                         style="
                             font-weight: 700;
-                            color: var(--primary);
+                            color: #1E3A8A;
                             font-size: 16px;
                         "
                     >
@@ -355,7 +564,14 @@
                     >
 
                         <span style="font-weight: 600;">
-                            📦 Produk
+                            <i
+                                class="ph ph-package"
+                                style="
+                                    color: #1E3A8A;
+                                    margin-right: 5px;
+                                "
+                            ></i>
+                            Produk
                         </span>
 
                         <span
@@ -376,6 +592,7 @@
                             class="progress-fill-blue"
                             style="
                                 width: {{ $persenProduk }}%;
+                                background-color: #1E3A8A;
                             "
                         ></div>
 
@@ -408,7 +625,14 @@
                     >
 
                         <span style="font-weight: 600;">
-                            🔧 Jasa
+                            <i
+                                class="ph ph-wrench"
+                                style="
+                                    color: #573911;
+                                    margin-right: 5px;
+                                "
+                            ></i>
+                            Jasa
                         </span>
 
                         <span
@@ -429,7 +653,7 @@
                             class="progress-fill-blue"
                             style="
                                 width: {{ $persenJasa }}%;
-                                background-color: var(--accent-rpl);
+                                background-color: #573911;
                             "
                         ></div>
 
@@ -475,7 +699,14 @@
                     margin: 0;
                 "
             >
-                📋 Ringkasan Produk & Jasa
+                <i
+                    class="ph ph-list-bullets"
+                    style="
+                        color: #1E3A8A;
+                        margin-right: 6px;
+                    "
+                ></i>
+                Ringkasan Produk & Jasa
             </h3>
 
             <span
@@ -527,6 +758,7 @@
                             @if($item->harga !== null)
                                 · Rp{{ number_format($item->harga, 0, ',', '.') }}
                             @endif
+
                         </div>
 
                     </div>
@@ -536,7 +768,7 @@
                         style="
                             font-size: 13px;
                             font-weight: 600;
-                            color: var(--primary);
+                            color: #1E3A8A;
                         "
                     >
                         {{ $item->pesanans_count }} pesanan
@@ -604,8 +836,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 ],
 
                 backgroundColor: [
-                    '#3B698F',
-                    '#D8893D'
+                    '#1E3A8A',
+                    '#573911'
                 ],
 
                 borderWidth: 0

@@ -110,7 +110,7 @@ Route::get('/customer-service', function () {
     return view('public.customer-service');
 
 })->name('customer.service');
-// =====================================================
+// =========================================================================
 // PENCARIAN PUBLIK
 // =========================================================================
 
@@ -148,13 +148,34 @@ Route::get('/pencarian', function (Request $request) {
         ->latest()
         ->get();
 
+
+
+    $isAdmin = Auth::check() && in_array(
+        Auth::user()->role,
+        [
+            'admin_tefa',
+            'admin_jurusan',
+            'admin_produser'
+        ]
+    );
+
+    if ($keyword !== '' && !$isAdmin) {
+
+        foreach ($results as $item) {
+            $item->increment('jumlah_pencarian');
+        }
+
+    }
+
     return view(
         'public.pencarian',
-        compact('results', 'keyword')
+        compact(
+            'results',
+            'keyword'
+        )
     );
 
 })->name('public.pencarian');
-
 
 // =========================================================================
 // KATALOG PUBLIK
@@ -657,49 +678,68 @@ Route::prefix('jurusan')->group(function () {
         );
 
 
-        // Detail produk
-        Route::get(
-            '/produk/detail/{id}',
-            function ($slug, $id) use ($getJurusan) {
+      // Detail produk
+Route::get(
+    '/produk/detail/{id}',
+    function ($slug, $id) use ($getJurusan) {
 
-                $jurusan =
-                    $getJurusan($slug);
+        $jurusan =
+            $getJurusan($slug);
 
-                $jurusanDb =
-                    \App\Models\Jurusan::where(
-                        'slug',
-                        $slug
-                    )->firstOrFail();
+        $jurusanDb =
+            \App\Models\Jurusan::where(
+                'slug',
+                $slug
+            )->firstOrFail();
 
-                $produk =
-                    \App\Models\ProdukJasa::with('gambars')
-                        ->where(
-                            'id_produk_jasa',
-                            $id
-                        )
-                        ->where(
-                            'id_jurusan',
-                            $jurusanDb->id_jurusan
-                        )
-                        ->where(
-                            'jenis',
-                            'produk'
-                        )
-                        ->firstOrFail();
+        $produk =
+            \App\Models\ProdukJasa::with('gambars')
+                ->where(
+                    'id_produk_jasa',
+                    $id
+                )
+                ->where(
+                    'id_jurusan',
+                    $jurusanDb->id_jurusan
+                )
+                ->where(
+                    'jenis',
+                    'produk'
+                )
+                ->firstOrFail();
 
-                return view(
-                    'public.produk.detail',
-                    compact(
-                        'jurusan',
-                        'slug',
-                        'produk'
-                    )
-                );
+        /*
+        |--------------------------------------------------------------------------
+        | STATISTIK TAMPILAN
+        |--------------------------------------------------------------------------
+        | Guest dan pembeli dihitung.
+        | Semua admin tidak dihitung.
+        */
 
-            }
-        )->name('produk.detail');
+        $isAdmin = Auth::check() && in_array(
+            Auth::user()->role,
+            [
+                'admin_tefa',
+                'admin_jurusan',
+                'admin_produser'
+            ]
+        );
 
+        if (!$isAdmin) {
+            $produk->increment('jumlah_tampilan');
+        }
 
+        return view(
+            'public.produk.detail',
+            compact(
+                'jurusan',
+                'slug',
+                'produk'
+            )
+        );
+
+    }
+)->name('produk.detail');
         // Jasa
         Route::get(
             '/jasa',
@@ -739,49 +779,68 @@ Route::prefix('jurusan')->group(function () {
             }
         );
 
+// Detail jasa
+Route::get(
+    '/jasa/detail/{id}',
+    function ($slug, $id) use ($getJurusan) {
 
-        // Detail jasa
-        Route::get(
-            '/jasa/detail/{id}',
-            function ($slug, $id) use ($getJurusan) {
+        $jurusan =
+            $getJurusan($slug);
 
-                $jurusan =
-                    $getJurusan($slug);
+        $jurusanDb =
+            \App\Models\Jurusan::where(
+                'slug',
+                $slug
+            )->firstOrFail();
 
-                $jurusanDb =
-                    \App\Models\Jurusan::where(
-                        'slug',
-                        $slug
-                    )->firstOrFail();
+        $jasa =
+            \App\Models\ProdukJasa::with('gambars')
+                ->where(
+                    'id_produk_jasa',
+                    $id
+                )
+                ->where(
+                    'id_jurusan',
+                    $jurusanDb->id_jurusan
+                )
+                ->where(
+                    'jenis',
+                    'jasa'
+                )
+                ->firstOrFail();
 
-                $jasa =
-                    \App\Models\ProdukJasa::with('gambars')
-                        ->where(
-                            'id_produk_jasa',
-                            $id
-                        )
-                        ->where(
-                            'id_jurusan',
-                            $jurusanDb->id_jurusan
-                        )
-                        ->where(
-                            'jenis',
-                            'jasa'
-                        )
-                        ->firstOrFail();
+        /*
+        |--------------------------------------------------------------------------
+        | STATISTIK TAMPILAN
+        |--------------------------------------------------------------------------
+        | Guest dan pembeli dihitung.
+        | Semua admin tidak dihitung.
+        */
 
-                return view(
-                    'public.jasa.detail',
-                    compact(
-                        'jurusan',
-                        'slug',
-                        'jasa'
-                    )
-                );
+        $isAdmin = Auth::check() && in_array(
+            Auth::user()->role,
+            [
+                'admin_tefa',
+                'admin_jurusan',
+                'admin_produser'
+            ]
+        );
 
-            }
-        )->name('jasa.detail');
+        if (!$isAdmin) {
+            $jasa->increment('jumlah_tampilan');
+        }
 
+        return view(
+            'public.jasa.detail',
+            compact(
+                'jurusan',
+                'slug',
+                'jasa'
+            )
+        );
+
+    }
+)->name('jasa.detail');
     });
 
 });
@@ -1066,35 +1125,7 @@ Route::middleware([
     )->name('produk.destroyGambar');
 
 
-    // Portofolio
-    Route::get(
-        '/jurusan-admin/portofolio',
-        [PortfolioController::class, 'index']
-    )->name('portofolio.index');
-
-    Route::post(
-        '/jurusan-admin/portofolio',
-        [PortfolioController::class, 'store']
-    )->name('portofolio.store');
-
-    Route::put(
-        '/jurusan-admin/portofolio/{id}',
-        [PortfolioController::class, 'update']
-    )->name('portofolio.update');
-
-    Route::delete(
-        '/jurusan-admin/portofolio/{id}',
-        [PortfolioController::class, 'destroy']
-    )->name('portofolio.destroy');
-
-    Route::delete(
-        '/jurusan-admin/portofolio/gambar/{id_gambar_portfolio}',
-        [PortfolioController::class, 'destroyGambar']
-    )->name('portofolio.destroyGambar');
-
 });
-
-
 // =========================================================================
 // ADMIN PRODUSER
 // =========================================================================

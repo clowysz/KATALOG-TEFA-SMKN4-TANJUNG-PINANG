@@ -202,4 +202,30 @@ class ProdukJasaController extends Controller
             'message' => 'Gambar berhasil dihapus!'
         ]);
     }
+
+    // Tambah jumlah tampilan Produk/Jasa
+    public function tambahTampilan($id)
+    {
+        $produkJasa = ProdukJasa::findOrFail($id);
+
+        $produkJasa->increment('jumlah_tampilan');
+
+        return response()->json([
+            'message' => 'Jumlah tampilan berhasil ditambahkan.',
+            'jumlah_tampilan' => $produkJasa->jumlah_tampilan,
+        ]);
+    }
+
+    // Tambah jumlah pencarian Produk/Jasa
+    public function tambahPencarian($id)
+    {
+        $produkJasa = ProdukJasa::findOrFail($id);
+
+        $produkJasa->increment('jumlah_pencarian');
+
+        return response()->json([
+            'message' => 'Jumlah pencarian berhasil ditambahkan.',
+            'jumlah_pencarian' => $produkJasa->jumlah_pencarian,
+        ]);
+    }
 }
