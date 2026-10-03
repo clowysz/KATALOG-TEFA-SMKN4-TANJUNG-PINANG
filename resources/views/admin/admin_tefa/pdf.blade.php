@@ -33,7 +33,7 @@
         }
 
         /* =====================================================
-           HALAMAN PDF
+           PAGE
         ===================================================== */
 
         .pdf-page {
@@ -42,10 +42,9 @@
 
             padding: 7mm 8mm 0;
 
-            overflow: hidden;
-            position: relative;
-
             background: #EAF5FF;
+
+            overflow: hidden;
 
             page-break-after: always;
         }
@@ -59,11 +58,13 @@
         ===================================================== */
 
         .header {
+            width: 100%;
             height: 47mm;
 
             position: relative;
 
             background: #06449B;
+
             color: #ffffff;
 
             overflow: hidden;
@@ -71,12 +72,18 @@
             margin-bottom: 3mm;
         }
 
+        /* =====================================================
+           HEADER TOP
+        ===================================================== */
+
         .header-top {
-            height: 15mm;
+            width: 100%;
+            height: 9mm;
 
             background: #07377D;
 
             display: flex;
+
             align-items: center;
             justify-content: flex-end;
 
@@ -85,19 +92,31 @@
             gap: 4mm;
 
             font-size: 9pt;
+
             font-weight: bold;
 
             letter-spacing: 0.4px;
+
+            position: relative;
+
+            z-index: 5;
         }
 
         .header-top .dot {
             color: #B9D8FF;
         }
 
+        /* =====================================================
+           HEADER CONTENT
+        ===================================================== */
+
         .header-content {
-            height: 32mm;
+            width: 100%;
+
+            height: 38m;
 
             display: flex;
+
             align-items: center;
 
             padding: 3mm 5mm;
@@ -105,7 +124,8 @@
             gap: 5mm;
 
             position: relative;
-            z-index: 2;
+
+            z-index: 5;
         }
 
         /* =====================================================
@@ -113,33 +133,49 @@
         ===================================================== */
 
         .logo {
-            width: 24mm;
-            height: 24mm;
+            width: 25mm;
 
-            min-width: 24mm;
+            height: 25mm;
 
-            border: 2px solid #ffffff;
-
-            border-radius: 50%;
+            min-width: 25mm;
 
             display: flex;
-            align-items: center;
-            justify-content: center;
 
-            text-align: center;
+            align-items: center;
+
+            justify-content: center;
 
             overflow: hidden;
 
-            background: #0B5BB5;
+            background: transparent;
+
+            border: none;
         }
 
         .logo img {
             width: 100%;
+
             height: 100%;
 
-            object-fit: contain;
-
             display: block;
+
+            object-fit: contain;
+        }
+
+        /* =====================================================
+           FALLBACK LOGO
+        ===================================================== */
+
+        .logo-fallback {
+            color: #ffffff;
+
+            font-size: 7pt;
+
+            font-weight: bold;
+
+            line-height: 1.2;
+
+            text-align: center;
         }
 
         /* =====================================================
@@ -148,11 +184,13 @@
 
         .header-text {
             flex: 1;
+
             min-width: 0;
         }
 
         .school-name {
             font-size: 12pt;
+
             font-weight: bold;
 
             letter-spacing: 0.8px;
@@ -161,7 +199,10 @@
         }
 
         .header-title {
+            margin: 0;
+
             font-size: 30pt;
+
             font-weight: 900;
 
             line-height: 0.95;
@@ -169,8 +210,6 @@
             letter-spacing: -0.8px;
 
             text-transform: uppercase;
-
-            margin: 0;
         }
 
         .header-title span {
@@ -181,43 +220,59 @@
             margin-top: 1mm;
         }
 
-        .header-decoration {
-            position: absolute;
+        /* =====================================================
+           DEKORASI HEADER
+        ===================================================== */
 
-            right: -5mm;
-            bottom: -7mm;
+       .header-decoration {
+    position: absolute;
 
-            width: 24mm;
-            height: 24mm;
+    right: -20mm;
+    bottom: -20mm;
 
-            background: #2875D4;
+    width: 55mm;
+    height: 55mm;
 
-            transform: rotate(45deg);
+    background: #bbdbff;
 
-            z-index: 1;
-        }
+    border-radius: 50%;
+
+    opacity: 0.45;
+
+    z-index: 1;
+}
 
         /* =====================================================
-           GRID KATALOG
+           GRID
         ===================================================== */
 
         .catalog-grid {
+            width: 100%;
+
             height: 222mm;
 
             display: grid;
 
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            grid-template-rows: repeat(4, minmax(0, 1fr));
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            grid-template-rows:
+                repeat(4, minmax(0, 1fr));
 
             gap: 3mm;
         }
 
         /* =====================================================
-           KARTU
+           CARD
         ===================================================== */
 
         .catalog-card {
+            width: 100%;
+
+            height: 100%;
+
             min-width: 0;
+
             min-height: 0;
 
             background: #ffffff;
@@ -226,47 +281,53 @@
 
             border-radius: 3mm;
 
-            padding: 3mm;
-
-            display: flex;
-            flex-direction: column;
+            padding: 2.5mm;
 
             overflow: hidden;
 
             position: relative;
 
             page-break-inside: avoid;
+
+            break-inside: avoid;
         }
 
         /* =====================================================
-           BADGE
+           JURUSAN + JENIS
         ===================================================== */
 
         .card-badges {
+            width: 100%;
+
+            height: 6mm;
+
             display: flex;
+
             align-items: center;
+
+            justify-content: space-between;
 
             gap: 2mm;
 
-            margin-bottom: 2mm;
-
-            flex-shrink: 0;
-
-            min-width: 0;
+            overflow: hidden;
         }
 
         .badge {
-            min-width: 17mm;
-            max-width: 28mm;
+            display: block;
 
-            padding: 1.3mm 2mm;
+            height: 5mm;
+
+            padding: 0.8mm 2mm;
 
             border-radius: 5mm;
 
             color: #ffffff;
 
-            font-size: 7.5pt;
+            font-size: 7pt;
+
             font-weight: bold;
+
+            line-height: 3.4mm;
 
             text-align: center;
 
@@ -281,10 +342,14 @@
 
         .badge-jurusan {
             background: #06449B;
+
+            max-width: 25mm;
         }
 
         .badge-jenis {
             background: #B30D35;
+
+            max-width: 25mm;
         }
 
         /* =====================================================
@@ -293,9 +358,10 @@
 
         .card-image {
             width: 100%;
-            height: 24mm;
 
-            flex-shrink: 0;
+            height: 22mm;
+
+            margin-top: 1.5mm;
 
             border-radius: 2mm;
 
@@ -304,112 +370,126 @@
             background: #E9EEF5;
 
             display: flex;
-            align-items: center;
-            justify-content: center;
 
-            margin-bottom: 2mm;
+            align-items: center;
+
+            justify-content: center;
         }
 
         .card-image img {
             width: 100%;
+
             height: 100%;
 
-            object-fit: cover;
-
             display: block;
+
+            object-fit: cover;
         }
 
         .no-image {
+            width: 100%;
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
             padding: 2mm;
 
-            font-size: 8pt;
-            font-weight: bold;
-
             color: #94A3B8;
+
+            font-size: 7pt;
+
+            font-weight: bold;
 
             text-align: center;
         }
 
         /* =====================================================
-           NAMA PRODUK / JASA
+           NAMA
         ===================================================== */
 
         .card-title {
-            font-size: 10pt;
+    width: 100%;
 
-            line-height: 1.2;
+    height: 4.4mm;
 
-            font-weight: 800;
+    margin: 1.5mm 0 0;
 
-            color: #06449B;
+    padding: 0;
 
-            margin: 0 0 1.5mm;
+    color: #06449B;
 
-            overflow: hidden;
+    font-size: 9pt;
 
-            max-height: 9mm;
+    font-weight: 800;
 
-            overflow-wrap: anywhere;
-        }
+    line-height: 3.5mm;
 
-        /* =====================================================
-           DESKRIPSI
-        ===================================================== */
+    overflow: hidden;
 
-        .card-description {
-            font-size: 7.5pt;
+    word-break: normal;
 
-            line-height: 1.3;
+    overflow-wrap: break-word;
+}
 
-            color: #475569;
+.card-description {
+    width: 100%;
 
-            margin: 0;
+    height: 9mm;
 
-            overflow: hidden;
+    margin: -0.5mm 0 0;
+    padding: 0 0 1mm;
 
-            max-height: 16mm;
+    color: #475569;
 
-            overflow-wrap: anywhere;
-        }
+    font-size: 7pt;
 
+    line-height: 3.2mm;
+
+    overflow: hidden;
+
+    word-break: normal;
+
+    overflow-wrap: break-word;
+}
         /* =====================================================
            HARGA
         ===================================================== */
 
-        .card-price-wrapper {
-            margin-top: auto;
-
-            padding-top: 1.5mm;
-
-            flex-shrink: 0;
-        }
-
-        .price-label {
-            display: inline-block;
-
-            background: #E7F1FF;
-
-            color: #1D4ED8;
-
-            padding: 0.5mm 2mm;
-
-            border-radius: 2mm;
-
-            font-size: 7pt;
-
-            margin-bottom: 1mm;
-        }
-
         .card-price {
-            font-size: 11pt;
+            position: absolute;
 
-            font-weight: 900;
+            left: 2.5mm;
 
-            line-height: 1.15;
+            right: 2.5mm;
+
+            bottom: 2.5mm;
+
+            height: 5.5mm;
+
+            padding-top: 1mm;
+
+            border-top: 0.3mm solid #E2EDF7;
 
             color: #06449B;
 
-            overflow-wrap: anywhere;
+            font-size: 9pt;
+
+            font-weight: 900;
+
+            line-height: 4mm;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+
+            background: #ffffff;
         }
 
         /* =====================================================
@@ -417,6 +497,8 @@
         ===================================================== */
 
         .footer {
+            width: calc(100% + 16mm);
+
             height: 14mm;
 
             margin: 3mm -8mm 0;
@@ -428,7 +510,9 @@
             color: #ffffff;
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
             gap: 4mm;
@@ -438,6 +522,7 @@
 
         .footer-item {
             display: flex;
+
             align-items: center;
 
             gap: 2mm;
@@ -451,6 +536,7 @@
 
         .footer-icon {
             width: 8mm;
+
             height: 8mm;
 
             min-width: 8mm;
@@ -462,7 +548,9 @@
             border-radius: 50%;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             font-size: 11pt;
@@ -477,15 +565,13 @@
         }
 
         /* =====================================================
-           KARTU KOSONG
+           EMPTY CARD
         ===================================================== */
 
         .empty-card {
             background: transparent;
 
             border: none;
-
-            box-shadow: none;
         }
     </style>
 </head>
@@ -493,9 +579,10 @@
 <body>
 
 @php
+
     /*
     |--------------------------------------------------------------------------
-    | LOGO SMK NEGERI 4
+    | LOGO
     |--------------------------------------------------------------------------
     */
 
@@ -504,6 +591,7 @@
     $logoBase64 = null;
 
     if (file_exists($logoPath)) {
+
         $logoMime = mime_content_type($logoPath);
 
         $logoBase64 =
@@ -511,9 +599,57 @@
             $logoMime .
             ';base64,' .
             base64_encode(
-                file_get_contents($logoPath)
+                file_get_contents(
+                    $logoPath
+                )
             );
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | FUNGSI SINGKATAN JURUSAN
+    |--------------------------------------------------------------------------
+    */
+
+    function singkatanJurusan($nama)
+    {
+        $nama = strtoupper(
+            trim($nama ?? '')
+        );
+
+        return match ($nama) {
+
+            'REKAYASA PERANGKAT LUNAK',
+            'RPL'
+                => 'RPL',
+
+            'TEKNIK KOMPUTER DAN JARINGAN',
+            'TKJ'
+                => 'TKJ',
+
+            'DESAIN KOMUNIKASI VISUAL',
+            'DKV'
+                => 'DKV',
+
+            'PRODUKSI DAN SIARAN PROGRAM TELEVISI',
+            'PSPT'
+                => 'PSPT',
+
+            'ANIMASI'
+                => 'ANIMASI',
+
+            'GAME INTERACTIVE MEDIA',
+            'GAME INTERACTIVE',
+            'PENGEMBANGAN GIM',
+            'GIM'
+                => 'GIM',
+
+            default
+                => $nama ?: 'TEFA',
+        };
+    }
+
 @endphp
 
 
@@ -544,7 +680,7 @@
 
             <div class="header-content">
 
-                <!-- LOGO -->
+                <!-- LOGO TANPA LINGKARAN -->
 
                 <div class="logo">
 
@@ -557,12 +693,7 @@
 
                     @else
 
-                        <span style="
-                            color: #ffffff;
-                            font-size: 7pt;
-                            font-weight: bold;
-                            line-height: 1.2;
-                        ">
+                        <span class="logo-fallback">
                             SMK NEGERI 4
                         </span>
 
@@ -570,8 +701,6 @@
 
                 </div>
 
-
-                <!-- JUDUL -->
 
                 <div class="header-text">
 
@@ -600,7 +729,7 @@
 
 
         <!-- =================================================
-             GRID KATALOG
+             GRID 3 x 4
         ================================================== -->
 
         <div class="catalog-grid">
@@ -610,40 +739,58 @@
                 <div class="catalog-card">
 
                     <!-- =================================================
-                         BADGE JURUSAN + JENIS
+                         BADGE
                     ================================================== -->
 
                     <div class="card-badges">
 
                         <span class="badge badge-jurusan">
-                            {{ $item->jurusan->nama_jurusan ?? 'TEFA' }}
+
+                            {{ singkatanJurusan(
+                                $item->jurusan->nama_jurusan ?? null
+                            ) }}
+
                         </span>
 
+
                         <span class="badge badge-jenis">
-                            {{ strtoupper($item->jenis ?? 'PRODUK') }}
+
+                            {{ strtoupper(
+                                $item->jenis ?? 'PRODUK'
+                            ) }}
+
                         </span>
 
                     </div>
 
 
                     <!-- =================================================
-                         GAMBAR PRODUK / JASA
+                         GAMBAR
                     ================================================== -->
 
                     <div class="card-image">
 
-                        @if($item->gambars && $item->gambars->first())
+                        @if(
+                            $item->gambars &&
+                            $item->gambars->first()
+                        )
 
                             @php
 
                                 $gambarPath = storage_path(
                                     'app/public/' .
-                                    $item->gambars->first()->path_gambar
+                                    $item->gambars
+                                        ->first()
+                                        ->path_gambar
                                 );
 
                                 $gambarBase64 = null;
 
-                                if (file_exists($gambarPath)) {
+                                if (
+                                    file_exists(
+                                        $gambarPath
+                                    )
+                                ) {
 
                                     $gambarMime =
                                         mime_content_type(
@@ -691,18 +838,18 @@
 
 
                     <!-- =================================================
-                         NAMA PRODUK / JASA
+                         NAMA
                     ================================================== -->
 
-                    <h3 class="card-title">
+                    <div class="card-title">
 
                         {{ $item->nama_produk_jasa }}
 
-                    </h3>
+                    </div>
 
 
                     <!-- =================================================
-                         DESKRIPSI PENDEK
+                         DESKRIPSI
                     ================================================== -->
 
                     @php
@@ -714,7 +861,10 @@
 
                         $batasKarakter = 71;
 
-                        if (mb_strlen($deskripsi) > $batasKarakter) {
+                        if (
+                            mb_strlen($deskripsi) >
+                            $batasKarakter
+                        ) {
 
                             $potongan = mb_substr(
                                 $deskripsi,
@@ -727,62 +877,56 @@
                                 ' '
                             );
 
-                            if ($posisiSpasi !== false) {
+                            if (
+                                $posisiSpasi !== false
+                            ) {
 
                                 $potongan = mb_substr(
                                     $potongan,
                                     0,
                                     $posisiSpasi
                                 );
-
                             }
 
                             $deskripsi =
-                                rtrim($potongan) . '...';
+                                rtrim(
+                                    $potongan
+                                ) . '...';
                         }
 
                     @endphp
 
 
-                    <p class="card-description">
+                    <div class="card-description">
 
                         {{ $deskripsi }}
 
-                    </p>
+                    </div>
 
 
                     <!-- =================================================
                          HARGA
                     ================================================== -->
 
-                    <div class="card-price-wrapper">
+                    <div class="card-price">
 
-                        <span class="price-label">
-                            Harga
-                        </span>
+                        @if($item->harga !== null)
 
+                            Rp{{ number_format(
+                                $item->harga,
+                                0,
+                                ',',
+                                '.'
+                            ) }}{{ $item->satuan_harga
+                                ? '/' . $item->satuan_harga
+                                : ''
+                            }}
 
-                        <div class="card-price">
+                        @else
 
-                            @if($item->harga !== null)
+                            Hubungi untuk informasi harga
 
-                                Rp{{ number_format(
-                                    $item->harga,
-                                    0,
-                                    ',',
-                                    '.'
-                                ) }}{{ $item->satuan_harga
-                                    ? '/' . $item->satuan_harga
-                                    : ''
-                                }}
-
-                            @else
-
-                                Hubungi untuk informasi harga
-
-                            @endif
-
-                        </div>
+                        @endif
 
                     </div>
 
@@ -814,15 +958,11 @@
 
         <div class="footer">
 
-
-            <!-- TELEPON -->
-
             <div class="footer-item">
 
                 <div class="footer-icon">
                     ☎
                 </div>
-
 
                 <div>
 
@@ -841,14 +981,11 @@
             </div>
 
 
-            <!-- ALAMAT -->
-
             <div class="footer-item">
 
                 <div class="footer-icon">
                     ⌖
                 </div>
-
 
                 <div>
 
