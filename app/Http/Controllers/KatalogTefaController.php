@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProdukJasa;
-use Spatie\LaravelPdf\Facades\Pdf;
+use App\Services\ChromePdfGenerator;
 
 class KatalogTefaController extends Controller
 {
@@ -15,7 +15,7 @@ class KatalogTefaController extends Controller
             'gambars'
         ])
             ->latest()
-            ->paginate(12);
+            ->paginate(16);
 
         return view(
             'admin.admin_tefa.katalog-gabungan',
@@ -38,7 +38,7 @@ class KatalogTefaController extends Controller
         );
     }
 
-    public function generatePdf(Request $request)
+    public function generatePdf(Request $request, ChromePdfGenerator $generator)
     {
         $validated = $request->validate([
             'produk_jasa_ids' => [
@@ -102,14 +102,12 @@ class KatalogTefaController extends Controller
             now()->format('Y-m-d') .
             '.pdf';
 
-        return Pdf::view(
+        return $generator->fromView(
             'admin.admin_tefa.pdf',
             [
                 'produkJasas' => $produkJasas,
-            ]
-        )
-            ->format('a4')
-            ->portrait()
-            ->name($fileName);
+            ],
+            $fileName
+        );
     }
 }
