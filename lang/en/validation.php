@@ -151,7 +151,7 @@ return [
     'prohibited_unless' => 'Kolom :attribute tidak diperbolehkan kecuali :other memiliki nilai tertentu.',
     'prohibits' => 'Kolom :attribute melarang :other untuk tersedia.',
     'regex' => 'Format kolom :attribute tidak valid.',
-    'required' => 'Kolom :attribute wajib diisi.',
+    'required' => 'Kolom :attribute produk dan jasa wajib diisi.',
     'required_array_keys' => 'Kolom :attribute harus memiliki data untuk: :values.',
     'required_if' => 'Kolom :attribute wajib diisi ketika :other bernilai :value.',
     'required_if_accepted' => 'Kolom :attribute wajib diisi ketika :other diterima.',

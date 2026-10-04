@@ -1,11 +1,15 @@
-/* ================= ADMIN JURUSAN STYLES ================= */
+/* =========================================================
+   ADMIN JURUSAN STYLES
+   ========================================================= */
 
 :root {
     --accent-rpl: #D8893D;
 }
 
 
-/* ================= HEADER ACTION ================= */
+/* =========================================================
+   HEADER ACTION
+   ========================================================= */
 
 .header-action {
     display: flex;
@@ -39,7 +43,9 @@
 }
 
 
-/* ================= DASHBOARD JURUSAN ================= */
+/* =========================================================
+   DASHBOARD JURUSAN
+   ========================================================= */
 
 .dashboard-list-card {
     background: #fff;
@@ -47,7 +53,7 @@
     border: 1px solid #eee;
     padding: 24px;
     margin-bottom: 24px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.01);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
 }
 
 .rank-item {
@@ -151,48 +157,77 @@
 }
 
 
-/* ================= PORTOFOLIO & KATALOG ================= */
+/* =========================================================
+   PORTOFOLIO
+   Visual mengikuti kartu Katalog Admin TEFA
+   ========================================================= */
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .portfolio-card {
-    border: 1px solid #eee;
-    border-radius: 12px;
+    background: #FFFFFF;
+    border-radius: 16px;
     overflow: hidden;
-    background: #fff;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+    position: relative;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+    border-color: #CBD5E1;
 }
 
 .portfolio-img {
     width: 100%;
-    height: 160px;
+    height: 150px;
     object-fit: cover;
+    display: block;
+    background: #F8FAFC;
 }
 
 .portfolio-content {
-    padding: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .portfolio-content h4 {
-    margin-bottom: 8px;
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
     color: var(--text-dark);
+    line-height: 1.4;
 }
 
 .portfolio-content p {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-muted);
-    margin-bottom: 16px;
+    margin: 0 0 16px 0;
     line-height: 1.5;
+    flex-grow: 1;
 }
 
 .portfolio-badge {
-    background: #fcf4e8;
-    color: var(--accent-rpl);
-    padding: 6px 12px;
-    border-radius: 6px;
+    background: #EEF4F8;
+    color: var(--primary);
+    padding: 5px 10px;
+    border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
@@ -212,7 +247,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
 }
 
 .catalog-img {
@@ -283,7 +318,9 @@
 }
 
 
-/* ================= UI MANAJEMEN AKUN ================= */
+/* =========================================================
+   UI MANAJEMEN AKUN
+   ========================================================= */
 
 .role-badge {
     background: #f0f7ff;
@@ -415,7 +452,9 @@
 }
 
 
-/* ================= CHIPS LAYANAN ================= */
+/* =========================================================
+   CHIPS LAYANAN
+   ========================================================= */
 
 .required-star {
     color: #dc3545;
@@ -475,7 +514,9 @@
 }
 
 
-/* ================= PROFIL ADMIN JURUSAN ================= */
+/* =========================================================
+   PROFIL ADMIN JURUSAN
+   ========================================================= */
 
 .profile-container {
     display: flex;
@@ -579,4 +620,516 @@
     background: #b91c1c;
     color: white;
     border-color: #b91c1c;
+}
+
+
+/* =========================================================
+   DAFTAR AKUN ADMIN JURUSAN
+   ========================================================= */
+
+.akun-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.akun-page-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.akun-page-header p {
+    color: #64748b;
+    font-size: 14px;
+    margin: 4px 0 0;
+}
+
+
+/* Tombol Tambah Akun */
+
+.btn-tambah-akun-jurusan {
+    background: #1e3a8ad9;
+    color: #ffffff;
+    text-decoration: none;
+    width: auto;
+    transition: background 0.2s ease;
+}
+
+.btn-tambah-akun-jurusan:hover {
+    background: #1E3A8A;
+    color: #ffffff;
+}
+
+.btn-tambah-akun-jurusan:active {
+    background: #14255A;
+    color: #ffffff;
+}
+
+
+/* Card */
+
+.akun-card {
+    padding: 0;
+}
+
+
+/* Filter */
+
+.akun-filter-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 24px 24px 0;
+    flex-wrap: wrap;
+}
+
+.akun-filter-bar .search-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 0;
+    box-sizing: border-box;
+}
+
+.akun-filter-bar .filter-select {
+    padding: 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    min-width: 200px;
+    margin-bottom: 0;
+    box-sizing: border-box;
+}
+
+
+/* Tabel */
+
+.akun-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.akun-table th,
+.akun-table td {
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+}
+
+.akun-table th {
+    font-weight: 600;
+    color: var(--text-muted);
+    background-color: #fcfcfc;
+}
+
+.akun-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+
+/* Tanggung Jawab */
+
+.akun-layanan-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.akun-layanan-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    background-color: #f0f7ff;
+    color: var(--primary);
+}
+
+.akun-no-tanggung-jawab {
+    color: #64748b;
+}
+
+
+/* Status */
+
+.akun-status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.akun-status-aktif {
+    background-color: #e6f4ea;
+    color: #28a745;
+}
+
+.akun-status-tidak-aktif {
+    background-color: #f8d7da;
+    color: #dc3545;
+}
+
+
+/* Tombol Aksi */
+
+.akun-action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.akun-action-button {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.akun-action-button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+
+/* Empty State */
+
+.akun-empty-row {
+    text-align: center;
+    padding: 60px 20px !important;
+}
+
+.akun-empty-row h3,
+.akun-filter-empty h3 {
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.akun-empty-row p,
+.akun-filter-empty p {
+    color: #64748b;
+    font-size: 14px;
+    margin: 0;
+}
+
+.akun-filter-empty {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+
+/* =========================================================
+   TAMBAH AKUN ADMIN JURUSAN
+   Visual disamakan dengan Tambah Akun Admin TEFA
+   Nama class tetap milik Admin Jurusan
+   ========================================================= */
+
+.jurusan-akun-create-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+/* Tombol kembali */
+
+.jurusan-akun-back {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #1E3A8A;
+    border-radius: 8px;
+    color: #1E3A8A;
+    background: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.jurusan-akun-back:hover {
+    background: #1E3A8A;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/* Judul */
+
+.jurusan-akun-create-title {
+    margin-bottom: 20px;
+    color: #1E2D3D;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* Card */
+
+.jurusan-akun-form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+}
+
+
+/* Form group */
+
+.jurusan-akun-form-group {
+    margin-bottom: 20px;
+}
+
+
+/* Label */
+
+.jurusan-akun-form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1E2D3D;
+    font-size: 14px;
+}
+
+
+/*
+   Tidak digunakan.
+   Label Tambah Akun tidak memakai tanda bintang.
+*/
+.jurusan-akun-required {
+    color: #dc3545;
+}
+
+
+/* Input */
+
+.jurusan-akun-form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #334155;
+    outline: none;
+    box-sizing: border-box;
+    font-family: inherit;
+    background: #fff;
+}
+
+.jurusan-akun-form-control:focus {
+    border-color: #3B698F;
+    box-shadow: 0 0 0 3px rgba(59, 105, 143, 0.1);
+}
+
+.jurusan-akun-form-control[readonly] {
+    background: #f8fafc;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   PASSWORD TAMBAH AKUN
+   ========================================================= */
+
+.jurusan-akun-password-wrapper {
+    position: relative;
+}
+
+.jurusan-akun-password-wrapper .jurusan-akun-form-control {
+    padding-right: 42px;
+}
+
+.jurusan-akun-toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    border-radius: 4px;
+}
+
+.jurusan-akun-toggle-password:hover {
+    color: #3B698F;
+}
+
+
+/* =========================================================
+   PRODUK / JASA TAMBAH AKUN
+   ========================================================= */
+
+.jurusan-akun-checkbox-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.jurusan-akun-checkbox-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.jurusan-akun-checkbox-item:hover {
+    border-color: #3B698F;
+    background-color: #f0f7ff;
+}
+
+.jurusan-akun-checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #3B698F;
+    cursor: pointer;
+    margin: 0;
+}
+
+.jurusan-akun-checkbox-item:has(input[type="checkbox"]:checked) {
+    border-color: #3B698F;
+    background-color: #eff6ff;
+    color: #3B698F;
+}
+
+.jurusan-akun-help-text {
+    display: block;
+    color: #64748B;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+
+/* =========================================================
+   ERROR TAMBAH AKUN
+   ========================================================= */
+
+.jurusan-akun-error {
+    background: #FEF2F2;
+    color: #991B1B;
+    border: 1px solid #FECACA;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.jurusan-akun-error ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+
+.jurusan-akun-form-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.jurusan-akun-btn-primary {
+    flex: 1;
+    width: auto;
+    box-sizing: border-box;
+    background: #1e3a8ad9;
+    color: white;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.jurusan-akun-btn-primary:hover,
+.jurusan-akun-btn-primary:focus {
+    background: #1E3A8A;
+    color: white;
+}
+
+.jurusan-akun-btn-primary:active {
+    background: #172E6F;
+    color: white;
+}
+
+.jurusan-akun-btn-secondary {
+    flex: 0 0 auto;
+    width: auto;
+    text-decoration: none;
+    padding: 10px 24px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    color: #1E3A8A;
+    background: #F8FAFC;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.jurusan-akun-btn-secondary:hover {
+    background: #E2E8F0;
+    color: #1E293B;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .jurusan-akun-create-container {
+        padding: 15px;
+    }
+
+    .jurusan-akun-form-card {
+        padding: 20px;
+    }
+
+    .jurusan-akun-form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .jurusan-akun-btn-primary,
+    .jurusan-akun-btn-secondary {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
 }
