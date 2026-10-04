@@ -7,7 +7,11 @@ function closeModal(modalId){
     const modal=document.getElementById(modalId);
     if(modal)modal.classList.remove('active');
 }
-//warning passsword and confirm. fill
+
+
+// ==========================================================
+// VALIDASI PASSWORD DAN KONFIRMASI PASSWORD
+// ==========================================================
 
 const passwordInput = document.getElementById('password');
 const passwordConfirmationInput = document.getElementById('password_confirmation');
@@ -30,9 +34,14 @@ if (passwordInput) {
             this.setCustomValidity('');
         }
 
-        if (passwordConfirmationInput && passwordConfirmationInput.value.length > 0) {
+        if (
+            passwordConfirmationInput &&
+            passwordConfirmationInput.value.length > 0
+        ) {
             if (passwordConfirmationInput.value !== this.value) {
-                passwordConfirmationInput.setCustomValidity('Konfirmasi password tidak cocok.');
+                passwordConfirmationInput.setCustomValidity(
+                    'Konfirmasi password tidak cocok.'
+                );
             } else if (passwordConfirmationInput.value.length < 6) {
                 passwordConfirmationInput.setCustomValidity(
                     'Konfirmasi password harus memiliki minimal 6 karakter.'
@@ -49,7 +58,9 @@ if (passwordConfirmationInput) {
         if (this.validity.valueMissing) {
             this.setCustomValidity('Konfirmasi password wajib diisi.');
         } else if (this.validity.tooShort) {
-            this.setCustomValidity('Konfirmasi password harus memiliki minimal 6 karakter.');
+            this.setCustomValidity(
+                'Konfirmasi password harus memiliki minimal 6 karakter.'
+            );
         }
     });
 
@@ -57,12 +68,16 @@ if (passwordConfirmationInput) {
         if (this.value.length === 0) {
             this.setCustomValidity('Konfirmasi password wajib diisi.');
         } else if (this.value.length < 6) {
-            this.setCustomValidity('Konfirmasi password harus memiliki minimal 6 karakter.');
+            this.setCustomValidity(
+                'Konfirmasi password harus memiliki minimal 6 karakter.'
+            );
         } else if (
             passwordInput &&
             this.value !== passwordInput.value
         ) {
-            this.setCustomValidity('Konfirmasi password tidak cocok.');
+            this.setCustomValidity(
+                'Konfirmasi password tidak cocok.'
+            );
         } else {
             this.setCustomValidity('');
         }
@@ -70,93 +85,194 @@ if (passwordConfirmationInput) {
 }
 
 
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded", function () {
+
+    // ==========================================================
     // TAMPILKAN / SEMBUNYIKAN JURUSAN SAAT EDIT
-    const roleSelect=document.getElementById('roleSelect');
-    const jurusanWrapper=document.getElementById('jurusanWrapper');
-    const jurusanSelect=document.getElementById('jurusanSelect');
+    // ==========================================================
+
+    const roleSelect = document.getElementById('roleSelect');
+    const jurusanWrapper = document.getElementById('jurusanWrapper');
+    const jurusanSelect = document.getElementById('jurusanSelect');
+
+
+    // ==========================================================
+    // VALIDASI JURUSAN SAAT EDIT
+    // ==========================================================
+
+    if (jurusanSelect) {
+
+        jurusanSelect.addEventListener('invalid', function () {
+
+            if (
+                roleSelect &&
+                roleSelect.value === 'admin_jurusan' &&
+                this.validity.valueMissing
+            ) {
+                this.setCustomValidity(
+                    'Jurusan wajib dipilih untuk Admin Jurusan.'
+                );
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        jurusanSelect.addEventListener('change', function () {
+            this.setCustomValidity('');
+        });
+    }
+
+
+    // ==========================================================
+    // TOGGLE JURUSAN
+    // ==========================================================
 
     if(roleSelect){
+
         function toggleJurusan(){
-            if(roleSelect.value==='admin_jurusan'){
-                if(jurusanWrapper)jurusanWrapper.style.display='block';
-                if(jurusanSelect)jurusanSelect.removeAttribute('disabled');
-            }else{
-                if(jurusanWrapper)jurusanWrapper.style.display='none';
+
+            if(roleSelect.value === 'admin_jurusan'){
+
+                if(jurusanWrapper){
+                    jurusanWrapper.style.display = 'block';
+                }
+
                 if(jurusanSelect){
-                    jurusanSelect.setAttribute('disabled','disabled');
-                    jurusanSelect.value='';
+                    jurusanSelect.removeAttribute('disabled');
+                    jurusanSelect.setAttribute('required', 'required');
+                }
+
+            }else{
+
+                if(jurusanWrapper){
+                    jurusanWrapper.style.display = 'none';
+                }
+
+                if(jurusanSelect){
+                    jurusanSelect.setAttribute('disabled', 'disabled');
+                    jurusanSelect.removeAttribute('required');
+                    jurusanSelect.value = '';
+                    jurusanSelect.setCustomValidity('');
                 }
             }
         }
 
-        roleSelect.addEventListener('change',toggleJurusan);
+        roleSelect.addEventListener('change', function () {
+
+            roleSelect.setCustomValidity('');
+
+            toggleJurusan();
+
+        });
+
         toggleJurusan();
     }
 
-    // TAMPILKAN / SEMBUNYIKAN FORM RESET PASSWORD
-    const resetButton=document.getElementById('btnResetPassword');
-    const resetForm=document.getElementById('resetPasswordForm');
-    const cancelReset=document.getElementById('cancelReset');
 
-    if(resetButton&&resetForm){
+    // ==========================================================
+    // TAMPILKAN / SEMBUNYIKAN FORM RESET PASSWORD
+    // ==========================================================
+
+    const resetButton = document.getElementById('btnResetPassword');
+    const resetForm = document.getElementById('resetPasswordForm');
+    const cancelReset = document.getElementById('cancelReset');
+
+    if(resetButton && resetForm){
         resetButton.addEventListener('click',function(){
             resetForm.style.display='block';
         });
     }
 
-    if(cancelReset&&resetForm){
+    if(cancelReset && resetForm){
         cancelReset.addEventListener('click',function(){
             resetForm.style.display='none';
         });
     }
+
 });
 
 
 // ==========================================================
-// TAMBAHAN: FITUR LIGHTBOX (FOTO "NGAMBANG" BESAR KETIKA DIKLIK)
-// Kode asli di atas 100% aman dan tidak disentuh!
+// FITUR LIGHTBOX
+// FOTO "NGAMBANG" BESAR KETIKA DIKLIK
 // ==========================================================
+
 document.addEventListener('DOMContentLoaded', function() {
+
     // 1. Buat elemen HTML untuk Modal Lightbox secara otomatis
+
     const modal = document.createElement('div');
+
     modal.className = 'image-lightbox-modal';
+
     modal.innerHTML = `
         <button class="lightbox-close">&times;</button>
         <img class="lightbox-content" src="" alt="Preview Besar">
     `;
+
     document.body.appendChild(modal);
+
+
+    // 2. Ambil elemen gambar dan tombol close
 
     const lightboxImg = modal.querySelector('.lightbox-content');
     const closeBtn = modal.querySelector('.lightbox-close');
 
-    // 2. Pilih semua gambar di slide utama maupun thumbnail
-    const clickableImages = document.querySelectorAll('.carousel-slide img, .thumb-item img');
 
-    // 3. Beri aksi saat gambar diklik
+    // 3. Pilih semua gambar di slide utama maupun thumbnail
+
+    const clickableImages = document.querySelectorAll(
+        '.carousel-slide img, .thumb-item img'
+    );
+
+
+    // 4. Beri aksi saat gambar diklik
+
     clickableImages.forEach(img => {
+
         img.addEventListener('click', function() {
-            lightboxImg.src = this.src; // Ambil sumber gambar yang diklik
-            modal.classList.add('active'); // Tampilkan modal dengan animasi ngambang
+
+            lightboxImg.src = this.src;
+
+            modal.classList.add('active');
+
         });
+
     });
 
-    // 4. Tutup modal saat tombol 'X' diklik
+
+    // 5. Tutup modal saat tombol X diklik
+
     closeBtn.addEventListener('click', () => {
+
         modal.classList.remove('active');
+
     });
 
-    // 5. Tutup modal jika area gelap di luar gambar diklik
+
+    // 6. Tutup modal jika area gelap di luar gambar diklik
+
     modal.addEventListener('click', (e) => {
+
         if (e.target === modal) {
+
             modal.classList.remove('active');
+
         }
+
     });
 
-    // 6. Tutup modal menggunakan tombol ESC pada keyboard
+
+    // 7. Tutup modal menggunakan tombol ESC
+
     document.addEventListener('keydown', (e) => {
+
         if (e.key === 'Escape') {
+
             modal.classList.remove('active');
+
         }
+
     });
+
 });

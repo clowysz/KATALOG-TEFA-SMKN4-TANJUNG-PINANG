@@ -86,7 +86,7 @@
     }
 
     .btn-primary {
-    background: rgba(30, 58, 138, 0.85);
+    background: #1e3a8ad9;
     color: white;
     padding: 10px 24px;
     border: none;
@@ -206,6 +206,8 @@
                     placeholder="Masukkan pertanyaan..."
                     value="{{ old('pertanyaan') }}"
                     required
+                    oninvalid="this.setCustomValidity('Silakan isi pertanyaan.')"
+                    oninput="this.setCustomValidity('')"
                 >
             </div>
 
@@ -225,6 +227,8 @@
                     rows="5"
                     placeholder="Masukkan jawaban..."
                     required
+                    oninvalid="this.setCustomValidity('Silakan isi jawaban.')"
+                    oninput="this.setCustomValidity('')"
                 >{{ old('jawaban') }}</textarea>
             </div>
 

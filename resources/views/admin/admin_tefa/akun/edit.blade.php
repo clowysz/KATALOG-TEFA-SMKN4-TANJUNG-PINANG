@@ -325,8 +325,10 @@
 @endsection
 
 @section('scripts')
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
     const roleSelect = document.getElementById('role');
     const jurusanContainer = document.getElementById('jurusanContainer');
     const jurusanSelect = document.getElementById('id_jurusan');
@@ -335,89 +337,185 @@ document.addEventListener('DOMContentLoaded', function () {
     const namaInput = document.getElementById('nama');
     const emailInput = document.getElementById('email');
 
+
+    // ==========================================================
+    // TAMPILKAN / SEMBUNYIKAN JURUSAN
+    // ==========================================================
+
     function updateJurusan() {
+
+        if (!roleSelect || !jurusanSelect) {
+            return;
+        }
+
         if (roleSelect.value === 'admin_jurusan') {
-            jurusanContainer.style.display = 'block';
+
+            if (jurusanContainer) {
+                jurusanContainer.style.display = 'block';
+            }
+
             jurusanSelect.disabled = false;
             jurusanSelect.required = true;
 
-            helpText.textContent =
-                'Pilih jurusan yang menjadi tanggung jawab akun ini.';
+            if (helpText) {
+                helpText.textContent =
+                    'Pilih jurusan yang menjadi tanggung jawab akun ini.';
+            }
+
         } else {
-            jurusanContainer.style.display = 'none';
+
+            if (jurusanContainer) {
+                jurusanContainer.style.display = 'none';
+            }
+
             jurusanSelect.disabled = true;
             jurusanSelect.required = false;
             jurusanSelect.value = '';
 
-            helpText.textContent =
-                'Admin TEFA tidak terikat pada jurusan tertentu.';
+            // Hapus pesan validasi lama
+            jurusanSelect.setCustomValidity('');
+
+            if (helpText) {
+                helpText.textContent =
+                    'Admin TEFA tidak terikat pada jurusan tertentu.';
+            }
         }
     }
 
-    roleSelect.addEventListener('change', updateJurusan);
 
-    updateJurusan();
+    if (roleSelect) {
+
+        roleSelect.addEventListener('change', function () {
+
+            this.setCustomValidity('');
+
+            updateJurusan();
+
+        });
+
+        updateJurusan();
+    }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Validasi Nama Pengguna
-    |--------------------------------------------------------------------------
-    */
+    // ==========================================================
+    // VALIDASI JURUSAN
+    // ==========================================================
+
+    if (jurusanSelect) {
+
+        jurusanSelect.addEventListener('invalid', function () {
+
+            if (
+                roleSelect &&
+                roleSelect.value === 'admin_jurusan' &&
+                this.validity.valueMissing
+            ) {
+
+                this.setCustomValidity(
+                    'Jurusan wajib dipilih untuk Admin Jurusan.'
+                );
+
+            } else {
+
+                this.setCustomValidity('');
+            }
+        });
+
+
+        jurusanSelect.addEventListener('change', function () {
+
+            this.setCustomValidity('');
+
+        });
+    }
+
+
+    // ==========================================================
+    // VALIDASI NAMA PENGGUNA
+    // ==========================================================
 
     if (namaInput) {
 
         namaInput.addEventListener('invalid', function () {
+
             if (this.validity.valueMissing) {
+
                 this.setCustomValidity(
                     'Nama pengguna wajib diisi.'
                 );
+
+            } else {
+
+                this.setCustomValidity('');
             }
         });
 
+
         namaInput.addEventListener('input', function () {
+
             this.setCustomValidity('');
+
         });
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Validasi Email
-    |--------------------------------------------------------------------------
-    */
+    // ==========================================================
+    // VALIDASI EMAIL
+    // ==========================================================
 
     if (emailInput) {
 
         function validateEmail() {
+
             const value = emailInput.value.trim();
 
+
             // Email kosong
+
             if (value === '') {
+
                 emailInput.setCustomValidity(
                     'Email wajib diisi.'
                 );
+
                 return;
             }
 
+
             // Format email tidak valid
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             if (!emailPattern.test(value)) {
+
                 emailInput.setCustomValidity(
                     'Silakan masukkan alamat email yang valid. Contoh: nama@email.com.'
                 );
+
                 return;
             }
 
+
             // Email valid
+
             emailInput.setCustomValidity('');
         }
 
-        emailInput.addEventListener('input', validateEmail);
 
-        emailInput.addEventListener('invalid', validateEmail);
+        emailInput.addEventListener(
+            'input',
+            validateEmail
+        );
+
+
+        emailInput.addEventListener(
+            'invalid',
+            validateEmail
+        );
     }
+
 });
 </script>
+
 @endsection

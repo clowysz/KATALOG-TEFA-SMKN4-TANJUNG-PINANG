@@ -211,11 +211,11 @@
         @endif
 
 
-        <form
-            action="{{ route('akun.store') }}"
-            method="POST"
-        >
-
+      <form
+    action="{{ route('akun.store') }}"
+    method="POST"
+    id="formTambahAkun"
+>
             @csrf
 
 
@@ -275,14 +275,15 @@
                     Password
                 </label>
 
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="form-control"
-                    placeholder="Masukkan password"
-                    required
-                >
+               <input
+    type="password"
+    id="password"
+    name="password"
+    class="form-control"
+    placeholder="Masukkan password"
+    minlength="6"
+    required
+>
 
             </div>
 

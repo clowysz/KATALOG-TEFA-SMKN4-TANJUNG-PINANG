@@ -212,6 +212,8 @@
                     placeholder="Masukkan pertanyaan..."
                     value="{{ old('pertanyaan', $faq->pertanyaan) }}"
                     required
+                     oninvalid="this.setCustomValidity('Silakan isi pertanyaan.')"
+                    oninput="this.setCustomValidity('')"
                 >
 
             </div>
@@ -233,6 +235,9 @@
                     rows="5"
                     placeholder="Masukkan jawaban..."
                     required
+                     oninvalid="this.setCustomValidity('Silakan isi jawaban.')"
+                    oninput="this.setCustomValidity('')"
+
                 >{{ old('jawaban', $faq->jawaban) }}</textarea>
 
             </div>
