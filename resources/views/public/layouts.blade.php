@@ -184,6 +184,10 @@
             }
 
         }
+        .footer-col .footer-links li {
+    font-size: 13px;
+    line-height: 1.7;
+}
 
     </style>
 
@@ -575,22 +579,39 @@
             </div>
 
 
-            <!-- HUBUNGI KAMI -->
+            <!-- MENGAPA TEFA -->
 
-            <div class="footer-col">
+<div class="footer-col">
 
-                <h3>
-                    HUBUNGI KAMI
-                </h3>
+    <h3>
+        MENGAPA TEFA?
+    </h3>
 
+    <ul class="footer-links">
 
-                <img
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Halo+Admin+TEFA"
-                    class="qr-code"
-                    alt="QR Admin TEFA"
-                >
+        <li>
+            <i class="ph ph-check-circle"></i>
+            Produk siswa dan jurusan
+        </li>
 
-            </div>
+        <li>
+            <i class="ph ph-check-circle"></i>
+            Bimbingan guru dan industri
+        </li>
+
+        <li>
+            <i class="ph ph-check-circle"></i>
+            Sesuai kebutuhan nyata
+        </li>
+
+        <li>
+            <i class="ph ph-check-circle"></i>
+            Berbasis proyek
+        </li>
+
+    </ul>
+
+</div>
 
         </div>
 
