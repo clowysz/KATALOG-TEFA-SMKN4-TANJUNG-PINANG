@@ -123,7 +123,7 @@
                     margin: 0;
                 "
             >
-                📈 Produk/Jasa dengan Pesanan Terbanyak
+                 Produk/Jasa dengan Pesanan Terbanyak
             </h3>
 
             <span
@@ -271,7 +271,7 @@
                 margin-bottom: 24px;
             "
         >
-            📊 Performa Pesanan
+             Performa Pesanan
         </h3>
 
 
@@ -355,7 +355,7 @@
                     >
 
                         <span style="font-weight: 600;">
-                            📦 Produk
+                             Produk
                         </span>
 
                         <span
@@ -408,7 +408,7 @@
                     >
 
                         <span style="font-weight: 600;">
-                            🔧 Jasa
+                             Jasa
                         </span>
 
                         <span
@@ -475,7 +475,7 @@
                     margin: 0;
                 "
             >
-                📋 Ringkasan Produk & Jasa
+                 Ringkasan Produk & Jasa
             </h3>
 
             <span

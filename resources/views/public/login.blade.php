@@ -1,37 +1,39 @@
 @extends('public.layouts')
-
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/login-pembeli.css') }}">
 @endpush
-
 @section('content')
-
 <div class="login-page-wrapper">
+    <!-- Tombol Kembali -->
+    <div style="position: absolute; top: 20px; left: 20px; z-index: 100;">
+        <a href="{{ url('/') }}" style="display: inline-flex; align-items: center; gap: 8px; color: #ffffff; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.3); text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.3s ease;">
+            <i class="ph ph-arrow-left" style="font-size: 18px;"></i>
+            <span>Kembali</span>
+        </a>
+    </div>
+
     <!-- Animasi Gelembung -->
     <div class="bubble" style="width: 80px; height: 80px; top: 15%; left: 15%; animation-duration: 5s;"></div>
     <div class="bubble" style="width: 120px; height: 120px; top: 40%; right: 15%; animation-duration: 7s;"></div>
     <div class="bubble" style="width: 50px; height: 50px; bottom: 25%; left: 25%; animation-duration: 6s;"></div>
     <div class="bubble" style="width: 90px; height: 90px; bottom: 15%; right: 25%; animation-duration: 8s;"></div>
-
+    
     <div class="login-header-text">
         <h2>Selamat Datang</h2>
         <p>Silakan masuk untuk melanjutkan ke akun Anda.</p>
     </div>
-
+    
     <div class="login-card">
         <!-- Ikon Avatar menonjol ke atas -->
         <div class="login-avatar">
             <i class="ph ph-user"></i>
         </div>
-
         <!-- Form Login -->
-      <form action="{{ route('pembeli.login.proses') }}" method="POST">
-    @csrf
-
-    @if($redirect)
-        <input type="hidden" name="redirect" value="{{ $redirect }}">
-    @endif
-
+        <form action="{{ route('pembeli.login.proses') }}" method="POST">
+            @csrf
+            @if($redirect)
+                <input type="hidden" name="redirect" value="{{ $redirect }}">
+            @endif
             <!-- Hanya Email dan Sandi -->
             <div class="login-form-group">
                 <label>Email</label>
@@ -46,7 +48,6 @@
                     >
                 </div>
             </div>
-
             <div class="login-form-group">
                 <label>Sandi</label>
                 <div class="login-input-box">
@@ -65,7 +66,6 @@
                     ></i>
                 </div>
             </div>
-
             <div class="login-options">
                 <label>
                     <input type="checkbox">
@@ -75,13 +75,12 @@
                     Lupa sandi?
                 </a>
             </div>
-
             <button type="submit" class="btn-login-submit">
                 Masuk
             </button>
         </form>
     </div>
-
+    
     <!-- Teks Bawah dengan Link Daftar Akun -->
     <p class="login-footer-text">
         Belum punya akun?
@@ -99,12 +98,10 @@
     document.addEventListener("DOMContentLoaded", function() {
         const togglePassword = document.querySelector('#togglePasswordPembeli');
         const password = document.querySelector('#passwordPembeli');
-
         if (togglePassword && password) {
             togglePassword.addEventListener('click', function () {
                 const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
                 password.setAttribute('type', type);
-
                 if (type === 'password') {
                     this.classList.remove('ph-eye-slash');
                     this.classList.add('ph-eye');
@@ -116,5 +113,4 @@
         }
     });
 </script>
-
 @endsection

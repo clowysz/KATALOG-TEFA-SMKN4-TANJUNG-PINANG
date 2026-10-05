@@ -5,7 +5,7 @@
 @section('content')
 <div style="max-width: 900px; margin: 0 auto; padding-bottom: 2rem; font-family: 'Inter', -apple-system, sans-serif;">
 
-<!-- Navigation Header -->
+    <!-- Navigation Header -->
     <div style="margin-bottom: 16px;">
         <a href="{{ route('admin.produser.katalog') }}" style="display: inline-flex; align-items: center; gap: 10px; color: #1e6091; background: #ffffff; font-size: 14px; font-weight: 500; text-decoration: none; padding: 8px 20px; border-radius: 12px; border: 1px solid #d0d7de; transition: all 0.2s ease;">
              <i class="ph ph-arrow-left" style="font-size: 18px; color: #1e6091;"></i> Kembali ke Katalog
@@ -15,12 +15,34 @@
     <!-- Hero / Detail Card -->
     <div class="tefa-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; margin-bottom: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03); padding: 20px;">
         
-        <!-- Header Gambar Utama (Full Cover, tanpa gap) -->
-        <div id="mainImageContainer" style="width: 100%; height: 320px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0;">
-            @if($produkJasa->gambars->first())
-                <img id="detKatalogImg" src="{{ asset('storage/'.$produkJasa->gambars->first()->path_gambar) }}" alt="{{ $produkJasa->nama_produk_jasa }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <!-- Frame Utama Carousel/Slider Gambar -->
+        <div id="sliderWrapper" style="position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; background: #f8fafc; border: 1px solid #e2e8f0; user-select: none;">
+            @if($produkJasa->gambars->count() > 0)
+                <!-- Track Slide Gambar -->
+                <div id="imageSliderTrack" style="display: flex; width: 100%; height: 100%; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);">
+                    @foreach($produkJasa->gambars as $index => $gambar)
+                        <div style="min-width: 100% !important; max-width: 100% !important; width: 100% !important; height: 320px; flex-shrink: 0 !important; flex: 0 0 100% !important; position: relative;">
+                            <img src="{{ asset('storage/'.$gambar->path_gambar) }}" alt="{{ $produkJasa->nama_produk_jasa }}" style="width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;">
+                        </div>
+                    @endforeach
+                </div>
+
+                @if($produkJasa->gambars->count() > 1)
+                    <!-- Tombol Navigasi Kiri & Kanan -->
+                    <button type="button" id="prevSlideBtn" aria-label="Gambar Sebelumnya" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); border: 1px solid rgba(0,0,0,0.1); color: #0f172a; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 10;">
+                        <i class="ph ph-caret-left" style="font-size: 20px; font-weight: bold;"></i>
+                    </button>
+                    <button type="button" id="nextSlideBtn" aria-label="Gambar Selanjutnya" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); border: 1px solid rgba(0,0,0,0.1); color: #0f172a; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 10;">
+                        <i class="ph ph-caret-right" style="font-size: 20px; font-weight: bold;"></i>
+                    </button>
+
+                    <!-- Indikator Angka Slide -->
+                    <div style="position: absolute; bottom: 12px; right: 12px; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); color: #ffffff; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; z-index: 10;">
+                        <span id="currentSlideIndex">1</span> / {{ $produkJasa->gambars->count() }}
+                    </div>
+                @endif
             @else
-                <div style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #64748b; gap: 8px;">
+                <div style="width: 100%; height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #64748b; gap: 8px;">
                     <i class="ph ph-image" style="font-size: 48px;"></i>
                     <span style="font-size: 13px;">Tidak ada gambar</span>
                 </div>
@@ -31,7 +53,7 @@
         @if($produkJasa->gambars->count() > 1)
             <div id="thumbnailContainer" style="display: flex; gap: 10px; justify-content: center; padding: 12px 0 0 0; overflow-x: auto;">
                 @foreach($produkJasa->gambars as $index => $gambar)
-                    <img src="{{ asset('storage/'.$gambar->path_gambar) }}" alt="{{ $produkJasa->nama_produk_jasa }}" class="detail-thumbnail" data-image="{{ asset('storage/'.$gambar->path_gambar) }}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; cursor: pointer; border: {{ $index === 0 ? '2px solid var(--primary, #2563eb)' : '1px solid #cbd5e1' }}; transition: all 0.2s ease;">
+                    <img src="{{ asset('storage/'.$gambar->path_gambar) }}" alt="{{ $produkJasa->nama_produk_jasa }}" class="detail-thumbnail" data-index="{{ $index }}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; cursor: pointer; border: {{ $index === 0 ? '2px solid var(--primary, #2563eb)' : '1px solid #cbd5e1' }}; opacity: {{ $index === 0 ? '1' : '0.6' }}; transition: all 0.2s ease; flex-shrink: 0;">
                 @endforeach
             </div>
         @endif
@@ -191,22 +213,92 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-    const mainImg = document.getElementById('detKatalogImg');
+    const track = document.getElementById('imageSliderTrack');
+    const wrapper = document.getElementById('sliderWrapper');
+    const prevBtn = document.getElementById('prevSlideBtn');
+    const nextBtn = document.getElementById('nextSlideBtn');
+    const indexBadge = document.getElementById('currentSlideIndex');
     const thumbnails = document.querySelectorAll('.detail-thumbnail');
+    const totalSlides = {{ $produkJasa->gambars->count() }};
+    
+    let currentIndex = 0;
 
-    thumbnails.forEach(function(thumb){
-        thumb.addEventListener('click', function(){
-            if(!mainImg) return;
+    if (!track || totalSlides === 0) return;
 
-            mainImg.src = this.dataset.image;
+    // Fungsi utama untuk berpindah slide
+    function goToSlide(index) {
+        if (index < 0) {
+            currentIndex = totalSlides - 1;
+        } else if (index >= totalSlides) {
+            currentIndex = 0;
+        } else {
+            currentIndex = index;
+        }
 
-            thumbnails.forEach(function(item){
-                item.style.border = '1px solid #cbd5e1';
-            });
+        // Geser posisi track secara presisi
+        track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
 
-            this.style.border = '2px solid var(--primary, #2563eb)';
+        // Update indikator teks angka
+        if (indexBadge) {
+            indexBadge.textContent = currentIndex + 1;
+        }
+
+        // Update tampilan border thumbnail
+        thumbnails.forEach(function(thumb, i){
+            if (i === currentIndex) {
+                thumb.style.border = '2px solid var(--primary, #2563eb)';
+                thumb.style.opacity = '1';
+            } else {
+                thumb.style.border = '1px solid #cbd5e1';
+                thumb.style.opacity = '0.6';
+            }
+        });
+    }
+
+    // Event Tombol Panah Kiri
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            goToSlide(currentIndex - 1);
+        });
+    }
+
+    // Event Tombol Panah Kanan
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            goToSlide(currentIndex + 1);
+        });
+    }
+
+    // Event Klik pada Thumbnail
+    thumbnails.forEach(function(thumb) {
+        thumb.addEventListener('click', function() {
+            const idx = parseInt(this.dataset.index);
+            goToSlide(idx);
         });
     });
+
+    // Dukungan Gestur Usap / Swipe pada Layar Sentuh (HP/Tablet)
+    let startX = 0;
+    let endX = 0;
+
+    if (wrapper) {
+        wrapper.addEventListener('touchstart', function(e) {
+            startX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        wrapper.addEventListener('touchend', function(e) {
+            endX = e.changedTouches[0].screenX;
+            const threshold = 40; // Batas minimal jarak usapan jari (px)
+            
+            if (startX - endX > threshold) {
+                goToSlide(currentIndex + 1); // Usap ke kiri -> slide berikutnya
+            } else if (endX - startX > threshold) {
+                goToSlide(currentIndex - 1); // Usap ke kanan -> slide sebelumnya
+            }
+        }, { passive: true });
+    }
 });
 </script>
 @endpush

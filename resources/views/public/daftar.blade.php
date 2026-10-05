@@ -1,38 +1,39 @@
 @extends('public.layouts')
-
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/login-pembeli.css') }}">
 @endpush
-
 @section('content')
-
 <div class="login-page-wrapper">
+    <!-- Tombol Kembali -->
+    <div style="position: absolute; top: 20px; left: 20px; z-index: 100;">
+        <a href="{{ url('/') }}" style="display: inline-flex; align-items: center; gap: 8px; color: #ffffff; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.3); text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.3s ease;">
+            <i class="ph ph-arrow-left" style="font-size: 18px;"></i>
+            <span>Kembali</span>
+        </a>
+    </div>
+
     <!-- Animasi Gelembung -->
     <div class="bubble" style="width: 80px; height: 80px; top: 15%; left: 15%; animation-duration: 5s;"></div>
     <div class="bubble" style="width: 120px; height: 120px; top: 40%; right: 15%; animation-duration: 7s;"></div>
     <div class="bubble" style="width: 50px; height: 50px; bottom: 25%; left: 25%; animation-duration: 6s;"></div>
     <div class="bubble" style="width: 90px; height: 90px; bottom: 15%; right: 25%; animation-duration: 8s;"></div>
-
+    
     <div class="login-header-text">
         <h2>Daftar Akun</h2>
         <p>Buat akun baru untuk mengakses semua fitur yang tersedia.</p>
     </div>
-
+    
     <div class="login-card">
         <!-- Ikon Avatar Tambah -->
         <div class="login-avatar">
             <i class="ph ph-user-plus"></i>
         </div>
-
         <!-- Form Registrasi -->
-     <form action="{{ route('pembeli.register.proses') }}" method="POST">
-
-    @csrf
-
-    @if($redirect)
-        <input type="hidden" name="redirect" value="{{ $redirect }}">
-    @endif
-
+        <form action="{{ route('pembeli.register.proses') }}" method="POST">
+            @csrf
+            @if($redirect)
+                <input type="hidden" name="redirect" value="{{ $redirect }}">
+            @endif
             <div class="login-form-group">
                 <label>Nama Lengkap</label>
                 <div class="login-input-box">
@@ -46,7 +47,6 @@
                     >
                 </div>
             </div>
-
             <div class="login-form-group">
                 <label>No. Telepon</label>
                 <div class="login-input-box">
@@ -62,7 +62,6 @@
                     >
                 </div>
             </div>
-
             <div class="login-form-group">
                 <label>Email</label>
                 <div class="login-input-box">
@@ -76,7 +75,6 @@
                     >
                 </div>
             </div>
-
             <div class="login-form-group">
                 <label>Password</label>
                 <div class="login-input-box">
@@ -95,7 +93,6 @@
                     ></i>
                 </div>
             </div>
-
             <div class="login-form-group">
                 <label>Konfirmasi Password</label>
                 <div class="login-input-box">
@@ -114,7 +111,6 @@
                     ></i>
                 </div>
             </div>
-
             <button
                 type="submit"
                 class="btn-login-submit"
@@ -122,19 +118,16 @@
             >
                 Daftar
             </button>
-
         </form>
     </div>
-
+    
     <!-- Teks Bawah Kembali ke Login -->
     <p class="login-footer-text">
         Sudah punya akun?
-<a
-    href="{{ route('pembeli.login', ['redirect' => $redirect]) }}"
-    style="color: white; font-weight: 600; text-decoration: underline;"
->
-    Masuk di sini
-</a>
+        <a
+            href="{{ route('pembeli.login', ['redirect' => $redirect]) }}"
+            style="color: white; font-weight: 600; text-decoration: underline;"
+        >
             Masuk di sini
         </a>
     </p>
@@ -143,25 +136,13 @@
 <!-- Script untuk Toggle Password -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-
         // Toggle Password 1
-        const togglePass1 =
-            document.querySelector('#togglePasswordDaftar');
-
-        const pass1 =
-            document.querySelector('#passwordDaftar');
-
+        const togglePass1 = document.querySelector('#togglePasswordDaftar');
+        const pass1 = document.querySelector('#passwordDaftar');
         if (togglePass1 && pass1) {
-
             togglePass1.addEventListener('click', function () {
-
-                const type =
-                    pass1.getAttribute('type') === 'password'
-                        ? 'text'
-                        : 'password';
-
+                const type = pass1.getAttribute('type') === 'password' ? 'text' : 'password';
                 pass1.setAttribute('type', type);
-
                 if (type === 'password') {
                     this.classList.remove('ph-eye-slash');
                     this.classList.add('ph-eye');
@@ -169,29 +150,16 @@
                     this.classList.remove('ph-eye');
                     this.classList.add('ph-eye-slash');
                 }
-
             });
         }
-
 
         // Toggle Password 2
-        const togglePass2 =
-            document.querySelector('#togglePasswordKonfirmasi');
-
-        const pass2 =
-            document.querySelector('#passwordKonfirmasi');
-
+        const togglePass2 = document.querySelector('#togglePasswordKonfirmasi');
+        const pass2 = document.querySelector('#passwordKonfirmasi');
         if (togglePass2 && pass2) {
-
             togglePass2.addEventListener('click', function () {
-
-                const type =
-                    pass2.getAttribute('type') === 'password'
-                        ? 'text'
-                        : 'password';
-
+                const type = pass2.getAttribute('type') === 'password' ? 'text' : 'password';
                 pass2.setAttribute('type', type);
-
                 if (type === 'password') {
                     this.classList.remove('ph-eye-slash');
                     this.classList.add('ph-eye');
@@ -199,11 +167,8 @@
                     this.classList.remove('ph-eye');
                     this.classList.add('ph-eye-slash');
                 }
-
             });
         }
-
     });
 </script>
-
 @endsection

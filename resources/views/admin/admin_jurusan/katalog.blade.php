@@ -22,7 +22,7 @@
 
     <div id="produkSection">
         <h3 style="margin-bottom: 16px; color: #1e293b; display: flex; align-items: center; gap: 8px; font-size: 18px;">
-            <span style="color: #3B82F6;">📦</span> Daftar Produk
+            <span style="color: #3B82F6;"></span> Daftar Produk
         </h3>
 
         <div id="produkContainer" class="catalog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 32px;"></div>
@@ -30,7 +30,7 @@
 
     <div id="jasaSection">
         <h3 style="margin-bottom: 16px; color: #1e293b; display: flex; align-items: center; gap: 8px; font-size: 18px;">
-            <span style="color: #10B981;">💼</span> Daftar Jasa
+            <span style="color: #10B981;"></span> Daftar Jasa
         </h3>
 
         <div id="jasaContainer" class="catalog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;"></div>
@@ -47,7 +47,7 @@
 </div>
 
 <div id="katalogError" style="display: none; background: white; border-radius: 16px; padding: 80px 20px; text-align: center; border: 1px dashed #cbd5e1;">
-    <div style="font-size: 56px; margin-bottom: 16px;">⚠️</div>
+    <div style="font-size: 56px; margin-bottom: 16px;">!    </div>
     <h3 style="color: #1e293b; margin-bottom: 8px;">Gagal Memuat Katalog</h3>
     <p style="color: #64748b;">Silakan refresh halaman dan coba lagi.</p>
 </div>

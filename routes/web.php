@@ -226,6 +226,7 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
 
     // KATALOG GABUNGAN TEFA (ADMIN)
     Route::get('/katalog-gabungan', [KatalogTefaController::class, 'index'])->name('admin.tefa.katalog_gabungan');
+    Route::get('/admin/tefa/katalog/{id}', [KatalogTefaController::class, 'showDetail'])->name('admin.tefa.detail');
 
     Route::get('/akun', [AkunController::class, 'index'])->name('akun.index');
     Route::get('/akun/tambah', [AkunController::class, 'create'])->name('akun.create');

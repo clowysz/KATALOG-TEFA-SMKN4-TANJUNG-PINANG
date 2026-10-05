@@ -129,11 +129,10 @@
     .btn-detail {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 6px;
+        justify-content: space-between;
         background: #F1F5F9;
         color: #1E40AF;
-        padding: 12px;
+        padding: 12px 16px;
         border-radius: 12px;
         text-decoration: none;
         font-weight: 700;
@@ -257,8 +256,10 @@
                         Rp{{ number_format($item->harga, 0, ',', '.') }}
                     </div>
 
-                    <a href="#" class="btn-detail">
-                        Lihat Selengkapnya <i class="ph ph-caret-right"></i>
+                    <!-- TOMBOL DETAIL SUDAH DIPERBAIKI -->
+                    <a href="{{ route('admin.tefa.detail', $item->id_produk_jasa) }}" class="btn-detail">
+                        <span>Lihat Selengkapnya</span>
+                        <i class="ph ph-caret-right"></i>
                     </a>
                 </div>
             </div>
@@ -270,7 +271,7 @@
         @endforelse
     </div>
 
-    <!-- NAVBAR PAGINATION KUSTOM 2 MODE (SATU-SATU & PALING AWAL/AKHIR) -->
+    <!-- NAVBAR PAGINATION KUSTOM 2 MODE -->
     @if($katalog->hasPages())
     <div class="pagination-wrapper">
         <p class="pagination-info">

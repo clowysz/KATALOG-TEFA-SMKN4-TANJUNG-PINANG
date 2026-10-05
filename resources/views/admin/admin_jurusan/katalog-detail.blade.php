@@ -3,6 +3,122 @@
 @section('title', 'Detail Produk/Jasa')
 
 @section('content')
+<!-- SWIPER CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+    /* STYLING SWIPER GALLERY */
+    .gallery-container {
+        width: 100%;
+        min-width: 0;
+        margin-bottom: 20px;
+    }
+
+    .swiper-main {
+        width: 100%;
+        height: 320px;
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 12px;
+    }
+
+    .swiper-main .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #0f172a;
+    }
+
+    .swiper-main .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .swiper-thumbs {
+        width: 100%;
+        height: 60px;
+        margin-bottom: 14px;
+    }
+
+    .swiper-thumbs .swiper-slide {
+        width: 70px;
+        height: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        opacity: 0.5;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background-color: #0f172a;
+    }
+
+    .swiper-thumbs .swiper-slide-thumb-active {
+        opacity: 1;
+        border: 2px solid #2563eb;
+    }
+
+    .swiper-thumbs .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* KONTROL PANAH & SCROLLBAR BISA DIGESER */
+    .slider-controls-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 4px;
+    }
+
+    .nav-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 14px;
+        border: 1px solid #cbd5e1;
+        transition: background 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .nav-btn:hover {
+        background: #e2e8f0;
+        color: #2563eb;
+    }
+
+    /* GARIS PROGRESS / SCROLLBAR DRAGGABLE */
+    .custom-scrollbar {
+        flex-grow: 1;
+        height: 6px !important;
+        background: #e2e8f0 !important;
+        border-radius: 4px !important;
+        position: relative !important;
+        left: auto !important;
+        bottom: auto !important;
+        top: auto !important;
+        width: auto !important;
+        cursor: grab;
+    }
+
+    .custom-scrollbar:active {
+        cursor: grabbing;
+    }
+
+    .custom-scrollbar .swiper-scrollbar-drag {
+        background: #2563eb !important;
+        border-radius: 4px !important;
+    }
+</style>
+
 <div style="max-width: 900px; margin: 0 auto; padding-bottom: 2rem; font-family: 'Inter', -apple-system, sans-serif;">
 
     <!-- Navigation Header -->
@@ -29,13 +145,29 @@
     <!-- Main Detail Content Card -->
     <div id="detailContent" style="display: none; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03); padding: 20px;">
 
-        <!-- Header Gambar Utama (Full Cover, tanpa gap) -->
-        <div id="mainImageContainer" style="width: 100%; height: 320px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0;">
-            <img id="detailImg" src="" alt="Gambar Utama" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        </div>
+        <!-- GALERI SWIPER SLIDER (BISA DIGESER) -->
+        <div class="gallery-container">
+            <!-- MAIN SWIPER -->
+            <div class="swiper swiper-main">
+                <div class="swiper-wrapper" id="mainSwiperWrapper">
+                    <!-- Slide otomatis diisi lewat JS -->
+                </div>
+            </div>
 
-        <!-- Container Galeri Thumbnail -->
-        <div id="thumbnailContainer" style="display: flex; gap: 10px; justify-content: center; padding: 12px 0 0 0; overflow-x: auto;"></div>
+            <!-- THUMBNAIL SWIPER -->
+            <div class="swiper swiper-thumbs">
+                <div class="swiper-wrapper" id="thumbSwiperWrapper">
+                    <!-- Thumbnail otomatis diisi lewat JS -->
+                </div>
+            </div>
+
+            <!-- KONTROL PANAH & SCROLLBAR BISA DIGESER (DRAGGABLE) -->
+            <div class="slider-controls-wrapper">
+                <button class="nav-btn btn-prev">&lsaquo;</button>
+                <div class="swiper-scrollbar custom-scrollbar"></div>
+                <button class="nav-btn btn-next">&rsaquo;</button>
+            </div>
+        </div>
 
         <!-- Section Informasi Detail -->
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
@@ -117,6 +249,8 @@
 @endsection
 
 @section('scripts')
+<!-- SWIPER JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async function () {
 
@@ -193,73 +327,56 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         const jenis = item.jenis === 'jasa' ? 'Jasa' : 'Produk';
 
-        const detailImg = document.getElementById('detailImg');
-        const thumbnailContainer = document.getElementById('thumbnailContainer');
+        // PROSES RENDERING GAMBAR KE SWIPER SLIDER
+        const mainSwiperWrapper = document.getElementById('mainSwiperWrapper');
+        const thumbSwiperWrapper = document.getElementById('thumbSwiperWrapper');
 
-        const gambarList = item.gambars && item.gambars.length > 0
-            ? item.gambars
-            : [];
+        const gambarList = item.gambars && item.gambars.length > 0 ? item.gambars : [null];
 
-        thumbnailContainer.innerHTML = '';
+        mainSwiperWrapper.innerHTML = '';
+        thumbSwiperWrapper.innerHTML = '';
 
-        if (gambarList.length > 0) {
+        gambarList.forEach(function (gambar) {
+            const src = getImageUrl(gambar, jenis);
 
-            detailImg.src = getImageUrl(
-                gambarList[0],
-                jenis
-            );
+            // Populate Main Swiper
+            const mainSlide = document.createElement('div');
+            mainSlide.className = 'swiper-slide';
+            mainSlide.innerHTML = `<img src="${src}" alt="${item.nama_produk_jasa || 'Gambar'}">`;
+            mainSwiperWrapper.appendChild(mainSlide);
 
-            gambarList.forEach(function (gambar, index) {
+            // Populate Thumb Swiper
+            const thumbSlide = document.createElement('div');
+            thumbSlide.className = 'swiper-slide';
+            thumbSlide.innerHTML = `<img src="${src}" alt="Thumbnail">`;
+            thumbSwiperWrapper.appendChild(thumbSlide);
+        });
 
-                const thumb = document.createElement('img');
+        // INISIALISASI SWIPER SLIDER
+        const swiperThumbs = new Swiper('.swiper-thumbs', {
+            spaceBetween: 8,
+            slidesPerView: 'auto',
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
 
-                thumb.src = getImageUrl(
-                    gambar,
-                    jenis
-                );
+        const swiperMain = new Swiper('.swiper-main', {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.btn-next',
+                prevEl: '.btn-prev',
+            },
+            thumbs: {
+                swiper: swiperThumbs,
+            },
+            scrollbar: {
+                el: '.custom-scrollbar',
+                draggable: true,
+                snapOnRelease: true,
+            },
+        });
 
-                thumb.alt = 'Gambar ' + (index + 1);
-
-                thumb.style.width = '56px';
-                thumb.style.height = '56px';
-                thumb.style.objectFit = 'cover';
-                thumb.style.borderRadius = '8px';
-                thumb.style.cursor = 'pointer';
-                thumb.style.border =
-                    index === 0
-                        ? '2px solid #2563eb'
-                        : '1px solid #cbd5e1';
-                thumb.style.transition = 'all 0.2s ease';
-
-                thumb.addEventListener('click', function () {
-
-                    detailImg.src = getImageUrl(
-                        gambar,
-                        jenis
-                    );
-
-                    Array.from(
-                        thumbnailContainer.children
-                    ).forEach(function (child) {
-                        child.style.border =
-                            '1px solid #cbd5e1';
-                    });
-
-                    this.style.border =
-                        '2px solid #2563eb';
-                });
-
-                thumbnailContainer.appendChild(thumb);
-            });
-
-        } else {
-
-            detailImg.src = getImageUrl(
-                null,
-                jenis
-            );
-        }
-
+        // INFORMASI DETAIL LAINNYA
         document.getElementById('detailTitle').textContent =
             item.nama_produk_jasa || '-';
 
@@ -269,11 +386,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         document.getElementById('detailDesc').textContent =
             item.deskripsi || 'Tidak ada deskripsi.';
 
-        const badge =
-            document.getElementById('detailBadge');
+        const badge = document.getElementById('detailBadge');
 
         badge.textContent = jenis;
-
         badge.style.background = jenis === 'Produk' ? '#dcfce7' : '#e0f2fe';
         badge.style.color = jenis === 'Produk' ? '#15803d' : '#0369a1';
 
