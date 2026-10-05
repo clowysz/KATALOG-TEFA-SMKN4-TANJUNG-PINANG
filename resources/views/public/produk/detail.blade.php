@@ -360,7 +360,7 @@
 
 
         track.style.transform =
-            'translateX(-' + (currentIndex * slideWidth) + 'px';
+            'translateX(-' + (currentIndex * slideWidth) + 'px)';
 
 
         // Update Dots

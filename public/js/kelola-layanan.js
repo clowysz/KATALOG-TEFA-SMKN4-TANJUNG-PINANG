@@ -1,13 +1,13 @@
 // Buka modal
 function openLayananModal(id) {
     const modal = document.getElementById(id);
-    if (modal) modal.classList.add('active');
+    if (modal) modal.classList.add("active");
 }
 
 // Tutup modal
 function closeLayananModal(id) {
     const modal = document.getElementById(id);
-    if (modal) modal.classList.remove('active');
+    if (modal) modal.classList.remove("active");
 }
 
 // CSRF
@@ -15,97 +15,97 @@ function getCsrfToken() {
     const meta = document.querySelector('meta[name="csrf-token"]');
 
     if (!meta) {
-        console.error('CSRF token tidak ditemukan.');
-        return '';
+        console.error("CSRF token tidak ditemukan.");
+        return "";
     }
 
-    return meta.getAttribute('content');
+    return meta.getAttribute("content");
 }
 
 // Toast
 function showLayananToast(message, success = true) {
-    const toast = document.getElementById('toastNotif');
+    const toast = document.getElementById("toastNotif");
 
     if (!toast) return;
 
     toast.textContent = message;
-    toast.style.backgroundColor = success ? '#28a745' : '#dc3545';
-    toast.classList.add('show');
+    toast.style.backgroundColor = success ? "#28a745" : "#dc3545";
+    toast.classList.add("show");
 
     setTimeout(() => {
-        toast.classList.remove('show');
+        toast.classList.remove("show");
     }, 3000);
 }
 
 // Deteksi halaman
 function isHalamanProduk() {
-    return document.getElementById('kelolaProdukContainer') !== null;
+    return document.getElementById("kelolaProdukContainer") !== null;
 }
 
 function getTipeLayanan() {
-    return isHalamanProduk() ? 'Produk' : 'Jasa';
+    return isHalamanProduk() ? "Produk" : "Jasa";
 }
 
 function getJenisLayanan() {
-    return isHalamanProduk() ? 'produk' : 'jasa';
+    return isHalamanProduk() ? "produk" : "jasa";
 }
 
 // Modal tambah
 function openTambahModal() {
-    const form = document.getElementById('formLayanan');
+    const form = document.getElementById("formLayanan");
 
     if (form) form.reset();
 
-    const formId = document.getElementById('formId');
-    if (formId) formId.value = '';
+    const formId = document.getElementById("formId");
+    if (formId) formId.value = "";
 
-    const modalTitle = document.getElementById('modalFormTitle');
+    const modalTitle = document.getElementById("modalFormTitle");
 
     if (modalTitle) {
         modalTitle.textContent = `Tambah ${getTipeLayanan()}`;
     }
 
-    const formImg = document.getElementById('formImg');
+    const formImg = document.getElementById("formImg");
 
     if (formImg) {
-        formImg.setAttribute('required', 'true');
-        formImg.value = '';
+        formImg.setAttribute("required", "true");
+        formImg.value = "";
     }
 
-    const preview = document.getElementById('imagePreviewContainer');
+    const preview = document.getElementById("imagePreviewContainer");
 
     if (preview) {
-        preview.innerHTML = '';
+        preview.innerHTML = "";
     }
 
     window.uploadedFiles = [];
 
-    openLayananModal('modalAdd');
+    openLayananModal("modalAdd");
 }
 
 // Saat halaman siap
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
     const isProduk = isHalamanProduk();
 
     const container = document.getElementById(
-        isProduk ? 'kelolaProdukContainer' : 'kelolaJasaContainer'
+        isProduk ? "kelolaProdukContainer" : "kelolaJasaContainer",
     );
 
     const tipeLayanan = getTipeLayanan();
     const jenisLayanan = getJenisLayanan();
 
-    const searchInput = document.getElementById('searchItem');
-    const form = document.getElementById('formLayanan');
-    const formImg = document.getElementById('formImg');
-    const previewContainer = document.getElementById('imagePreviewContainer');
+    const searchInput = document.getElementById("searchItem");
+    const form = document.getElementById("formLayanan");
+    const formImg = document.getElementById("formImg");
+    const previewContainer = document.getElementById("imagePreviewContainer");
 
     // Tombol tambah
     const btnTambah = document.querySelector(
-        'button[onclick="openLayananModal(\'modalAdd\')"]'
+        "button[onclick=\"openLayananModal('modalAdd')\"]",
     );
 
     if (btnTambah) {
-        btnTambah.setAttribute('onclick', 'openTambahModal()');
+        btnTambah.setAttribute("onclick", "openTambahModal()");
     }
 
     let dataItems = [];
@@ -118,15 +118,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await fetch(
                 `/jurusan-admin/produk?jenis=${jenisLayanan}`,
                 {
-                    method: 'GET',
+                    method: "GET",
                     headers: {
-                        'Accept': 'application/json'
-                    }
-                }
+                        Accept: "application/json",
+                    },
+                },
             );
 
             if (!response.ok) {
-                throw new Error('Gagal mengambil data.');
+                throw new Error("Gagal mengambil data.");
             }
 
             const result = await response.json();
@@ -153,46 +153,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Format harga
     function formatRupiah(value) {
-        if (value === null || value === undefined || value === '') {
-            return 'Rp0';
+        if (value === null || value === undefined || value === "") {
+            return "Rp0";
         }
 
         const number = Number(value);
 
         if (isNaN(number)) return value;
 
-        return 'Rp' + new Intl.NumberFormat('id-ID').format(number);
+        return "Rp" + new Intl.NumberFormat("id-ID").format(number);
     }
 
     // Potong deskripsi
     function shortDescription(text, length = 60) {
-        if (!text) return '';
+        if (!text) return "";
 
-        return text.length <= length
-            ? text
-            : text.substring(0, length) + '...';
+        return text.length <= length ? text : text.substring(0, length) + "...";
     }
 
     // Gambar
     function getImageUrl(item) {
         if (item.gambars && item.gambars.length > 0) {
-            return '/storage/' + item.gambars[0].path_gambar;
+            return "/storage/" + item.gambars[0].path_gambar;
         }
 
-        return 'https://placehold.co/600x400/E2E8F0/1E3A8A?text=' +
-            encodeURIComponent(tipeLayanan);
+        return (
+            "https://placehold.co/600x400/E2E8F0/1E3A8A?text=" +
+            encodeURIComponent(tipeLayanan)
+        );
     }
 
     // Render card
-    function renderCards(filterText = '') {
+    function renderCards(filterText = "") {
         if (!container) return;
 
-        container.innerHTML = '';
+        container.innerHTML = "";
 
         const keyword = filterText.toLowerCase().trim();
 
-        const filteredData = dataItems.filter(item => {
-            const name = item.nama_produk_jasa || '';
+        const filteredData = dataItems.filter((item) => {
+            const name = item.nama_produk_jasa || "";
             return name.toLowerCase().includes(keyword);
         });
 
@@ -212,17 +212,17 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        filteredData.forEach(item => {
-            const card = document.createElement('div');
+        filteredData.forEach((item) => {
+            const card = document.createElement("div");
 
-            card.className = 'catalog-card';
+            card.className = "catalog-card";
 
             const imageUrl = getImageUrl(item);
             const satuanHarga = item.satuan_harga
-    ? `/${item.satuan_harga}`
-    : '';
+                ? `/${item.satuan_harga}`
+                : "";
 
-const harga = formatRupiah(item.harga) + satuanHarga;
+            const harga = formatRupiah(item.harga) + satuanHarga;
             const pesanan = item.pesanans_count || 0;
 
             card.innerHTML = `
@@ -270,51 +270,48 @@ const harga = formatRupiah(item.harga) + satuanHarga;
         });
 
         // Edit
-        container.querySelectorAll('.btn-edit').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = this.getAttribute('data-id');
+        container.querySelectorAll(".btn-edit").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                const id = this.getAttribute("data-id");
 
-                const item = dataItems.find(data =>
-                    String(data.id_produk_jasa) === String(id)
+                const item = dataItems.find(
+                    (data) => String(data.id_produk_jasa) === String(id),
                 );
 
                 if (!item) return;
 
-                document.getElementById('formId').value =
-                    item.id_produk_jasa;
+                document.getElementById("formId").value = item.id_produk_jasa;
 
-                document.getElementById('formName').value =
+                document.getElementById("formName").value =
                     item.nama_produk_jasa;
 
-                document.getElementById('formDesc').value =
-                    item.deskripsi;
+                document.getElementById("formDesc").value = item.deskripsi;
 
-                document.getElementById('formPrice').value =
-                    item.harga;
+                document.getElementById("formPrice").value = item.harga;
 
                 if (formImg) {
-                    formImg.removeAttribute('required');
-                    formImg.value = '';
+                    formImg.removeAttribute("required");
+                    formImg.value = "";
                 }
 
                 if (previewContainer) {
-                    previewContainer.innerHTML = '';
+                    previewContainer.innerHTML = "";
 
                     if (item.gambars && item.gambars.length > 0) {
-                        item.gambars.forEach(gambar => {
-                            const wrapper = document.createElement('div');
+                        item.gambars.forEach((gambar) => {
+                            const wrapper = document.createElement("div");
 
-                            wrapper.style.position = 'relative';
-                            wrapper.style.display = 'inline-block';
+                            wrapper.style.position = "relative";
+                            wrapper.style.display = "inline-block";
 
-                            const img = document.createElement('img');
+                            const img = document.createElement("img");
 
-                            img.src = '/storage/' + gambar.path_gambar;
-                            img.style.width = '70px';
-                            img.style.height = '70px';
-                            img.style.objectFit = 'cover';
-                            img.style.borderRadius = '8px';
-                            img.style.border = '1px solid #CBD5E1';
+                            img.src = "/storage/" + gambar.path_gambar;
+                            img.style.width = "70px";
+                            img.style.height = "70px";
+                            img.style.objectFit = "cover";
+                            img.style.borderRadius = "8px";
+                            img.style.border = "1px solid #CBD5E1";
 
                             wrapper.appendChild(img);
                             previewContainer.appendChild(wrapper);
@@ -330,46 +327,43 @@ const harga = formatRupiah(item.harga) + satuanHarga;
 
                 window.uploadedFiles = [];
 
-                document.getElementById('modalFormTitle').textContent =
+                document.getElementById("modalFormTitle").textContent =
                     `Edit ${tipeLayanan}`;
 
-                openLayananModal('modalAdd');
+                openLayananModal("modalAdd");
             });
         });
 
         // Hapus
-        container.querySelectorAll('.btn-delete').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = this.getAttribute('data-id');
+        container.querySelectorAll(".btn-delete").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                const id = this.getAttribute("data-id");
 
-                document.getElementById('deleteId').value = id;
+                document.getElementById("deleteId").value = id;
 
-                openLayananModal('modalDelete');
+                openLayananModal("modalDelete");
             });
         });
     }
 
     // Search
     if (searchInput) {
-        searchInput.addEventListener('keyup', function () {
+        searchInput.addEventListener("keyup", function () {
             renderCards(this.value);
         });
     }
 
     // Submit
     if (form) {
-        form.addEventListener('submit', async function (e) {
+        form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const id = document.getElementById('formId').value;
-            const isEdit = id !== '';
+            const id = document.getElementById("formId").value;
+            const isEdit = id !== "";
             const csrf = getCsrfToken();
 
             if (!csrf) {
-                showLayananToast(
-                    'Token keamanan tidak ditemukan.',
-                    false
-                );
+                showLayananToast("Token keamanan tidak ditemukan.", false);
                 return;
             }
 
@@ -377,135 +371,112 @@ const harga = formatRupiah(item.harga) + satuanHarga;
                 const formData = new FormData();
 
                 formData.append(
-                    'nama_produk_jasa',
-                    document.getElementById('formName').value
+                    "nama_produk_jasa",
+                    document.getElementById("formName").value,
                 );
 
-                formData.append('jenis', jenisLayanan);
+                formData.append("jenis", jenisLayanan);
 
                 formData.append(
-                    'deskripsi',
-                    document.getElementById('formDesc').value
+                    "deskripsi",
+                    document.getElementById("formDesc").value,
                 );
 
-                let harga =
-                    document.getElementById('formPrice').value;
+                let harga = document.getElementById("formPrice").value;
 
-                harga = harga.replace(/[^0-9]/g, '');
+                harga = harga.replace(/[^0-9]/g, "");
 
-                formData.append('harga', harga);
+                formData.append("harga", harga);
                 const satuanHarga =
-    document.getElementById('formUnit')?.value.trim() || '';
+                    document.getElementById("formUnit")?.value.trim() || "";
 
-formData.append('satuan_harga', satuanHarga);
-                formData.append('_token', csrf);
+                formData.append("satuan_harga", satuanHarga);
+                formData.append("_token", csrf);
 
                 if (window.uploadedFiles.length > 0) {
-                    window.uploadedFiles.forEach(file => {
-                        formData.append('gambar[]', file);
+                    window.uploadedFiles.forEach((file) => {
+                        formData.append("gambar[]", file);
                     });
                 }
 
                 if (isEdit) {
-                    formData.append('_method', 'PUT');
+                    formData.append("_method", "PUT");
                 }
 
                 const url = isEdit
                     ? `/jurusan-admin/produk/${id}`
-                    : '/jurusan-admin/produk';
+                    : "/jurusan-admin/produk";
 
                 const response = await fetch(url, {
-                    method: 'POST',
+                    method: "POST",
                     headers: {
-                        'Accept': 'application/json'
+                        Accept: "application/json",
                     },
-                    body: formData
+                    body: formData,
                 });
 
                 const result = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(
-                        result.message || 'Gagal menyimpan data.'
-                    );
+                    throw new Error(result.message || "Gagal menyimpan data.");
                 }
 
-                showLayananToast(
-                    result.message || 'Data berhasil disimpan.'
-                );
+                showLayananToast(result.message || "Data berhasil disimpan.");
 
-                closeLayananModal('modalAdd');
+                closeLayananModal("modalAdd");
 
                 await loadData();
             } catch (error) {
                 console.error(error);
 
-                showLayananToast(
-                    error.message || 'Terjadi kesalahan.',
-                    false
-                );
+                showLayananToast(error.message || "Terjadi kesalahan.", false);
             }
         });
     }
 
     // Konfirmasi hapus
-    const btnConfirmDelete =
-        document.getElementById('btnConfirmDelete');
+    const btnConfirmDelete = document.getElementById("btnConfirmDelete");
 
     if (btnConfirmDelete) {
-        btnConfirmDelete.addEventListener('click', async function () {
-            const id =
-                document.getElementById('deleteId').value;
+        btnConfirmDelete.addEventListener("click", async function () {
+            const id = document.getElementById("deleteId").value;
 
             const csrf = getCsrfToken();
 
             if (!csrf) {
-                showLayananToast(
-                    'Token keamanan tidak ditemukan.',
-                    false
-                );
+                showLayananToast("Token keamanan tidak ditemukan.", false);
                 return;
             }
 
             try {
                 const formData = new FormData();
 
-                formData.append('_token', csrf);
-                formData.append('_method', 'DELETE');
+                formData.append("_token", csrf);
+                formData.append("_method", "DELETE");
 
-                const response = await fetch(
-                    `/jurusan-admin/produk/${id}`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json'
-                        },
-                        body: formData
-                    }
-                );
+                const response = await fetch(`/jurusan-admin/produk/${id}`, {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                    },
+                    body: formData,
+                });
 
                 const result = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(
-                        result.message || 'Gagal menghapus data.'
-                    );
+                    throw new Error(result.message || "Gagal menghapus data.");
                 }
 
-                showLayananToast(
-                    result.message || 'Data berhasil dihapus.'
-                );
+                showLayananToast(result.message || "Data berhasil dihapus.");
 
-                closeLayananModal('modalDelete');
+                closeLayananModal("modalDelete");
 
                 await loadData();
             } catch (error) {
                 console.error(error);
 
-                showLayananToast(
-                    error.message || 'Terjadi kesalahan.',
-                    false
-                );
+                showLayananToast(error.message || "Terjadi kesalahan.", false);
             }
         });
     }

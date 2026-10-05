@@ -3,9 +3,9 @@
    ========================================================================== */
 .jurusan-hero-section {
     background: white;
-    color: #1E3A8A;
+    color: #1e3a8a;
     position: relative;
-    padding: 120px 5% 0 5%; 
+    padding: 120px 5% 0 5%;
     overflow: hidden;
 }
 
@@ -28,10 +28,10 @@
     transition: 0.3s;
 }
 
-.jurusan-sub-nav a:hover, 
+.jurusan-sub-nav a:hover,
 .jurusan-sub-nav a.active {
     background: white;
-    color: #1E3A8A;
+    color: #1e3a8a;
 }
 
 .jurusan-hero-content {
@@ -43,38 +43,38 @@
     margin: 0 auto;
     position: relative;
     z-index: 2;
-    padding-bottom: 60px; 
+    padding-bottom: 60px;
 }
 
-.jurusan-hero-text { 
-    flex: 1; 
+.jurusan-hero-text {
+    flex: 1;
 }
 
-.jurusan-hero-text h3 { 
-    font-size: 20px; 
-    font-weight: 600; 
-    margin-bottom: 8px; 
-    letter-spacing: 2px; 
+.jurusan-hero-text h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
 }
 
-.jurusan-hero-text h1 { 
-    font-size: 38px; 
-    font-weight: 800; 
-    margin-bottom: 24px; 
-    font-family: 'Poppins', sans-serif; 
-    line-height: 1.2; 
+.jurusan-hero-text h1 {
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.2;
 }
 
-.jurusan-hero-text p { 
-    font-size: 15px; 
-    opacity: 0.9; 
-    line-height: 1.8; 
-    max-width: 500px; 
-    margin-bottom: 32px; 
+.jurusan-hero-text p {
+    font-size: 15px;
+    opacity: 0.9;
+    line-height: 1.8;
+    max-width: 500px;
+    margin-bottom: 32px;
 }
 
 .btn-kembali-beranda {
-    background: #1E3A8A;
+    background: #1e3a8a;
     color: white;
     padding: 10px 24px;
     border-radius: 30px;
@@ -108,7 +108,6 @@
     z-index: 1;
 }
 
-
 /* ==========================================================================
    2. KONTEN DESKRIPSI
    ========================================================================== */
@@ -130,162 +129,160 @@
     text-align: justify;
 }
 
-
 /* ==========================================================================
    3. GRID KATALOG (PRODUK & JASA)
    ========================================================================== */
-.katalog-section { 
-    padding: 60px 5% 100px 5%; 
-    background: #F8FAFC; 
+.katalog-section {
+    padding: 60px 5% 100px 5%;
+    background: #f8fafc;
 }
 
-.katalog-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    margin-bottom: 30px; 
-    max-width: 1200px; 
-    margin: 0 auto; 
+.katalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.katalog-header h2 { 
-    font-size: 24px; 
-    color: #1E3A8A; 
-    font-weight: 700; 
-    font-family: 'Poppins', sans-serif; 
+.katalog-header h2 {
+    font-size: 24px;
+    color: #1e3a8a;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
 }
 
-.katalog-header a { 
-    color: #3B698F; 
-    text-decoration: none; 
-    font-size: 14px; 
-    font-weight: 600; 
+.katalog-header a {
+    color: #3b698f;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.katalog-header a:hover { 
-    text-decoration: underline; 
+.katalog-header a:hover {
+    text-decoration: underline;
 }
 
-.katalog-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-    gap: 24px; 
-    max-width: 1200px; 
-    margin: 0 auto; 
+.katalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.k-card { 
-    background: white; 
-    border-radius: 16px; 
-    overflow: hidden; 
-    border: 1px solid #E2E8F0; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); 
-    display: flex; 
-    flex-direction: column; 
-    transition: 0.3s; 
+.k-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
 }
 
-.k-card:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 10px 25px rgba(30, 58, 138, 0.1); 
+.k-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(30, 58, 138, 0.1);
 }
 
-.k-card-img { 
-    position: relative; 
-    height: 150px; 
-    background: #E2E8F0; 
+.k-card-img {
+    position: relative;
+    height: 150px;
+    background: #e2e8f0;
 }
 
-.k-card-img img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
+.k-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.k-badge { 
-    position: absolute; 
-    top: 12px; 
-    right: 12px; 
-    background: rgba(30, 58, 138, 0.9); 
-    color: white; 
-    padding: 4px 12px; 
-    font-size: 11px; 
-    font-weight: 700; 
-    border-radius: 20px; 
-    text-transform: uppercase; 
-    letter-spacing: 1px; 
+.k-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(30, 58, 138, 0.9);
+    color: white;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.k-card-body { 
-    padding: 20px; 
-    display: flex; 
-    flex-direction: column; 
-    flex-grow: 1; 
+.k-card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
-.k-card-title { 
-    font-size: 16px; 
-    font-weight: 700; 
-    color: #1E2D3D; 
-    margin-bottom: 8px; 
-    font-family: 'Poppins', sans-serif; 
-    line-height: 1.4; 
+.k-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e2d3d;
+    margin-bottom: 8px;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.4;
 }
 
-.k-card-desc { 
-    font-size: 12px; 
-    color: #64748B; 
-    line-height: 1.5; 
-    margin-bottom: 16px; 
-    flex-grow: 1; 
+.k-card-desc {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    flex-grow: 1;
 }
 
-.k-card-price { 
-    font-size: 18px; 
-    font-weight: 800; 
-    color: #1E3A8A; 
-    margin-bottom: 16px; 
+.k-card-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin-bottom: 16px;
 }
 
-.k-card-year { 
-    font-size: 12px; 
-    color: #94A3B8; 
-    font-weight: 600; 
-    margin-bottom: 8px; 
+.k-card-year {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
-.k-card-btn { 
-    display: block; 
-    text-align: center; 
-    padding: 10px; 
-    background: #F8FAFC; 
-    color: #1E3A8A; 
-    font-size: 13px; 
-    font-weight: 600; 
-    border-radius: 8px; 
-    border: 1px solid #E2E8F0; 
-    text-decoration: none; 
-    transition: 0.3s; 
+.k-card-btn {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: #f8fafc;
+    color: #1e3a8a;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
-.k-card-btn:hover { 
-    background: #1E3A8A; 
-    color: white; 
-    border-color: #1E3A8A; 
+.k-card-btn:hover {
+    background: #1e3a8a;
+    color: white;
+    border-color: #1e3a8a;
 }
-
 
 /* ==========================================================================
    4. DETAIL HALAMAN & IMAGE CAROUSEL
    ========================================================================== */
-.detail-page-wrapper { 
-    background: #F4F8FC; 
-    padding: 40px 5% 50px 5%; 
-    min-height: 100vh; 
+.detail-page-wrapper {
+    background: #f4f8fc;
+    padding: 40px 5% 50px 5%;
+    min-height: 100vh;
 }
 
-.back-link { 
-    color: #1E3A8A;
+.back-link {
+    color: #1e3a8a;
     text-decoration: none;
     font-size: 16px;
     font-weight: 700;
@@ -296,12 +293,12 @@
     transition: 0.3s;
 }
 
-.back-link:hover { 
-    opacity: 0.8; 
-    transform: translateX(-5px); 
+.back-link:hover {
+    opacity: 0.8;
+    transform: translateX(-5px);
 }
 
-.detail-top-container { 
+.detail-top-container {
     max-width: 1200px;
     margin: 0 auto 40px auto;
     padding: 40px;
@@ -311,13 +308,13 @@
     grid-template-columns: 1.1fr 0.9fr;
     gap: 50px;
     align-items: start;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06); 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
 }
 
 /* Galeri Slider */
-.detail-gallery { 
-    flex: 1; 
-    width: 100%; 
+.detail-gallery {
+    flex: 1;
+    width: 100%;
 }
 
 .image-carousel {
@@ -325,8 +322,8 @@
     width: 100%;
     border-radius: 16px;
     overflow: hidden;
-    background: #E2E8F0;
-    border: 1px solid #E2E8F0;
+    background: #e2e8f0;
+    border: 1px solid #e2e8f0;
 }
 
 .carousel-track-container {
@@ -362,7 +359,7 @@
     transform: translateY(-50%);
     background: rgba(255, 255, 255, 0.85);
     border: none;
-    color: #1E3A8A;
+    color: #1e3a8a;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -377,12 +374,16 @@
 }
 
 .carousel-btn:hover {
-    background: #FFFFFF;
-    color: #1D4ED8;
+    background: #ffffff;
+    color: #1d4ed8;
 }
 
-.prev-btn { left: 16px; }
-.next-btn { right: 16px; }
+.prev-btn {
+    left: 16px;
+}
+.next-btn {
+    right: 16px;
+}
 
 .carousel-nav-dots {
     display: flex;
@@ -407,47 +408,47 @@
 }
 
 .carousel-dot.active {
-    background: #FFFFFF;
+    background: #ffffff;
     width: 24px;
     border-radius: 5px;
 }
 
 /* Info Detail */
-.detail-info { 
+.detail-info {
     flex: 1;
     width: 100%;
-    color: #1E3A8A;
+    color: #1e3a8a;
     display: flex;
     flex-direction: column;
 }
 
-.detail-badge { 
-    background: #EFF6FF; 
-    color: #1E40AF; 
-    font-weight: 700; 
-    padding: 6px 16px; 
-    border-radius: 20px; 
-    font-size: 13px; 
-    display: inline-block; 
-    margin-bottom: 16px; 
-    text-transform: uppercase; 
+.detail-badge {
+    background: #eff6ff;
+    color: #1e40af;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    display: inline-block;
+    margin-bottom: 16px;
+    text-transform: uppercase;
     letter-spacing: 1px;
     width: fit-content;
 }
 
-.detail-title { 
+.detail-title {
     font-size: 36px;
     font-weight: 800;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin-bottom: 20px;
     line-height: 1.25;
-    color: #0F172A;
+    color: #0f172a;
 }
 
 .price-label {
     font-size: 12px;
     font-weight: 700;
-    color: #64748B;
+    color: #64748b;
     letter-spacing: 1px;
     margin-bottom: 6px;
     text-transform: uppercase;
@@ -456,34 +457,34 @@
 .detail-price {
     font-size: 28px;
     font-weight: 800;
-    color: #1E40AF;
+    color: #1e40af;
     margin-bottom: 30px;
 }
 
-.btn-pesan { 
-    background: #1E40AF; 
-    color: #FFFFFF; 
-    font-size: 16px; 
-    font-weight: 700; 
-    padding: 14px 28px; 
-    border-radius: 14px; 
-    display: inline-flex; 
-    align-items: center; 
+.btn-pesan {
+    background: #1e40af;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    gap: 12px; 
-    text-decoration: none; 
-    transition: 0.3s; 
-    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.25); 
-    border: none; 
+    gap: 12px;
+    text-decoration: none;
+    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.25);
+    border: none;
     cursor: pointer;
     width: 100%;
 }
 
-.btn-pesan:hover { 
-    background: #1D4ED8; 
-    transform: translateY(-2px); 
-    box-shadow: 0 12px 24px rgba(30, 64, 175, 0.35); 
-    color: #FFFFFF;
+.btn-pesan:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(30, 64, 175, 0.35);
+    color: #ffffff;
 }
 
 /* Kotak Meta Info */
@@ -496,21 +497,21 @@
 }
 
 .meta-card-item {
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 16px;
     padding: 20px 24px;
     display: flex;
     align-items: center;
     gap: 16px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-    border: 1px solid #E2E8F0;
+    border: 1px solid #e2e8f0;
 }
 
 .meta-icon {
     width: 48px;
     height: 48px;
-    background: #EFF6FF;
-    color: #1E40AF;
+    background: #eff6ff;
+    color: #1e40af;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -523,7 +524,7 @@
     display: block;
     font-size: 11px;
     font-weight: 700;
-    color: #64748B;
+    color: #64748b;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
 }
@@ -532,92 +533,92 @@
     display: block;
     font-size: 15px;
     font-weight: 700;
-    color: #0F172A;
+    color: #0f172a;
 }
 
 /* Bagian Card Bawah */
-.detail-card { 
-    background: white; 
-    border-radius: 24px; 
-    padding: 40px; 
-    margin-top: 30px; 
+.detail-card {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    margin-top: 30px;
     margin-bottom: 0 !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06); 
-    color: #1E2D3D; 
-    max-width: 1200px; 
-    margin-left: auto; 
-    margin-right: auto; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    color: #1e2d3d;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.detail-section-title { 
-    font-size: 20px; 
-    font-weight: 700; 
-    color: #1E3A8A; 
-    margin-bottom: 16px; 
-    font-family: 'Poppins', sans-serif; 
-    border-bottom: 2px solid #E2E8F0; 
-    padding-bottom: 12px; 
-    margin-top: 32px; 
+.detail-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 16px;
+    font-family: "Poppins", sans-serif;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 12px;
+    margin-top: 32px;
 }
 
-.detail-section-title:first-child { 
-    margin-top: 0; 
+.detail-section-title:first-child {
+    margin-top: 0;
 }
 
-.detail-text { 
-    font-size: 15px; 
-    color: #475569; 
-    line-height: 1.8; 
-    margin-bottom: 16px; 
-    text-align: justify; 
+.detail-text {
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    text-align: justify;
 }
 
-.detail-list { 
-    list-style: none; 
-    padding: 0; 
-    margin-bottom: 32px; 
+.detail-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 32px;
 }
 
-.detail-list li { 
-    display: flex; 
-    align-items: flex-start; 
-    gap: 12px; 
-    font-size: 15px; 
-    color: #475569; 
-    margin-bottom: 12px; 
-    line-height: 1.6; 
+.detail-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: #475569;
+    margin-bottom: 12px;
+    line-height: 1.6;
 }
 
-.detail-list li i { 
-    color: #3B698F; 
-    font-size: 20px; 
-    margin-top: 2px; 
+.detail-list li i {
+    color: #3b698f;
+    font-size: 20px;
+    margin-top: 2px;
 }
 
-.spec-table { 
-    width: 100%; 
-    max-width: 600px; 
-    border-collapse: collapse; 
-    margin-bottom: 20px; 
+.spec-table {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-.spec-table td { 
-    padding: 12px 0; 
-    border-bottom: 1px solid #E2E8F0; 
-    font-size: 15px; 
-    color: #475569; 
+.spec-table td {
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 15px;
+    color: #475569;
 }
 
-.spec-table td:first-child { 
-    font-weight: 600; 
-    color: #1E2D3D; 
-    width: 150px; 
+.spec-table td:first-child {
+    font-weight: 600;
+    color: #1e2d3d;
+    width: 150px;
 }
 
-footer, .footer {
+footer,
+.footer {
     margin-top: 0 !important;
 }
-
 
 /* ==========================================================================
    5. THUMBNAIL PREVIEW GAMBAR
@@ -635,7 +636,7 @@ footer, .footer {
 }
 
 .carousel-thumbnails::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
+    background: #cbd5e1;
     border-radius: 4px;
 }
 
@@ -649,7 +650,7 @@ footer, .footer {
     opacity: 0.6;
     transition: all 0.3s ease;
     flex-shrink: 0;
-    background: #E2E8F0;
+    background: #e2e8f0;
 }
 
 .thumb-item img {
@@ -663,12 +664,11 @@ footer, .footer {
 }
 
 .thumb-item.active {
-    border-color: #1E40AF;
+    border-color: #1e40af;
     opacity: 1;
     box-shadow: 0 4px 10px rgba(30, 64, 175, 0.25);
     transform: translateY(-2px);
 }
-
 
 /* ==========================================================================
    6. LIGHTBOX / IMAGE ZOOM POPUP
@@ -714,7 +714,7 @@ footer, .footer {
     top: 30px;
     right: 30px;
     background: white;
-    color: #1E3A8A;
+    color: #1e3a8a;
     border: none;
     width: 45px;
     height: 45px;
@@ -730,11 +730,10 @@ footer, .footer {
 }
 
 .lightbox-close:hover {
-    background: #EF4444;
+    background: #ef4444;
     color: white;
     transform: rotate(90deg);
 }
-
 
 /* ==========================================================================
    7. RESPONSIVE DESIGN (MEDIA QUERIES)
@@ -812,8 +811,8 @@ footer, .footer {
     .katalog-grid {
         grid-template-columns: 1fr;
     }
-    .deskripsi-content, 
-    .katalog-section, 
+    .deskripsi-content,
+    .katalog-section,
     .detail-page-wrapper {
         padding-left: 20px;
         padding-right: 20px;
@@ -832,7 +831,7 @@ footer, .footer {
         padding: 4px 0;
     }
     .spec-table tr {
-        border-bottom: 1px solid #E2E8F0;
+        border-bottom: 1px solid #e2e8f0;
         display: block;
         padding-bottom: 8px;
         margin-bottom: 8px;
@@ -842,7 +841,84 @@ footer, .footer {
 .title-underline {
     width: 40px;
     height: 4px;
-    background: #1E3A8A;
+    background: #1e3a8a;
     border-radius: 2px;
     margin-bottom: 24px;
+}
+/* ===== KUNCI UKURAN GAMBAR DETAIL ===== */
+.detail-page-wrapper img {
+    max-width: 100%;
+}
+
+.detail-gallery {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.detail-gallery .image-carousel {
+    width: 100%;
+    max-width: 100%;
+}
+
+.detail-gallery .carousel-track-container {
+    width: 100%;
+    height: 380px !important;
+    overflow: hidden;
+}
+
+.detail-gallery .carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.detail-gallery .carousel-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.detail-gallery .carousel-slide img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    object-fit: cover;
+    display: block;
+}
+
+/* Portofolio */
+.detail-gallery .main-image {
+    width: 100% !important;
+    height: 380px !important;
+    max-width: 100% !important;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+    background: #e2e8f0;
+}
+
+.thumbnail-list {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.thumbnail-list img.thumb-item {
+    width: 75px !important;
+    height: 60px !important;
+    object-fit: cover;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .detail-gallery .carousel-track-container,
+    .detail-gallery .main-image {
+        height: 300px !important;
+    }
 }
