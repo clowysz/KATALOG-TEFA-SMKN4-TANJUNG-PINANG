@@ -47,6 +47,7 @@ class ProdukJasaController extends Controller
             'jenis' => 'required|in:produk,jasa',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric',
+            'satuan_harga' => 'nullable|string|max:50',
             'gambar' => 'required|array|min:1',
             'gambar.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -65,6 +66,7 @@ class ProdukJasaController extends Controller
             'jenis' => $request->jenis,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
+            'satuan_harga' => $request->satuan_harga,
             'id_jurusan' => $jurusan->id_jurusan,
             'id_user' => $user->id,
         ]);
@@ -90,6 +92,7 @@ class ProdukJasaController extends Controller
             'jenis' => 'required|in:produk,jasa',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric',
+            'satuan_harga' => 'nullable|string|max:50',
             'gambar' => 'nullable|array',
             'gambar.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -118,6 +121,7 @@ class ProdukJasaController extends Controller
             'jenis' => $request->jenis,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
+            'satuan_harga' => $request->satuan_harga,
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -196,6 +200,32 @@ class ProdukJasaController extends Controller
 
         return response()->json([
             'message' => 'Gambar berhasil dihapus!'
+        ]);
+    }
+
+    // Tambah jumlah tampilan Produk/Jasa
+    public function tambahTampilan($id)
+    {
+        $produkJasa = ProdukJasa::findOrFail($id);
+
+        $produkJasa->increment('jumlah_tampilan');
+
+        return response()->json([
+            'message' => 'Jumlah tampilan berhasil ditambahkan.',
+            'jumlah_tampilan' => $produkJasa->jumlah_tampilan,
+        ]);
+    }
+
+    // Tambah jumlah pencarian Produk/Jasa
+    public function tambahPencarian($id)
+    {
+        $produkJasa = ProdukJasa::findOrFail($id);
+
+        $produkJasa->increment('jumlah_pencarian');
+
+        return response()->json([
+            'message' => 'Jumlah pencarian berhasil ditambahkan.',
+            'jumlah_pencarian' => $produkJasa->jumlah_pencarian,
         ]);
     }
 }

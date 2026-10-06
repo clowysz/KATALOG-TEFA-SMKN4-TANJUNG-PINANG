@@ -1,240 +1,606 @@
 @extends('admin.layouts.app-jurusan')
 
-@section('title', 'Tambah Akun')
+@section('title', 'Detail Akun')
 
 @section('content')
-<div class="page-header">
-    <a
-        href="/jurusan-admin/akun"
-        class="btn-outline"
-        style="margin-bottom: 16px; border: none; padding-left: 0;"
-    >
-        ← Kembali
-    </a>
+
+<style>
+    .detail-account-wrapper {
+        padding: 24px;
+    }
+
+    .detail-account-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .detail-account-title {
+        margin: 0;
+        color: #1E3A8A;
+        font-weight: 700;
+    }
+
+    .detail-account-subtitle {
+        margin: 5px 0 0;
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    .detail-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        margin-bottom: 20px;
+    }
+
+    .detail-card-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1E3A8A;
+        margin-bottom: 20px;
+    }
+
+    .detail-row {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid #edf0f5;
+    }
+
+    .detail-row:last-child {
+        border-bottom: none;
+    }
+
+    .detail-label {
+        color: #6c757d;
+        font-weight: 600;
+    }
+
+    .detail-value {
+        color: #212529;
+        font-weight: 500;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .status-aktif {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .status-tidak-aktif {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .service-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .service-item {
+        padding: 9px 14px;
+        border-radius: 10px;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: #1E3A8A;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .empty-service {
+        color: #6c757d;
+        margin: 0;
+    }
+
+    .detail-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .btn-detail {
+        border: none;
+        border-radius: 10px;
+        padding: 10px 16px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .btn-edit {
+        background: #1E3A8A;
+        color: #fff;
+    }
+
+    .btn-edit:hover {
+        background: #172f70;
+        color: #fff;
+    }
+
+    .btn-back {
+        background: #e9ecef;
+        color: #343a40;
+    }
+
+    .btn-back:hover {
+        background: #dee2e6;
+        color: #343a40;
+    }
+
+    .btn-status {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .btn-status:hover {
+        background: #ffe69c;
+    }
+
+    .btn-danger {
+        background: #dc3545;
+        color: #fff;
+    }
+
+    .btn-danger:hover {
+        background: #bb2d3b;
+        color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .detail-account-wrapper {
+            padding: 15px;
+        }
+
+        .detail-account-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .detail-row {
+            grid-template-columns: 1fr;
+            gap: 4px;
+        }
+    }
+</style>
+
+<div class="detail-account-wrapper">
+
+    {{-- HEADER --}}
+    <div class="detail-account-header">
+
+        <a
+            href="{{ route('jurusan.akun.index') }}"
+            class="btn-detail btn-back"
+        >
+            ← Kembali
+        </a>
+
+        <div>
+            <h2 class="detail-account-title">
+                Detail Akun Admin Produser
+            </h2>
+
+            <p class="detail-account-subtitle">
+                Informasi lengkap akun Admin Produser pada jurusan Anda.
+            </p>
+        </div>
+
+    </div>
+
+
+    {{-- INFORMASI AKUN --}}
+    <div class="detail-card">
+
+        <div class="detail-card-title">
+            Informasi Akun
+        </div>
+
+        <div class="detail-row">
+
+            <div class="detail-label">
+                Nama
+            </div>
+
+            <div class="detail-value">
+                {{ $akun->nama }}
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-label">
+                Email
+            </div>
+
+            <div class="detail-value">
+                {{ $akun->email }}
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-label">
+                Role
+            </div>
+
+            <div class="detail-value">
+                Admin Produser
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-label">
+                Jurusan
+            </div>
+
+            <div class="detail-value">
+                {{ $jurusan->nama_jurusan }}
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-label">
+                Status
+            </div>
+
+            <div class="detail-value">
+
+                @if ($akun->status === 'aktif')
+
+                    <span class="status-badge status-aktif">
+                        Aktif
+                    </span>
+
+                @else
+
+                    <span class="status-badge status-tidak-aktif">
+                        Tidak Aktif
+                    </span>
+
+                @endif
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {{-- PRODUK / JASA YANG DITUGASKAN --}}
+    <div class="detail-card">
+
+        <div class="detail-card-title">
+            Produk / Jasa yang Ditugaskan
+        </div>
+
+        <div class="service-list">
+
+            @forelse ($akun->penugasanProduser as $penugasan)
+
+                @if ($penugasan->produkJasa)
+
+                    <div class="service-item">
+                        {{ $penugasan->produkJasa->nama_produk_jasa }}
+                    </div>
+
+                @endif
+
+            @empty
+
+                <p class="empty-service">
+                    Belum ada produk atau jasa yang ditugaskan
+                    kepada akun ini.
+                </p>
+
+            @endforelse
+
+        </div>
+
+    </div>
+
+
+    {{-- ACTION --}}
+    <div class="detail-card">
+
+        <div class="detail-card-title">
+            Aksi Akun
+        </div>
+
+        <div class="detail-actions">
+
+            <a
+                href="{{ route('jurusan.akun.edit', ['id' => $akun->id]) }}"
+                class="btn-detail btn-edit"
+            >
+                Edit Akun
+            </a>
+
+
+            @if ($akun->status === 'aktif')
+
+                <button
+                    type="button"
+                    id="btnHapusAkses"
+                    class="btn-detail btn-status"
+                >
+                    Nonaktifkan Akun
+                </button>
+
+            @else
+
+                <button
+                    type="button"
+                    id="btnAktifkan"
+                    class="btn-detail btn-status"
+                >
+                    Aktifkan Akun
+                </button>
+
+            @endif
+
+        </div>
+
+    </div>
+
 </div>
 
+
+{{-- MODAL KONFIRMASI STATUS --}}
 <div
-    class="tefa-card"
-    style="max-width: 650px; padding: 32px; border-radius: 16px; margin: 0 auto;"
+    id="statusModal"
+    style="
+        display:none;
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.45);
+        z-index:9999;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+    "
 >
 
-    <form
-        action="{{ route('jurusan.akun.store') }}"
-        method="POST"
+    <div
+        style="
+            background:#fff;
+            width:100%;
+            max-width:420px;
+            border-radius:16px;
+            padding:24px;
+            box-shadow:0 15px 40px rgba(0,0,0,.2);
+        "
     >
-        @csrf
 
-        {{-- POINT 1: Mengubah pesan error Bahasa Inggris ke Bahasa Indonesia --}}
-        @if ($errors->any())
-            <div
-                style="
-                    background: #f8d7da;
-                    color: #842029;
-                    padding: 12px 16px;
-                    border-radius: 8px;
-                    margin-bottom: 20px;
-                "
-            >
-                <ul style="margin: 0; padding-left: 20px;">
-                    @foreach ($errors->all() as$error)
-                        <li>
-                            {{ str_replace('The layanan field is required.', 'Kolom produk/jasa tanggung jawab wajib dipilih.', $error) }}
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <h4 style="margin-top:0;">
+            Konfirmasi
+        </h4>
 
-        <label class="detail-label">
-            Nama Pengguna
-            <span class="required-star">*</span>
-        </label>
-
-        <input
-            type="text"
-            name="nama"
-            class="form-control"
-            placeholder="Masukkan nama lengkap"
-            value="{{ old('nama') }}"
-            required
-        >
-
-        <label class="detail-label">
-            Email
-            <span class="required-star">*</span>
-        </label>
-
-        <input
-            type="email"
-            name="email"
-            class="form-control"
-            placeholder="Masukkan email"
-            value="{{ old('email') }}"
-            required
-        >
-
-        <label class="detail-label">
-            Kata sandi
-            <span class="required-star">*</span>
-        </label>
-
-        {{-- POINT 2: Ikon Mata Abu-Abu & Posisi Presisi di Tengah --}}
-        <div style="position: relative;">
-            <input
-                type="password"
-                name="password"
-                id="password"
-                class="form-control"
-                placeholder="Buat password"
-                required
-            >
-
-            <span
-                id="togglePassEye"
-                style="
-                    position: absolute;
-                    right: 16px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                "
-            >
-                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-            </span>
-        </div>
-
-        <label
-            class="detail-label"
-            style="margin-top: 16px;"
-        >
-            Role
-        </label>
-
-        <input
-            type="text"
-            class="form-control"
-            value="Admin Produser"
-            readonly
-            style="background-color: #f8f9fa;"
-        >
-
-        <label
-            class="detail-label"
-            style="margin-top: 24px;"
-        >
-            Produk/Jasa Tanggung Jawab
-            <span class="required-star">*</span>
-        </label>
-
-        <div
-            id="checkboxContainer"
-            style="
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 10px;
-            "
-        >
-            @forelse ($produkJasas as$produkJasa)
-                <label
-                    style="
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 8px;
-                        padding: 10px 14px;
-                        border: 1px solid #ccc;
-                        border-radius: 10px;
-                        cursor: pointer;
-                        background: #fff;
-                    "
-                >
-                    <input
-                        type="checkbox"
-                        name="layanan[]"
-                        value="{{ $produkJasa->id_produk_jasa }}"
-                        style="
-                            width: 18px;
-                            height: 18px;
-                            cursor: pointer;
-                            margin: 0;
-                        "
-                    >
-                    <span>
-                        {{ $produkJasa->nama_produk_jasa }}
-                    </span>
-                </label>
-            @empty
-                <p style="color: #6c757d;">
-                    Belum ada produk atau jasa yang tersedia untuk jurusan Anda.
-                </p>
-            @endforelse
-        </div>
+        <p style="color:#6c757d;">
+            Apakah Anda yakin ingin mengubah status akun ini?
+        </p>
 
         <div
             style="
-                color: #6c757d;
-                font-size: 13px;
-                margin-top: 8px;
+                display:flex;
+                justify-content:flex-end;
+                gap:10px;
+                margin-top:20px;
             "
         >
-            Pilih minimal satu produk/jasa yang menjadi tanggung jawab Admin Produser.
-        </div>
 
-        <div
-            style="
-                display: flex;
-                gap: 16px;
-                margin-top: 32px;
-            "
-        >
             <button
-                type="reset"
-                class="btn-outline"
-                style="flex: 1;"
+                type="button"
+                id="btnCloseStatusModal"
+                class="btn-detail btn-back"
             >
-                Reset
+                Batal
             </button>
 
             <button
-                type="submit"
-                class="btn-primary"
-                style="flex: 1;"
+                type="button"
+                id="btnConfirmStatus"
+                class="btn-detail btn-danger"
             >
-                Tambah Akun
+                Ya, Nonaktifkan
             </button>
+
         </div>
 
-    </form>
+    </div>
 
 </div>
-@endsection
 
-@section('scripts')
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const toggleEye = document.getElementById('togglePassEye');
-    const passInput = document.getElementById('password');
-    const eyeIcon = document.getElementById('eyeIcon');
 
-    const eyeOpenSvg = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>`;
-    const eyeClosedSvg = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>`;
+    const accountId = @json($akun->id);
 
-    if (toggleEye && passInput && eyeIcon) {
-        toggleEye.addEventListener('click', function () {
-            if (passInput.type === 'password') {
-                passInput.type = 'text';
-                eyeIcon.innerHTML = eyeClosedSvg;
-            } else {
-                passInput.type = 'password';
-                eyeIcon.innerHTML = eyeOpenSvg;
-            }
-        });
+    const statusModal = document.getElementById('statusModal');
+    const btnHapusAkses = document.getElementById('btnHapusAkses');
+    const btnAktifkan = document.getElementById('btnAktifkan');
+    const btnCloseStatusModal = document.getElementById('btnCloseStatusModal');
+    const btnConfirmStatus = document.getElementById('btnConfirmStatus');
+
+
+    function openModal() {
+        if (statusModal) {
+            statusModal.style.display = 'flex';
+        }
     }
+
+
+    function closeModal() {
+        if (statusModal) {
+            statusModal.style.display = 'none';
+        }
+    }
+
+
+    if (btnHapusAkses) {
+
+        btnHapusAkses.addEventListener('click', function () {
+            openModal();
+        });
+
+    }
+
+
+    if (btnCloseStatusModal) {
+
+        btnCloseStatusModal.addEventListener('click', function () {
+            closeModal();
+        });
+
+    }
+
+
+    if (btnConfirmStatus) {
+
+        btnConfirmStatus.addEventListener('click', function () {
+
+            fetch('{{ route('jurusan.akun.status') }}', {
+
+                method: 'PUT',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+
+                body: JSON.stringify({
+                    id: accountId,
+                    status: 'tidak_aktif'
+                })
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                if (data.success) {
+                    window.location.reload();
+                    return;
+                }
+
+                alert(
+                    data.message ??
+                    'Gagal mengubah status akun.'
+                );
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                alert(
+                    'Terjadi kesalahan saat mengubah status akun.'
+                );
+
+            });
+
+        });
+
+    }
+
+
+    if (btnAktifkan) {
+
+        btnAktifkan.addEventListener('click', function () {
+
+            fetch('{{ route('jurusan.akun.status') }}', {
+
+                method: 'PUT',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+
+                body: JSON.stringify({
+                    id: accountId,
+                    status: 'aktif'
+                })
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                if (data.success) {
+                    window.location.reload();
+                    return;
+                }
+
+                alert(
+                    data.message ??
+                    'Gagal mengaktifkan akun.'
+                );
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                alert(
+                    'Terjadi kesalahan saat mengaktifkan akun.'
+                );
+
+            });
+
+        });
+
+    }
+
+
+    if (statusModal) {
+
+        statusModal.addEventListener('click', function (event) {
+
+            if (event.target === statusModal) {
+                closeModal();
+            }
+
+        });
+
+    }
+
 });
 </script>
+
 @endsection

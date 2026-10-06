@@ -540,8 +540,8 @@
                         </span>
 
                         <strong>
-                            Rp {{ number_format($produk?->harga ?? 0,0,',','.') }}
-                        </strong>
+    Rp {{ number_format($produk?->harga ?? 0,0,',','.') }}{{ $produk?->satuan_harga ? '/' . $produk->satuan_harga : '' }}
+</strong>
 
                     </div>
 

@@ -2,35 +2,10 @@
 
 @section('title', 'Katalog Produk & Jasa')
 
-@section('content')
+@push('css')
+<link rel="stylesheet" href="{{ asset('css/jurusan-detail.css') }}">
 <style>
-    .katalog-pub-section {
-        padding: 40px 0 80px 0;
-        background-color: #F8FAFC;
-        min-height: 85vh;
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-
-    .katalog-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-    
-    .katalog-header-title {
-        font-size: 28px;
-        font-weight: 800;
-        color: #0F172A;
-        margin: 0 0 6px 0;
-    }
-
-    .katalog-header-subtitle {
-        font-size: 15px;
-        color: #64748B;
-        margin: 0 0 28px 0;
-    }
-
-    /* AREA FILTER */
+    /* Penyesuaian tata letak area filter agar pas dengan tema */
     .filter-area {
         display: flex;
         flex-direction: column;
@@ -70,7 +45,6 @@
         border-color: #1E40AF;
     }
 
-    /* DROPDOWN JURUSAN */
     .jurusan-select-wrapper {
         position: relative;
         min-width: 240px;
@@ -106,132 +80,6 @@
         color: #64748B;
         pointer-events: none;
         font-size: 18px;
-    }
-
-    /* GRID KATALOG */
-    .katalog-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 24px;
-    }
-
-    /* CARD STYLE */
-    .card-katalog {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .card-katalog:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 20px rgba(0,0,0,0.08);
-    }
-
-    .card-img-box {
-        position: relative;
-        width: 100%;
-        height: 190px;
-        background: #F1F5F9;
-        overflow: hidden;
-    }
-
-    .card-img-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .badge-tipe {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        padding: 5px 14px;
-        border-radius: 20px;
-        font-size: 11px;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        color: #FFFFFF;
-        background: #0284C7;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
-
-    .badge-tipe.produk {
-        background: #1E40AF;
-    }
-
-    .card-katalog-body {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-
-    .item-title {
-        font-size: 17px;
-        font-weight: 800;
-        color: #0F172A;
-        margin: 0 0 6px 0;
-        line-height: 1.3;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .item-jurusan {
-        font-size: 13px;
-        color: #64748B;
-        margin: 0 0 16px 0;
-    }
-
-    .item-price {
-        font-size: 19px;
-        font-weight: 800;
-        color: #1E40AF;
-        margin-top: auto;
-        margin-bottom: 16px;
-    }
-
-    .btn-detail-pub {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        background: #F8FAFC;
-        color: #1E40AF;
-        padding: 12px;
-        border-radius: 12px;
-        font-weight: 700;
-        font-size: 13px;
-        text-decoration: none;
-        transition: all 0.2s ease;
-        border: 1px solid #E2E8F0;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .btn-detail-pub:hover {
-        background: #1E40AF;
-        color: #FFFFFF;
-        border-color: #1E40AF;
-    }
-
-    /* STATE KOSONG */
-    .empty-state-box {
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 60px 20px;
-        background: #FFFFFF;
-        border-radius: 20px;
-        border: 1px dashed #CBD5E1;
-        margin-top: 10px;
     }
 
     /* PAGINATION STYLING */
@@ -301,14 +149,16 @@
         cursor: not-allowed;
     }
 </style>
+@endpush
 
-<div class="katalog-pub-section">
-    <div class="katalog-container">
+@section('content')
+<div id="katalog-section" style="padding:40px 5% 80px;min-height:85vh;background:#F8FAFC;font-family:'Inter',system-ui,-apple-system,sans-serif;">
+    <div style="max-width:1200px;margin:0 auto;">
         
         <!-- HEADER TEXT -->
-        <div>
-            <h3 class="katalog-header-title">Katalog Produk & Jasa TEFA</h3>
-            <p class="katalog-header-subtitle">Temukan karya dan layanan profesional dari seluruh jurusan SMKN 4 Tanjungpinang.</p>
+        <div style="margin-bottom:28px;">
+            <h3 style="font-size:28px;font-weight:800;color:#0F172A;margin:0 0 6px 0;">Katalog Produk & Jasa TEFA</h3>
+            <p style="font-size:15px;color:#64748B;margin:0;">Temukan karya dan layanan profesional dari seluruh jurusan SMKN 4 Tanjungpinang.</p>
         </div>
 
         <!-- AREA FILTER & DROPDOWN -->
@@ -347,45 +197,73 @@
         </div>
 
         <!-- GRID KATALOG -->
-        <div class="katalog-grid">
+        <div class="katalog-grid" id="katalog-grid">
             @forelse($katalog as $item)
-                @php
-                    $slugJurusan = $item->jurusan->slug ?? 'rpl';
-                    $detailRoute = $item->jenis == 'produk' 
-                        ? route('produk.detail', ['slug' => $slugJurusan, 'id' => $item->id_produk_jasa])
-                        : route('jasa.detail', ['slug' => $slugJurusan, 'id' => $item->id_produk_jasa]);
-                @endphp
+@php
+    $gambar = $item->gambars->first();
+    $slug = $item->jurusan->slug ?? null;
+    $isProduk = $item->jenis === 'produk';
 
-                <div class="card-katalog">
-                    <div class="card-img-box">
-                        @if($item->gambars && $item->gambars->first())
-                            <img src="{{ asset('storage/'.$item->gambars->first()->path_gambar) }}" alt="{{ $item->nama_produk_jasa }}">
+    $detailRoute = $slug
+        ? ($isProduk
+            ? url('/jurusan/'.$slug.'/produk/detail/'.$item->id_produk_jasa)
+            : url('/jurusan/'.$slug.'/jasa/detail/'.$item->id_produk_jasa))
+        : '#';
+
+    if ($detailRoute !== '#') {
+        $detailRoute .= '?' . http_build_query([
+            'from' => 'katalog',
+            'back' => request()->getRequestUri(),
+        ]);
+    }
+@endphp
+
+                <div class="k-card">
+                    <div class="k-card-img">
+                        <span class="k-badge">
+                            {{ strtoupper($item->jenis) }}
+                        </span>
+
+                        @if($gambar)
+                            <img src="{{ asset('storage/'.$gambar->path_gambar) }}" alt="{{ $item->nama_produk_jasa }}">
                         @else
-                            <div style="display:flex; align-items:center; justify-content:center; height:100%; color:#94A3B8;">
-                                <i class="ph ph-image" style="font-size: 36px;"></i>
+                            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#E2E8F0;color:#64748B;">
+                                <i class="ph ph-image" style="font-size:48px;"></i>
                             </div>
                         @endif
-                        <span class="badge-tipe {{ strtolower($item->jenis) }}">{{ strtoupper($item->jenis) }}</span>
                     </div>
 
-                    <div class="card-katalog-body">
-                        <h5 class="item-title">{{ $item->nama_produk_jasa }}</h5>
-                        <p class="item-jurusan">{{ $item->jurusan->nama_jurusan ?? 'SMKN 4 Tanjungpinang' }}</p>
-
-                        <div class="item-price">
-                            Rp {{ number_format($item->harga, 0, ',', '.') }}
+                    <div class="k-card-body">
+                        <div class="k-card-title">
+                            {{ $item->nama_produk_jasa }}
                         </div>
 
-                        <a href="{{ $detailRoute }}" class="btn-detail-pub">
-                            Lihat Selengkapnya <i class="ph ph-arrow-right"></i>
+                        <div class="k-card-desc">
+                            {{ \Illuminate\Support\Str::limit($item->deskripsi, 90) }}
+                        </div>
+
+                        <div class="k-card-price">
+                            Rp{{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
+                        </div>
+
+                        <a href="{{ $detailRoute }}" class="k-card-btn">
+                            Lihat Detail
                         </a>
                     </div>
                 </div>
+
             @empty
-                <div class="empty-state-box">
-                    <i class="ph ph-magnifying-glass" style="font-size: 48px; color: #94A3B8; display: block; margin-bottom: 12px;"></i>
-                    <p style="font-size: 16px; font-weight: 700; color: #334155; margin: 0 0 4px 0;">Tidak Ada Hasil</p>
-                    <p style="font-size: 14px; color: #64748B; margin: 0;">Belum ada produk atau jasa yang tersedia pada filter ini.</p>
+                <!-- EMPTY STATE -->
+                <div style="grid-column:1/-1;text-align:center;padding:60px 20px;background:white;border-radius:12px;border:1px dashed #CBD5E1;margin-top:10px;">
+                    <i class="ph ph-magnifying-glass" style="font-size:48px;color:#94A3B8;margin-bottom:12px;display:block;"></i>
+
+                    <h3 style="font-size:18px;font-weight:600;color:#1E2D3D;margin-bottom:8px;">
+                        Tidak Ada Hasil
+                    </h3>
+
+                    <p style="font-size:14px;color:#64748B;margin:0;">
+                        Belum ada produk atau jasa yang tersedia pada filter ini.
+                    </p>
                 </div>
             @endforelse
         </div>
@@ -402,14 +280,14 @@
                 @if($katalog->onFirstPage())
                     <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
                 @else
-                    <li class="page-item"><a class="page-link" href="{{ $katalog->url(1) }}" title="Halaman Pertama">&laquo;&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $katalog->url(1) }}#katalog-grid" title="Halaman Pertama">&laquo;&laquo;</a></li>
                 @endif
 
                 {{-- 2. TOMBOL MUNDUR 1 HALAMAN (<) --}}
                 @if($katalog->onFirstPage())
                     <li class="page-item disabled"><span class="page-link">&lsaquo;</span></li>
                 @else
-                    <li class="page-item"><a class="page-link" href="{{ $katalog->previousPageUrl() }}" title="Halaman Sebelumnya">&lsaquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $katalog->previousPageUrl() }}#katalog-grid" title="Halaman Sebelumnya">&lsaquo;</a></li>
                 @endif
 
                 {{-- 3. NOMOR-NOMOR HALAMAN --}}
@@ -417,20 +295,20 @@
                     @if($page == $katalog->currentPage())
                         <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
                     @else
-                        <li class="page-item"><a class="page-link" href="{{ $katalog->url($page) }}">{{ $page }}</a></li>
+                        <li class="page-item"><a class="page-link" href="{{ $katalog->url($page) }}#katalog-grid">{{ $page }}</a></li>
                     @endif
                 @endforeach
 
                 {{-- 4. TOMBOL MAJU 1 HALAMAN (>) --}}
                 @if($katalog->hasMorePages())
-                    <li class="page-item"><a class="page-link" href="{{ $katalog->nextPageUrl() }}" title="Halaman Selanjutnya">&rsaquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $katalog->nextPageUrl() }}#katalog-grid" title="Halaman Selanjutnya">&rsaquo;</a></li>
                 @else
                     <li class="page-item disabled"><span class="page-link">&rsaquo;</span></li>
                 @endif
 
                 {{-- 5. TOMBOL PALING AKHIR (>>) --}}
                 @if($katalog->hasMorePages())
-                    <li class="page-item"><a class="page-link" href="{{ $katalog->url($katalog->lastPage()) }}" title="Halaman Terakhir">&raquo;&raquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ $katalog->url($katalog->lastPage()) }}#katalog-grid" title="Halaman Terakhir">&raquo;&raquo;</a></li>
                 @else
                     <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
                 @endif
@@ -441,3 +319,35 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    // Matikan autoscroll otomatis dari browser saat reload
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const savedScrollPos = sessionStorage.getItem("katalogScrollPos");
+
+        if (savedScrollPos !== null) {
+            // Beri sedikit jeda waktu (10ms) agar DOM dirender utuh baru dipindahkan scrollnya
+            setTimeout(function() {
+                window.scrollTo({
+                    top: parseInt(savedScrollPos, 10),
+                    behavior: 'instant'
+                });
+                sessionStorage.removeItem("katalogScrollPos");
+            }, 10);
+        }
+
+        // Tangkap klik pada pagination
+        const paginationLinks = document.querySelectorAll(".custom-pagination .page-link");
+        paginationLinks.forEach(function (link) {
+            link.addEventListener("click", function () {
+                sessionStorage.setItem("katalogScrollPos", window.scrollY);
+            });
+        });
+    });
+</script>
+@endpush

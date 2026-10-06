@@ -2,7 +2,7 @@
 .rd-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
 
 /* Header */
-.rd-header { background: #1E3A8A; color: white; padding: 120px 0 60px 0; border-radius: 0 0 24px 24px; margin-bottom: -30px; position: relative; }
+.rd-header { background: #1E3A8A; color: white; padding: 40px 0 60px 0; border-radius: 0 0 24px 24px; margin-bottom: -30px; position: relative; }
 .rd-back-btn { background: white; color: #1E3A8A; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; }
 .rd-title-area { display: flex; align-items: center; gap: 16px; }
 .rd-title-icon { font-size: 32px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 12px; }

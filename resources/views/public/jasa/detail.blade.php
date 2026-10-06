@@ -9,9 +9,22 @@
 <div class="detail-page-wrapper">
 
     <div style="max-width: 1200px; margin: 0 auto;">
-        <a href="/jurusan/{{ $jurusan->slug }}/jasa" class="back-link">
+        @php
+            $isFromKatalog = request()->query('from') === 'katalog';
+
+            $backFromKatalog = request()->query('back');
+
+            $backUrl = $isFromKatalog
+                && $backFromKatalog
+                && str_starts_with($backFromKatalog, '/')
+                ? $backFromKatalog
+                : url('/jurusan/' . $jurusan->slug . '/jasa');
+        @endphp
+
+        <a href="{{ $backUrl }}" class="back-link">
             <i class="ph ph-arrow-left"></i>
-            Kembali ke Jasa
+
+            {{ $isFromKatalog ? 'Kembali ke Katalog' : 'Kembali ke Jasa' }}
         </a>
     </div>
 
@@ -82,14 +95,22 @@
 
             <div class="price-label">HARGA</div>
             <div class="detail-price">
-                Rp{{ number_format($jasa->harga, 0, ',', '.') }}
+                Rp{{ number_format($jasa->harga, 0, ',', '.') }}{{ $jasa->satuan_harga ? '/' . $jasa->satuan_harga : '' }}
             </div>
+
+            @php
+                $checkoutUrl = '/checkout?id_produk_jasa=' . $jasa->id_produk_jasa;
+
+                $loginUrl = route('login', [
+                    'back' => request()->getRequestUri(),
+                    'redirect' => $checkoutUrl,
+                ]);
+            @endphp
 
             <a
                 href="{{ auth()->check() && auth()->user()->role === 'pembeli'
-                    ? '/checkout?id_produk_jasa=' . $jasa->id_produk_jasa
-                    : '/login-pembeli?redirect=' . urlencode('/checkout?id_produk_jasa=' . $jasa->id_produk_jasa)
-                }}"
+                    ? $checkoutUrl
+                    : $loginUrl }}"
                 class="btn-pesan"
             >
                 <i class="ph ph-shopping-cart" style="font-size: 22px;"></i>
@@ -109,6 +130,7 @@
                 <span class="meta-value">Jasa</span>
             </div>
         </div>
+
         <div class="meta-card-item">
             <div class="meta-icon"><i class="ph ph-graduation-cap"></i></div>
             <div>
@@ -116,6 +138,7 @@
                 <span class="meta-value">{{ $jurusan->nama_jurusan ?? ucfirst($jurusan->slug) }}</span>
             </div>
         </div>
+
         <div class="meta-card-item">
             <div class="meta-icon"><i class="ph ph-cube"></i></div>
             <div>
@@ -144,15 +167,17 @@
     function moveSlide(direction) {
         const track = document.getElementById('carouselTrack');
         if (!track) return;
+
         const slides = Array.from(track.children);
-        
+
         currentIndex += direction;
+
         if (currentIndex >= slides.length) {
             currentIndex = 0;
         } else if (currentIndex < 0) {
             currentIndex = slides.length - 1;
         }
-        
+
         updateCarousel();
     }
 
@@ -164,13 +189,17 @@
     function updateCarousel() {
         const track = document.getElementById('carouselTrack');
         if (!track) return;
+
         const slides = Array.from(track.children);
         if (slides.length === 0) return;
-        
+
         const slideWidth = slides[0].getBoundingClientRect().width;
-        track.style.transform = 'translateX(-' + (currentIndex * slideWidth) + 'px)';
-        
+
+        track.style.transform =
+            'translateX(-' + (currentIndex * slideWidth) + 'px)';
+
         const dots = document.querySelectorAll('.carousel-dot');
+
         dots.forEach((dot, idx) => {
             if (idx === currentIndex) {
                 dot.classList.add('active');
@@ -181,6 +210,7 @@
 
         // Update Thumbnails Active State
         const thumbs = document.querySelectorAll('.thumb-item');
+
         thumbs.forEach((thumb, idx) => {
             if (idx === currentIndex) {
                 thumb.classList.add('active');

@@ -7,68 +7,45 @@ use App\Http\Middleware\CheckRole;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
+        // File yang berisi semua route website
         web: __DIR__.'/../routes/web.php',
+
+        // File untuk command Artisan
         commands: __DIR__.'/../routes/console.php',
+
+        // URL untuk pengecekan kesehatan aplikasi
         health: '/up',
     )
+
+    // Pengaturan middleware aplikasi
     ->withMiddleware(function (Middleware $middleware) {
 
+        // Membuat middleware "role"
+        // supaya di routes/web.php kita bisa menggunakan:
+        // middleware(['auth', 'role:pembeli'])
         $middleware->alias([
             'role' => CheckRole::class,
         ]);
 
+        // Kalau user belum login dan mencoba membuka
+        // halaman yang membutuhkan login,
+        // arahkan ke halaman login bersama.
+        //
+        // URL halaman sebelumnya disimpan sebagai "back"
+        // supaya tombol Kembali di halaman login
+        // bisa mengembalikan user ke halaman tersebut.
         $middleware->redirectGuestsTo(function ($request) {
-
-            // Route admin_jurusan dan admin_produser sudah punya prefix sendiri,
-            // jadi aman dicek dengan wildcard.
-            if (
-                $request->is('jurusan-admin/*') ||
-                $request->is('produser/*')
-            ) {
-                return route('admin.login');
-            }
-
-            // Route pembeli yang namanya mirip route admin_tefa
-            // (misal 'profil-pembeli' vs 'profil') harus dicek
-            // LEBIH DULU supaya tidak salah dianggap halaman admin.
-            $rutePembeliMiripAdmin = [
-                'profil-pembeli',
-                'riwayat-pesanan',
-                'riwayat-pesanan/*',
-            ];
-
-            foreach ($rutePembeliMiripAdmin as $ruteMirip) {
-                if ($request->is($ruteMirip)) {
-                    return route('pembeli.login');
-                }
-            }
-
-            // Route admin_tefa TIDAK punya prefix seragam (contoh: /dashboard,
-            // /pesanan, /akun, /profil, /tefa/*), jadi daftar rutenya
-            // dicek satu per satu supaya tidak ada yang kelewat.
-            $ruteAdminTefa = [
-                'admin',
-                'admin/*',
-                'dashboard',
-                'pesanan',
-                'pesanan/*',
-                'akun',
-                'akun/*',
-                'profil',
-                'tefa/*',
-            ];
-
-            foreach ($ruteAdminTefa as $ruteAdmin) {
-                if ($request->is($ruteAdmin)) {
-                    return route('admin.login');
-                }
-            }
-
-            return route('pembeli.login');
+            return route('login', [
+                'back' => $request->getRequestUri(),
+            ]);
         });
 
     })
+
+    // Pengaturan error/exception aplikasi
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })
+
+    // Membuat dan menjalankan aplikasi
     ->create();

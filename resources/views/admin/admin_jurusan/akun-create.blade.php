@@ -4,354 +4,527 @@
 
 @section('content')
 
-<style>
-    /* Styling khusus Halaman Tambah Akun */
-    .create-wrapper {
-        padding: 16px 24px;
-        max-width: 650px;
-        margin: 24px auto; /* Membuat posisi tepat di tengah */
-    }
-    .back-link {
-        text-decoration: none;
-        color: var(--primary, #3B698F);
-        font-size: 14px;
-        font-weight: 500;
-        display: inline-flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    .back-link:hover {
-        text-decoration: underline;
-    }
-    .page-title {
-        font-size: 22px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0 0 24px 0;
-    }
-    .alert-custom {
-        padding: 14px 20px;
-        border-radius: 8px;
-        margin-bottom: 24px;
-        font-size: 14px;
-        background: #fee2e2;
-        color: #991b1b;
-        border: 1px solid #fecaca;
-    }
+<div class="jurusan-akun-create-container">
 
-    /* Card Box */
-    .create-card {
-        background: #fff;
-        border-radius: 12px;
-        padding: 32px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        border: 1px solid #e2e8f0;
-    }
+    {{-- Tombol kembali --}}
+    <a
+        href="/jurusan-admin/akun"
+        class="jurusan-akun-back"
+    >
+        &larr; Kembali ke Daftar Akun
+    </a>
 
-    .form-group-custom {
-        margin-bottom: 20px;
-    }
-    .form-label-custom {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        color: #475569;
-        font-size: 14px;
-    }
-    .required-star {
-        color: #ef4444;
-    }
-    .form-control-custom {
-        width: 100%;
-        padding: 10px 14px;
-        border: 1px solid #cbd5e1;
-        border-radius: 8px;
-        font-size: 14px;
-        box-sizing: border-box;
-        background-color: #fff;
-        color: #0f172a;
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-control-custom:focus {
-        outline: none;
-        border-color: var(--primary, #3B698F);
-        box-shadow: 0 0 0 3px rgba(59, 105, 143, 0.15);
-    }
-    .form-control-custom[readonly] {
-        background-color: #f8fafc;
-        color: #64748b;
-        cursor: not-allowed;
-    }
 
-    /* Toggle Password dengan Ikon SVG */
-    .password-wrapper {
-        position: relative;
-    }
-    .password-wrapper .form-control-custom {
-        padding-right: 42px; /* Ruang untuk tombol mata */
-    }
-    .toggle-password-btn {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        padding: 4px;
-        cursor: pointer;
-        color: #94a3b8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: color 0.2s;
-        border-radius: 4px;
-    }
-    .toggle-password-btn:hover {
-        color: var(--primary, #3B698F);
-    }
+    <h2 class="jurusan-akun-create-title">
+        Tambah Akun Baru
+    </h2>
 
-    /* Checkbox Card Options */
-    .checkbox-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 8px;
-    }
-    .checkbox-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 16px;
-        border: 1px solid #cbd5e1;
-        border-radius: 8px;
-        cursor: pointer;
-        background: #fff;
-        font-size: 14px;
-        font-weight: 500;
-        color: #334155;
-        transition: all 0.2s ease;
-        user-select: none;
-    }
-    .checkbox-item:hover {
-        border-color: var(--primary, #3B698F);
-        background-color: #f0f7ff;
-    }
-    .checkbox-item input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
-        accent-color: var(--primary, #3B698F);
-        cursor: pointer;
-        margin: 0;
-    }
-    .checkbox-item:has(input[type="checkbox"]:checked) {
-        border-color: var(--primary, #3B698F);
-        background-color: #eff6ff;
-        color: var(--primary, #3B698F);
-    }
 
-    .help-text {
-        color: #64748b;
-        font-size: 13px;
-        margin-top: 8px;
-    }
+    <div class="jurusan-akun-form-card">
 
-    /* Tombol Aksi */
-    .form-actions {
-        display: flex;
-        gap: 12px;
-        margin-top: 32px;
-        padding-top: 20px;
-        border-top: 1px solid #f1f5f9;
-    }
-    .btn-custom {
-        flex: 1;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        border: 1px solid transparent;
-        transition: 0.2s;
-    }
-    .btn-primary-custom {
-        background: var(--primary, #3B698F);
-        color: #fff;
-    }
-    .btn-primary-custom:hover {
-        background: #2c5273;
-    }
-    .btn-outline-custom {
-        background: #fff;
-        color: #64748b;
-        border-color: #cbd5e1;
-    }
-    .btn-outline-custom:hover {
-        background: #f8fafc;
-        color: #334155;
-    }
-</style>
+        {{-- Pesan error validasi --}}
+        @if($errors->any())
 
-<div class="create-wrapper">
-    <a href="/jurusan-admin/akun" class="back-link">← Kembali</a>
+            <div class="jurusan-akun-error">
 
-    <h2 class="page-title">Tambah Akun</h2>
+                <ul>
 
-    <div class="create-card">
+                    @foreach($errors->all() as $error)
 
-        @if ($errors->any())
-            <div class="alert-custom">
-                <ul style="margin: 0; padding-left: 20px;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <li>
+                            {{ $error }}
+                        </li>
+
                     @endforeach
+
                 </ul>
+
             </div>
+
         @endif
 
-        <form action="{{ route('jurusan.akun.store') }}" method="POST">
+
+        <form
+            action="{{ route('jurusan.akun.store') }}"
+            method="POST"
+        >
+
             @csrf
 
-            <!-- NAMA PENGGUNA -->
-            <div class="form-group-custom">
-                <label class="form-label-custom" for="nama">
-                    Nama Pengguna <span class="required-star">*</span>
+
+            {{-- NAMA PENGGUNA --}}
+            <div class="jurusan-akun-form-group">
+
+                <label
+                    for="nama"
+                    class="jurusan-akun-form-label"
+                >
+                    Nama Pengguna
                 </label>
+
                 <input
                     type="text"
                     id="nama"
                     name="nama"
-                    class="form-control-custom"
+                    class="jurusan-akun-form-control"
                     placeholder="Masukkan nama lengkap"
                     value="{{ old('nama') }}"
                     required
                 >
+
             </div>
 
-            <!-- EMAIL -->
-            <div class="form-group-custom">
-                <label class="form-label-custom" for="email">
-                    Email <span class="required-star">*</span>
+
+            {{-- EMAIL --}}
+            <div class="jurusan-akun-form-group">
+
+                <label
+                    for="email"
+                    class="jurusan-akun-form-label"
+                >
+                    Email
                 </label>
+
                 <input
                     type="email"
                     id="email"
                     name="email"
-                    class="form-control-custom"
+                    class="jurusan-akun-form-control"
                     placeholder="Masukkan email"
                     value="{{ old('email') }}"
                     required
                 >
+
             </div>
 
-            <!-- KATA SANDI -->
-            <div class="form-group-custom">
-                <label class="form-label-custom" for="password">
-                    Kata sandi <span class="required-star">*</span>
+
+            {{-- KATA SANDI --}}
+            <div class="jurusan-akun-form-group">
+
+                <label
+                    for="password"
+                    class="jurusan-akun-form-label"
+                >
+                    Kata Sandi
                 </label>
-                <div class="password-wrapper">
+
+
+                <div class="jurusan-akun-password-wrapper">
+
                     <input
                         type="password"
                         name="password"
                         id="password"
-                        class="form-control-custom"
-                        placeholder="Buat Kata sandi"
+                        class="jurusan-akun-form-control"
+                        placeholder="Buat Kata Sandi"
+                        minlength="6"
                         required
                     >
-                    <button type="button" id="togglePassBtn" class="toggle-password-btn" title="Lihat Kata Sandi">
-                        <!-- Ikon Mata Terbuka (Default) -->
-                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+
+                    <button
+                        type="button"
+                        id="togglePassBtn"
+                        class="jurusan-akun-toggle-password"
+                        title="Lihat Kata Sandi"
+                    >
+
+                        {{-- Mata terbuka --}}
+                        <svg
+                            id="eyeIcon"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                             <circle cx="12" cy="12" r="3"></circle>
                         </svg>
-                        <!-- Ikon Mata Tertutup / Coret -->
-                        <svg id="eyeOffIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+
+
+                        {{-- Mata tertutup --}}
+                        <svg
+                            id="eyeOffIcon"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            style="display:none;"
+                        >
                             <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
                             <line x1="1" y1="1" x2="23" y2="23"></line>
                         </svg>
+
                     </button>
+
                 </div>
+
             </div>
 
-            <!-- ROLE -->
-            <div class="form-group-custom">
-                <label class="form-label-custom">Role</label>
+
+            {{-- ROLE --}}
+            <div class="jurusan-akun-form-group">
+
+                <label
+                    for="role"
+                    class="jurusan-akun-form-label"
+                >
+                    Role
+                </label>
+
+
                 <input
                     type="text"
-                    class="form-control-custom"
+                    id="role"
+                    class="jurusan-akun-form-control"
                     value="Admin Produser"
                     readonly
                 >
+
             </div>
 
-            <!-- PRODUK/JASA TANGGUNG JAWAB -->
-            <div class="form-group-custom">
-                <label class="form-label-custom">
-                    Produk/Jasa Tanggung Jawab <span class="required-star">*</span>
+
+            {{-- PRODUK / JASA TANGGUNG JAWAB --}}
+            <div class="jurusan-akun-form-group">
+
+                <label class="jurusan-akun-form-label">
+                    Produk/Jasa Tanggung Jawab
                 </label>
 
-                <div class="checkbox-grid">
+
+                <div class="jurusan-akun-checkbox-grid">
+
                     @forelse ($produkJasas as $produkJasa)
-                        <label class="checkbox-item">
+
+                        <label class="jurusan-akun-checkbox-item">
+
                             <input
                                 type="checkbox"
                                 name="layanan[]"
                                 value="{{ $produkJasa->id_produk_jasa }}"
                                 {{ is_array(old('layanan')) && in_array($produkJasa->id_produk_jasa, old('layanan')) ? 'checked' : '' }}
                             >
-                            <span>{{ $produkJasa->nama_produk_jasa }}</span>
+
+                            <span>
+                                {{ $produkJasa->nama_produk_jasa }}
+                            </span>
+
                         </label>
+
                     @empty
-                        <p class="help-text">
+
+                        <p class="jurusan-akun-help-text">
                             Belum ada produk atau jasa yang tersedia untuk jurusan Anda.
                         </p>
+
                     @endforelse
+
                 </div>
 
-                <div class="help-text">
+
+                <div class="jurusan-akun-help-text">
                     Pilih minimal satu produk/jasa yang menjadi tanggung jawab Admin Produser.
                 </div>
+
             </div>
 
-            <!-- TOMBOL AKSI -->
-            <div class="form-actions">
-                <button type="reset" class="btn-custom btn-outline-custom">
-                    Reset
-                </button>
-                <button type="submit" class="btn-custom btn-primary-custom">
+
+            {{-- TOMBOL --}}
+            <div class="jurusan-akun-form-actions">
+
+                <button
+                    type="submit"
+                    class="jurusan-akun-btn-primary"
+                >
                     Tambah Akun
                 </button>
+
+
+                <a
+                    href="/jurusan-admin/akun"
+                    class="jurusan-akun-btn-secondary"
+                >
+                    Batal
+                </a>
+
             </div>
 
         </form>
 
     </div>
+
 </div>
 
 @endsection
 
+
+
 @section('scripts')
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
+    const formTambahAkun = document.getElementById('formTambahAkun');
+
+    const namaInput = document.getElementById('nama');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
     const toggleBtn = document.getElementById('togglePassBtn');
-    const passInput = document.getElementById('password');
     const eyeIcon = document.getElementById('eyeIcon');
     const eyeOffIcon = document.getElementById('eyeOffIcon');
 
-    if (toggleBtn && passInput) {
+    const layananCheckboxes =
+        document.querySelectorAll('input[name="layanan[]"]');
+
+
+    // =========================================================
+    // TOGGLE PASSWORD
+    // =========================================================
+
+    if (toggleBtn && passwordInput) {
+
         toggleBtn.addEventListener('click', function () {
-            if (passInput.type === 'password') {
-                passInput.type = 'text';
-                eyeIcon.style.display = 'none';
-                eyeOffIcon.style.display = 'block';
+
+            if (passwordInput.type === 'password') {
+
+                passwordInput.type = 'text';
+
+                if (eyeIcon) {
+                    eyeIcon.style.display = 'none';
+                }
+
+                if (eyeOffIcon) {
+                    eyeOffIcon.style.display = 'block';
+                }
+
             } else {
-                passInput.type = 'password';
-                eyeIcon.style.display = 'block';
-                eyeOffIcon.style.display = 'none';
+
+                passwordInput.type = 'password';
+
+                if (eyeIcon) {
+                    eyeIcon.style.display = 'block';
+                }
+
+                if (eyeOffIcon) {
+                    eyeOffIcon.style.display = 'none';
+                }
+
             }
+
         });
+
     }
+
+
+    // =========================================================
+    // NAMA
+    // Sama seperti Admin TEFA
+    // =========================================================
+
+    if (namaInput) {
+
+        namaInput.addEventListener('invalid', function () {
+
+            if (this.validity.valueMissing) {
+
+                this.setCustomValidity(
+                    'Nama pengguna wajib diisi.'
+                );
+
+            } else {
+
+                this.setCustomValidity('');
+
+            }
+
+        });
+
+        namaInput.addEventListener('input', function () {
+
+            this.setCustomValidity('');
+
+        });
+
+    }
+
+
+    // =========================================================
+    // EMAIL
+    // Sama seperti Admin TEFA
+    // =========================================================
+
+    if (emailInput) {
+
+        function validateEmail() {
+
+            const value = emailInput.value.trim();
+
+            if (value === '') {
+
+                emailInput.setCustomValidity(
+                    'Email wajib diisi.'
+                );
+
+                return;
+
+            }
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(value)) {
+
+                emailInput.setCustomValidity(
+                    'Silakan masukkan alamat email yang valid. Contoh: nama@email.com.'
+                );
+
+                return;
+
+            }
+
+            emailInput.setCustomValidity('');
+
+        }
+
+
+        emailInput.addEventListener('invalid', function () {
+
+            validateEmail();
+
+        });
+
+
+        emailInput.addEventListener('input', function () {
+
+            validateEmail();
+
+        });
+
+    }
+
+
+    // =========================================================
+    // PASSWORD
+    // Sama seperti Admin TEFA
+    // =========================================================
+
+    if (passwordInput) {
+
+        passwordInput.addEventListener('invalid', function () {
+
+            if (this.validity.valueMissing) {
+
+                this.setCustomValidity(
+                    'Password wajib diisi.'
+                );
+
+            } else if (this.validity.tooShort) {
+
+                this.setCustomValidity(
+                    'Password harus memiliki minimal 6 karakter.'
+                );
+
+            } else {
+
+                this.setCustomValidity('');
+
+            }
+
+        });
+
+
+        passwordInput.addEventListener('input', function () {
+
+            if (this.value.length === 0) {
+
+                this.setCustomValidity(
+                    'Password wajib diisi.'
+                );
+
+            } else if (this.value.length < 6) {
+
+                this.setCustomValidity(
+                    'Password harus memiliki minimal 6 karakter.'
+                );
+
+            } else {
+
+                this.setCustomValidity('');
+
+            }
+
+        });
+
+    }
+
+
+    // =========================================================
+    // PRODUK / JASA
+    // Minimal 1 harus dipilih
+    // =========================================================
+
+    if (formTambahAkun && layananCheckboxes.length > 0) {
+
+        formTambahAkun.addEventListener('submit', function (event) {
+
+            const jumlahDipilih =
+                document.querySelectorAll(
+                    'input[name="layanan[]"]:checked'
+                ).length;
+
+            if (jumlahDipilih === 0) {
+
+                event.preventDefault();
+
+                layananCheckboxes[0].setCustomValidity(
+                    'Pilih minimal satu produk/jasa yang menjadi tanggung jawab Admin Produser.'
+                );
+
+                layananCheckboxes[0].reportValidity();
+
+            } else {
+
+                layananCheckboxes[0].setCustomValidity('');
+
+            }
+
+        });
+
+
+        layananCheckboxes.forEach(function (checkbox) {
+
+            checkbox.addEventListener('change', function () {
+
+                const jumlahDipilih =
+                    document.querySelectorAll(
+                        'input[name="layanan[]"]:checked'
+                    ).length;
+
+                if (jumlahDipilih > 0) {
+
+                    layananCheckboxes[0].setCustomValidity('');
+
+                }
+
+            });
+
+        });
+
+    }
+
 });
 </script>
+
+
 @endsection

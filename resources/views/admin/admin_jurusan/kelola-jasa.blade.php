@@ -22,7 +22,7 @@
         <button
             onclick="openLayananModal('modalAdd')"
             class="btn-primary"
-            style="width: auto; background-color: #3B698F;"
+            style="width: auto; background-color: #1E3A8A;"
         >
             + Tambah Jasa
         </button>
@@ -76,6 +76,17 @@
                 placeholder="Contoh: Rp 500.000"
                 required
             >
+            <label for="formUnit" class="detail-label">
+          Satuan Harga <span style="color:#94A3B8;">(Opsional)</span>
+           </label>
+
+           <input
+          type="text"
+          id="formUnit"
+          class="form-control"
+          placeholder="Contoh: pcs, meter, titik"
+          maxlength="50"
+          >
 
             <label for="formImg" class="detail-label">
                 Upload Gambar Jasa
@@ -116,7 +127,7 @@
                 <button
                     type="submit"
                     class="btn-primary"
-                    style="width: auto; background-color: #3B698F;"
+                    style="width: auto; background-color: #1E3A8A;"
                 >
                     Simpan
                 </button>

@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.app')
 
 @section('title', 'Profil Saya')
@@ -26,58 +27,55 @@
     <!-- Detail Profil -->
     <div class="profile-details">
 
-        <div class="detail-section">
+        <!-- Nama Lengkap -->
+        <div
+            class="detail-section"
+            style="border-bottom: 1px solid #f5f5f5; padding-bottom: 16px; margin-bottom: 16px;"
+        >
             <div class="detail-label">
                 Nama Lengkap
             </div>
 
-            <div class="detail-value">
+            <div class="detail-value" style="font-weight: 500;">
                 {{ Auth::user()->nama }}
             </div>
         </div>
 
-
-        <div class="detail-section">
+        <!-- Email -->
+        <div
+            class="detail-section"
+            style="border-bottom: 1px solid #f5f5f5; padding-bottom: 16px; margin-bottom: 16px;"
+        >
             <div class="detail-label">
                 Email
             </div>
 
-            <div class="detail-value">
+            <div class="detail-value" style="font-weight: 500;">
                 {{ Auth::user()->email }}
             </div>
         </div>
 
-
+        <!-- Role Akses -->
         <div class="detail-section">
             <div class="detail-label">
                 Role Akses
             </div>
 
-            <div class="detail-value">
+            <div class="detail-value" style="font-weight: 500;">
                 Admin TEFA
             </div>
         </div>
 
     </div>
 
-
     <!-- Logout -->
-    <form
-        action="{{ route('admin.logout') }}"
-        method="POST"
-        style="margin: 0;"
+    <button
+        type="button"
+        class="btn-outline btn-logout"
+        onclick="openLogoutModal()"
     >
-
-        @csrf
-
-        <button
-            type="submit"
-            class="btn-outline btn-logout"
-        >
-            Logout dari Sistem
-        </button>
-
-    </form>
+        Logout
+    </button>
 
 </div>
 

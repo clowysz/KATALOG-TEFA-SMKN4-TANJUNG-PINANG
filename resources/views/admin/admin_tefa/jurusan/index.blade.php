@@ -77,27 +77,27 @@
     }
 
     .theme-animasi {
-        border-top: 4px solid #334155;
+        border-top: 4px solid #024cb4;
     }
 
     .theme-animasi .j-stat-num {
-        color: #334155;
+        color: #024cb4;
     }
 
     .theme-gim {
-        border-top: 4px solid #2563eb;
+        border-top: 4px solid #7fbfff;
     }
 
     .theme-gim .j-stat-num {
-        color: #2563eb;
+        color: #7fbfff;
     }
 
     .theme-pspt {
-        border-top: 4px solid #ca8a04;
+        border-top: 4px solid #c5c528;
     }
 
     .theme-pspt .j-stat-num {
-        color: #ca8a04;
+        color: #c5c528;
     }
 
     .empty-jurusan {

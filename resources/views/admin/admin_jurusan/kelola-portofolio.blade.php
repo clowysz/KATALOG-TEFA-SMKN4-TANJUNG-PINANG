@@ -22,7 +22,7 @@
             type="button"
             onclick="openTambahPortoModal()"
             class="btn-primary"
-            style="width: auto; background-color: #3B698F;"
+            style="width: auto; background-color: #1E3A8A;"
         >
             + Tambah Portofolio
         </button>
@@ -125,7 +125,7 @@
                 <button
                     type="submit"
                     class="btn-primary"
-                    style="width: auto; background-color: #3B698F;"
+                    style="width: auto; background-color: #1E3A8A;"
                 >
                     Simpan
                 </button>
