@@ -183,126 +183,206 @@
 <script>
     window.uploadedFiles = [];
 
-    const portoImg = document.getElementById('portoImg');
+    document.addEventListener('DOMContentLoaded', function () {
 
-    portoImg.addEventListener('change', function(event) {
-        const files = event.target.files;
+        // =========================================================
+        // DEKLARASI ELEMEN (harus paling atas)
+        // =========================================================
+        const formPorto        = document.getElementById('formPorto');
+        const portoId          = document.getElementById('portoId');
+        const portoTitle       = document.getElementById('portoTitle');
+        const portoDesc        = document.getElementById('portoDesc');
+        const portoYear        = document.getElementById('portoYear');
+        const portoImg         = document.getElementById('portoImg');
+        const previewContainer = document.getElementById('imagePreviewContainer');
 
-        if (files.length > 0) {
-            Array.from(files).forEach(file => {
-                window.uploadedFiles.push(file);
+
+        // =========================================================
+        // VALIDASI FORM PORTOFOLIO - BAHASA INDONESIA
+        // =========================================================
+
+        // Helper: pasang pesan custom untuk field required
+        function setIndonesianValidation(element, message) {
+            if (!element) {
+                return;
+            }
+
+            element.addEventListener('invalid', function () {
+                if (this.validity.valueMissing) {
+                    this.setCustomValidity(message);
+                } else {
+                    this.setCustomValidity('');
+                }
             });
 
-            updateFileInput();
-            renderPreviews();
+            element.addEventListener('input', function () {
+                this.setCustomValidity('');
+            });
         }
-    });
 
-    function updateFileInput() {
-        const dataTransfer = new DataTransfer();
+        setIndonesianValidation(portoTitle, 'Judul portofolio wajib diisi.');
+        setIndonesianValidation(portoDesc,  'Deskripsi singkat wajib diisi.');
+        setIndonesianValidation(portoYear,  'Tahun / periode wajib diisi.');
 
-        window.uploadedFiles.forEach(file => {
-            dataTransfer.items.add(file);
+        // kelola-portofolio.js memasang atribut "required" pada input gambar saat mode tambah,
+        // jadi validasi bawaan browser yang jalan duluan. Pesannya diganti di sini.
+        setIndonesianValidation(portoImg, 'Minimal satu gambar wajib diunggah.');
+
+        // Cek manual: gambar wajib hanya di mode tambah (portoId kosong)
+        if (formPorto && portoImg) {
+            formPorto.addEventListener('submit', function (event) {
+
+                const isAddMode = !portoId || portoId.value === '';
+
+                if (isAddMode && window.uploadedFiles.length === 0) {
+                    event.preventDefault();
+
+                    portoImg.setCustomValidity(
+                        'Minimal satu gambar wajib diunggah.'
+                    );
+
+                    portoImg.reportValidity();
+                } else {
+                    portoImg.setCustomValidity('');
+                }
+            });
+        }
+
+
+        // =========================================================
+        // UPLOAD & PREVIEW GAMBAR
+        // =========================================================
+        if (!portoImg) {
+            return;
+        }
+
+        portoImg.addEventListener('change', function (event) {
+
+            // Hapus pesan validasi setelah gambar dipilih
+            this.setCustomValidity('');
+
+            const files = event.target.files;
+
+            if (files.length > 0) {
+                Array.from(files).forEach(file => {
+                    window.uploadedFiles.push(file);
+                });
+
+                updateFileInput();
+                renderPreviews();
+            }
         });
 
-        document.getElementById('portoImg').files = dataTransfer.files;
-    }
+        function updateFileInput() {
+            const dataTransfer = new DataTransfer();
 
-    function renderPreviews() {
-        const previewContainer =
-            document.getElementById('imagePreviewContainer');
+            window.uploadedFiles.forEach(file => {
+                dataTransfer.items.add(file);
+            });
 
-        previewContainer.innerHTML = '';
+            portoImg.files = dataTransfer.files;
+        }
 
-        window.uploadedFiles.forEach((file, index) => {
-            const reader = new FileReader();
+        function renderPreviews() {
 
-            reader.onload = function(e) {
+            if (!previewContainer) {
+                return;
+            }
 
-                const wrapper = document.createElement('div');
+            previewContainer.innerHTML = '';
 
-                wrapper.style.position = 'relative';
-                wrapper.style.display = 'inline-block';
+            window.uploadedFiles.forEach((file, index) => {
+                const reader = new FileReader();
 
-                const img = document.createElement('img');
+                reader.onload = function (e) {
 
-                img.src = e.target.result;
-                img.style.width = '70px';
-                img.style.height = '70px';
-                img.style.objectFit = 'cover';
-                img.style.borderRadius = '8px';
-                img.style.border = '1px solid #CBD5E1';
-                img.style.boxShadow =
-                    '0 2px 4px rgba(0,0,0,0.05)';
+                    const wrapper = document.createElement('div');
 
-                const removeBtn =
-    document.createElement('span');
+                    wrapper.style.position = 'relative';
+                    wrapper.style.display = 'inline-block';
 
-removeBtn.innerHTML = '<i class="ph ph-x"></i>';
-removeBtn.style.position = 'absolute';
-                removeBtn.style.top = '-6px';
-                removeBtn.style.right = '-6px';
-                removeBtn.style.background = '#dc2626';
-                removeBtn.style.color = '#ffffff';
-                removeBtn.style.borderRadius = '50%';
-                removeBtn.style.width = '20px';
-                removeBtn.style.height = '20px';
-                removeBtn.style.fontSize = '10px';
-                removeBtn.style.fontWeight = 'bold';
-                removeBtn.style.display = 'flex';
-                removeBtn.style.alignItems = 'center';
-                removeBtn.style.justifyContent = 'center';
-                removeBtn.style.cursor = 'pointer';
-                removeBtn.style.boxShadow =
-                    '0 2px 4px rgba(0,0,0,0.2)';
+                    const img = document.createElement('img');
 
-                removeBtn.onclick = function() {
+                    img.src = e.target.result;
+                    img.style.width = '70px';
+                    img.style.height = '70px';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = '8px';
+                    img.style.border = '1px solid #CBD5E1';
+                    img.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
 
-                    window.uploadedFiles.splice(index, 1);
+                    const removeBtn = document.createElement('span');
 
-                    updateFileInput();
-                    renderPreviews();
+                    removeBtn.innerHTML = '<i class="ph ph-x"></i>';
+                    removeBtn.style.position = 'absolute';
+                    removeBtn.style.top = '-6px';
+                    removeBtn.style.right = '-6px';
+                    removeBtn.style.background = '#dc2626';
+                    removeBtn.style.color = '#ffffff';
+                    removeBtn.style.borderRadius = '50%';
+                    removeBtn.style.width = '20px';
+                    removeBtn.style.height = '20px';
+                    removeBtn.style.fontSize = '10px';
+                    removeBtn.style.fontWeight = 'bold';
+                    removeBtn.style.display = 'flex';
+                    removeBtn.style.alignItems = 'center';
+                    removeBtn.style.justifyContent = 'center';
+                    removeBtn.style.cursor = 'pointer';
+                    removeBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+
+                    removeBtn.onclick = function () {
+
+                        window.uploadedFiles.splice(index, 1);
+
+                        updateFileInput();
+                        renderPreviews();
+                    };
+
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(removeBtn);
+
+                    previewContainer.appendChild(wrapper);
                 };
 
-                wrapper.appendChild(img);
-                wrapper.appendChild(removeBtn);
-
-                previewContainer.appendChild(wrapper);
-            };
-
-            reader.readAsDataURL(file);
-        });
-    }
-
-    const originalClosePortoModal =
-        window.closePortoModal;
-
-    window.closePortoModal = function(modalId) {
-
-        if (modalId === 'modalAddPorto') {
-
-            window.uploadedFiles = [];
-
-            document.getElementById(
-                'imagePreviewContainer'
-            ).innerHTML = '';
-
-            document.getElementById(
-                'portoImg'
-            ).value = '';
+                reader.readAsDataURL(file);
+            });
         }
 
-        if (typeof originalClosePortoModal === 'function') {
 
-            originalClosePortoModal(modalId);
+        // =========================================================
+        // RESET UPLOAD SAAT MODAL DITUTUP
+        // =========================================================
+        const originalClosePortoModal = window.closePortoModal;
 
-        } else {
+        window.closePortoModal = function (modalId) {
 
-            document.getElementById(
-                modalId
-            ).style.display = 'none';
-        }
-    };
+            if (modalId === 'modalAddPorto') {
+
+                window.uploadedFiles = [];
+
+                if (previewContainer) {
+                    previewContainer.innerHTML = '';
+                }
+
+                portoImg.value = '';
+                portoImg.setCustomValidity('');
+            }
+
+            if (typeof originalClosePortoModal === 'function') {
+
+                originalClosePortoModal(modalId);
+
+            } else {
+
+                const modal = document.getElementById(modalId);
+
+                if (modal) {
+                    modal.classList.remove('active');
+                }
+            }
+        };
+
+    });
 </script>
 
 @endsection

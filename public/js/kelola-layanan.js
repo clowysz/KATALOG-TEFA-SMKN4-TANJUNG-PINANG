@@ -293,6 +293,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 document.getElementById("formPrice").value = item.harga;
 
+                const formUnit = document.getElementById("formUnit");
+                if (formUnit) formUnit.value = item.satuan_harga || "";
+
                 if (formImg) {
                     formImg.removeAttribute("required");
                     formImg.value = "";

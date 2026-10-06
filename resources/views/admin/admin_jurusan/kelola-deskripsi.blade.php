@@ -72,6 +72,7 @@
         id="formDeskripsi"
         action="{{ route('jurusan.updateDeskripsi') }}"
         method="POST"
+        novalidate
     >
         @csrf
 
@@ -141,6 +142,10 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
+    // =========================================================
+    // DEKLARASI ELEMEN
+    // =========================================================
+    const formDeskripsi = document.getElementById('formDeskripsi');
     const descText = document.getElementById('descText');
     const btnEdit = document.getElementById('btnEditDesc');
     const btnCancel = document.getElementById('btnCancelDesc');
@@ -148,9 +153,58 @@ document.addEventListener("DOMContentLoaded", function () {
     const actionButtons = document.getElementById('actionButtons');
     const saveButtons = document.getElementById('saveButtons');
 
+    if (!descText) {
+        return;
+    }
+
     let tempDesc = descText.value;
 
-    // Mode Edit
+
+    // =========================================================
+    // VALIDASI DESKRIPSI - BAHASA INDONESIA
+    // Catatan: textarea berstatus readonly di luar mode edit,
+    // jadi validasi hanya berjalan saat mode edit aktif.
+    // =========================================================
+
+    // Hapus pesan saat user mengetik
+    descText.addEventListener('input', function () {
+
+        this.setCustomValidity('');
+
+    });
+
+    // Cek manual saat submit (form memakai novalidate):
+    // menangkap kosong DAN hanya berisi spasi / enter
+    if (formDeskripsi) {
+
+        formDeskripsi.addEventListener('submit', function (event) {
+
+            if (descText.value.trim() === '') {
+
+                event.preventDefault();
+
+                descText.setCustomValidity(
+                    'Deskripsi jurusan wajib diisi.'
+                );
+
+                descText.reportValidity();
+
+                return;
+
+            }
+
+            // Rapikan spasi di awal & akhir sebelum dikirim
+            descText.value = descText.value.trim();
+            descText.setCustomValidity('');
+
+        });
+
+    }
+
+
+    // =========================================================
+    // MODE EDIT
+    // =========================================================
     btnEdit.addEventListener('click', function () {
 
         tempDesc = descText.value;
@@ -166,10 +220,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    // Batal Edit
+
+    // =========================================================
+    // BATAL EDIT
+    // =========================================================
     btnCancel.addEventListener('click', function () {
 
         descText.value = tempDesc;
+        descText.setCustomValidity('');
 
         descText.setAttribute('readonly', true);
         descText.style.backgroundColor = '#f8f9fa';

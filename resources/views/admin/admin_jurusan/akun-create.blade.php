@@ -45,9 +45,10 @@
 
 
         <form
-            action="{{ route('jurusan.akun.store') }}"
-            method="POST"
-        >
+    id="formTambahAkun"
+    action="{{ route('jurusan.akun.store') }}"
+    method="POST"
+>
 
             @csrf
 

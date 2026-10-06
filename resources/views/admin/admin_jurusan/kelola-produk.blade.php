@@ -78,17 +78,18 @@
                 placeholder="Contoh: Rp 1.500.000"
                 required
             >
-        <label for="formUnit" class="detail-label">
-    Satuan Harga <span style="color:#94A3B8;">(Opsional)</span>
-       </label>
 
-<input
-    type="text"
-    id="formUnit"
-    class="form-control"
-    placeholder="Contoh: pcs, meter, titik"
-    maxlength="50"
->
+            <label for="formUnit" class="detail-label">
+                Satuan Harga <span style="color:#94A3B8;">(Opsional)</span>
+            </label>
+
+            <input
+                type="text"
+                id="formUnit"
+                class="form-control"
+                placeholder="Contoh: pcs, meter, titik"
+                maxlength="50"
+            >
 
             <label class="detail-label">
                 Upload Gambar Produk
@@ -101,7 +102,6 @@
                 class="form-control"
                 accept="image/*"
                 multiple
-                required
                 style="padding: 10px; cursor: pointer; background: #F8FAFC;"
             >
 
@@ -195,14 +195,81 @@
 <script src="{{ asset('js/kelola-layanan.js') }}"></script>
 
 <script>
-    // File upload
+    // =========================================================
+    // DEKLARASI ELEMEN & STATE (harus paling atas)
+    // =========================================================
     window.uploadedFiles = [];
 
-    const formImg = document.getElementById('formImg');
+    const formLayanan      = document.getElementById('formLayanan');
+    const formId           = document.getElementById('formId');
+    const formName         = document.getElementById('formName');
+    const formDesc         = document.getElementById('formDesc');
+    const formPrice        = document.getElementById('formPrice');
+    const formImg          = document.getElementById('formImg');
     const previewContainer = document.getElementById('imagePreviewContainer');
 
+
+    // =========================================================
+    // VALIDASI FORM PRODUK - BAHASA INDONESIA
+    // =========================================================
+
+    // Helper: pasang pesan custom untuk field required
+    function setIndonesianValidation(element, message) {
+        if (!element) {
+            return;
+        }
+
+        element.addEventListener('invalid', function () {
+            if (this.validity.valueMissing) {
+                this.setCustomValidity(message);
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        element.addEventListener('input', function () {
+            this.setCustomValidity('');
+        });
+    }
+
+    setIndonesianValidation(formName,  'Nama produk wajib diisi.');
+    setIndonesianValidation(formDesc,  'Deskripsi produk wajib diisi.');
+    setIndonesianValidation(formPrice, 'Harga wajib diisi.');
+
+    // kelola-layanan.js memasang atribut "required" pada input gambar saat mode tambah,
+    // jadi validasi bawaan browser yang jalan duluan. Pesannya diganti di sini.
+    setIndonesianValidation(formImg, 'Minimal satu gambar wajib diunggah.');
+
+    // Validasi gambar (dicek manual karena file dikelola lewat uploadedFiles)
+    if (formLayanan) {
+        formLayanan.addEventListener('submit', function (event) {
+
+            // Mode tambah = formId kosong. Mode edit boleh tanpa gambar baru.
+            const isAddMode = !formId || formId.value === '';
+
+            if (isAddMode && window.uploadedFiles.length === 0) {
+                event.preventDefault();
+
+                formImg.setCustomValidity(
+                    'Minimal satu gambar produk wajib diunggah.'
+                );
+
+                formImg.reportValidity();
+            } else {
+                formImg.setCustomValidity('');
+            }
+        });
+    }
+
+
+    // =========================================================
+    // UPLOAD & PREVIEW GAMBAR
+    // =========================================================
     if (formImg) {
         formImg.addEventListener('change', function (event) {
+
+            // Hapus pesan validasi setelah gambar dipilih
+            this.setCustomValidity('');
 
             const files = event.target.files;
 
@@ -220,7 +287,7 @@
     }
 
 
-    // Sinkronkan input file
+    // Sinkronkan input file dengan uploadedFiles
     function updateFileInput() {
 
         if (!formImg) {
@@ -310,7 +377,9 @@
     }
 
 
-    // Reset upload
+    // =========================================================
+    // RESET UPLOAD SAAT MODAL DITUTUP
+    // =========================================================
     const originalCloseModal = window.closeLayananModal;
 
     window.closeLayananModal = function (modalId) {
@@ -325,6 +394,7 @@
 
             if (formImg) {
                 formImg.value = '';
+                formImg.setCustomValidity('');
             }
         }
 

@@ -76,17 +76,18 @@
                 placeholder="Contoh: Rp 500.000"
                 required
             >
-            <label for="formUnit" class="detail-label">
-          Satuan Harga <span style="color:#94A3B8;">(Opsional)</span>
-           </label>
 
-           <input
-          type="text"
-          id="formUnit"
-          class="form-control"
-          placeholder="Contoh: pcs, meter, titik"
-          maxlength="50"
-          >
+            <label for="formUnit" class="detail-label">
+                Satuan Harga <span style="color:#94A3B8;">(Opsional)</span>
+            </label>
+
+            <input
+                type="text"
+                id="formUnit"
+                class="form-control"
+                placeholder="Contoh: pcs, meter, titik"
+                maxlength="50"
+            >
 
             <label for="formImg" class="detail-label">
                 Upload Gambar Jasa
@@ -192,12 +193,79 @@ window.uploadedFiles = [];
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    const formImg = document.getElementById('formImg');
+    // =========================================================
+    // DEKLARASI ELEMEN (harus paling atas)
+    // =========================================================
+    const formLayanan      = document.getElementById('formLayanan');
+    const formId           = document.getElementById('formId');
+    const formName         = document.getElementById('formName');
+    const formDesc         = document.getElementById('formDesc');
+    const formPrice        = document.getElementById('formPrice');
+    const formImg          = document.getElementById('formImg');
     const previewContainer = document.getElementById('imagePreviewContainer');
 
+
+    // =========================================================
+    // VALIDASI FORM JASA - BAHASA INDONESIA
+    // =========================================================
+
+    // Helper: pasang pesan custom untuk field required
+    function setIndonesianValidation(element, message) {
+        if (!element) {
+            return;
+        }
+
+        element.addEventListener('invalid', function () {
+            if (this.validity.valueMissing) {
+                this.setCustomValidity(message);
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        element.addEventListener('input', function () {
+            this.setCustomValidity('');
+        });
+    }
+
+    setIndonesianValidation(formName,  'Nama jasa wajib diisi.');
+    setIndonesianValidation(formDesc,  'Deskripsi jasa wajib diisi.');
+    setIndonesianValidation(formPrice, 'Harga wajib diisi.');
+
+    // kelola-layanan.js memasang atribut "required" pada input gambar saat mode tambah,
+    // jadi validasi bawaan browser yang jalan duluan. Pesannya diganti di sini.
+    setIndonesianValidation(formImg, 'Minimal satu gambar wajib diunggah.');
+
+    // Cek manual: gambar wajib hanya di mode tambah (formId kosong)
+    if (formLayanan && formImg) {
+        formLayanan.addEventListener('submit', function (event) {
+
+            const isAddMode = !formId || formId.value === '';
+
+            if (isAddMode && window.uploadedFiles.length === 0) {
+                event.preventDefault();
+
+                formImg.setCustomValidity(
+                    'Minimal satu gambar wajib diunggah.'
+                );
+
+                formImg.reportValidity();
+            } else {
+                formImg.setCustomValidity('');
+            }
+        });
+    }
+
+
+    // =========================================================
+    // UPLOAD & PREVIEW GAMBAR
+    // =========================================================
     if (!formImg) return;
 
     formImg.addEventListener('change', function (event) {
+
+        // Hapus pesan validasi setelah gambar dipilih
+        this.setCustomValidity('');
 
         const files = event.target.files;
 
@@ -285,6 +353,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    // =========================================================
+    // RESET UPLOAD SAAT MODAL DITUTUP
+    // =========================================================
     const originalCloseModal = window.closeLayananModal;
 
     window.closeLayananModal = function (modalId) {
@@ -299,6 +371,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (formImg) {
                 formImg.value = '';
+                formImg.setCustomValidity('');
             }
         }
 

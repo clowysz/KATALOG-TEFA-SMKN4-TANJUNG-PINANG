@@ -295,7 +295,7 @@
     }
 
     @media (max-width: 768px) {
-        
+
         .edit-account-wrapper {
             padding: 15px;
         }
@@ -364,6 +364,7 @@
 
     {{-- FORM --}}
     <form
+        id="formEditAkun"
         action="{{ route('jurusan.akun.update') }}"
         method="POST"
     >
@@ -606,5 +607,165 @@
     </form>
 
 </div>
+
+@endsection
+
+
+
+@section('scripts')
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const formEditAkun = document.getElementById('formEditAkun');
+
+    const namaInput = document.getElementById('nama');
+    const emailInput = document.getElementById('email');
+
+    const layananCheckboxes =
+        document.querySelectorAll('input[name="layanan[]"]');
+
+
+    // =========================================================
+    // NAMA
+    // =========================================================
+
+    if (namaInput) {
+
+        namaInput.addEventListener('invalid', function () {
+
+            if (this.validity.valueMissing) {
+
+                this.setCustomValidity(
+                    'Nama pengguna wajib diisi.'
+                );
+
+            } else {
+
+                this.setCustomValidity('');
+
+            }
+
+        });
+
+        namaInput.addEventListener('input', function () {
+
+            this.setCustomValidity('');
+
+        });
+
+    }
+
+
+    // =========================================================
+    // EMAIL
+    // =========================================================
+
+    if (emailInput) {
+
+        function validateEmail() {
+
+            const value = emailInput.value.trim();
+
+            if (value === '') {
+
+                emailInput.setCustomValidity(
+                    'Email wajib diisi.'
+                );
+
+                return;
+
+            }
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(value)) {
+
+                emailInput.setCustomValidity(
+                    'Silakan masukkan alamat email yang valid. Contoh: nama@email.com.'
+                );
+
+                return;
+
+            }
+
+            emailInput.setCustomValidity('');
+
+        }
+
+
+        emailInput.addEventListener('invalid', function () {
+
+            validateEmail();
+
+        });
+
+
+        emailInput.addEventListener('input', function () {
+
+            validateEmail();
+
+        });
+
+    }
+
+
+    // =========================================================
+    // PRODUK / JASA
+    // Minimal 1 harus dipilih
+    // =========================================================
+
+    if (formEditAkun && layananCheckboxes.length > 0) {
+
+        formEditAkun.addEventListener('submit', function (event) {
+
+            const jumlahDipilih =
+                document.querySelectorAll(
+                    'input[name="layanan[]"]:checked'
+                ).length;
+
+            if (jumlahDipilih === 0) {
+
+                event.preventDefault();
+
+                layananCheckboxes[0].setCustomValidity(
+                    'Pilih minimal satu produk/jasa yang menjadi tanggung jawab Admin Produser.'
+                );
+
+                layananCheckboxes[0].reportValidity();
+
+            } else {
+
+                layananCheckboxes[0].setCustomValidity('');
+
+            }
+
+        });
+
+
+        layananCheckboxes.forEach(function (checkbox) {
+
+            checkbox.addEventListener('change', function () {
+
+                const jumlahDipilih =
+                    document.querySelectorAll(
+                        'input[name="layanan[]"]:checked'
+                    ).length;
+
+                if (jumlahDipilih > 0) {
+
+                    layananCheckboxes[0].setCustomValidity('');
+
+                }
+
+            });
+
+        });
+
+    }
+
+});
+</script>
 
 @endsection
