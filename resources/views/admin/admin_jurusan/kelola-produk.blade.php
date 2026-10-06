@@ -64,6 +64,7 @@
                 class="form-control"
                 rows="3"
                 required
+                style="resize: none;"
             ></textarea>
 
 

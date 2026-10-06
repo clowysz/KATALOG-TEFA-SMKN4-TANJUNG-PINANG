@@ -90,7 +90,7 @@
             rows="10"
             readonly
             required
-            style="background-color: #f8f9fa; width: 100%; box-sizing: border-box; padding: 12px;"
+            style="background-color: #f8f9fa; width: 100%; box-sizing: border-box; padding: 12px; resize: none;"
         >{{ old('deskripsi', $jurusan->deskripsi) }}</textarea>
 
         {{-- Tombol awal --}}

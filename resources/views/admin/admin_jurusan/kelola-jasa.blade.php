@@ -63,6 +63,8 @@
                 class="form-control"
                 rows="3"
                 required
+                style="resize: none;"
+
             ></textarea>
 
             <label for="formPrice" class="detail-label">

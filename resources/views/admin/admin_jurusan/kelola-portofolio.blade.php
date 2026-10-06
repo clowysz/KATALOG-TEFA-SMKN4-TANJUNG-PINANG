@@ -72,6 +72,7 @@
                 class="form-control"
                 rows="3"
                 required
+                style="resize: none;"
             ></textarea>
 
             <label class="detail-label">
@@ -84,8 +85,14 @@
                 id="portoYear"
                 class="form-control"
                 placeholder="Contoh: 2026"
+                maxlength="4"
+                minlength="4"
+                pattern="\d{4}"
+                oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity('');"
+                oninvalid="this.setCustomValidity('Harap di isi 4 angka')"
                 required
             >
+            <span id="errorTahun" style="color: #dc2626; font-size: 12px; display: block; margin-top: 4px;"></span>
 
             <label class="detail-label">
                 Upload Gambar Portofolio
@@ -185,18 +192,20 @@
 
     const portoImg = document.getElementById('portoImg');
 
-    portoImg.addEventListener('change', function(event) {
-        const files = event.target.files;
+    if (portoImg) {
+        portoImg.addEventListener('change', function(event) {
+            const files = event.target.files;
 
-        if (files.length > 0) {
-            Array.from(files).forEach(file => {
-                window.uploadedFiles.push(file);
-            });
+            if (files.length > 0) {
+                Array.from(files).forEach(file => {
+                    window.uploadedFiles.push(file);
+                });
 
-            updateFileInput();
-            renderPreviews();
-        }
-    });
+                updateFileInput();
+                renderPreviews();
+            }
+        });
+    }
 
     function updateFileInput() {
         const dataTransfer = new DataTransfer();
@@ -209,8 +218,8 @@
     }
 
     function renderPreviews() {
-        const previewContainer =
-            document.getElementById('imagePreviewContainer');
+        const previewContainer = document.getElementById('imagePreviewContainer');
+        if (!previewContainer) return;
 
         previewContainer.innerHTML = '';
 
@@ -218,28 +227,21 @@
             const reader = new FileReader();
 
             reader.onload = function(e) {
-
                 const wrapper = document.createElement('div');
-
                 wrapper.style.position = 'relative';
                 wrapper.style.display = 'inline-block';
 
                 const img = document.createElement('img');
-
                 img.src = e.target.result;
                 img.style.width = '70px';
                 img.style.height = '70px';
                 img.style.objectFit = 'cover';
                 img.style.borderRadius = '8px';
                 img.style.border = '1px solid #CBD5E1';
-                img.style.boxShadow =
-                    '0 2px 4px rgba(0,0,0,0.05)';
+                img.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
 
-                const removeBtn =
-                    document.createElement('span');
-
+                const removeBtn = document.createElement('span');
                 removeBtn.innerHTML = '✖';
-
                 removeBtn.style.position = 'absolute';
                 removeBtn.style.top = '-6px';
                 removeBtn.style.right = '-6px';
@@ -253,13 +255,10 @@
                 removeBtn.style.alignItems = 'center';
                 removeBtn.style.justifyContent = 'center';
                 removeBtn.style.cursor = 'pointer';
-                removeBtn.style.boxShadow =
-                    '0 2px 4px rgba(0,0,0,0.2)';
+                removeBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
 
                 removeBtn.onclick = function() {
-
                     window.uploadedFiles.splice(index, 1);
-
                     updateFileInput();
                     renderPreviews();
                 };
@@ -274,35 +273,30 @@
         });
     }
 
-    const originalClosePortoModal =
-        window.closePortoModal;
+    // Modal Close Function
+    const originalClosePortoModal = window.closePortoModal;
 
     window.closePortoModal = function(modalId) {
-
         if (modalId === 'modalAddPorto') {
-
             window.uploadedFiles = [];
 
-            document.getElementById(
-                'imagePreviewContainer'
-            ).innerHTML = '';
+            const previewContainer = document.getElementById('imagePreviewContainer');
+            if (previewContainer) previewContainer.innerHTML = '';
 
-            document.getElementById(
-                'portoImg'
-            ).value = '';
+            const imgInput = document.getElementById('portoImg');
+            if (imgInput) imgInput.value = '';
+
+            const errorSpan = document.getElementById('errorTahun');
+            if (errorSpan) errorSpan.innerText = '';
         }
 
         if (typeof originalClosePortoModal === 'function') {
-
             originalClosePortoModal(modalId);
-
         } else {
-
-            document.getElementById(
-                modalId
-            ).style.display = 'none';
+            const modal = document.getElementById(modalId);
+            if (modal) modal.style.display = 'none';
         }
     };
-</script>
+
 
 @endsection

@@ -125,6 +125,8 @@
                     rows="4"
                     maxlength="2000"
                     placeholder="Tuliskan kebutuhan khusus atau catatan tambahan untuk pesanan Anda..."
+                    style="resize: none;"
+
                 >{{ old('catatan') }}</textarea>
 
             </div>

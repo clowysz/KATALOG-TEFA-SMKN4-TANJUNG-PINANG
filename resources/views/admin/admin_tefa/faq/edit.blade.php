@@ -225,6 +225,8 @@
                 class="form-control"
                 placeholder="Masukkan jawaban..."
                 required
+                style="resize: none;"
+
             >{{ old('jawaban', $faq->jawaban) }}</textarea>
 
         </div>

@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->text('deskripsi');
 
-            $table->year('tahun')->nullable();
+            $table->string('tahun', 4)->nullable();
 
             $table->foreignId('id_user')
                 ->nullable()

@@ -218,6 +218,8 @@
                     rows="5"
                     placeholder="Masukkan jawaban..."
                     required
+                    style="resize: none;"
+
                 >{{ old('jawaban') }}</textarea>
             </div>
 
