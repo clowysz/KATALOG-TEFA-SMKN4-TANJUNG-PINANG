@@ -18,9 +18,9 @@
 
     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0;">
 
-        <div style="width: 48px; height: 48px; background: #fcf4e8; color: var(--accent-rpl); display: flex; align-items: center; justify-content: center; font-size: 24px; border-radius: 8px;">
-            💻
-        </div>
+      <div style="width: 48px; height: 48px; background: #fcf4e8; color: var(--accent-rpl); display: flex; align-items: center; justify-content: center; font-size: 24px; border-radius: 8px;">
+    <i class="ph ph-laptop"></i>
+</div>
 
         <div>
             <h3 style="color: var(--accent-rpl); margin-bottom: 4px;">

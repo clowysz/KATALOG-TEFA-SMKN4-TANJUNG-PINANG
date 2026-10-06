@@ -236,11 +236,10 @@
                     '0 2px 4px rgba(0,0,0,0.05)';
 
                 const removeBtn =
-                    document.createElement('span');
+    document.createElement('span');
 
-                removeBtn.innerHTML = '✖';
-
-                removeBtn.style.position = 'absolute';
+removeBtn.innerHTML = '<i class="ph ph-x"></i>';
+removeBtn.style.position = 'absolute';
                 removeBtn.style.top = '-6px';
                 removeBtn.style.right = '-6px';
                 removeBtn.style.background = '#dc2626';
@@ -249,6 +248,7 @@
                 removeBtn.style.width = '20px';
                 removeBtn.style.height = '20px';
                 removeBtn.style.fontSize = '10px';
+                removeBtn.style.fontWeight = 'bold';
                 removeBtn.style.display = 'flex';
                 removeBtn.style.alignItems = 'center';
                 removeBtn.style.justifyContent = 'center';

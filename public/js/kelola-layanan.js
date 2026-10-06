@@ -139,7 +139,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             container.innerHTML = `
                 <div style="grid-column:1/-1;text-align:center;padding:80px 20px;">
-                    <div style="font-size:56px;margin-bottom:16px;">⚠️</div>
+                    <div style="font-size:56px;margin-bottom:16px;">
+    <i class="ph ph-warning"></i>
+</div>
                     <h3 style="color:var(--text-dark);margin-bottom:8px;">
                         Gagal memuat ${tipeLayanan.toLowerCase()}
                     </h3>
@@ -199,7 +201,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (filteredData.length === 0) {
             container.innerHTML = `
                 <div style="grid-column:1/-1;text-align:center;padding:80px 20px;">
-                    <div style="font-size:56px;margin-bottom:16px;">📫</div>
+                   <div style="font-size:56px;margin-bottom:16px;">
+    <i class="ph ph-package"></i>
+</div>
                     <h3 style="color:var(--text-dark);margin-bottom:8px;">
                         Tidak ada ${tipeLayanan.toLowerCase()} ditemukan.
                     </h3>

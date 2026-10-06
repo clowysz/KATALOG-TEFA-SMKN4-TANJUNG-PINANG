@@ -79,7 +79,7 @@
                     color: white;
                 "
             >
-                KARYA SISWA
+                KARYA DAN PROYEK
             </div>
 
 

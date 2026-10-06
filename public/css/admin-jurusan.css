@@ -1139,3 +1139,120 @@
         height: 190px;
     }
 }
+/* =========================================================
+   KELOLA JASA - SEARCH & BUTTON
+   ========================================================= */
+
+/* Area pencarian */
+.header-action .search-input {
+    width: 250px;
+    height: 42px;
+    margin-bottom: 0;
+    padding: 0 14px;
+    border: 1px solid #dbe2ea;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #1e293b;
+    font-size: 13px;
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+/* Placeholder */
+.header-action .search-input::placeholder {
+    color: #94a3b8;
+}
+
+/* Saat search diklik/focus */
+.header-action .search-input:focus {
+    border-color: #1e3a8a;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+/* Hover search */
+.header-action .search-input:hover {
+    border-color: #b8c4d3;
+}
+
+/* =========================================================
+   TOMBOL TAMBAH JASA
+   ========================================================= */
+
+.header-action .btn-primary[onclick*="openLayananModal"] {
+    background-color: #1e3a8a !important;
+    border: 1px solid #1e3a8a;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Hover */
+.header-action .btn-primary[onclick*="openLayananModal"]:hover {
+    background-color: #172f70 !important;
+    border-color: #172f70;
+    box-shadow: 0 4px 10px rgba(30, 58, 138, 0.18);
+    transform: translateY(-1px);
+}
+
+/* Saat ditekan */
+.header-action .btn-primary[onclick*="openLayananModal"]:active {
+    background-color: #12265a !important;
+    border-color: #12265a;
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* =========================================================
+   TOMBOL SIMPAN DI MODAL
+   ========================================================= */
+
+#formLayanan .btn-primary {
+    background-color: #1e3a8a !important;
+    border: 1px solid #1e3a8a;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Hover */
+#formLayanan .btn-primary:hover {
+    background-color: #172f70 !important;
+    border-color: #172f70;
+    box-shadow: 0 4px 10px rgba(30, 58, 138, 0.18);
+    transform: translateY(-1px);
+}
+
+/* Saat ditekan */
+#formLayanan .btn-primary:active {
+    background-color: #12265a !important;
+    border-color: #12265a;
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .header-action .search-input {
+        width: 100%;
+    }
+
+    .header-action > div:last-child {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .header-action .btn-primary[onclick*="openLayananModal"] {
+        width: auto !important;
+    }
+}
