@@ -195,7 +195,10 @@
 
 
 <body>
-
+@php
+    $isFromKatalog = request()->query('from') === 'katalog';
+    $pakaiNavJurusan = isset($jurusan) && !$isFromKatalog;
+@endphp
 
     <!-- =====================================================
          NAVBAR
@@ -206,7 +209,7 @@
         <div class="jurusan-nav-pill">
 
 
-            @if(isset($jurusan))
+            @if($pakaiNavJurusan)
 
 
                 <!-- =================================================
@@ -323,7 +326,7 @@
  {{-- MENU KATALOG DITAMBAHKAN DI SINI --}}
                 <a
                     href="/katalog"
-                    class="{{ Request::is('katalog*') ? 'active' : '' }}"
+                   class="{{ Request::is('katalog*') || $isFromKatalog ? 'active' : '' }}"
                 >
                     KATALOG
                 </a>

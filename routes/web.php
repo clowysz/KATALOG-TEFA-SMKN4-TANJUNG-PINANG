@@ -853,12 +853,10 @@ Route::get(
     // KATALOG GABUNGAN TEFA (ADMIN)
     Route::get('/katalog-gabungan', [KatalogTefaController::class, 'index'])->name('admin.tefa.katalog_gabungan');
     Route::get('/admin/tefa/katalog/{id}', [KatalogTefaController::class, 'showDetail'])->name('admin.tefa.detail');
-
 Route::middleware([
     'auth',
     'role:admin_tefa'
 ])->group(function () {
-
     Route::get(
         '/dashboard',
         [DashboardController::class, 'index']

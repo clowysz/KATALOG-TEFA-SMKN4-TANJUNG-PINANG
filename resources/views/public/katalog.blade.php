@@ -320,7 +320,7 @@
 </div>
 @endsection
 
-@push('js')
+@push('scripts')
 <script>
     // Matikan autoscroll otomatis dari browser saat reload
     if ('scrollRestoration' in history) {

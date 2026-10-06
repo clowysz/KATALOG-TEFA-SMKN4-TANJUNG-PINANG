@@ -1038,7 +1038,7 @@
             <div class="hero-stat">
                 <div class="hero-stat-label">Harga Satuan</div>
                 <div class="hero-stat-value">
-                    Rp {{ number_format($pesanan->produkJasa->harga ?? 0, 0, ',', '.') }} {{ $produk->satuan_harga ? '/' . $produk->satuan_harga : '' }}
+                    Rp {{ number_format($pesanan->produkJasa->harga ?? 0, 0, ',', '.') }} {{ $pesanan->produkJasa->satuan_harga ? '/' . $pesanan->produkJasa->satuan_harga : '' }}
                 </div>
             </div>
 

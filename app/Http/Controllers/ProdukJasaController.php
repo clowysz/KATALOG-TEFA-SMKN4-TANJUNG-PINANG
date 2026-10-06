@@ -85,7 +85,7 @@ class ProdukJasaController extends Controller
     }
 
     // Edit Produk/Jasa
-    public function update(Request $request, $id)
+    public function update(Request $request,int $id)
     {
         $request->validate([
             'nama_produk_jasa' => 'required|string|max:255',
@@ -140,7 +140,7 @@ class ProdukJasaController extends Controller
     }
 
     // Soft delete Produk/Jasa
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $user = Auth::user();
         $jurusan = $user->jurusanDipegang;
@@ -169,7 +169,7 @@ class ProdukJasaController extends Controller
     }
 
     // Hapus satu gambar
-    public function destroyGambar($id_gambar)
+    public function destroyGambar(int $id_gambar)
     {
         $user = Auth::user();
         $jurusan = $user->jurusanDipegang;
@@ -204,7 +204,7 @@ class ProdukJasaController extends Controller
     }
 
     // Tambah jumlah tampilan Produk/Jasa
-    public function tambahTampilan($id)
+    public function tambahTampilan(int $id)
     {
         $produkJasa = ProdukJasa::findOrFail($id);
 
@@ -217,7 +217,7 @@ class ProdukJasaController extends Controller
     }
 
     // Tambah jumlah pencarian Produk/Jasa
-    public function tambahPencarian($id)
+    public function tambahPencarian(int $id)
     {
         $produkJasa = ProdukJasa::findOrFail($id);
 

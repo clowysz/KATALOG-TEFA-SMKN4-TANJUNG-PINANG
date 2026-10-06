@@ -100,7 +100,7 @@ $jurusan = $user->jurusanDipegang;
     onclick="openLogoutModal()"
 >
     Logout
-</button>
+</button> 
 
 
 </div>

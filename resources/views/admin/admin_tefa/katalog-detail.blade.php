@@ -6,9 +6,7 @@
 <link rel="stylesheet" href="{{ asset('css/jurusan-detail.css') }}">
 
 <style>
-/* =========================================================
-   HALAMAN DETAIL (SPACING DI-DEMPETKAN)
-========================================================= */
+/*  HALAMAN DETAIL (SPACING DI-DEMPETKAN) */
 .detail-page-wrapper {
     background-color: #f8fafc;
     min-height: 100vh;
