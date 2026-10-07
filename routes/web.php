@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthPembeliController;
+use App\Http\Controllers\AuthForgotPasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\KatalogTefaController;
@@ -58,6 +59,22 @@ Route::get('/login', [LoginController::class, 'showLogin'])
 // Proses login semua role
 Route::post('/login', [LoginController::class, 'login'])
     ->name('login.proses');
+
+// =========================================================================
+// LUPA SANDI PEMBELI
+// =========================================================================
+
+Route::get('/lupa-sandi', [AuthForgotPasswordController::class, 'showForgotForm'])
+    ->name('password.request');
+
+Route::post('/lupa-sandi', [AuthForgotPasswordController::class, 'sendResetLink'])
+    ->name('password.email');
+
+Route::get('/reset-sandi/{token}', [AuthForgotPasswordController::class, 'showResetForm'])
+    ->name('password.reset');
+
+Route::post('/reset-sandi', [AuthForgotPasswordController::class, 'resetPassword'])
+    ->name('password.update');
 
 // Register pembeli
 Route::get('/daftar-pembeli', [AuthPembeliController::class, 'showRegister'])
@@ -236,7 +253,7 @@ Route::get('/katalog', function (Request $request) {
 
     $katalog = $query
         ->latest()
-        ->paginate(16)
+        ->paginate(15)
         ->withQueryString();
 
     $daftarJurusan = \App\Models\Jurusan::orderBy(
@@ -850,13 +867,11 @@ Route::get(
 // ADMIN TEFA
 // =========================================================================
 
-    // KATALOG GABUNGAN TEFA (ADMIN)
-    Route::get('/katalog-gabungan', [KatalogTefaController::class, 'index'])->name('admin.tefa.katalog_gabungan');
-    Route::get('/admin/tefa/katalog/{id}', [KatalogTefaController::class, 'showDetail'])->name('admin.tefa.detail');
 Route::middleware([
     'auth',
     'role:admin_tefa'
 ])->group(function () {
+
     Route::get(
         '/dashboard',
         [DashboardController::class, 'index']
@@ -1125,26 +1140,7 @@ Route::middleware([
         '/jurusan-admin/produk/gambar/{id_gambar}',
         [ProdukJasaController::class, 'destroyGambar']
     )->name('produk.destroyGambar');
-// Portofolio
-Route::get(
-    '/jurusan-admin/portofolio',
-    [PortfolioController::class, 'index']
-)->name('portofolio.index');
 
-Route::post(
-    '/jurusan-admin/portofolio',
-    [PortfolioController::class, 'store']
-)->name('portofolio.store');
-
-Route::put(
-    '/jurusan-admin/portofolio/{id}',
-    [PortfolioController::class, 'update']
-)->name('portofolio.update');
-
-Route::delete(
-    '/jurusan-admin/portofolio/{id}',
-    [PortfolioController::class, 'destroy']
-)->name('portofolio.destroy');
 
 });
 // =========================================================================
@@ -1218,4 +1214,3 @@ Route::middleware([
     )->name('admin.produser.profil');
 
 });
-

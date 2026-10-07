@@ -27,17 +27,16 @@ class LoginController extends Controller
 
             $user = Auth::user();
 
-            // PEMBELI
-            if ($user->role === 'pembeli') {
-                $redirect = $request->input('redirect');
+          // PEMBELI
+        if ($user->role === 'pembeli') {
+        $redirect = $request->input('redirect');
 
-                if ($redirect && str_starts_with($redirect, '/')) {
-                    return redirect($redirect);
-                }
+       if ($redirect && str_starts_with($redirect, '/')) {
+       return redirect($redirect);
+       }
 
-                return redirect()->intended('/');
-            }
-
+    return redirect()->route('profil.pembeli');
+}
             // ADMIN TEFA
             if ($user->role === 'admin_tefa') {
                 return redirect('/dashboard');
