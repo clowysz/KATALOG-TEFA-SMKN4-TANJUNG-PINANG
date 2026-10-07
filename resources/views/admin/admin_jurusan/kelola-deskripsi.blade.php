@@ -3,6 +3,42 @@
 @section('title', 'Deskripsi Jurusan')
 
 @section('content')
+<style>
+    .btn-edit-deskripsi {
+        background: #1e3a8ad9;
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        width: auto;
+    }
+
+    .btn-edit-deskripsi:hover {
+        background: #1E3A8A;
+        color: white;
+    }
+    /* Tombol Simpan: model Level 2, warna oranye dipertahankan */
+.btn-simpan-deskripsi {
+    background: #ffffff;
+    color: var(--accent-rpl);
+    padding: 8px 16px;
+    border: 1px solid var(--accent-rpl);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    width: auto;
+    transition: all 0.2s ease;
+}
+
+.btn-simpan-deskripsi:hover {
+    background: var(--accent-rpl);
+    color: #ffffff;
+}
+</style>
 
 <div class="page-header" style="margin: 16px 24px;">
     <h2>Kelola Deskripsi Jurusan</h2>
@@ -100,13 +136,12 @@
             id="actionButtons"
         >
             <button
-                type="button"
-                id="btnEditDesc"
-                class="btn-primary"
-                style="width: auto;"
-            >
-                Edit Deskripsi
-            </button>
+    type="button"
+    id="btnEditDesc"
+    class="btn-edit-deskripsi"
+>
+    Edit Deskripsi
+</button>
         </div>
 
         {{-- Tombol saat mode edit --}}
@@ -122,13 +157,12 @@
                 Batal
             </button>
 
-            <button
-                type="submit"
-                class="btn-primary"
-                style="width: auto; background-color: var(--accent-rpl); border: none;"
-            >
-                Simpan Perubahan
-            </button>
+<button
+    type="submit"
+    class="btn-simpan-deskripsi"
+>
+    Simpan Perubahan
+</button>
         </div>
 
     </form>

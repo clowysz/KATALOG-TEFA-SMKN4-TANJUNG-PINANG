@@ -164,6 +164,39 @@
         background: #bb2d3b;
         color: #fff;
     }
+    /* Tombol Level 1 (sama seperti Tambah FAQ) */
+.btn-level-1 {
+    background: #1e3a8ad9;
+    color: #ffffff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-level-1:hover {
+    background: #1E3A8A;
+    color: #ffffff;
+}
+
+/* Tombol Level 2 (outline, sama seperti Edit di card Kelola Jasa) */
+.btn-level-2 {
+    background: #ffffff;
+    color: #1E3A8A;
+    padding: 8px 16px;
+    border: 1px solid #1E3A8A;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-level-2:hover {
+    background: #1E3A8A;
+    color: #ffffff;
+}
 
     @media (max-width: 768px) {
         .detail-account-wrapper {
@@ -187,13 +220,12 @@
     {{-- HEADER --}}
     <div class="detail-account-header">
 
-        <a
-            href="{{ route('jurusan.akun.index') }}"
-            class="btn-detail btn-back"
-        >
-            ← Kembali
-        </a>
-
+       <a
+    href="{{ route('jurusan.akun.index') }}"
+    class="btn-detail btn-level-2"
+>
+    ← Kembali
+</a>
         <div>
             <h2 class="detail-account-title">
                 Detail Akun Admin Produser
@@ -337,12 +369,12 @@
 
         <div class="detail-actions">
 
-            <a
-                href="{{ route('jurusan.akun.edit', ['id' => $akun->id]) }}"
-                class="btn-detail btn-edit"
-            >
-                Edit Akun
-            </a>
+          <a
+    href="{{ route('jurusan.akun.edit', ['id' => $akun->id, 'from' => 'detail']) }}"
+    class="btn-detail btn-level-1"
+>
+    Edit Akun
+</a>
 
 
             @if ($akun->status === 'aktif')

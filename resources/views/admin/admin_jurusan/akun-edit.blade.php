@@ -3,6 +3,11 @@
 @section('title', 'Edit Akun')
 
 @section('content')
+@php
+    $kembaliUrl = request('from') === 'index'
+        ? route('jurusan.akun.index')
+        : route('jurusan.akun.detail', ['id' => $akun->id]);
+@endphp
 
 <style>
     .edit-account-wrapper {
@@ -10,13 +15,12 @@
     }
 
     .edit-account-header {
-        margin-bottom: 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
 
     .edit-account-title {
         margin: 0;
@@ -293,6 +297,24 @@
         background: #dee2e6;
         color: #343a40;
     }
+    .btn-level-2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: #1E3A8A;
+    padding: 8px 16px;
+    border: 1px solid #1E3A8A;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-level-2:hover {
+    background: #1E3A8A;
+    color: #ffffff;
+}
 
     @media (max-width: 768px) {
 
@@ -315,29 +337,28 @@
 <div class="edit-account-wrapper">
 
     {{-- HEADER --}}
-    <div class="edit-account-header">
+<div class="edit-account-header">
 
-        <div>
-            <h2 class="edit-account-title">
-                Edit Akun Admin Produser
-            </h2>
+    {{-- TOMBOL KEMBALI --}}
+    <a
+    href="{{ $kembaliUrl }}"
+    class="btn-level-2"
+>
+    ← Kembali
+</a>
 
-            <p class="edit-account-subtitle">
-                Ubah informasi akun, status, dan produk atau jasa
-                yang ditugaskan kepada Admin Produser.
-            </p>
-        </div>
+    <div>
+        <h2 class="edit-account-title">
+            Edit Akun Admin Produser
+        </h2>
 
-        {{-- TOMBOL KEMBALI --}}
-        <a href="{{ route('jurusan.akun.detail', ['id' => $akun->id]) }}" class="btn-action btn-cancel" style="gap: 8px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            Kembali
-        </a>
-
+        <p class="edit-account-subtitle">
+            Ubah informasi akun, status, dan produk atau jasa
+            yang ditugaskan kepada Admin Produser.
+        </p>
     </div>
+
+</div>
 
 
     {{-- ERROR VALIDATION --}}
@@ -595,12 +616,12 @@
             </button>
 
 
-            <a
-                href="{{ route('jurusan.akun.detail', ['id' => $akun->id]) }}"
-                class="btn-action btn-cancel"
-            >
-                Batal
-            </a>
+           <a
+    href="{{ $kembaliUrl }}"
+    class="btn-action btn-cancel"
+>
+    Batal
+</a>
 
         </div>
 

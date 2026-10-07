@@ -3,6 +3,40 @@
 @section('title', 'Kelola Portofolio')
 
 @section('content')
+<style>
+    /* Tombol Tambah & Simpan (sama seperti Tambah FAQ) */
+    .btn-porto-primary {
+        background: #1e3a8ad9;
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        width: auto;
+    }
+
+    .btn-porto-primary:hover {
+        background: #1E3A8A;
+        color: white;
+    }
+
+    /* Tombol Hapus: hover merah */
+    /* Tombol Hapus di card portofolio: hover merah */
+.btn-delete-porto {
+    background: transparent !important;
+    color: #dc3545 !important;
+    border: 1px solid #dc3545 !important;
+    transition: all 0.2s ease;
+}
+
+.btn-delete-porto:hover {
+    background: #dc3545 !important;
+    color: #ffffff !important;
+    border-color: #dc3545 !important;
+}
+</style>
 <div class="header-action" style="align-items: center;">
     <div>
         <h2>Kelola Portofolio</h2>
@@ -19,13 +53,12 @@
         >
 
         <button
-            type="button"
-            onclick="openTambahPortoModal()"
-            class="btn-primary"
-            style="width: auto; background-color: #1E3A8A;"
-        >
-            + Tambah Portofolio
-        </button>
+    type="button"
+    onclick="openTambahPortoModal()"
+    class="btn-porto-primary"
+>
+    + Tambah Portofolio
+</button>
     </div>
 </div>
 
@@ -121,14 +154,12 @@
                 >
                     Batal
                 </button>
-
-                <button
-                    type="submit"
-                    class="btn-primary"
-                    style="width: auto; background-color: #1E3A8A;"
-                >
-                    Simpan
-                </button>
+<button
+    type="submit"
+    class="btn-porto-primary"
+>
+    Simpan
+</button>
             </div>
         </form>
     </div>
@@ -160,14 +191,13 @@
                 Batal
             </button>
 
-            <button
-                type="button"
-                id="btnConfirmDeletePorto"
-                class="btn-primary"
-                style="width: auto; background-color: #dc3545;"
-            >
-                Hapus
-            </button>
+           <button
+    type="button"
+    id="btnConfirmDeletePorto"
+    class="btn-porto-delete"
+>
+    Hapus
+</button>
         </div>
     </div>
 </div>

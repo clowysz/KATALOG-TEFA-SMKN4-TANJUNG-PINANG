@@ -808,6 +808,16 @@
         color: var(--primary);
     }
 
+    .icon-btn:disabled {
+        opacity: .35;
+        cursor: not-allowed;
+    }
+
+    .icon-btn:disabled:hover {
+        background: white;
+        color: var(--prod-text-sec);
+    }
+
     .icon-btn.danger:hover {
         color: var(--prod-error);
         border-color: #FECACA;
@@ -819,6 +829,34 @@
         padding: 30px 10px;
         color: var(--prod-text-sec);
         font-size: 13px;
+    }
+
+    /* BAR SIMPAN URUTAN */
+
+    .modal-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+    }
+
+    .reorder-bar {
+        display: none;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        padding: 7px 10px;
+        border: 1px solid #FDE68A;
+        background: #FFFBEB;
+        border-radius: 9px;
+        font-size: 12px;
+        color: #92400E;
+    }
+
+    .reorder-bar.show {
+        display: flex;
     }
 
     /* =========================================================
@@ -1363,8 +1401,10 @@
                 </div>
 
 
-                <form action="{{ route('produser.updateProgress', $pesanan->id_pesanan) }}"
-                      method="POST">
+                <form id="formProgress"
+                      action="{{ route('produser.updateProgress', $pesanan->id_pesanan) }}"
+                      method="POST"
+                      novalidate>
 
                     @csrf
 
@@ -1411,6 +1451,7 @@
                             <input
                                 type="text"
                                 name="keterangan_progress"
+                                id="inputKeteranganProgress"
                                 class="custom-input"
                                 maxlength="255"
                                 placeholder="Contoh: Tahap desain sudah selesai."
@@ -1592,14 +1633,35 @@
 
             <div class="prod-modal-body">
 
-                <div style="
-                    display:flex;
-                    justify-content:flex-end;
-                    margin-bottom:15px;
-                ">
+                <div class="modal-toolbar">
+
+                    {{-- Muncul setelah urutan diubah --}}
+                    <div id="reorderBar" class="reorder-bar">
+
+                        <span>Urutan diubah, belum disimpan.</span>
+
+                        <button type="button"
+                                class="prod-btn prod-btn-success prod-btn-small"
+                                onclick="simpanUrutanTahapan()">
+
+                            <i class="ph ph-floppy-disk"></i>
+                            Simpan Urutan
+
+                        </button>
+
+                        <button type="button"
+                                class="prod-btn prod-btn-secondary prod-btn-small"
+                                onclick="batalkanUrutan()">
+
+                            Batalkan
+
+                        </button>
+
+                    </div>
 
                     <button type="button"
                             class="prod-btn prod-btn-primary"
+                            style="margin-left:auto;"
                             onclick="openFormTambahTahap()">
 
                         <i class="ph ph-plus"></i>
@@ -1628,14 +1690,14 @@
 
                             </thead>
 
-                            <tbody>
+                            <tbody id="tabelTahapanBody">
 
                                 @foreach($tahapanList as $index => $tahapan)
 
-                                    <tr>
+                                    <tr data-id="{{ $tahapan->id }}">
 
                                         <td>
-                                            <strong>
+                                            <strong class="nomor-urut">
                                                 {{ $index + 1 }}
                                             </strong>
                                         </td>
@@ -1660,34 +1722,28 @@
 
                                             <div class="stage-actions">
 
-                                                @if($index > 0)
+                                                <button
+                                                    type="button"
+                                                    class="icon-btn btn-naik"
+                                                    title="Naik"
+                                                    {{ $index === 0 ? 'disabled' : '' }}
+                                                    onclick="moveTahapan(this, 'up')">
 
-                                                    <button
-                                                        type="button"
-                                                        class="icon-btn"
-                                                        title="Naik"
-                                                        onclick="reorderTahapan({{ $tahapan->id }}, 'up')">
+                                                    <i class="ph ph-caret-up"></i>
 
-                                                        <i class="ph ph-caret-up"></i>
-
-                                                    </button>
-
-                                                @endif
+                                                </button>
 
 
-                                                @if($index < $tahapanList->count() - 1)
+                                                <button
+                                                    type="button"
+                                                    class="icon-btn btn-turun"
+                                                    title="Turun"
+                                                    {{ $index === $tahapanList->count() - 1 ? 'disabled' : '' }}
+                                                    onclick="moveTahapan(this, 'down')">
 
-                                                    <button
-                                                        type="button"
-                                                        class="icon-btn"
-                                                        title="Turun"
-                                                        onclick="reorderTahapan({{ $tahapan->id }}, 'down')">
+                                                    <i class="ph ph-caret-down"></i>
 
-                                                        <i class="ph ph-caret-down"></i>
-
-                                                    </button>
-
-                                                @endif
+                                                </button>
 
 
                                                 <button
@@ -1713,7 +1769,7 @@
                                                     ]) }}"
                                                     method="POST"
                                                     style="margin:0;"
-                                                    onsubmit="return confirm('Hapus tahapan ini?')">
+                                                    onsubmit="return konfirmasiHapusTahap()">
 
                                                     @csrf
                                                     @method('DELETE')
@@ -1786,7 +1842,7 @@
 
                 <button type="button"
                         class="prod-modal-close"
-                        onclick="closeModalFormTahap()">
+                        onclick="closeModalFormTahap(true)">
 
                     <i class="ph ph-x"></i>
 
@@ -1798,7 +1854,8 @@
             <form
                 id="formSimpanTahap"
                 action="{{ route('produser.tahapan.store', $pesanan->id_pesanan) }}"
-                method="POST">
+                method="POST"
+                novalidate>
                 @csrf
 
                 <div id="methodContainer"></div>
@@ -1902,7 +1959,7 @@
                     <button
                         type="button"
                         class="prod-btn prod-btn-secondary"
-                        onclick="closeModalFormTahap()">
+                        onclick="closeModalFormTahap(true)">
 
                         Batal
 
@@ -1910,9 +1967,8 @@
 
                     <button
                         type="submit"
-                        class="prod-btn prod-btn-primary"
-                        onclick="document.getElementById('formSimpanTahap').submit();">
-                      
+                        class="prod-btn prod-btn-primary">
+
                         <i class="ph ph-floppy-disk"></i>
                         Simpan
 
@@ -1946,7 +2002,7 @@
 <script>
 
     /* =====================================================
-       MODAL
+       ELEMEN & KONSTANTA
     ====================================================== */
 
     const modalKelolaTahapan =
@@ -1955,6 +2011,119 @@
     const modalFormTahap =
         document.getElementById('modalFormTahap');
 
+    // Setelah simpan / hapus / urutan, halaman reload.
+    // Flag ini membuat modal Kelola Tahapan terbuka lagi.
+    const REOPEN_KEY = 'reopenKelolaTahapan';
+
+    function setReopenFlag() {
+        try {
+            sessionStorage.setItem(REOPEN_KEY, '1');
+        } catch (error) {}
+    }
+
+
+    /* =====================================================
+       VALIDASI - BAHASA INDONESIA
+       Form memakai "novalidate" agar pesan bawaan browser
+       (bahasa Inggris) tidak muncul. Pengecekan dilakukan
+       manual dan modal tetap terbuka saat ada yang kosong.
+    ====================================================== */
+
+    function validasiWajib(daftar) {
+
+        for (const item of daftar) {
+
+            const el = item.el;
+
+            if (!el) {
+                continue;
+            }
+
+            el.setCustomValidity('');
+
+            if (el.value.trim() === '') {
+
+                el.setCustomValidity(item.pesan);
+                el.reportValidity();
+
+                el.addEventListener('input', function () {
+                    el.setCustomValidity('');
+                }, { once: true });
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    // Form Perbarui Progress
+    const formProgress =
+        document.getElementById('formProgress');
+
+    if (formProgress) {
+
+        formProgress.addEventListener('submit', function (event) {
+
+            const valid = validasiWajib([
+                {
+                    el: document.getElementById('inputKeteranganProgress'),
+                    pesan: 'Keterangan progress wajib diisi.'
+                }
+            ]);
+
+            if (!valid) {
+                event.preventDefault();
+            }
+
+        });
+
+    }
+
+
+    // Form Tambah / Edit Tahapan
+    const formSimpanTahap =
+        document.getElementById('formSimpanTahap');
+
+    if (formSimpanTahap) {
+
+        formSimpanTahap.addEventListener('submit', function (event) {
+
+            const valid = validasiWajib([
+                {
+                    el: document.getElementById('inputNamaTahap'),
+                    pesan: 'Nama tahapan wajib diisi.'
+                }
+            ]);
+
+            if (!valid) {
+                event.preventDefault();
+                return;
+            }
+
+            setReopenFlag();
+
+        });
+
+    }
+
+
+    function konfirmasiHapusTahap() {
+
+        if (!confirm('Hapus tahapan ini?')) {
+            return false;
+        }
+
+        setReopenFlag();
+
+        return true;
+    }
+
+
+    /* =====================================================
+       MODAL
+    ====================================================== */
 
     function openModalTahapan() {
 
@@ -1976,6 +2145,23 @@
     }
 
 
+    function bukaFormTahap() {
+
+        closeModalTahapan();
+
+        setTimeout(function () {
+
+            modalFormTahap.classList.add('active');
+
+            document.body.style.overflow = 'hidden';
+
+            document.getElementById('inputNamaTahap').focus();
+
+        }, 180);
+
+    }
+
+
     function openFormTambahTahap() {
 
         document.getElementById('modalFormTahapTitle').innerText =
@@ -1986,7 +2172,10 @@
 
         document.getElementById('methodContainer').innerHTML = '';
 
-        document.getElementById('inputNamaTahap').value = '';
+        const inputNama = document.getElementById('inputNamaTahap');
+
+        inputNama.value = '';
+        inputNama.setCustomValidity('');
 
         document.getElementById('inputStatusTahap').value =
             'Belum Dimulai';
@@ -1996,20 +2185,13 @@
         document.getElementById('tahapProgressValue').innerText =
             '0%';
 
-        closeModalTahapan();
-
-        setTimeout(function() {
-
-            modalFormTahap.classList.add('active');
-
-            document.body.style.overflow = 'hidden';
-
-        }, 180);
+        bukaFormTahap();
 
     }
 
 
-    function closeModalFormTahap() {
+    // kembali = true  -> kembali ke daftar Kelola Tahapan
+    function closeModalFormTahap(kembali = false) {
 
         if (modalFormTahap) {
 
@@ -2017,6 +2199,10 @@
 
             document.body.style.overflow = '';
 
+        }
+
+        if (kembali && modalKelolaTahapan) {
+            openModalTahapan();
         }
 
     }
@@ -2039,8 +2225,10 @@
         document.getElementById('methodContainer').innerHTML =
             '<input type="hidden" name="_method" value="PUT">';
 
-        document.getElementById('inputNamaTahap').value =
-            namaTahapan;
+        const inputNama = document.getElementById('inputNamaTahap');
+
+        inputNama.value = namaTahapan;
+        inputNama.setCustomValidity('');
 
         document.getElementById('inputStatusTahap').value =
             statusTahapan;
@@ -2051,120 +2239,117 @@
         document.getElementById('tahapProgressValue').innerText =
             progressTahapan + '%';
 
-        closeModalTahapan();
-
-        setTimeout(function() {
-
-            modalFormTahap.classList.add('active');
-
-            document.body.style.overflow = 'hidden';
-
-        }, 180);
+        bukaFormTahap();
 
     }
 
 
     /* =====================================================
-       REORDER
+       ATUR URUTAN
+       Tombol naik/turun hanya menukar baris di layar.
+       Urutan baru dikirim sekali lewat "Simpan Urutan".
     ====================================================== */
 
-    function reorderTahapan(idTahapan, arah) {
+    function refreshUrutan() {
 
         const rows = Array.from(
             document.querySelectorAll(
-                '#modalKelolaTahapan tbody tr'
+                '#tabelTahapanBody tr[data-id]'
             )
         );
 
-        const ids = rows.map(function(row) {
+        rows.forEach(function (row, index) {
 
-            const button = row.querySelector(
-                'button[onclick*="openEditTahap"]'
-            );
+            const nomor = row.querySelector('.nomor-urut');
+            const naik = row.querySelector('.btn-naik');
+            const turun = row.querySelector('.btn-turun');
 
-            if (!button) {
-                return null;
+            if (nomor) {
+                nomor.textContent = index + 1;
             }
 
-            const onclickText =
-                button.getAttribute('onclick');
+            if (naik) {
+                naik.disabled = index === 0;
+            }
 
-            const match =
-                onclickText.match(
-                    /openEditTahap\(\s*(\d+)/
-                );
+            if (turun) {
+                turun.disabled = index === rows.length - 1;
+            }
 
-            return match
-                ? parseInt(match[1])
-                : null;
+        });
 
-        }).filter(Boolean);
+    }
 
 
-        const index = ids.indexOf(idTahapan);
+    function moveTahapan(button, arah) {
 
-        if (index === -1) {
+        const row = button.closest('tr');
+
+        if (!row) {
             return;
         }
 
+        const tbody = row.parentNode;
 
-        if (
-            arah === 'up' &&
-            index > 0
-        ) {
+        if (arah === 'up' && row.previousElementSibling) {
 
-            [
-                ids[index - 1],
-                ids[index]
-            ] = [
-                ids[index],
-                ids[index - 1]
-            ];
+            tbody.insertBefore(row, row.previousElementSibling);
 
+        } else if (arah === 'down' && row.nextElementSibling) {
+
+            tbody.insertBefore(row.nextElementSibling, row);
+
+        } else {
+
+            return;
         }
 
+        refreshUrutan();
 
-        if (
-            arah === 'down' &&
-            index < ids.length - 1
-        ) {
+        document.getElementById('reorderBar').classList.add('show');
 
-            [
-                ids[index],
-                ids[index + 1]
-            ] = [
-                ids[index + 1],
-                ids[index]
-            ];
+    }
 
-        }
 
+    function simpanUrutanTahapan() {
+
+        const rows = document.querySelectorAll(
+            '#tabelTahapanBody tr[data-id]'
+        );
 
         const container =
             document.getElementById('reorderInputs');
 
         container.innerHTML = '';
 
+        rows.forEach(function (row) {
 
-        ids.forEach(function(id) {
-
-            const input =
-                document.createElement('input');
+            const input = document.createElement('input');
 
             input.type = 'hidden';
 
             input.name = 'urutan[]';
 
-            input.value = id;
+            input.value = row.getAttribute('data-id');
 
             container.appendChild(input);
 
         });
 
+        setReopenFlag();
 
         document
             .getElementById('formReorderTahapan')
             .submit();
+
+    }
+
+
+    function batalkanUrutan() {
+
+        setReopenFlag();
+
+        window.location.reload();
 
     }
 
@@ -2177,7 +2362,7 @@
 
         modalKelolaTahapan.addEventListener(
             'click',
-            function(event) {
+            function (event) {
 
                 if (event.target === modalKelolaTahapan) {
                     closeModalTahapan();
@@ -2193,10 +2378,10 @@
 
         modalFormTahap.addEventListener(
             'click',
-            function(event) {
+            function (event) {
 
                 if (event.target === modalFormTahap) {
-                    closeModalFormTahap();
+                    closeModalFormTahap(true);
                 }
 
             }
@@ -2211,7 +2396,7 @@
 
     document.addEventListener(
         'keydown',
-        function(event) {
+        function (event) {
 
             if (event.key === 'Escape') {
 
@@ -2223,6 +2408,25 @@
 
         }
     );
+
+
+    /* =====================================================
+       BUKA LAGI MODAL SETELAH HALAMAN DIMUAT ULANG
+    ====================================================== */
+
+    try {
+
+        if (sessionStorage.getItem(REOPEN_KEY)) {
+
+            sessionStorage.removeItem(REOPEN_KEY);
+
+            if (modalKelolaTahapan) {
+                openModalTahapan();
+            }
+
+        }
+
+    } catch (error) {}
 
 </script>
 

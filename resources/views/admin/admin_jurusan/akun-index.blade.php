@@ -172,11 +172,11 @@
                             </a>
 
                             <a
-                                href="/jurusan-admin/akun/edit?id={{ $akun->id }}"
-                                class="akun-action-button"
-                            >
-                                Edit
-                            </a>
+    href="/jurusan-admin/akun/edit?id={{ $akun->id }}&from=index"
+    class="akun-action-button"
+>
+    Edit
+</a>
 
                         </div>
 

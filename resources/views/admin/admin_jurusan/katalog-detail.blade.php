@@ -3,247 +3,725 @@
 @section('title', 'Detail Produk/Jasa')
 
 @section('content')
-<div style="max-width: 900px; margin: 0 auto; padding-bottom: 2rem; font-family: 'Inter', -apple-system, sans-serif;">
+<style>
+.detail-page-wrapper {
+    padding: 0 24px 40px;
+}
 
-    <!-- Navigation Header -->
-    <div style="margin-bottom: 16px;">
-        <a href="/jurusan-admin/katalog" style="display: inline-flex; align-items: center; gap: 8px; color: #475569; font-size: 13px; font-weight: 600; text-decoration: none; padding: 8px 16px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; transition: all 0.2s ease;">
-            <i class="ph ph-arrow-left" style="font-size: 16px;"></i> Kembali ke Katalog
+/* TOMBOL KEMBALI (sama seperti admin TEFA) */
+.back-link-wrapper {
+    margin-bottom: 2px;
+}
+
+.back-link {
+    display: inline-block !important;
+    padding: 8px 16px !important;
+    border: 1px solid #1E3A8A !important;
+    border-radius: 8px !important;
+    color: #1E3A8A !important;
+    background: #FFFFFF !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    opacity: 1 !important;
+    filter: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.back-link i {
+    color: #1E3A8A !important;
+}
+
+.back-link:hover {
+    background: #1E3A8A !important;
+    color: #FFFFFF !important;
+    border-color: #1E3A8A !important;
+}
+
+.back-link:hover i {
+    color: #FFFFFF !important;
+}
+
+/* STATE LOADING & ERROR */
+.detail-state-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 50px 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    margin-top: 16px;
+}
+
+.detail-state-box h3 {
+    color: #0f172a;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 4px;
+}
+
+.detail-state-box p {
+    color: #64748b;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* CONTAINER ATAS */
+.detail-top-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+    border: 1px solid #f1f5f9;
+    margin-bottom: 20px;
+    margin-top: 16px;
+}
+
+/* GALERI */
+.detail-gallery,
+.admin-product-gallery {
+    width: 100%;
+}
+
+.admin-main-image {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+}
+
+.admin-gallery-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    cursor: zoom-in;
+}
+
+.admin-gallery-image.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+.admin-gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f172a;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.admin-gallery-arrow:hover {
+    background: #ffffff;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.admin-gallery-prev { left: 14px; }
+.admin-gallery-next { right: 14px; }
+
+.admin-gallery-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    z-index: 10;
+}
+
+.admin-gallery-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.admin-gallery-dot.active {
+    width: 20px;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.admin-gallery-thumbnails {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 14px;
+    padding-bottom: 4px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.admin-gallery-thumbnails::-webkit-scrollbar {
+    height: 4px;
+}
+
+.admin-gallery-thumbnails::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.admin-gallery-thumb {
+    flex: 0 0 70px;
+    width: 70px;
+    height: 55px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #e2e8f0;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.admin-gallery-thumb:hover,
+.admin-gallery-thumb.active {
+    opacity: 1;
+    border-color: #1e3a8a;
+}
+
+.admin-gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* INFORMASI */
+.detail-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.detail-title {
+    color: #0f172a;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0 0 20px;
+}
+
+.price-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+}
+
+.price-label {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.detail-price {
+    color: #1e3a8a;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+/* META CARDS */
+.detail-meta-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.meta-card-item {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+}
+
+.meta-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.meta-icon i {
+    font-size: 20px;
+}
+
+.meta-label {
+    display: block;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+}
+
+.meta-value {
+    display: block;
+    color: #0f172a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* DESKRIPSI */
+.detail-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+    border: 1px solid #f1f5f9;
+    color: #0f172a;
+}
+
+.detail-section-title {
+    margin: 0 0 16px;
+    color: #0f172a;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.detail-text {
+    color: #334155;
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+/* LIGHTBOX */
+.admin-gallery-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(4px);
+}
+
+.admin-gallery-lightbox.active {
+    display: flex;
+}
+
+.admin-lightbox-image {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.admin-lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .detail-top-card {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 24px;
+    }
+    .admin-main-image {
+        height: 320px;
+    }
+    .detail-meta-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .detail-page-wrapper {
+        padding: 0 16px 36px;
+    }
+    .detail-meta-cards {
+        grid-template-columns: 1fr;
+    }
+    .detail-top-card,
+    .detail-card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    .admin-main-image {
+        height: 250px;
+    }
+    .detail-title {
+        font-size: 22px;
+    }
+    .detail-price {
+        font-size: 24px;
+    }
+}
+</style>
+
+<div class="detail-page-wrapper">
+
+    {{-- TOMBOL KEMBALI --}}
+    <div class="back-link-wrapper">
+        <a href="/jurusan-admin/katalog" class="back-link">
+            <i class="ph ph-arrow-left"></i>
+            <span>Kembali ke Katalog</span>
         </a>
     </div>
 
-    <!-- State Loading -->
-    <div id="detailLoading" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 50px 20px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
-        <div style="font-size: 36px; margin-bottom: 12px; animation: spin 2s linear infinite;">⏳</div>
-
-        <h3 style="color: #0f172a; font-size: 16px; font-weight: 700; margin-bottom: 4px;">
-            Memuat detail...
-        </h3>
-
-        <p style="color: #64748b; font-size: 13px; margin: 0;">
-            Mohon tunggu sebentar, sedang mengambil data produk/jasa.
-        </p>
+    {{-- LOADING --}}
+    <div id="detailLoading" class="detail-state-box">
+        <div style="font-size: 36px; margin-bottom: 12px;">⏳</div>
+        <h3>Memuat detail...</h3>
+        <p>Mohon tunggu sebentar, sedang mengambil data produk/jasa.</p>
     </div>
 
-    <!-- State Error -->
-    <div id="detailError" style="display: none; background: #ffffff; border: 1px solid #fee2e2; border-radius: 14px; padding: 50px 20px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
-        <div style="font-size: 40px; margin-bottom: 12px; color: #ef4444;">⚠️</div>
-
-        <h3 style="color: #0f172a; font-size: 18px; font-weight: 700; margin-bottom: 6px;">
-            Data tidak ditemukan
-        </h3>
-
-        <p style="color: #64748b; font-size: 13px; margin: 0;">
-            Produk atau jasa yang dipilih tidak tersedia atau telah dihapus.
-        </p>
+    {{-- ERROR --}}
+    <div id="detailError" class="detail-state-box" style="display: none; border-color: #fee2e2;">
+        <div style="font-size: 40px; margin-bottom: 12px;">⚠️</div>
+        <h3>Data tidak ditemukan</h3>
+        <p>Produk atau jasa yang dipilih tidak tersedia atau telah dihapus.</p>
     </div>
 
-    <!-- Main Detail Content Card -->
-    <div id="detailContent" style="display: none; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03); padding: 20px;">
+    {{-- KONTEN --}}
+    <div id="detailContent" style="display: none;">
 
-        <!-- Header Gambar Utama -->
-        <div id="mainImageContainer" style="width: 100%; height: 320px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0;">
-            <img
-                id="detailImg"
-                src=""
-                alt="Gambar Utama"
-                style="width: 100%; height: 100%; object-fit: cover; display: block;"
-            >
+        {{-- CONTAINER ATAS: GALERI & INFO --}}
+        <div class="detail-top-card">
+
+            <div class="detail-gallery">
+                <div class="admin-product-gallery">
+                    <div class="admin-main-image" id="adminMainImage"></div>
+                    <div class="admin-gallery-thumbnails" id="adminThumbnails" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="detail-info">
+                <div class="detail-badge" id="detailBadge">-</div>
+
+                <h1 class="detail-title" id="detailTitle">Memuat...</h1>
+
+                <div class="price-box">
+                    <div class="price-label">HARGA</div>
+                    <div class="detail-price" id="detailPrice">Rp0</div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Container Galeri Thumbnail -->
-        <div
-            id="thumbnailContainer"
-            style="display: flex; gap: 10px; justify-content: center; padding: 12px 0 0 0; overflow-x: auto;"
-        ></div>
+        {{-- META CARDS --}}
+        <div class="detail-meta-cards">
 
-        <!-- Section Informasi Detail -->
-        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
-
-            <!-- Title & Badge -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 8px;">
-
-                <h2
-                    id="detailTitle"
-                    style="color: #0f172a; font-size: 20px; font-weight: 800; line-height: 1.3; margin: 0;"
-                >
-                    Memuat...
-                </h2>
-
-                <span
-                    id="detailBadge"
-                    class="badge-tipe-produk"
-                    style="display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; background: #e0f2fe; color: #0369a1; white-space: nowrap;"
-                >
-                    Memuat...
-                </span>
-
-            </div>
-
-            <!-- Price -->
-            <div
-                id="detailPrice"
-                style="font-size: 22px; font-weight: 800; color: #2563eb; margin-bottom: 20px;"
-            >
-                Rp0
-            </div>
-
-            <!-- Description Box -->
-            <div style="margin-bottom: 20px;">
-
-                <h3 style="font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">
-                    Deskripsi
-                </h3>
-
-                <div
-                    id="detailDesc"
-                    style="font-size: 13.5px; color: #334155; line-height: 1.6; white-space: pre-line; background: #fafafa; padding: 14px; border-radius: 8px; border: 1px solid #f1f5f9;"
-                >
-                    Memuat deskripsi...
-                </div>
-
-            </div>
-
-            <!-- Stats Grid -->
-            <div
-                class="stat-grid-3"
-                style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px;"
-            >
-
-                <!-- Total Pesanan -->
-                <div
-                    class="stat-box"
-                    style="background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 10px; padding: 14px 12px; text-align: center;"
-                >
-
-                    <h3
-                        id="statPesanan"
-                        style="color: #2563eb; font-size: 20px; font-weight: 800; margin: 0 0 2px 0;"
-                    >
-                        0
-                    </h3>
-
-                    <p style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">
-                        Total Pesanan
-                    </p>
-
-                </div>
-
-                <!-- Jumlah Pencarian -->
-                <div
-                    class="stat-box"
-                    style="background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 10px; padding: 14px 12px; text-align: center;"
-                >
-
-                    <h3
-                        id="statPencarian"
-                        style="color: #0284c7; font-size: 20px; font-weight: 800; margin: 0 0 2px 0;"
-                    >
-                        0
-                    </h3>
-
-                    <p style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">
-                        Pencarian
-                    </p>
-
-                </div>
-
-                <!-- Jumlah Tampilan -->
-                <div
-                    class="stat-box"
-                    style="background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 10px; padding: 14px 12px; text-align: center;"
-                >
-
-                    <h3
-                        id="statTampilan"
-                        style="color: #16a34a; font-size: 20px; font-weight: 800; margin: 0 0 2px 0;"
-                    >
-                        0
-                    </h3>
-
-                    <p style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">
-                        Tampilan Halaman
-                    </p>
-
-                </div>
-
-            </div>
-
-            <!-- Info Box Callout -->
-            <div
-                class="info-box"
-                style="background: #fefce8; border: 1px solid #fef08a; border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px;"
-            >
-
-                <span style="font-size: 18px;">💡</span>
-
+            <div class="meta-card-item">
+                <div class="meta-icon"><i class="ph ph-tag"></i></div>
                 <div>
-
-                    <div
-                        class="info-box-title"
-                        style="font-size: 12px; font-weight: 700; color: #854d0e; margin-bottom: 2px;"
-                    >
-                        Informasi Pengelolaan
-                    </div>
-
-                    <div style="font-size: 12px; color: #a16207; line-height: 1.5;">
-                        Data produk atau jasa ini berasal dari katalog jurusan dan dikelola penuh oleh Admin Jurusan.
-                    </div>
-
+                    <span class="meta-label">JENIS</span>
+                    <span class="meta-value" id="metaJenis">-</span>
                 </div>
+            </div>
 
+            <div class="meta-card-item">
+                <div class="meta-icon"><i class="ph ph-shopping-cart"></i></div>
+                <div>
+                    <span class="meta-label">JUMLAH PESANAN</span>
+                    <span class="meta-value" id="statPesanan">0</span>
+                </div>
+            </div>
+
+            <div class="meta-card-item">
+                <div class="meta-icon"><i class="ph ph-magnifying-glass"></i></div>
+                <div>
+                    <span class="meta-label">PENCARIAN</span>
+                    <span class="meta-value" id="statPencarian">0</span>
+                </div>
+            </div>
+
+            <div class="meta-card-item">
+                <div class="meta-icon"><i class="ph ph-eye"></i></div>
+                <div>
+                    <span class="meta-label">TAMPILAN HALAMAN</span>
+                    <span class="meta-value" id="statTampilan">0</span>
+                </div>
             </div>
 
         </div>
 
-    </div>
+        {{-- DESKRIPSI --}}
+        <div class="detail-card">
+            <h2 class="detail-section-title">DESKRIPSI</h2>
+            <div class="detail-text" id="detailDesc">Memuat deskripsi...</div>
+        </div>
 
+    </div>
+</div>
+
+{{-- LIGHTBOX --}}
+<div class="admin-gallery-lightbox" id="adminGalleryLightbox">
+    <button type="button" class="admin-lightbox-close" onclick="adminGalleryCloseLightbox()">&times;</button>
+    <img src="" class="admin-lightbox-image" id="adminLightboxImage" alt="Preview gambar">
 </div>
 @endsection
 
 @section('scripts')
 <script>
+/* =========================================================
+   GALERI (sama seperti admin TEFA)
+========================================================= */
+let adminGalleryIndex = 0;
+
+function adminGalleryImages() {
+    return document.querySelectorAll('.admin-gallery-image');
+}
+
+function adminGalleryUpdate() {
+    const images = adminGalleryImages();
+    const dots = document.querySelectorAll('.admin-gallery-dot');
+    const thumbs = document.querySelectorAll('.admin-gallery-thumb');
+
+    if (!images.length) return;
+
+    images.forEach((el, i) => el.classList.toggle('active', i === adminGalleryIndex));
+    dots.forEach((el, i) => el.classList.toggle('active', i === adminGalleryIndex));
+    thumbs.forEach((el, i) => el.classList.toggle('active', i === adminGalleryIndex));
+
+    const activeThumb = document.querySelector('.admin-gallery-thumb.active');
+    if (activeThumb) {
+        activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+}
+
+function adminGalleryNext() {
+    const images = adminGalleryImages();
+    if (images.length <= 1) return;
+    adminGalleryIndex = (adminGalleryIndex + 1) % images.length;
+    adminGalleryUpdate();
+}
+
+function adminGalleryPrev() {
+    const images = adminGalleryImages();
+    if (images.length <= 1) return;
+    adminGalleryIndex = (adminGalleryIndex - 1 + images.length) % images.length;
+    adminGalleryUpdate();
+}
+
+function adminGalleryGo(index) {
+    const images = adminGalleryImages();
+    if (index < 0 || index >= images.length) return;
+    adminGalleryIndex = index;
+    adminGalleryUpdate();
+}
+
+function adminGalleryOpenLightbox(src) {
+    const modal = document.getElementById('adminGalleryLightbox');
+    const image = document.getElementById('adminLightboxImage');
+    if (!modal || !image) return;
+    image.src = src;
+    modal.classList.add('active');
+}
+
+function adminGalleryCloseLightbox() {
+    const modal = document.getElementById('adminGalleryLightbox');
+    if (modal) modal.classList.remove('active');
+}
+
+/* Bangun galeri dari data (slider, dots, thumbnail) */
+function buildGallery(urls, altText) {
+    const main = document.getElementById('adminMainImage');
+    const thumbs = document.getElementById('adminThumbnails');
+
+    main.innerHTML = '';
+    thumbs.innerHTML = '';
+    adminGalleryIndex = 0;
+
+    urls.forEach(function (url, index) {
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = altText;
+        img.className = 'admin-gallery-image' + (index === 0 ? ' active' : '');
+        img.addEventListener('click', function () {
+            adminGalleryOpenLightbox(this.src);
+        });
+        main.appendChild(img);
+    });
+
+    if (urls.length > 1) {
+        const prev = document.createElement('button');
+        prev.type = 'button';
+        prev.className = 'admin-gallery-arrow admin-gallery-prev';
+        prev.setAttribute('aria-label', 'Gambar sebelumnya');
+        prev.textContent = '‹';
+        prev.addEventListener('click', adminGalleryPrev);
+
+        const next = document.createElement('button');
+        next.type = 'button';
+        next.className = 'admin-gallery-arrow admin-gallery-next';
+        next.setAttribute('aria-label', 'Gambar berikutnya');
+        next.textContent = '›';
+        next.addEventListener('click', adminGalleryNext);
+
+        const dots = document.createElement('div');
+        dots.className = 'admin-gallery-dots';
+
+        urls.forEach(function (url, index) {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'admin-gallery-dot' + (index === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Gambar ' + (index + 1));
+            dot.addEventListener('click', function () { adminGalleryGo(index); });
+            dots.appendChild(dot);
+
+            const thumb = document.createElement('button');
+            thumb.type = 'button';
+            thumb.className = 'admin-gallery-thumb' + (index === 0 ? ' active' : '');
+            thumb.addEventListener('click', function () { adminGalleryGo(index); });
+
+            const thumbImg = document.createElement('img');
+            thumbImg.src = url;
+            thumbImg.alt = 'Gambar ' + (index + 1);
+            thumb.appendChild(thumbImg);
+            thumbs.appendChild(thumb);
+        });
+
+        main.appendChild(prev);
+        main.appendChild(next);
+        main.appendChild(dots);
+        thumbs.style.display = 'flex';
+    } else {
+        thumbs.style.display = 'none';
+    }
+
+    /* Swipe di layar sentuh */
+    let startX = 0;
+    let startY = 0;
+
+    main.addEventListener('touchstart', function (e) {
+        if (!e.touches.length) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+    }, { passive: true });
+
+    main.addEventListener('touchend', function (e) {
+        if (!e.changedTouches.length) return;
+        const diffX = startX - e.changedTouches[0].clientX;
+        const diffY = startY - e.changedTouches[0].clientY;
+
+        if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX > 0) {
+                adminGalleryNext();
+            } else {
+                adminGalleryPrev();
+            }
+        }
+    }, { passive: true });
+}
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
 document.addEventListener('DOMContentLoaded', async function () {
 
     const params = new URLSearchParams(window.location.search);
+    const idProdukJasa = params.get('id_produk_jasa');
 
-    const idProdukJasa =
-        params.get('id_produk_jasa');
+    const loading = document.getElementById('detailLoading');
+    const error = document.getElementById('detailError');
+    const content = document.getElementById('detailContent');
 
-    const loading =
-        document.getElementById('detailLoading');
+    /* Lightbox: tutup dengan Esc & klik latar */
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') adminGalleryCloseLightbox();
+    });
 
-    const error =
-        document.getElementById('detailError');
-
-    const content =
-        document.getElementById('detailContent');
-
-
-    // ============================================================
-    // CEK ID
-    // ============================================================
+    const lightbox = document.getElementById('adminGalleryLightbox');
+    if (lightbox) {
+        lightbox.addEventListener('click', function (e) {
+            if (e.target === lightbox) adminGalleryCloseLightbox();
+        });
+    }
 
     if (!idProdukJasa) {
-
         loading.style.display = 'none';
         error.style.display = 'block';
-
         return;
     }
 
-
-    // ============================================================
-    // FORMAT RUPIAH
-    // ============================================================
-
     function formatRupiah(value) {
-
-        if (
-            value === null ||
-            value === undefined ||
-            value === ''
-        ) {
+        if (value === null || value === undefined || value === '') {
             return 'Rp0';
         }
 
@@ -253,353 +731,81 @@ document.addEventListener('DOMContentLoaded', async function () {
             return value;
         }
 
-        return 'Rp' +
-            new Intl.NumberFormat('id-ID').format(number);
+        return 'Rp' + new Intl.NumberFormat('id-ID').format(number);
     }
-
-
-    // ============================================================
-    // URL GAMBAR
-    // ============================================================
-
-    function getImageUrl(gambar, jenis) {
-
-        if (
-            gambar &&
-            gambar.path_gambar
-        ) {
-
-            return '/storage/' +
-                gambar.path_gambar;
-        }
-
-        return 'https://placehold.co/800x500/E2E8F0/1E3A8A?text=' +
-            encodeURIComponent(jenis);
-    }
-
 
     try {
-
-        // ========================================================
-        // AMBIL DATA PRODUK DAN JASA
-        // ========================================================
-
-        const [
-            responseProduk,
-            responseJasa
-        ] = await Promise.all([
-
-            fetch(
-                '/jurusan-admin/produk?jenis=produk',
-                {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                }
-            ),
-
-            fetch(
-                '/jurusan-admin/produk?jenis=jasa',
-                {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                }
-            )
-
+        const [responseProduk, responseJasa] = await Promise.all([
+            fetch('/jurusan-admin/produk?jenis=produk', {
+                headers: { 'Accept': 'application/json' }
+            }),
+            fetch('/jurusan-admin/produk?jenis=jasa', {
+                headers: { 'Accept': 'application/json' }
+            })
         ]);
 
-
-        if (
-            !responseProduk.ok ||
-            !responseJasa.ok
-        ) {
-
-            throw new Error(
-                'Gagal mengambil data.'
-            );
-
+        if (!responseProduk.ok || !responseJasa.ok) {
+            throw new Error('Gagal mengambil data.');
         }
 
-
-        const resultProduk =
-            await responseProduk.json();
-
-        const resultJasa =
-            await responseJasa.json();
-
-
-        // ========================================================
-        // GABUNG DATA
-        // ========================================================
+        const resultProduk = await responseProduk.json();
+        const resultJasa = await responseJasa.json();
 
         const semuaData = [
-
             ...(resultProduk.data || []),
-
             ...(resultJasa.data || [])
-
         ];
 
-
-        // ========================================================
-        // CARI PRODUK/JASA
-        // ========================================================
-
-        const item =
-            semuaData.find(function (data) {
-
-                return String(
-                    data.id_produk_jasa
-                ) === String(
-                    idProdukJasa
-                );
-
-            });
-
+        const item = semuaData.find(function (data) {
+            return String(data.id_produk_jasa) === String(idProdukJasa);
+        });
 
         if (!item) {
-
-            throw new Error(
-                'Produk/jasa tidak ditemukan.'
-            );
-
+            throw new Error('Produk/jasa tidak ditemukan.');
         }
 
+        const jenis = item.jenis === 'jasa' ? 'Jasa' : 'Produk';
 
-        const jenis =
-            item.jenis === 'jasa'
-                ? 'Jasa'
-                : 'Produk';
+        /* Galeri */
+        let urls = [];
 
-
-        // ========================================================
-        // GALERI GAMBAR
-        // ========================================================
-
-        const detailImg =
-            document.getElementById('detailImg');
-
-        const thumbnailContainer =
-            document.getElementById(
-                'thumbnailContainer'
-            );
-
-
-        const gambarList =
-            item.gambars &&
-            item.gambars.length > 0
-                ? item.gambars
-                : [];
-
-
-        thumbnailContainer.innerHTML = '';
-
-
-        if (gambarList.length > 0) {
-
-            detailImg.src =
-                getImageUrl(
-                    gambarList[0],
-                    jenis
-                );
-
-
-            gambarList.forEach(
-                function (gambar, index) {
-
-                    const thumb =
-                        document.createElement('img');
-
-
-                    thumb.src =
-                        getImageUrl(
-                            gambar,
-                            jenis
-                        );
-
-
-                    thumb.alt =
-                        'Gambar ' +
-                        (index + 1);
-
-
-                    thumb.style.width =
-                        '56px';
-
-                    thumb.style.height =
-                        '56px';
-
-                    thumb.style.objectFit =
-                        'cover';
-
-                    thumb.style.borderRadius =
-                        '8px';
-
-                    thumb.style.cursor =
-                        'pointer';
-
-
-                    thumb.style.border =
-                        index === 0
-                            ? '2px solid #2563eb'
-                            : '1px solid #cbd5e1';
-
-
-                    thumb.style.transition =
-                        'all 0.2s ease';
-
-
-                    thumb.addEventListener(
-                        'click',
-                        function () {
-
-                            detailImg.src =
-                                getImageUrl(
-                                    gambar,
-                                    jenis
-                                );
-
-
-                            Array.from(
-                                thumbnailContainer.children
-                            ).forEach(
-                                function (child) {
-
-                                    child.style.border =
-                                        '1px solid #cbd5e1';
-
-                                }
-                            );
-
-
-                            this.style.border =
-                                '2px solid #2563eb';
-
-                        }
-                    );
-
-
-                    thumbnailContainer.appendChild(
-                        thumb
-                    );
-
-                }
-            );
-
-        } else {
-
-            detailImg.src =
-                getImageUrl(
-                    null,
-                    jenis
-                );
-
+        if (item.gambars && item.gambars.length > 0) {
+            urls = item.gambars
+                .filter(function (g) { return g && g.path_gambar; })
+                .map(function (g) { return '/storage/' + g.path_gambar; });
         }
 
+        if (urls.length === 0) {
+            urls = ['https://placehold.co/800x600/E2E8F0/1E3A8A?text=' + encodeURIComponent(jenis)];
+        }
 
-        // ========================================================
-        // INFORMASI DETAIL
-        // ========================================================
+        buildGallery(urls, item.nama_produk_jasa || jenis);
 
-        document.getElementById(
-            'detailTitle'
-        ).textContent =
-            item.nama_produk_jasa || '-';
+        /* Informasi */
+        document.getElementById('detailBadge').textContent = jenis.toUpperCase();
+        document.getElementById('metaJenis').textContent = jenis;
+        document.getElementById('detailTitle').textContent = item.nama_produk_jasa || '-';
 
+        const satuan = item.satuan_harga ? '/' + item.satuan_harga : '';
+        document.getElementById('detailPrice').textContent = formatRupiah(item.harga) + satuan;
 
-        document.getElementById(
-            'detailPrice'
-        ).textContent =
-            formatRupiah(item.harga);
+        document.getElementById('detailDesc').textContent = item.deskripsi || 'Tidak ada deskripsi.';
 
+        /* Statistik */
+        document.getElementById('statPesanan').textContent = item.pesanans_count ?? 0;
+        document.getElementById('statPencarian').textContent = item.jumlah_pencarian ?? 0;
+        document.getElementById('statTampilan').textContent = item.jumlah_tampilan ?? 0;
 
-        document.getElementById(
-            'detailDesc'
-        ).textContent =
-            item.deskripsi ||
-            'Tidak ada deskripsi.';
-
-
-        // ========================================================
-        // BADGE JENIS
-        // ========================================================
-
-        const badge =
-            document.getElementById(
-                'detailBadge'
-            );
-
-
-        badge.textContent =
-            jenis;
-
-
-        badge.style.background =
-            jenis === 'Produk'
-                ? '#dcfce7'
-                : '#e0f2fe';
-
-
-        badge.style.color =
-            jenis === 'Produk'
-                ? '#15803d'
-                : '#0369a1';
-
-
-        // ========================================================
-        // STATISTIK
-        // ========================================================
-
-        // Total pesanan berasal dari withCount('pesanans')
-        document.getElementById(
-            'statPesanan'
-        ).textContent =
-            item.pesanans_count ?? 0;
-
-
-        // Jumlah pencarian berasal dari kolom
-        // jumlah_pencarian di tabel produk_jasa.
-        document.getElementById(
-            'statPencarian'
-        ).textContent =
-            item.jumlah_pencarian ?? 0;
-
-
-        // Jumlah tampilan berasal dari kolom
-        // jumlah_tampilan di tabel produk_jasa.
-        document.getElementById(
-            'statTampilan'
-        ).textContent =
-            item.jumlah_tampilan ?? 0;
-
-
-        // ========================================================
-        // TAMPILKAN CONTENT
-        // ========================================================
-
-        loading.style.display =
-            'none';
-
-        content.style.display =
-            'block';
-
+        loading.style.display = 'none';
+        content.style.display = 'block';
 
     } catch (err) {
-
         console.error(err);
 
-        loading.style.display =
-            'none';
-
-        content.style.display =
-            'none';
-
-        error.style.display =
-            'block';
-
+        loading.style.display = 'none';
+        content.style.display = 'none';
+        error.style.display = 'block';
     }
-
 });
 </script>
 @endsection

@@ -3,6 +3,58 @@
 @section('title', 'Kelola Produk')
 
 @section('content')
+<style>
+    /* Tombol Tambah & Simpan (sama seperti Tambah FAQ) */
+    .btn-produk-primary {
+        background: #1e3a8ad9;
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        width: auto;
+    }
+
+    .btn-produk-primary:hover {
+        background: #1E3A8A;
+        color: white;
+    }
+
+    /* Tombol Hapus di modal: hover merah */
+    .btn-produk-delete,
+    #btnConfirmDelete {
+        background: #dc3545 !important;
+        color: white !important;
+        padding: 10px 16px !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
+        cursor: pointer !important;
+        width: auto !important;
+    }
+
+    .btn-produk-delete:hover,
+    #btnConfirmDelete:hover {
+        background: #B91C1C !important;
+        color: white !important;
+    }
+
+    /* Tombol Hapus di card: hover merah (inline style dari JS perlu !important) */
+    #kelolaProdukContainer .btn-delete {
+        background: transparent !important;
+        color: #dc3545 !important;
+        border: 1px solid #dc3545 !important;
+        transition: all 0.2s ease;
+    }
+
+    #kelolaProdukContainer .btn-delete:hover {
+        background: #dc3545 !important;
+        color: #ffffff !important;
+    }
+</style>
 <div class="header-action" style="align-items: center;">
     <div>
         <h2>Kelola Produk</h2>
@@ -18,13 +70,12 @@
             style="width: 250px; margin-bottom: 0;"
         >
 
-        <button
-            onclick="openLayananModal('modalAdd')"
-            class="btn-primary"
-            style="width: auto;"
-        >
-            + Tambah Produk
-        </button>
+       <button
+    onclick="openLayananModal('modalAdd')"
+    class="btn-produk-primary"
+>
+    + Tambah Produk
+</button>
     </div>
 </div>
 
@@ -128,12 +179,11 @@
                 </button>
 
                 <button
-                    type="submit"
-                    class="btn-primary"
-                    style="width: auto;"
-                >
-                    Simpan
-                </button>
+    type="submit"
+    class="btn-produk-primary"
+>
+    Simpan
+</button>
 
             </div>
 
@@ -171,13 +221,12 @@
             </button>
 
             <button
-                type="button"
-                id="btnConfirmDelete"
-                class="btn-primary"
-                style="width: auto; background-color: #dc3545;"
-            >
-                Hapus
-            </button>
+    type="button"
+    id="btnConfirmDelete"
+    class="btn-produk-delete"
+>
+    Hapus
+</button>
 
         </div>
 
