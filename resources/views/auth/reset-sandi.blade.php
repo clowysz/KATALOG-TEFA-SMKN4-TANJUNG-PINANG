@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         passwordInput.addEventListener('input', function () {
             this.setCustomValidity('');
             checkConfirmation();
-        });
+        });          
     }
 
     // ================= KONFIRMASI SANDI =================

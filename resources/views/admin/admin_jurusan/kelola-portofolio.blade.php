@@ -4,6 +4,21 @@
 
 @section('content')
 <style>
+
+    .btn-porto-delete {
+    background: #dc3545;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-porto-delete:hover {
+    background: #B91C1C;
+}
     /* Tombol Tambah & Simpan (sama seperti Tambah FAQ) */
     .btn-porto-primary {
         background: #1e3a8ad9;
@@ -111,14 +126,17 @@
                 Tahun / Periode
             </label>
 
-            <input
-                type="text"
-                name="tahun"
-                id="portoYear"
-                class="form-control"
-                placeholder="Contoh: 2026"
-                required
-            >
+           <input
+    type="text"
+    name="tahun"
+    id="portoYear"
+    class="form-control"
+    placeholder="Contoh: 2026"
+    required
+    inputmode="numeric"
+    maxlength="4"
+    pattern="[0-9]{4}"
+>
 
             <label class="detail-label">
                 Upload Gambar Portofolio
@@ -244,6 +262,18 @@
                     this.setCustomValidity('');
                 }
             });
+            formPorto.addEventListener('submit', function (event) {
+    const tahun = parseInt(portoYear.value, 10);
+    const tahunSekarang = new Date().getFullYear();
+
+    if (tahun < 2000 || tahun > tahunSekarang) {
+        event.preventDefault();
+        portoYear.setCustomValidity('Tahun harus antara 2000 sampai ' + tahunSekarang + '.');
+        portoYear.reportValidity();
+    } else {
+        portoYear.setCustomValidity('');
+    }
+});
 
             element.addEventListener('input', function () {
                 this.setCustomValidity('');
@@ -257,6 +287,21 @@
         // kelola-portofolio.js memasang atribut "required" pada input gambar saat mode tambah,
         // jadi validasi bawaan browser yang jalan duluan. Pesannya diganti di sini.
         setIndonesianValidation(portoImg, 'Minimal satu gambar wajib diunggah.');
+
+        // Tahun hanya boleh angka dan wajib 4 digit
+portoYear.addEventListener('input', function () {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+
+portoYear.addEventListener('invalid', function () {
+    if (this.validity.valueMissing) {
+        this.setCustomValidity('Tahun / periode wajib diisi.');
+    } else if (this.validity.patternMismatch) {
+        this.setCustomValidity('Tahun harus terdiri dari 4 angka, contoh: 2026.');
+    } else {
+        this.setCustomValidity('');
+    }
+});
 
         // Cek manual: gambar wajib hanya di mode tambah (portoId kosong)
         if (formPorto && portoImg) {

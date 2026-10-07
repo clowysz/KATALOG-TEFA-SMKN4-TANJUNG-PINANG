@@ -1141,6 +1141,27 @@ Route::middleware([
         [ProdukJasaController::class, 'destroyGambar']
     )->name('produk.destroyGambar');
 
+        // Portofolio
+    Route::get(
+        '/jurusan-admin/portofolio',
+        [PortfolioController::class, 'index']
+    )->name('portofolio.index');
+
+    Route::post(
+        '/jurusan-admin/portofolio',
+        [PortfolioController::class, 'store']
+    )->name('portofolio.store');
+
+    Route::put(
+        '/jurusan-admin/portofolio/{id}',
+        [PortfolioController::class, 'update']
+    )->name('portofolio.update');
+
+    Route::delete(
+        '/jurusan-admin/portofolio/{id}',
+        [PortfolioController::class, 'destroy']
+    )->name('portofolio.destroy');
+
 
 });
 // =========================================================================

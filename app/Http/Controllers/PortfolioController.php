@@ -40,12 +40,13 @@ class PortfolioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'tahun' => 'nullable|string|max:4',
-            'gambar' => 'required|array|min:1',
-            'gambar.*' => 'image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+    'judul' => 'required|string|max:255',
+    'deskripsi' => 'required|string',
+    'tahun' => ['required', 'digits:4', 'integer', 'between:2000,' . date('Y')],
+    'gambar' => 'required|array|min:1',
+    'gambar.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+
+], $this->pesanValidasi());
 
         $user = Auth::user();
         $jurusan = $user->jurusanDipegang;
@@ -80,16 +81,16 @@ class PortfolioController extends Controller
     /**
      * Edit Portofolio
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'tahun' => 'nullable|string|max:4',
-            'gambar' => 'nullable|array',
-            'gambar.*' => 'image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+    'judul' => 'required|string|max:255',
+    'deskripsi' => 'required|string',
+    'tahun' => ['required', 'digits:4', 'integer', 'between:2000,' . date('Y')],
+    'gambar' => 'nullable|array',
+    'gambar.*' => 'image|mimes:jpg,jpeg,png|max:2048',
 
+], $this->pesanValidasi());
         $user = Auth::user();
         $jurusan = $user->jurusanDipegang;
 
@@ -135,7 +136,7 @@ class PortfolioController extends Controller
     /**
      * Hapus Portofolio
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $user = Auth::user();
         $jurusan = $user->jurusanDipegang;
@@ -175,7 +176,7 @@ class PortfolioController extends Controller
     /**
      * Hapus satu gambar Portofolio
      */
-    public function destroyGambar($id_gambar_portfolio)
+    public function destroyGambar(int $id_gambar_portfolio)
     {
         $user = Auth::user();
         $jurusan = $user->jurusanDipegang;
@@ -210,4 +211,22 @@ class PortfolioController extends Controller
             'message' => 'Gambar berhasil dihapus!'
         ]);
     }
+    private function pesanValidasi(): array
+{
+    return [
+        'judul.required'     => 'Judul portofolio wajib diisi.',
+        'judul.max'          => 'Judul portofolio maksimal 255 karakter.',
+        'deskripsi.required' => 'Deskripsi singkat wajib diisi.',
+        'tahun.required'     => 'Tahun / periode wajib diisi.',
+        'tahun.digits'       => 'Tahun harus terdiri dari 4 angka, contoh: 2026.',
+        'gambar.required'    => 'Minimal satu gambar wajib diunggah.',
+        'gambar.min'         => 'Minimal satu gambar wajib diunggah.',
+        'gambar.*.image'     => 'File harus berupa gambar.',
+        'gambar.*.mimes'     => 'Gambar harus berformat JPG, JPEG, atau PNG.',
+        'gambar.*.max'       => 'Ukuran setiap gambar maksimal 2 MB.',
+        'gambar.*.uploaded'  => 'Gambar gagal diunggah. Pastikan ukuran maksimal 2 MB.',
+        'tahun.integer'      => 'Tahun harus berupa angka.',
+        'tahun.between'      => 'Tahun harus diantara 2000 sampai ' . date('Y') . '.',
+        ];
+}
 }
