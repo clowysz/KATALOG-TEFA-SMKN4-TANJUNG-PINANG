@@ -246,6 +246,38 @@
     .btn-save-status:active {
         background: #172E6F;
     }
+    /* =========================
+   ALERT HASIL UPDATE STATUS
+   ========================= */
+
+.pesanan-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.pesanan-alert i {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.pesanan-alert-success {
+    background: #ecfdf5;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.pesanan-alert-error {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
 
 
     /* =========================
@@ -309,7 +341,27 @@
         </p>
 
     </div>
+    {{-- PESAN HASIL UPDATE STATUS --}}
+@if(session('success'))
+    <div class="pesanan-alert pesanan-alert-success">
+        <i class="ph ph-check-circle"></i>
+        <span>{{ session('success') }}</span>
+    </div>
+@endif
 
+@if(session('error'))
+    <div class="pesanan-alert pesanan-alert-error">
+        <i class="ph ph-warning-circle"></i>
+        <span>{{ session('error') }}</span>
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="pesanan-alert pesanan-alert-error">
+        <i class="ph ph-warning-circle"></i>
+        <span>{{ $errors->first() }}</span>
+    </div>
+@endif
 
     {{-- =========================
          INFORMASI PESANAN
