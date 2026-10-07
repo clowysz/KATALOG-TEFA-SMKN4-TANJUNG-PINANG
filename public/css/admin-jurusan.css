@@ -1257,3 +1257,11 @@
         width: auto !important;
     }
 }
+/* =========================================================
+   TEXTAREA FORM MODAL - TIDAK BISA DI-RESIZE
+   Berlaku untuk Kelola Produk, Jasa, dan Portofolio
+   ========================================================= */
+
+.modal-box textarea.form-control {
+    resize: none;
+}
