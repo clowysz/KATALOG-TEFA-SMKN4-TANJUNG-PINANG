@@ -33,12 +33,12 @@
     }
 
     .detail-page-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 24px;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
 
     .detail-page-title h3 {
         margin: 0 0 6px;
@@ -103,6 +103,27 @@
         padding: 7px 10px;
         font-size: 12px;
     }
+
+    .btn-level-2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    background: #ffffff;
+    color: var(--primary);
+    padding: 8px 16px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.btn-level-2:hover {
+    background: var(--primary);
+    color: #ffffff;
+}
 
     /* ALERT */
 
@@ -808,20 +829,45 @@
         color: var(--primary);
     }
 
-    .icon-btn:disabled {
-        opacity: .35;
-        cursor: not-allowed;
-    }
-
-    .icon-btn:disabled:hover {
-        background: white;
-        color: var(--prod-text-sec);
-    }
-
     .icon-btn.danger:hover {
         color: var(--prod-error);
         border-color: #FECACA;
         background: var(--prod-error-bg);
+    }
+
+        .drag-handle {
+        width: 28px;
+        height: 31px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #94A3B8;
+        cursor: grab;
+        border-radius: 6px;
+        touch-action: none;
+        user-select: none;
+    }
+
+    .drag-handle:hover {
+        background: #F1F5F9;
+        color: var(--primary);
+    }
+
+    .stage-row.dragging {
+        background: #F0F7FF;
+        box-shadow: 0 6px 16px rgba(0,0,0,.12);
+        position: relative;
+        z-index: 2;
+    }
+
+    .stage-row.dragging .drag-handle {
+        cursor: grabbing;
+    }
+
+    body.is-dragging,
+    body.is-dragging * {
+        cursor: grabbing !important;
+        user-select: none !important;
     }
 
     .modal-empty {
@@ -829,34 +875,6 @@
         padding: 30px 10px;
         color: var(--prod-text-sec);
         font-size: 13px;
-    }
-
-    /* BAR SIMPAN URUTAN */
-
-    .modal-toolbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-bottom: 15px;
-    }
-
-    .reorder-bar {
-        display: none;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-        padding: 7px 10px;
-        border: 1px solid #FDE68A;
-        background: #FFFBEB;
-        border-radius: 9px;
-        font-size: 12px;
-        color: #92400E;
-    }
-
-    .reorder-bar.show {
-        display: flex;
     }
 
     /* =========================================================
@@ -959,20 +977,21 @@
 <div id="produserOrderPage">
 
     {{-- HEADER --}}
-    <div class="detail-page-header">
+    {{-- HEADER --}}
+<div class="detail-page-header">
 
-        <div class="detail-page-title">
-            <h3>Detail Pesanan</h3>
-            <p>Kelola pengerjaan pesanan dan tahapan pekerjaan.</p>
-        </div>
+    <a href="{{ route('admin.produser.pesanan') }}"
+       class="btn-level-2">
+        <i class="ph ph-arrow-left"></i>
+        Kembali
+    </a>
 
-        <a href="{{ route('admin.produser.pesanan') }}"
-           class="prod-btn prod-btn-secondary">
-            <i class="ph ph-arrow-left"></i>
-            Kembali
-        </a>
-
+    <div class="detail-page-title">
+        <h3>Detail Pesanan</h3>
+        <p>Kelola pengerjaan pesanan dan tahapan pekerjaan.</p>
     </div>
+
+</div>
 
 
     {{-- SUCCESS --}}
@@ -1401,10 +1420,9 @@
                 </div>
 
 
-                <form id="formProgress"
-                      action="{{ route('produser.updateProgress', $pesanan->id_pesanan) }}"
-                      method="POST"
-                      novalidate>
+                <form id="formUpdateProgress"
+      action="{{ route('produser.updateProgress', $pesanan->id_pesanan) }}"
+      method="POST">
 
                     @csrf
 
@@ -1412,9 +1430,7 @@
 
                         <div class="form-group">
 
-                            <label class="form-label-custom">
-                                Progress Pengerjaan
-                            </label>
+                            <label class="form-label-custom" for="updateProgress">Progress Pengerjaan</label>
 
                             <div class="range-wrapper">
 
@@ -1444,19 +1460,17 @@
 
                         <div class="form-group">
 
-                            <label class="form-label-custom">
-                                Keterangan Progress
-                            </label>
+                            <label class="form-label-custom" for="inputKeteranganProgress">Keterangan Progress</label>
 
                             <input
-                                type="text"
-                                name="keterangan_progress"
-                                id="inputKeteranganProgress"
-                                class="custom-input"
-                                maxlength="255"
-                                placeholder="Contoh: Tahap desain sudah selesai."
-                                required
-                            >
+    type="text"
+    id="inputKeteranganProgress"
+    name="keterangan_progress"
+    class="custom-input"
+    maxlength="255"
+    placeholder="Contoh: Tahap desain sudah selesai."
+    required
+>
 
                         </div>
 
@@ -1633,44 +1647,49 @@
 
             <div class="prod-modal-body">
 
-                <div class="modal-toolbar">
+                <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:15px;
+">
 
-                    {{-- Muncul setelah urutan diubah --}}
-                    <div id="reorderBar" class="reorder-bar">
+    <div id="reorderNotice"
+         style="
+            display:none;
+            font-size:12px;
+            color:#92400E;
+            background:#FFFBEB;
+            border:1px solid #FDE68A;
+            border-radius:8px;
+            padding:8px 12px;
+         ">
+        Urutan diubah. Klik <strong>Simpan Urutan</strong> untuk menyimpan.
+    </div>
 
-                        <span>Urutan diubah, belum disimpan.</span>
+    <div style="display:flex; gap:8px; margin-left:auto;">
 
-                        <button type="button"
-                                class="prod-btn prod-btn-success prod-btn-small"
-                                onclick="simpanUrutanTahapan()">
+        <button type="button"
+                id="btnSimpanUrutan"
+                class="prod-btn prod-btn-success"
+                style="display:none;"
+                onclick="saveReorder()">
+            <i class="ph ph-floppy-disk"></i>
+            Simpan Urutan
+        </button>
 
-                            <i class="ph ph-floppy-disk"></i>
-                            Simpan Urutan
+        <button type="button"
+                class="prod-btn prod-btn-primary"
+                onclick="openFormTambahTahap()">
+            <i class="ph ph-plus"></i>
+            Tambah Tahapan
+        </button>
 
-                        </button>
+    </div>
 
-                        <button type="button"
-                                class="prod-btn prod-btn-secondary prod-btn-small"
-                                onclick="batalkanUrutan()">
-
-                            Batalkan
-
-                        </button>
-
-                    </div>
-
-                    <button type="button"
-                            class="prod-btn prod-btn-primary"
-                            style="margin-left:auto;"
-                            onclick="openFormTambahTahap()">
-
-                        <i class="ph ph-plus"></i>
-                        Tambah Tahapan
-
-                    </button>
-
-                </div>
-
+</div>
 
                 @if($tahapanList->count())
 
@@ -1681,115 +1700,83 @@
                             <thead>
 
                                 <tr>
-                                    <th width="60">No.</th>
-                                    <th>Tahapan</th>
-                                    <th>Status</th>
-                                    <th width="90">Progress</th>
-                                    <th width="170">Aksi</th>
-                                </tr>
+    <th width="40"></th>
+    <th width="60">No.</th>
+    <th>Tahapan</th>
+    <th>Status</th>
+    <th width="90">Progress</th>
+    <th width="90">Aksi</th>
+</tr>
 
                             </thead>
 
-                            <tbody id="tabelTahapanBody">
+                            <tbody>
 
                                 @foreach($tahapanList as $index => $tahapan)
 
-                                    <tr data-id="{{ $tahapan->id }}">
+                                    <tr class="stage-row"
+    data-id="{{ $tahapan->id }}"
+    data-order="{{ $index }}">
+        <td>
+        <span class="drag-handle" title="Seret untuk mengubah urutan">
+            <i class="ph ph-dots-six-vertical" style="font-size:20px;"></i>
+        </span>
+    </td>
 
-                                        <td>
-                                            <strong class="nomor-urut">
-                                                {{ $index + 1 }}
-                                            </strong>
-                                        </td>
+    <td>
+        <strong class="stage-no">{{ $index + 1 }}</strong>
+    </td>
 
-                                        <td>
-                                            <strong>
-                                                {{ $tahapan->nama_tahapan }}
-                                            </strong>
-                                        </td>
+    <td>
+        <strong>{{ $tahapan->nama_tahapan }}</strong>
+    </td>
 
-                                        <td>
-                                            <span class="stepper-status">
-                                                {{ $tahapan->status }}
-                                            </span>
-                                        </td>
+    <td>
+        <span class="stepper-status">{{ $tahapan->status }}</span>
+    </td>
 
-                                        <td>
-                                            {{ $tahapan->persentase_progress }}%
-                                        </td>
+    <td>{{ $tahapan->persentase_progress }}%</td>
 
-                                        <td>
+    <td>
+        <div class="stage-actions">
 
-                                            <div class="stage-actions">
+            <button
+                type="button"
+                class="icon-btn"
+                title="Edit"
+                onclick="openEditTahap(
+                    {{ $tahapan->id }},
+                    @js($tahapan->nama_tahapan),
+                    @js($tahapan->status),
+                    {{ $tahapan->persentase_progress }}
+                )">
+                <i class="ph ph-pencil-simple"></i>
+            </button>
 
-                                                <button
-                                                    type="button"
-                                                    class="icon-btn btn-naik"
-                                                    title="Naik"
-                                                    {{ $index === 0 ? 'disabled' : '' }}
-                                                    onclick="moveTahapan(this, 'up')">
+            <form
+                action="{{ route('produser.tahapan.destroy', [
+                    $pesanan->id_pesanan,
+                    $tahapan->id
+                ]) }}"
+                method="POST"
+                style="margin:0;"
+                onsubmit="return confirm('Hapus tahapan ini?')">
 
-                                                    <i class="ph ph-caret-up"></i>
+                @csrf
+                @method('DELETE')
 
-                                                </button>
+                <button type="submit"
+                        class="icon-btn danger"
+                        title="Hapus">
+                    <i class="ph ph-trash"></i>
+                </button>
 
+            </form>
 
-                                                <button
-                                                    type="button"
-                                                    class="icon-btn btn-turun"
-                                                    title="Turun"
-                                                    {{ $index === $tahapanList->count() - 1 ? 'disabled' : '' }}
-                                                    onclick="moveTahapan(this, 'down')">
+        </div>
+    </td>
 
-                                                    <i class="ph ph-caret-down"></i>
-
-                                                </button>
-
-
-                                                <button
-                                                    type="button"
-                                                    class="icon-btn"
-                                                    title="Edit"
-                                                    onclick="openEditTahap(
-                                                        {{ $tahapan->id }},
-                                                        @js($tahapan->nama_tahapan),
-                                                        @js($tahapan->status),
-                                                        {{ $tahapan->persentase_progress }}
-                                                    )">
-
-                                                    <i class="ph ph-pencil-simple"></i>
-
-                                                </button>
-
-
-                                                <form
-                                                    action="{{ route('produser.tahapan.destroy', [
-                                                        $pesanan->id_pesanan,
-                                                        $tahapan->id
-                                                    ]) }}"
-                                                    method="POST"
-                                                    style="margin:0;"
-                                                    onsubmit="return konfirmasiHapusTahap()">
-
-                                                    @csrf
-                                                    @method('DELETE')
-
-                                                    <button
-                                                        type="submit"
-                                                        class="icon-btn danger"
-                                                        title="Hapus">
-
-                                                        <i class="ph ph-trash"></i>
-
-                                                    </button>
-
-                                                </form>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
+</tr>
 
                                 @endforeach
 
@@ -1842,7 +1829,7 @@
 
                 <button type="button"
                         class="prod-modal-close"
-                        onclick="closeModalFormTahap(true)">
+                        onclick="closeModalFormTahap()">
 
                     <i class="ph ph-x"></i>
 
@@ -1854,8 +1841,7 @@
             <form
                 id="formSimpanTahap"
                 action="{{ route('produser.tahapan.store', $pesanan->id_pesanan) }}"
-                method="POST"
-                novalidate>
+                method="POST">
                 @csrf
 
                 <div id="methodContainer"></div>
@@ -1866,9 +1852,7 @@
                     <div class="form-group"
                          style="margin-bottom:18px;">
 
-                        <label class="form-label-custom">
-                            Nama Tahapan
-                        </label>
+                        <label class="form-label-custom" for="inputNamaTahap">Nama Tahapan</label>
 
                         <input
                             type="text"
@@ -1886,9 +1870,8 @@
                     <div class="form-group"
                          style="margin-bottom:18px;">
 
-                        <label class="form-label-custom">
-                            Status
-                        </label>
+                        <label class="form-label-custom" for="inputStatusTahap">Status</label>
+
 
                         <select
                             name="status"
@@ -1919,9 +1902,7 @@
 
                     <div class="form-group">
 
-                        <label class="form-label-custom">
-                            Progress
-                        </label>
+                        <label class="form-label-custom" for="inputProgressTahap">Progress</label>
 
                         <div class="range-wrapper">
 
@@ -1959,20 +1940,20 @@
                     <button
                         type="button"
                         class="prod-btn prod-btn-secondary"
-                        onclick="closeModalFormTahap(true)">
+                        onclick="closeModalFormTahap()">
 
                         Batal
 
                     </button>
 
-                    <button
-                        type="submit"
-                        class="prod-btn prod-btn-primary">
+                  <button
+    type="submit"
+    class="prod-btn prod-btn-primary">
 
-                        <i class="ph ph-floppy-disk"></i>
-                        Simpan
+    <i class="ph ph-floppy-disk"></i>
+    Simpan
 
-                    </button>
+</button>
 
                 </div>
 
@@ -2002,7 +1983,7 @@
 <script>
 
     /* =====================================================
-       ELEMEN & KONSTANTA
+       MODAL
     ====================================================== */
 
     const modalKelolaTahapan =
@@ -2011,119 +1992,6 @@
     const modalFormTahap =
         document.getElementById('modalFormTahap');
 
-    // Setelah simpan / hapus / urutan, halaman reload.
-    // Flag ini membuat modal Kelola Tahapan terbuka lagi.
-    const REOPEN_KEY = 'reopenKelolaTahapan';
-
-    function setReopenFlag() {
-        try {
-            sessionStorage.setItem(REOPEN_KEY, '1');
-        } catch (error) {}
-    }
-
-
-    /* =====================================================
-       VALIDASI - BAHASA INDONESIA
-       Form memakai "novalidate" agar pesan bawaan browser
-       (bahasa Inggris) tidak muncul. Pengecekan dilakukan
-       manual dan modal tetap terbuka saat ada yang kosong.
-    ====================================================== */
-
-    function validasiWajib(daftar) {
-
-        for (const item of daftar) {
-
-            const el = item.el;
-
-            if (!el) {
-                continue;
-            }
-
-            el.setCustomValidity('');
-
-            if (el.value.trim() === '') {
-
-                el.setCustomValidity(item.pesan);
-                el.reportValidity();
-
-                el.addEventListener('input', function () {
-                    el.setCustomValidity('');
-                }, { once: true });
-
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-
-    // Form Perbarui Progress
-    const formProgress =
-        document.getElementById('formProgress');
-
-    if (formProgress) {
-
-        formProgress.addEventListener('submit', function (event) {
-
-            const valid = validasiWajib([
-                {
-                    el: document.getElementById('inputKeteranganProgress'),
-                    pesan: 'Keterangan progress wajib diisi.'
-                }
-            ]);
-
-            if (!valid) {
-                event.preventDefault();
-            }
-
-        });
-
-    }
-
-
-    // Form Tambah / Edit Tahapan
-    const formSimpanTahap =
-        document.getElementById('formSimpanTahap');
-
-    if (formSimpanTahap) {
-
-        formSimpanTahap.addEventListener('submit', function (event) {
-
-            const valid = validasiWajib([
-                {
-                    el: document.getElementById('inputNamaTahap'),
-                    pesan: 'Nama tahapan wajib diisi.'
-                }
-            ]);
-
-            if (!valid) {
-                event.preventDefault();
-                return;
-            }
-
-            setReopenFlag();
-
-        });
-
-    }
-
-
-    function konfirmasiHapusTahap() {
-
-        if (!confirm('Hapus tahapan ini?')) {
-            return false;
-        }
-
-        setReopenFlag();
-
-        return true;
-    }
-
-
-    /* =====================================================
-       MODAL
-    ====================================================== */
 
     function openModalTahapan() {
 
@@ -2142,27 +2010,14 @@
             document.body.style.overflow = '';
         }
 
-    }
-
-
-    function bukaFormTahap() {
-
-        closeModalTahapan();
-
-        setTimeout(function () {
-
-            modalFormTahap.classList.add('active');
-
-            document.body.style.overflow = 'hidden';
-
-            document.getElementById('inputNamaTahap').focus();
-
-        }, 180);
+        resetReorder();
 
     }
 
 
     function openFormTambahTahap() {
+
+        document.getElementById('inputNamaTahap').setCustomValidity('');
 
         document.getElementById('modalFormTahapTitle').innerText =
             'Tambah Tahapan';
@@ -2172,10 +2027,7 @@
 
         document.getElementById('methodContainer').innerHTML = '';
 
-        const inputNama = document.getElementById('inputNamaTahap');
-
-        inputNama.value = '';
-        inputNama.setCustomValidity('');
+        document.getElementById('inputNamaTahap').value = '';
 
         document.getElementById('inputStatusTahap').value =
             'Belum Dimulai';
@@ -2185,13 +2037,20 @@
         document.getElementById('tahapProgressValue').innerText =
             '0%';
 
-        bukaFormTahap();
+        closeModalTahapan();
+
+        setTimeout(function () {
+
+            modalFormTahap.classList.add('active');
+
+            document.body.style.overflow = 'hidden';
+
+        }, 180);
 
     }
 
 
-    // kembali = true  -> kembali ke daftar Kelola Tahapan
-    function closeModalFormTahap(kembali = false) {
+    function closeModalFormTahap() {
 
         if (modalFormTahap) {
 
@@ -2199,10 +2058,6 @@
 
             document.body.style.overflow = '';
 
-        }
-
-        if (kembali && modalKelolaTahapan) {
-            openModalTahapan();
         }
 
     }
@@ -2215,6 +2070,8 @@
         progressTahapan
     ) {
 
+        document.getElementById('inputNamaTahap').setCustomValidity('');
+
         document.getElementById('modalFormTahapTitle').innerText =
             'Edit Tahapan';
 
@@ -2225,10 +2082,8 @@
         document.getElementById('methodContainer').innerHTML =
             '<input type="hidden" name="_method" value="PUT">';
 
-        const inputNama = document.getElementById('inputNamaTahap');
-
-        inputNama.value = namaTahapan;
-        inputNama.setCustomValidity('');
+        document.getElementById('inputNamaTahap').value =
+            namaTahapan;
 
         document.getElementById('inputStatusTahap').value =
             statusTahapan;
@@ -2239,119 +2094,230 @@
         document.getElementById('tahapProgressValue').innerText =
             progressTahapan + '%';
 
-        bukaFormTahap();
+        closeModalTahapan();
+
+        setTimeout(function () {
+
+            modalFormTahap.classList.add('active');
+
+            document.body.style.overflow = 'hidden';
+
+        }, 180);
 
     }
 
 
     /* =====================================================
-       ATUR URUTAN
-       Tombol naik/turun hanya menukar baris di layar.
-       Urutan baru dikirim sekali lewat "Simpan Urutan".
+       URUTAN TAHAPAN (drag & drop, disimpan sekali)
     ====================================================== */
 
-    function refreshUrutan() {
-
-        const rows = Array.from(
-            document.querySelectorAll(
-                '#tabelTahapanBody tr[data-id]'
-            )
+    function getStageRows() {
+        return Array.from(
+            document.querySelectorAll('#modalKelolaTahapan tbody tr.stage-row')
         );
+    }
 
-        rows.forEach(function (row, index) {
-
-            const nomor = row.querySelector('.nomor-urut');
-            const naik = row.querySelector('.btn-naik');
-            const turun = row.querySelector('.btn-turun');
-
-            if (nomor) {
-                nomor.textContent = index + 1;
-            }
-
-            if (naik) {
-                naik.disabled = index === 0;
-            }
-
-            if (turun) {
-                turun.disabled = index === rows.length - 1;
-            }
-
+    function refreshStageRows() {
+        getStageRows().forEach(function (row, i) {
+            row.querySelector('.stage-no').textContent = i + 1;
         });
-
     }
 
+    function currentOrderIds() {
+        return getStageRows().map(function (row) {
+            return row.dataset.id;
+        });
+    }
 
-    function moveTahapan(button, arah) {
+    function toggleReorderUI(changed) {
+        const btnSimpan = document.getElementById('btnSimpanUrutan');
+        const notice = document.getElementById('reorderNotice');
 
-        const row = button.closest('tr');
+        if (btnSimpan) btnSimpan.style.display = changed ? 'inline-flex' : 'none';
+        if (notice) notice.style.display = changed ? 'block' : 'none';
+    }
 
-        if (!row) {
+    /* Kembalikan urutan baris ke kondisi awal dari server */
+    function resetReorder() {
+        const tbody = document.querySelector('#modalKelolaTahapan tbody');
+
+        if (!tbody) {
             return;
         }
 
-        const tbody = row.parentNode;
+        getStageRows()
+            .sort(function (a, b) {
+                return Number(a.dataset.order) - Number(b.dataset.order);
+            })
+            .forEach(function (row) {
+                tbody.appendChild(row);
+            });
 
-        if (arah === 'up' && row.previousElementSibling) {
+        refreshStageRows();
+        toggleReorderUI(false);
+    }
 
-            tbody.insertBefore(row, row.previousElementSibling);
+    function initDragReorder() {
+        const tbody = document.querySelector('#modalKelolaTahapan tbody');
 
-        } else if (arah === 'down' && row.nextElementSibling) {
-
-            tbody.insertBefore(row.nextElementSibling, row);
-
-        } else {
-
+        if (!tbody) {
             return;
         }
 
-        refreshUrutan();
+        let dragRow = null;
+        let orderBefore = '';
 
-        document.getElementById('reorderBar').classList.add('show');
+        function onMove(event) {
+            if (!dragRow) {
+                return;
+            }
 
+            const others = getStageRows().filter(function (row) {
+                return row !== dragRow;
+            });
+
+            const target = others.find(function (row) {
+                const box = row.getBoundingClientRect();
+                return event.clientY < box.top + box.height / 2;
+            });
+
+            if (target) {
+                if (dragRow.nextElementSibling !== target) {
+                    tbody.insertBefore(dragRow, target);
+                }
+            } else if (tbody.lastElementChild !== dragRow) {
+                tbody.appendChild(dragRow);
+            }
+
+            refreshStageRows();
+        }
+
+        function onEnd() {
+            if (!dragRow) {
+                return;
+            }
+
+            dragRow.classList.remove('dragging');
+            document.body.classList.remove('is-dragging');
+            dragRow = null;
+
+            document.removeEventListener('pointermove', onMove);
+            document.removeEventListener('pointerup', onEnd);
+            document.removeEventListener('pointercancel', onEnd);
+
+            toggleReorderUI(currentOrderIds().join(',') !== orderBefore);
+        }
+
+        tbody.querySelectorAll('.drag-handle').forEach(function (handle) {
+            handle.addEventListener('pointerdown', function (event) {
+                if (event.button !== undefined && event.button !== 0) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                dragRow = handle.closest('tr.stage-row');
+                orderBefore = currentOrderIds().join(',');
+
+                dragRow.classList.add('dragging');
+                document.body.classList.add('is-dragging');
+
+                document.addEventListener('pointermove', onMove);
+                document.addEventListener('pointerup', onEnd);
+                document.addEventListener('pointercancel', onEnd);
+            });
+        });
     }
 
-
-    function simpanUrutanTahapan() {
-
-        const rows = document.querySelectorAll(
-            '#tabelTahapanBody tr[data-id]'
-        );
-
-        const container =
-            document.getElementById('reorderInputs');
-
+    function saveReorder() {
+        const container = document.getElementById('reorderInputs');
         container.innerHTML = '';
 
-        rows.forEach(function (row) {
-
+        getStageRows().forEach(function (row) {
             const input = document.createElement('input');
-
             input.type = 'hidden';
-
             input.name = 'urutan[]';
-
-            input.value = row.getAttribute('data-id');
+            input.value = row.dataset.id;
 
             container.appendChild(input);
+        });
+
+        document.getElementById('formReorderTahapan').submit();
+    }
+
+    refreshStageRows();
+    initDragReorder();
+
+
+    /* =====================================================
+       VALIDASI BAHASA INDONESIA
+    ====================================================== */
+
+    function setIndonesianValidation(element, message) {
+
+        if (!element) {
+            return;
+        }
+
+        element.addEventListener('invalid', function () {
+
+            this.setCustomValidity(
+                this.validity.valueMissing ? message : ''
+            );
 
         });
 
-        setReopenFlag();
-
-        document
-            .getElementById('formReorderTahapan')
-            .submit();
+        element.addEventListener('input', function () {
+            this.setCustomValidity('');
+        });
 
     }
 
+    // Tangkap input yang hanya berisi spasi
+    function blockBlankInput(form, input, message) {
 
-    function batalkanUrutan() {
+        if (!form || !input) {
+            return;
+        }
 
-        setReopenFlag();
+        form.addEventListener('submit', function (event) {
 
-        window.location.reload();
+            if (input.value.trim() === '') {
+
+                event.preventDefault();
+
+                input.value = '';
+                input.setCustomValidity(message);
+                input.reportValidity();
+
+            }
+
+        });
 
     }
+
+    const inputNamaTahap = document.getElementById('inputNamaTahap');
+    const formSimpanTahap = document.getElementById('formSimpanTahap');
+
+    setIndonesianValidation(inputNamaTahap, 'Nama tahapan wajib diisi.');
+    blockBlankInput(formSimpanTahap, inputNamaTahap, 'Nama tahapan wajib diisi.');
+
+    const inputKeteranganProgress =
+        document.getElementById('inputKeteranganProgress');
+
+    const formUpdateProgress =
+        document.getElementById('formUpdateProgress');
+
+    setIndonesianValidation(
+        inputKeteranganProgress,
+        'Keterangan progress wajib diisi.'
+    );
+
+    blockBlankInput(
+        formUpdateProgress,
+        inputKeteranganProgress,
+        'Keterangan progress wajib diisi.'
+    );
 
 
     /* =====================================================
@@ -2381,7 +2347,7 @@
             function (event) {
 
                 if (event.target === modalFormTahap) {
-                    closeModalFormTahap(true);
+                    closeModalFormTahap();
                 }
 
             }
@@ -2408,25 +2374,6 @@
 
         }
     );
-
-
-    /* =====================================================
-       BUKA LAGI MODAL SETELAH HALAMAN DIMUAT ULANG
-    ====================================================== */
-
-    try {
-
-        if (sessionStorage.getItem(REOPEN_KEY)) {
-
-            sessionStorage.removeItem(REOPEN_KEY);
-
-            if (modalKelolaTahapan) {
-                openModalTahapan();
-            }
-
-        }
-
-    } catch (error) {}
 
 </script>
 
