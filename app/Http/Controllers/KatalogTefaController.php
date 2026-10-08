@@ -23,7 +23,7 @@ class KatalogTefaController extends Controller
         );
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $produk = ProdukJasa::with([
             'jurusan',
@@ -112,7 +112,7 @@ class KatalogTefaController extends Controller
     }
 
     // 👇 FUNGSI BARU UNTUK MENAMPILKAN HALAMAN DETAIL
-    public function showDetail($id)
+    public function showDetail(int $id)
     {
         // Ambil data produk/jasa beserta relasi jurusan dan gambarnya
 $item = ProdukJasa::with(['jurusan', 'gambars'])
