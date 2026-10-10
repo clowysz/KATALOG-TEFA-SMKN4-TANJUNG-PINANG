@@ -1,0 +1,408 @@
+/* =====================================================================
+   NAVBAR PUBLIK — dipakai semua layout publik
+   Desktop (di atas 850px) = tampilan asli.
+   HP/tablet (850px ke bawah) = brand kecil + pencarian kecil +
+   hamburger. Menu & tombol Profil ada di dalam hamburger.
+   Taruh di: public/css/navbar.css (muat SETELAH front.css)
+   ===================================================================== */
+
+.jurusan-sticky-container {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.jurusan-nav-pill {
+    width: 100%;
+    max-width: 1200px;
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: #ffffff;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+}
+
+/* ---------- Brand ---------- */
+.jurusan-nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.jurusan-nav-brand img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.jurusan-nav-brand-text {
+    min-width: 0;
+}
+
+.jurusan-nav-brand-text h4 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 800;
+    color: #1e3a8a;
+    line-height: 1.2;
+}
+
+.jurusan-nav-brand-text p {
+    margin: 0;
+    font-size: 10px;
+    color: #64748b;
+}
+
+/* ---------- Menu ---------- */
+.jurusan-nav-menu {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.jurusan-nav-menu a {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1e2d3d;
+    padding: 6px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.jurusan-nav-menu a:hover,
+.jurusan-nav-menu a.active {
+    background: #1e3a8a;
+    color: #ffffff;
+}
+
+.jurusan-nav-menu a:active {
+    background: #2964a8;
+    color: #ffffff;
+}
+
+/* Link "Profil" di dalam menu: hanya muncul di HP/tablet */
+.jurusan-nav-menu a.nav-profile-link {
+    display: none;
+}
+
+/* ---------- Pencarian + profil (desktop) ---------- */
+.jurusan-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.jurusan-nav-search {
+    margin: 0;
+    width: 160px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-sizing: border-box;
+    transition:
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.jurusan-nav-search:focus-within {
+    border-color: #1e3a8a;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.18);
+}
+
+.jurusan-nav-search button {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.jurusan-nav-search button i {
+    color: #64748b;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.jurusan-nav-search button:hover i,
+.jurusan-nav-search button:focus-visible i {
+    color: #1e3a8a;
+}
+
+.jurusan-nav-search input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 12px;
+}
+
+.jurusan-nav-profile {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e3a8a;
+    color: #ffffff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    transition:
+        background-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.jurusan-nav-profile:hover {
+    background: #2964a8;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(30, 58, 138, 0.25);
+}
+
+/* ---------- Tombol hamburger (disembunyikan di desktop) ---------- */
+.jurusan-nav-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background: #1e3a8a;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 25px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.jurusan-nav-toggle:hover {
+    background: #2964a8;
+}
+
+.jurusan-nav-toggle:active {
+    transform: scale(0.94);
+}
+
+/* ---------- Fokus keyboard ---------- */
+.jurusan-nav-brand:focus-visible,
+.jurusan-nav-menu a:focus-visible,
+.jurusan-nav-profile:focus-visible,
+.jurusan-nav-toggle:focus-visible {
+    outline: 3px solid #eab308;
+    outline-offset: 3px;
+}
+
+/* =====================================================================
+   LAPTOP KECIL / TABLET LANDSCAPE (851px – 1100px): dirapatkan sedikit
+   ===================================================================== */
+@media (min-width: 851px) and (max-width: 1100px) {
+    .jurusan-nav-pill {
+        gap: 12px;
+        padding: 8px 16px;
+    }
+
+    .jurusan-nav-menu {
+        gap: 4px;
+    }
+
+    .jurusan-nav-menu a {
+        padding: 6px 10px;
+    }
+
+    .jurusan-nav-search {
+        width: 130px;
+    }
+}
+
+/* =====================================================================
+   TABLET & HP (maks 850px)
+   Baris atas:  [logo + judul kecil]  [cari kecil]  [hamburger]
+   Di dalam hamburger: menu + Profil
+   ===================================================================== */
+@media (max-width: 850px) {
+    .jurusan-sticky-container {
+        padding: 6px 8px;
+    }
+
+    .jurusan-nav-pill {
+        position: relative;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 18px;
+        max-width: 100%;
+    }
+
+    /* Brand: dikecilkan */
+    .jurusan-nav-brand {
+        order: 1;
+        flex: 1 1 auto;
+        min-width: 0;
+        gap: 7px;
+    }
+
+    .jurusan-nav-brand img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .jurusan-nav-brand-text h4 {
+        font-size: 10.5px;
+        line-height: 1.15;
+    }
+
+    .jurusan-nav-brand-text p {
+        font-size: 8.5px;
+    }
+
+    /* Pembungkus dilepas supaya pencarian bisa sejajar dengan hamburger */
+    .jurusan-nav-actions {
+        display: contents;
+    }
+
+    .jurusan-nav-search {
+        order: 2;
+        flex: 0 0 auto;
+        width: 128px;
+        padding: 5px 10px;
+        gap: 5px;
+    }
+
+    .jurusan-nav-search button i {
+        font-size: 13px;
+    }
+
+    .jurusan-nav-search input {
+        font-size: 11px;
+    }
+
+    /* Tombol profil bulat disembunyikan, pindah ke dalam hamburger */
+    .jurusan-nav-profile {
+        display: none;
+    }
+
+    .jurusan-nav-toggle {
+        display: flex;
+        order: 3;
+        width: 34px;
+        height: 34px;
+        font-size: 20px;
+        border-radius: 10px;
+    }
+
+    /* Menu terlipat: melayang di bawah navbar (tidak mendorong halaman) */
+    .jurusan-nav-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        z-index: 1001;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        padding: 8px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+        max-height: calc(100vh - 90px);
+        overflow-y: auto;
+    }
+
+    .jurusan-nav-pill.is-open .jurusan-nav-menu {
+        display: flex;
+    }
+
+    .jurusan-nav-menu a {
+        display: block;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+    }
+
+    .jurusan-nav-menu a.nav-profile-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .jurusan-nav-menu a.nav-profile-link i {
+        font-size: 15px;
+    }
+}
+
+/* HP kecil */
+@media (max-width: 380px) {
+    .jurusan-nav-pill {
+        gap: 6px;
+        padding: 6px 8px;
+    }
+
+    .jurusan-nav-brand {
+        gap: 6px;
+    }
+
+    .jurusan-nav-brand img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .jurusan-nav-brand-text h4 {
+        font-size: 9.5px;
+    }
+
+    .jurusan-nav-brand-text p {
+        font-size: 8px;
+    }
+
+    .jurusan-nav-search {
+        width: 104px;
+        padding: 5px 8px;
+    }
+
+    .jurusan-nav-toggle {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .jurusan-nav-menu a,
+    .jurusan-nav-profile,
+    .jurusan-nav-toggle,
+    .jurusan-nav-search {
+        transition: none !important;
+    }
+}

@@ -5,31 +5,21 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="csrf-token"
-        content="{{ csrf_token() }}"
-    >
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>
-        @yield('title', 'TEFA SMKN 4 Tanjungpinang')
-    </title>
+    <title>@yield('title', 'TEFA SMKN 4 Tanjungpinang')</title>
 
-    <link
-        rel="stylesheet"
-        href="{{ asset('css/front.css') }}"
-    >
+    <link rel="stylesheet" href="{{ asset('css/front.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
 
     @stack('css')
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="{{ asset('js/navbar.js') }}" defer></script>
 
     <style>
-
         body {
             margin: 0;
             padding: 0;
@@ -39,110 +29,6 @@
         .jurusan-sticky-container,
         .hero-section {
             background-color: #1E3A8A !important;
-        }
-
-        .jurusan-sticky-container {
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            padding: 8px 1px;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .jurusan-nav-pill {
-            background: white;
-            border-radius: 50px;
-            padding: 8px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            gap: 20px;
-        }
-
-        .jurusan-nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        .jurusan-nav-brand img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
-
-        .jurusan-nav-brand-text h4 {
-            font-size: 13px;
-            font-weight: 800;
-            color: #1E3A8A;
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        .jurusan-nav-brand-text p {
-            font-size: 10px;
-            color: #64748B;
-            margin: 0;
-        }
-
-        .jurusan-nav-menu {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .jurusan-nav-menu a {
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 700;
-            color: #1E2D3D;
-            padding: 6px 14px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
-
-        .jurusan-nav-menu a:hover,
-        .jurusan-nav-menu a.active {
-            background: #1E3A8A;
-            color: white;
-        }
-
-        .jurusan-nav-search {
-            background: #F1F5F9;
-            border-radius: 20px;
-            padding: 6px 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            width: 160px;
-        }
-
-        .jurusan-nav-search input {
-            border: none;
-            background: transparent;
-            outline: none;
-            font-size: 12px;
-            width: 100%;
-        }
-
-        .jurusan-nav-profile {
-            width: 36px;
-            height: 36px;
-            background: #1E3A8A;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 16px;
         }
 
         main {
@@ -157,38 +43,6 @@
         #jurusan-unggulan {
             scroll-margin-top: 80px;
         }
-
-        @media (max-width:850px) {
-
-            .jurusan-nav-pill {
-                flex-direction: column;
-                border-radius: 20px;
-                padding: 16px;
-                gap: 16px;
-            }
-
-            .jurusan-nav-brand {
-                justify-content: center;
-                text-align: center;
-            }
-
-            .jurusan-nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-
-            .jurusan-nav-search {
-                width: 100%;
-                justify-content: center;
-            }
-
-        }
-        .footer-col .footer-links li {
-    font-size: 13px;
-    line-height: 1.7;
-}
-
     </style>
 
 </head>
@@ -196,8 +50,14 @@
 
 <body>
 @php
-    $isFromKatalog = request()->query('from') === 'katalog';
+    $isFromKatalog   = request()->query('from') === 'katalog';
     $pakaiNavJurusan = isset($jurusan) && !$isFromKatalog;
+
+    $isPembeli   = Auth::check() && Auth::user()->role === 'pembeli';
+    $profilUrl   = $isPembeli
+        ? route('profil.pembeli')
+        : route('login', ['back' => request()->getRequestUri()]);
+    $profilLabel = $isPembeli ? 'Profil' : 'Login';
 @endphp
 
     <!-- =====================================================
@@ -209,17 +69,11 @@
         <div class="jurusan-nav-pill">
 
 
+            {{-- ================= BRAND ================= --}}
+
             @if($pakaiNavJurusan)
 
-
-                <!-- =================================================
-                     NAVBAR KHUSUS JURUSAN
-                ================================================== -->
-
-                <a
-                    href="/jurusan/{{ $jurusan->slug }}"
-                    class="jurusan-nav-brand"
-                >
+                <a href="/jurusan/{{ $jurusan->slug }}" class="jurusan-nav-brand">
 
                     <img
                         src="{{ asset($jurusan->logo) }}"
@@ -227,21 +81,36 @@
                     >
 
                     <div class="jurusan-nav-brand-text">
-
-                        <h4>
-                            {{ $jurusan->name }}
-                        </h4>
-
-                        <p>
-                            SMKN 4 Tanjungpinang
-                        </p>
-
+                        <h4>{{ $jurusan->name }}</h4>
+                        <p>SMKN 4 Tanjungpinang</p>
                     </div>
 
                 </a>
 
+            @else
 
-                <div class="jurusan-nav-menu">
+                <a href="/" class="jurusan-nav-brand">
+
+                    <img
+                        src="{{ asset('images/logo-smk4.png') }}"
+                        alt="Logo SMKN 4"
+                    >
+
+                    <div class="jurusan-nav-brand-text">
+                        <h4>TEACHING FACTORY</h4>
+                        <p>SMKN 4 Tanjungpinang</p>
+                    </div>
+
+                </a>
+
+            @endif
+
+
+            {{-- ================= MENU (terlipat di HP) ================= --}}
+
+            <div class="jurusan-nav-menu" id="jurusanNavMenu">
+
+                @if($pakaiNavJurusan)
 
                     <a
                         href="/jurusan/{{ $jurusan->slug }}"
@@ -250,14 +119,12 @@
                         DESKRIPSI
                     </a>
 
-
                     <a
                         href="/jurusan/{{ $jurusan->slug }}/portofolio"
                         class="{{ Request::is('jurusan/' . $jurusan->slug . '/portofolio*') ? 'active' : '' }}"
                     >
                         PORTOFOLIO
                     </a>
-
 
                     <a
                         href="/jurusan/{{ $jurusan->slug }}/produk"
@@ -266,7 +133,6 @@
                         PRODUK
                     </a>
 
-
                     <a
                         href="/jurusan/{{ $jurusan->slug }}/jasa"
                         class="{{ Request::is('jurusan/' . $jurusan->slug . '/jasa*') ? 'active' : '' }}"
@@ -274,42 +140,7 @@
                         JASA
                     </a>
 
-                </div>
-
-
-            @else
-
-
-                <!-- =================================================
-                     NAVBAR HOME
-                ================================================== -->
-
-                <a
-                    href="/"
-                    class="jurusan-nav-brand"
-                >
-
-                    <img
-                        src="{{ asset('images/logo-smk4.png') }}"
-                        alt="Logo SMKN 4"
-                    >
-
-                    <div class="jurusan-nav-brand-text">
-
-                        <h4>
-                            TEACHING FACTORY
-                        </h4>
-
-                        <p>
-                            SMKN 4 Tanjungpinang
-                        </p>
-
-                    </div>
-
-                </a>
-
-
-                <div class="jurusan-nav-menu">
+                @else
 
                     <a
                         href="/"
@@ -318,18 +149,16 @@
                         BERANDA
                     </a>
 
-
                     <a href="/#jurusan-unggulan">
                         JURUSAN
                     </a>
 
- {{-- MENU KATALOG DITAMBAHKAN DI SINI --}}
-                <a
-                    href="/katalog"
-                   class="{{ Request::is('katalog*') || $isFromKatalog ? 'active' : '' }}"
-                >
-                    KATALOG
-                </a>
+                    <a
+                        href="/katalog"
+                        class="{{ Request::is('katalog*') || $isFromKatalog ? 'active' : '' }}"
+                    >
+                        KATALOG
+                    </a>
 
                     <a
                         href="/faq"
@@ -338,89 +167,62 @@
                         FAQ
                     </a>
 
-                </div>
+                @endif
+
+                {{-- Profil: hanya tampil di dalam hamburger (HP/tablet) --}}
+                <a href="{{ $profilUrl }}" class="nav-profile-link">
+                    <i class="ph ph-user"></i>
+                    <span>{{ $profilLabel }}</span>
+                </a>
+
+            </div>
 
 
-            @endif
+            {{-- ================= TOMBOL HAMBURGER ================= --}}
 
-
-            <!-- =================================================
-                 PENCARIAN & PROFIL
-            ================================================== -->
-
-            <div
-                style="
-                    display:flex;
-                    align-items:center;
-                    gap:10px;
-                "
+            <button
+                type="button"
+                class="jurusan-nav-toggle"
+                id="jurusanNavToggle"
+                aria-label="Buka menu navigasi"
+                aria-expanded="false"
+                aria-controls="jurusanNavMenu"
             >
+                <i class="ph ph-list"></i>
+            </button>
 
 
-                <!-- SEARCH -->
+            {{-- ================= PENCARIAN + PROFIL (desktop) ================= --}}
+
+            <div class="jurusan-nav-actions">
 
                 <form
                     action="/pencarian"
                     method="GET"
                     class="jurusan-nav-search"
-                    style="margin:0;"
                 >
 
-                    <button
-                        type="submit"
-                        style="
-                            background:transparent;
-                            border:none;
-                            cursor:pointer;
-                            padding:0;
-                            display:flex;
-                            align-items:center;
-                            outline:none;
-                        "
-                    >
-
-                        <i
-                            class="ph ph-magnifying-glass"
-                            style="
-                                color:#64748B;
-                                font-size:16px;
-                            "
-                        ></i>
-
+                    <button type="submit" aria-label="Cari">
+                        <i class="ph ph-magnifying-glass"></i>
                     </button>
-
 
                     <input
                         type="text"
                         name="keyword"
                         placeholder="Cari produk, jasa..."
+                        data-placeholder-mobile="Cari..."
                         required
                     >
 
                 </form>
 
-
-                <!-- =================================================
-                     PROFILE / LOGIN
-                ================================================== -->
-
-            
                 <a
-                    href="{{ Auth::check() && Auth::user()->role === 'pembeli'
-                        ? route('profil.pembeli')
-                        : route('login', [
-                            'back' => request()->getRequestUri()
-                        ]) }}"
+                    href="{{ $profilUrl }}"
                     class="jurusan-nav-profile"
-                    title="{{ Auth::check() && Auth::user()->role === 'pembeli'
-                        ? 'Profil Pembeli'
-                        : 'Login' }}"
+                    title="{{ $isPembeli ? 'Profil Pembeli' : 'Login' }}"
                 >
-
                     <i class="ph ph-user"></i>
-
                 </a>
-
 
             </div>
 
@@ -456,32 +258,17 @@
                         alt="Logo SMKN 4"
                     >
 
-                    <h2 style="color:white;">
-
+                    <h2>
                         TEACHING FACTORY
-
                         <br>
-
-                        <span
-                            style="
-                                font-size:11px;
-                                font-weight:400;
-                                color:white;
-                            "
-                        >
-                            SMKN 4 Tanjungpinang
-                        </span>
-
+                        <span class="footer-logo-sub">SMKN 4 Tanjungpinang</span>
                     </h2>
 
                 </div>
 
-
                 <p class="footer-desc">
-
                     Mewujudkan pendidikan vokasi berbasis dunia kerja yang
                     inovatif, kreatif, dan berdaya saing global.
-
                 </p>
 
             </div>
@@ -491,39 +278,24 @@
 
             <div class="footer-col">
 
-                <h3>
-                    LINK CEPAT
-                </h3>
-
+                <h3>LINK CEPAT</h3>
 
                 <ul class="footer-links">
 
                     <li>
-
                         <a href="/">
-
                             <i class="ph ph-caret-right"></i>
-
                             Beranda
-
                         </a>
-
                     </li>
-
 
                     <li>
-
                         <a href="/#jurusan-unggulan">
-
                             <i class="ph ph-caret-right"></i>
-
                             Jurusan
-
                         </a>
-
                     </li>
 
-        
                     <li>
                         <a href="/katalog">
                             <i class="ph ph-caret-right"></i>
@@ -531,17 +303,11 @@
                         </a>
                     </li>
 
-
                     <li>
-
                         <a href="/faq">
-
                             <i class="ph ph-caret-right"></i>
-
                             FAQ
-
                         </a>
-
                     </li>
 
                 </ul>
@@ -553,30 +319,16 @@
 
             <div class="footer-col">
 
-                <h3>
-                    INFORMASI
-                </h3>
-
+                <h3>INFORMASI</h3>
 
                 <div class="footer-contact">
-
                     <i class="ph ph-map-pin"></i>
-
-                    <span>
-                        Jl. Nusantara Km.14
-                    </span>
-
+                    <span>Jl. Nusantara Km.14</span>
                 </div>
 
-
                 <div class="footer-contact">
-
                     <i class="ph ph-phone"></i>
-
-                    <span>
-                        0771-123456
-                    </span>
-
+                    <span>0771-123456</span>
                 </div>
 
             </div>
@@ -584,37 +336,35 @@
 
             <!-- MENGAPA TEFA -->
 
-<div class="footer-col">
+            <div class="footer-col">
 
-    <h3>
-        MENGAPA TEFA?
-    </h3>
+                <h3>MENGAPA TEFA?</h3>
 
-    <ul class="footer-links">
+                <ul class="footer-links">
 
-        <li>
-            <i class="ph ph-check-circle"></i>
-            Produk siswa dan jurusan
-        </li>
+                    <li>
+                        <i class="ph ph-check-circle"></i>
+                        Produk siswa dan jurusan
+                    </li>
 
-        <li>
-            <i class="ph ph-check-circle"></i>
-            Bimbingan guru dan industri
-        </li>
+                    <li>
+                        <i class="ph ph-check-circle"></i>
+                        Bimbingan guru dan industri
+                    </li>
 
-        <li>
-            <i class="ph ph-check-circle"></i>
-            Sesuai kebutuhan nyata
-        </li>
+                    <li>
+                        <i class="ph ph-check-circle"></i>
+                        Sesuai kebutuhan nyata
+                    </li>
 
-        <li>
-            <i class="ph ph-check-circle"></i>
-            Berbasis proyek
-        </li>
+                    <li>
+                        <i class="ph ph-check-circle"></i>
+                        Berbasis proyek
+                    </li>
 
-    </ul>
+                </ul>
 
-</div>
+            </div>
 
         </div>
 
@@ -622,13 +372,12 @@
         <!-- COPYRIGHT -->
 
         <div class="footer-bottom">
-
             &copy; 2026 SMKN 4 Tanjungpinang.
             All Rights Reserved.
-
         </div>
 
     </footer>
+
 
     @stack('scripts')
 
