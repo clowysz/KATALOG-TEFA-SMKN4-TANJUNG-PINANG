@@ -1,40 +1,21 @@
-/* =========================================================
+/* 
    ADMIN JURUSAN - STYLE BERSAMA
+ */
 
-   Hanya berisi style yang dipakai lebih dari satu halaman.
-   Style tiap halaman ada di file masing-masing:
-   - dashboard-jurusan.css
-   - katalog-jurusan.css, katalog-detail-jurusan.css
-   - kelola-jurusan.css, deskripsi-jurusan.css
-   - akun-jurusan.css, akun-tambah-jurusan.css,
-     akun-edit-jurusan.css, akun-detail-jurusan.css
-   - profil-jurusan.css, logout-modal-jurusan.css
-
-   Daftar isi:
-   1. Variabel
-   2. Tombol umum jurusan
-   3. Header halaman & pencarian
-   4. Portofolio (kartu)
-   5. Katalog produk / jasa (kartu)
-   6. Responsive (tablet & mobile)
-
-   Desktop (> 1024px) dipertahankan.
-   ========================================================= */
-
-/* =========================================================
+/* 
    1. VARIABEL
-   ========================================================= */
+    */
 
 :root {
   --accent-rpl: #d8893d;
 }
 
-/* =========================================================
+/* 
    2. TOMBOL UMUM JURUSAN
    Dipakai di Kelola Produk/Jasa/Portofolio, Deskripsi,
    Daftar Akun, Tambah/Edit/Detail Akun.
    Bisa dipasang di <button> maupun <a>.
-   ========================================================= */
+    */
 
 .btn-jurusan-primary,
 .btn-jurusan-outline,
@@ -111,9 +92,9 @@
   color: #ffffff;
 }
 
-/* =========================================================
+/* 
    3. HEADER HALAMAN & PENCARIAN
-   ========================================================= */
+    */
 
 .header-action {
   display: flex;
@@ -173,14 +154,15 @@
   box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
 }
 
-/* =========================================================
+/* 
    4. PORTOFOLIO (KARTU)
-   Kolom menyesuaikan lebar layar, tanpa slot kosong
-   ========================================================= */
+   Kolom menyesuaikan lebar layar. Memakai auto-fill (bukan auto-fit)
+   supaya satu kartu tidak melebar memenuhi seluruh baris.
+    */
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
   gap: 24px;
   max-width: 1200px;
   margin: 0 auto 40px;
@@ -249,15 +231,16 @@
   display: inline-block;
 }
 
-/* =========================================================
+/* 
    5. KATALOG PRODUK / JASA (KARTU)
    Dipakai halaman Kelola Produk & Kelola Jasa.
-   Kolom menyesuaikan lebar layar, tanpa slot kosong.
-   ========================================================= */
+   Kolom menyesuaikan lebar layar. Memakai auto-fill (bukan auto-fit)
+   supaya satu kartu tidak melebar memenuhi seluruh baris.
+    */
 
 .catalog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
   gap: 24px;
   max-width: 1200px;
   margin: 0 auto 40px;
@@ -355,9 +338,9 @@
   font-size: 13px;
 }
 
-/* =========================================================
+/* 
    6. RESPONSIVE
-   ========================================================= */
+    */
 
 /* ---------- MOBILE & TABLET KECIL ---------- */
 @media (max-width: 768px) {
@@ -385,7 +368,7 @@
   /* Kartu produk / jasa / portofolio */
   .catalog-grid,
   .portfolio-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
     gap: 16px;
     margin-bottom: 28px;
   }
