@@ -1,0 +1,471 @@
+/* =========================================================
+   DASHBOARD - ADMIN JURUSAN
+   ========================================================= */
+
+.dashboard-header {
+  margin-bottom: 24px;
+}
+
+.dashboard-header h2 {
+  margin-bottom: 6px;
+}
+
+.dashboard-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.dashboard-empty-card {
+  padding: 30px;
+}
+
+.dashboard-empty-title {
+  color: #dc3545;
+  margin-bottom: 8px;
+}
+
+.dashboard-empty-text {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* =========================================================
+   RINGKASAN (4 KARTU ATAS)
+   Warna tiap kartu diatur lewat variabel --tone
+   ========================================================= */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  --tone: #1e3a8a;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.summary-card--produk {
+  --tone: #1e3a8a;
+}
+
+.summary-card--jasa {
+  --tone: #573911;
+}
+
+.summary-card--portofolio {
+  --tone: #002f56;
+}
+
+.summary-card--pesanan {
+  --tone: #470d4f;
+}
+
+.summary-icon {
+  background-color: var(--tone);
+  min-width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #ffffff;
+}
+
+.summary-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.summary-label {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+}
+
+.summary-value {
+  color: var(--tone);
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
+}
+
+/* =========================================================
+   KARTU DAFTAR
+   ========================================================= */
+
+.dashboard-list-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
+}
+
+.dashboard-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-bottom: 16px;
+}
+
+.dashboard-card-title {
+  font-size: 16px;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.dashboard-card-title i {
+  color: #1e3a8a;
+  margin-right: 6px;
+}
+
+.dashboard-card-title--spaced {
+  margin-bottom: 24px;
+}
+
+.dashboard-card-note {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.dashboard-empty-box {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+}
+
+.dashboard-empty-box--sm {
+  padding: 30px 20px;
+}
+
+.dashboard-empty-icon {
+  font-size: 42px;
+  margin-bottom: 12px;
+  color: #1e3a8a;
+}
+
+.dashboard-empty-box p {
+  margin: 0;
+}
+
+/* =========================================================
+   PRODUK / JASA DENGAN PESANAN TERBANYAK
+   ========================================================= */
+
+.rank-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.rank-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.rank-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.rank-circle {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 13px;
+  color: #ffffff;
+  background: #cbd5e1;
+}
+
+.rank-circle--1 {
+  background: #1e3a8a;
+}
+
+.rank-circle--2 {
+  background: #573911;
+}
+
+.rank-circle--3 {
+  background: #002f56;
+}
+
+.list-item-img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 8px;
+  display: block;
+}
+
+.list-item-img--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ebf3f9;
+  color: #1e3a8a;
+  font-size: 22px;
+}
+
+.list-item-text {
+  min-width: 0;
+}
+
+.list-item-title {
+  font-weight: 600;
+  color: var(--text-dark);
+  overflow-wrap: anywhere;
+}
+
+.list-item-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.badge-pesanan {
+  background: #ebf3f9;
+  color: #1e3a8a;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   PERFORMA PESANAN
+   ========================================================= */
+
+.performa-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.performa-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.performa-chart-box {
+  text-align: center;
+  width: 180px;
+}
+
+.performa-canvas {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 12px auto;
+}
+
+.performa-total {
+  font-weight: 700;
+  color: #1e3a8a;
+  font-size: 16px;
+}
+
+.performa-total-label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.performa-item {
+  margin-bottom: 24px;
+}
+
+.performa-item:last-child {
+  margin-bottom: 0;
+}
+
+.performa-item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.performa-item-name {
+  font-weight: 600;
+}
+
+.performa-item-name i {
+  margin-right: 5px;
+}
+
+.performa-item-name--produk i {
+  color: #1e3a8a;
+}
+
+.performa-item-name--jasa i {
+  color: #573911;
+}
+
+.performa-item-count {
+  color: var(--text-muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.performa-item-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: #eee;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  display: flex;
+}
+
+.progress-fill {
+  height: 100%;
+}
+
+.progress-fill--produk {
+  background: #1e3a8a;
+}
+
+.progress-fill--jasa {
+  background: #573911;
+}
+
+/* =========================================================
+   RINGKASAN PRODUK & JASA
+   ========================================================= */
+
+.ringkasan-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ringkasan-info {
+  min-width: 0;
+}
+
+.ringkasan-name {
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+  overflow-wrap: anywhere;
+}
+
+.ringkasan-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.ringkasan-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e3a8a;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    margin-bottom: 18px;
+  }
+
+  .dashboard-list-card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .performa-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .rank-item,
+  .ringkasan-item {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-grid {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .summary-card {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .summary-icon {
+    min-width: 44px;
+    height: 44px;
+    font-size: 22px;
+    border-radius: 10px;
+  }
+
+  .summary-label {
+    font-size: 12px;
+  }
+
+  .summary-value {
+    font-size: 20px;
+  }
+
+  .list-item-img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .rank-left {
+    gap: 10px;
+  }
+
+  .badge-pesanan {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+}

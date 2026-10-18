@@ -2,320 +2,11 @@
 
 @section('title', 'Detail Pesanan')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/pesanan-tefa.css') }}?v=1">
+@endpush
+
 @section('content')
-
-<style>
-    .detail-pesanan-container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    /* =========================
-       HEADER
-       ========================= */
-
-    .detail-pesanan-header {
-        margin-bottom: 24px;
-    }
-
-    .btn-back-pesanan {
-        display: inline-block;
-        padding: 8px 16px;
-        border: 1px solid #1E3A8A;
-        border-radius: 8px;
-        color: #1E3A8A;
-        background: #fff;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 20px;
-        transition: all 0.2s ease;
-    }
-
-    .btn-back-pesanan:hover {
-        background: #1E3A8A;
-        color: #fff;
-    }
-
-    .detail-pesanan-title {
-        margin: 0 0 6px;
-        color: #1E2D3D;
-        font-size: 24px;
-        font-weight: 700;
-    }
-
-    .detail-pesanan-subtitle {
-        margin: 0;
-        color: #64748B;
-        font-size: 14px;
-    }
-
-
-    /* =========================
-       GRID
-       ========================= */
-
-    .detail-pesanan-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 20px;
-        margin-bottom: 20px;
-    }
-
-    .detail-pesanan-grid-full {
-        grid-column: 1 / -1;
-    }
-
-
-    /* =========================
-       CARD
-       ========================= */
-
-    .detail-pesanan-card {
-        background: #fff;
-        padding: 26px 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        border: 1px solid #f1f5f9;
-    }
-
-    .detail-card-title {
-        margin: 0 0 20px;
-        color: #1E3A8A;
-        font-size: 18px;
-        font-weight: 700;
-        padding-bottom: 14px;
-        border-bottom: 1px solid #E2E8F0;
-    }
-
-
-    /* =========================
-       DETAIL INFORMATION
-       ========================= */
-
-    .detail-info-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0 28px;
-    }
-
-    .detail-info-item {
-        padding: 14px 0;
-        border-bottom: 1px solid #F1F5F9;
-        min-width: 0;
-    }
-
-    .detail-info-item:last-child {
-        border-bottom: none;
-    }
-
-    .detail-label {
-        display: block;
-        margin-bottom: 6px;
-        color: #64748B;
-        font-size: 13px;
-        font-weight: 600;
-    }
-
-    .detail-value {
-        color: #1E293B;
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 1.5;
-        word-break: break-word;
-    }
-
-
-    /* =========================
-       STATUS
-       ========================= */
-
-    .badge-status-pesanan {
-        display: inline-flex;
-        align-items: center;
-        padding: 6px 12px;
-        border-radius: 20px;
-        background: #E0E7FF;
-        color: #3730A3;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-
-    /* =========================
-       CATATAN
-       ========================= */
-
-    .catatan-pesanan {
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid #E2E8F0;
-    }
-
-    .catatan-content {
-        color: #475569;
-        font-size: 14px;
-        line-height: 1.7;
-        font-weight: 400;
-        background: #F8FAFC;
-        border: 1px solid #E2E8F0;
-        border-radius: 8px;
-        padding: 14px 16px;
-    }
-
-
-    /* =========================
-       ALERT
-       ========================= */
-
-    .detail-pesanan-alert {
-        background: #ECFDF5;
-        color: #166534;
-        border: 1px solid #BBF7D0;
-        padding: 12px 16px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        font-size: 14px;
-    }
-
-
-    /* =========================
-       UPDATE STATUS
-       ========================= */
-
-    .status-card {
-        margin-top: 20px;
-    }
-
-    .status-form-group {
-        margin-top: 4px;
-    }
-
-    .status-form-label {
-        display: block;
-        margin-bottom: 8px;
-        color: #1E2D3D;
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    .status-select {
-        width: 100%;
-        max-width: 360px;
-        padding: 11px 12px;
-        border: 1px solid #CBD5E1;
-        border-radius: 8px;
-        background: #fff;
-        color: #334155;
-        font-size: 14px;
-        font-family: inherit;
-        outline: none;
-        box-sizing: border-box;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .status-select:focus {
-        border-color: #3B698F;
-        box-shadow: 0 0 0 3px rgba(59, 105, 143, 0.1);
-    }
-
-    .status-form-actions {
-        margin-top: 20px;
-    }
-
-    .btn-save-status {
-        background: #1e3a8ad9;
-        color: #fff;
-        padding: 10px 24px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 14px;
-        transition: all 0.2s ease;
-    }
-
-    .btn-save-status:hover,
-    .btn-save-status:focus {
-        background: #1E3A8A;
-        color: #fff;
-    }
-
-    .btn-save-status:active {
-        background: #172E6F;
-    }
-    /* =========================
-   ALERT HASIL UPDATE STATUS
-   ========================= */
-
-.pesanan-alert {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.pesanan-alert i {
-    font-size: 18px;
-    flex-shrink: 0;
-    margin-top: 1px;
-}
-
-.pesanan-alert-success {
-    background: #ecfdf5;
-    color: #166534;
-    border: 1px solid #bbf7d0;
-}
-
-.pesanan-alert-error {
-    background: #fef2f2;
-    color: #991b1b;
-    border: 1px solid #fecaca;
-}
-
-
-    /* =========================
-       RESPONSIVE
-       ========================= */
-
-    @media (max-width: 768px) {
-
-        .detail-pesanan-container {
-            padding: 15px;
-        }
-
-        .detail-pesanan-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .detail-pesanan-card {
-            padding: 22px 20px;
-        }
-
-        .detail-info-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .detail-pesanan-title {
-            font-size: 22px;
-        }
-
-        .status-select {
-            max-width: 100%;
-        }
-
-        .btn-save-status {
-            width: 100%;
-        }
-    }
-</style>
-
 
 <div class="detail-pesanan-container">
 
@@ -341,27 +32,30 @@
         </p>
 
     </div>
+
+
     {{-- PESAN HASIL UPDATE STATUS --}}
-@if(session('success'))
-    <div class="pesanan-alert pesanan-alert-success">
-        <i class="ph ph-check-circle"></i>
-        <span>{{ session('success') }}</span>
-    </div>
-@endif
+    @if(session('success'))
+        <div class="pesanan-alert pesanan-alert-success">
+            <i class="ph ph-check-circle"></i>
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
 
-@if(session('error'))
-    <div class="pesanan-alert pesanan-alert-error">
-        <i class="ph ph-warning-circle"></i>
-        <span>{{ session('error') }}</span>
-    </div>
-@endif
+    @if(session('error'))
+        <div class="pesanan-alert pesanan-alert-error">
+            <i class="ph ph-warning-circle"></i>
+            <span>{{ session('error') }}</span>
+        </div>
+    @endif
 
-@if($errors->any())
-    <div class="pesanan-alert pesanan-alert-error">
-        <i class="ph ph-warning-circle"></i>
-        <span>{{ $errors->first() }}</span>
-    </div>
-@endif
+    @if($errors->any())
+        <div class="pesanan-alert pesanan-alert-error">
+            <i class="ph ph-warning-circle"></i>
+            <span>{{ $errors->first() }}</span>
+        </div>
+    @endif
+
 
     {{-- =========================
          INFORMASI PESANAN

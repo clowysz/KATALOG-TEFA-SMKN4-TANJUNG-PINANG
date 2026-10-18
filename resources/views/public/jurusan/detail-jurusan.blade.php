@@ -6,7 +6,7 @@
 
 @section('content')
 
-<section class="jurusan-hero-section" style="padding-top: 80px; position: relative;">
+<section class="jurusan-hero-section hero-page">
 
     <div
         class="bubble"
@@ -18,10 +18,7 @@
         style="width: 60px; height: 60px; bottom: 40%; right: 20%; animation-duration: 5s;"
     ></div>
 
-    <div
-        class="jurusan-hero-content"
-        style="position: relative; z-index: 10;"
-    >
+    <div class="jurusan-hero-content">
 
         <div class="jurusan-hero-image">
             <img
@@ -40,11 +37,7 @@
                 {{ $jurusan->description }}
             </p>
 
-            <a
-                href="/#jurusan-unggulan"
-                class="btn-kembali-beranda"
-                style="position: relative; z-index: 50;"
-            >
+            <a href="/#jurusan-unggulan" class="btn-kembali-beranda">
                 <i class="ph ph-arrow-u-up-left"></i>
                 Kembali ke Daftar Jurusan
             </a>
@@ -57,14 +50,6 @@
         class="wave-jurusan"
         viewBox="0 0 1440 320"
         xmlns="http://www.w3.org/2000/svg"
-        style="
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            display: block;
-            z-index: 1;
-        "
     >
         <path
             fill="#F8FAFC"
@@ -76,10 +61,7 @@
 </section>
 
 
-<section
-    class="deskripsi-content"
-    style="position: relative; z-index: 2; background-color: #F8FAFC;"
->
+<section class="deskripsi-content deskripsi-page">
 
     <div class="deskripsi-wrapper">
 
@@ -104,45 +86,13 @@
 
         @else
 
-            <div
-                style="
-                    text-align: center;
-                    padding: 60px 20px;
-                    background: white;
-                    border-radius: 12px;
-                    border: 1px dashed #CBD5E1;
-                "
-            >
+            <div class="katalog-empty">
 
-                <i
-                    class="ph ph-info"
-                    style="
-                        font-size: 48px;
-                        color: #94A3B8;
-                        margin-bottom: 16px;
-                    "
-                ></i>
+                <i class="ph ph-info"></i>
 
-                <h3
-                    style="
-                        font-size: 18px;
-                        font-weight: 600;
-                        color: #1E2D3D;
-                        margin-bottom: 8px;
-                    "
-                >
-                    Deskripsi Jurusan Belum Tersedia
-                </h3>
+                <h3>Deskripsi Jurusan Belum Tersedia</h3>
 
-                <p
-                    style="
-                        font-size: 14px;
-                        color: #64748B;
-                        margin: 0;
-                    "
-                >
-                    Informasi lengkap mengenai jurusan ini belum ditambahkan.
-                </p>
+                <p>Informasi lengkap mengenai jurusan ini belum ditambahkan.</p>
 
             </div>
 

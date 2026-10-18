@@ -10,6 +10,77 @@ use Illuminate\Support\Facades\Auth;
 
 class PesananPembeliController extends Controller
 {
+    private const STATUS_VALID = [
+        'menunggu konfirmasi',
+        'konfirmasi',
+        'diproses',
+        'selesai',
+        'dibatalkan',
+    ];
+
+    // Daftar riwayat pesanan pembeli
+    public function riwayat(Request $request)
+    {
+        $query = Pesanan::with([
+            'produkJasa.gambars',
+            'produkJasa.jurusan',
+            'riwayatStatus',
+        ])->where('id_user', Auth::id());
+
+        $status = $request->query('status');
+        $keyword = trim($request->query('keyword', ''));
+
+        if ($status && in_array($status, self::STATUS_VALID)) {
+            $query->where('status', $status);
+        }
+
+        if ($keyword !== '') {
+            $query->whereHas('produkJasa', function ($q) use ($keyword) {
+                $q->where('nama_produk_jasa', 'like', '%' . $keyword . '%')
+                    ->orWhere('deskripsi', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        $riwayats = $query
+            ->latest('tanggal_pesan')
+            ->latest('id_pesanan')
+            ->get();
+
+        return view('public.riwayat', compact('riwayats', 'status', 'keyword'));
+    }
+
+    // Detail riwayat pesanan
+    public function detail($id_pesanan)
+    {
+        $pesanan = Pesanan::with([
+            'produkJasa.gambars',
+            'produkJasa.jurusan',
+            'pembeli',
+            'riwayatStatus.pelaksana',
+            'progressPengerjaan.pelaksana',
+            'tahapanPengerjaan',
+        ])
+            ->where('id_pesanan', $id_pesanan)
+            ->where('id_user', Auth::id())
+            ->firstOrFail();
+
+        return view('public.riwayat-detail', compact('pesanan'));
+    }
+
+    // Halaman checkout
+    public function checkout(Request $request)
+    {
+        $request->validate([
+            'id_produk_jasa' => 'required|exists:produk_jasa,id_produk_jasa',
+        ]);
+
+        $produkJasa = ProdukJasa::with('gambars')
+            ->findOrFail($request->id_produk_jasa);
+
+        return view('public.checkout', compact('produkJasa'));
+    }
+
+    // Simpan pesanan
     public function store(Request $request)
     {
         if (Auth::user()->role !== 'pembeli') {
@@ -22,9 +93,7 @@ class PesananPembeliController extends Controller
             'catatan' => 'nullable|string|max:2000',
         ]);
 
-        $produkJasa = ProdukJasa::findOrFail(
-            $request->id_produk_jasa
-        );
+        $produkJasa = ProdukJasa::findOrFail($request->id_produk_jasa);
 
         $jumlah = (int) $request->jumlah;
 

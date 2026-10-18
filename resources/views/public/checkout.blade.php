@@ -1,7 +1,7 @@
 @extends('public.layouts')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/checkout-pembeli.css') }}">
 @endpush
 
 @section('content')
@@ -17,7 +17,12 @@
             <p>Periksa kembali pesanan Anda sebelum dikonfirmasi.</p>
         </div>
 
-        <form action="{{ route('pesanan.store') }}" method="POST">
+        <form
+            action="{{ route('pesanan.store') }}"
+            method="POST"
+            id="formCheckout"
+            data-harga="{{ $produkJasa->harga }}"
+        >
             @csrf
 
             <input
@@ -62,22 +67,16 @@
                         </p>
 
                         <div class="c-product-price">
-    Rp{{ number_format($produkJasa->harga, 0, ',', '.') }}{{ $produkJasa->satuan_harga ? '/' . $produkJasa->satuan_harga : '' }}
-</div>
+                            Rp{{ number_format($produkJasa->harga, 0, ',', '.') }}{{ $produkJasa->satuan_harga ? '/' . $produkJasa->satuan_harga : '' }}
+                        </div>
 
                     </div>
                 </div>
             </div>
 
-            <div
-                class="c-card"
-                style="display: flex; justify-content: space-between; align-items: center; gap: 20px;"
-            >
+            <div class="c-card c-card--row">
 
-                <div
-                    class="c-card-title"
-                    style="margin: 0;"
-                >
+                <div class="c-card-title c-card-title--flat">
                     Jumlah Pesanan
                 </div>
 
@@ -87,6 +86,7 @@
                         type="button"
                         class="btn-qty"
                         id="btnMinus"
+                        aria-label="Kurangi jumlah"
                     >
                         -
                     </button>
@@ -105,6 +105,7 @@
                         type="button"
                         class="btn-qty"
                         id="btnPlus"
+                        aria-label="Tambah jumlah"
                     >
                         +
                     </button>
@@ -196,9 +197,9 @@
 
                 <div class="summary-row">
                     <span>Harga Satuan</span>
-<span>
-    Rp{{ number_format($produkJasa->harga, 0, ',', '.') }}{{ $produkJasa->satuan_harga ? '/' . $produkJasa->satuan_harga : '' }}
-</span>
+                    <span>
+                        Rp{{ number_format($produkJasa->harga, 0, ',', '.') }}{{ $produkJasa->satuan_harga ? '/' . $produkJasa->satuan_harga : '' }}
+                    </span>
                 </div>
 
                 <div class="summary-row">
@@ -221,31 +222,19 @@
 
                 <div class="confirm-price-row">
 
-                    <div
-                        style="display: flex; gap: 12px; align-items: center;"
-                    >
+                    <div class="confirm-left">
 
-                        <div
-                            style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 12px;"
-                        >
-                            <i
-                                class="ph ph-shopping-bag"
-                                style="font-size: 24px;"
-                            ></i>
+                        <div class="confirm-icon">
+                            <i class="ph ph-shopping-bag"></i>
                         </div>
 
                         <div>
 
-                            <div
-                                style="font-size: 16px; font-weight: 700;"
-                                id="totalItemText"
-                            >
+                            <div class="confirm-title" id="totalItemText">
                                 Total (1 item)
                             </div>
 
-                            <div
-                                style="font-size: 12px; color: #CBD5E1;"
-                            >
+                            <div class="confirm-note">
                                 Pastikan detail pesanan sudah sesuai.
                             </div>
 
@@ -253,28 +242,23 @@
 
                     </div>
 
-                    <div
-                        style="font-size: 24px; font-weight: 800;"
-                        id="bottomTotal"
-                    >
+                    <div class="confirm-total" id="bottomTotal">
                         Rp{{ number_format($produkJasa->harga, 0, ',', '.') }}
                     </div>
 
                 </div>
 
-                <button
-                    type="submit"
-                    class="btn-submit"
-                    style="border: none; width: 100%; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px;"
-                >
+                <button type="submit" class="btn-submit">
                     Konfirmasi Pesanan
                     <i class="ph ph-arrow-right"></i>
                 </button>
 
                 <div class="disclaimer">
                     <i class="ph ph-info"></i>
-                    Setelah konfirmasi, kami akan menghubungi Anda melalui WhatsApp.
-                    Pembayaran dilakukan di luar website.
+                    <span>
+                        Setelah konfirmasi, kami akan menghubungi Anda melalui WhatsApp.
+                        Pembayaran dilakukan di luar website.
+                    </span>
                 </div>
 
             </div>
@@ -283,65 +267,8 @@
 
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-        const btnMinus = document.getElementById('btnMinus');
-        const btnPlus = document.getElementById('btnPlus');
-        const jumlahInput = document.getElementById('jumlah');
-
-        const summaryJumlah = document.getElementById('summaryJumlah');
-        const summaryTotal = document.getElementById('summaryTotal');
-        const bottomTotal = document.getElementById('bottomTotal');
-        const totalItemText = document.getElementById('totalItemText');
-
-        const hargaSatuan = {{ $produkJasa->harga }};
-
-        function formatRupiah(angka) {
-            return 'Rp' + new Intl.NumberFormat('id-ID').format(angka);
-        }
-
-        function updateTotal() {
-
-            const jumlah = parseInt(jumlahInput.value) || 1;
-            const total = hargaSatuan * jumlah;
-
-            summaryJumlah.textContent = jumlah;
-
-            summaryTotal.textContent = formatRupiah(total);
-
-            bottomTotal.textContent = formatRupiah(total);
-
-            totalItemText.textContent =
-                'Total (' + jumlah + ' item)';
-        }
-
-        btnMinus.addEventListener('click', function () {
-
-            let jumlah = parseInt(jumlahInput.value) || 1;
-
-            if (jumlah > 1) {
-                jumlah--;
-                jumlahInput.value = jumlah;
-                updateTotal();
-            }
-
-        });
-
-        btnPlus.addEventListener('click', function () {
-
-            let jumlah = parseInt(jumlahInput.value) || 1;
-
-            jumlah++;
-            jumlahInput.value = jumlah;
-
-            updateTotal();
-
-        });
-
-        updateTotal();
-
-    });
-</script>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/checkout-pembeli.js') }}"></script>
+@endpush

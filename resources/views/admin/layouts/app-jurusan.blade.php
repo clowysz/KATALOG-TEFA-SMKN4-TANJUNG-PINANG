@@ -10,10 +10,14 @@
     <title>@yield('title') - Admin Jurusan TEFA</title>
 
     <!-- CSS GLOBAL -->
-    <link rel="stylesheet" href="{{ asset('css/global.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/global-admin.css') }}?v=1">
 
     <!-- CSS ADMIN JURUSAN -->
-    <link rel="stylesheet" href="{{ asset('css/admin-jurusan.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/admin-jurusan.css') }}?v=4">
+    <link rel="stylesheet" href="{{ asset('css/logout-modal-jurusan.css') }}?v=1">
+
+    <!-- CSS KHUSUS HALAMAN -->
+    @yield('styles')
 
     <!-- PHOSPHOR ICON -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -28,10 +32,7 @@
 
     <header class="header">
 
-        <span
-            class="hamburger"
-            onclick="toggleDrawer()"
-        >
+        <span class="hamburger" data-drawer-toggle>
             <i class="ph ph-list"></i>
         </span>
 
@@ -46,10 +47,7 @@
          NAVIGATION DRAWER
     ========================== -->
 
-    <nav
-        class="drawer"
-        id="navDrawer"
-    >
+    <nav class="drawer" id="navDrawer">
 
         <div class="drawer-top-header">
 
@@ -57,10 +55,7 @@
                 TEFA Admin Jurusan
             </h3>
 
-            <span
-                class="close-drawer"
-                onclick="toggleDrawer()"
-            >
+            <span class="close-drawer" data-drawer-toggle>
                 <i class="ph ph-x"></i>
             </span>
 
@@ -175,11 +170,7 @@
 
 
             <li>
-                <a
-                    href="javascript:void(0)"
-                    onclick="openLogoutModal()"
-                    class="logout-link"
-                >
+                <a href="#" class="logout-link" data-logout-open>
                     <i class="ph ph-sign-out"></i>
                     Logout
                 </a>
@@ -199,11 +190,7 @@
          OVERLAY
     ========================== -->
 
-    <div
-        class="overlay"
-        id="overlay"
-        onclick="toggleDrawer()"
-    ></div>
+    <div class="overlay" id="overlay" data-drawer-toggle></div>
 
 
     <!-- =========================
@@ -221,11 +208,7 @@
          MODAL LOGOUT
     ========================== -->
 
-    <div
-        id="logoutModal"
-        class="modal-logout-overlay"
-        style="display:none;"
-    >
+    <div id="logoutModal" class="modal-logout-overlay">
 
         <div class="modal-logout-box">
 
@@ -243,7 +226,7 @@
                 <button
                     type="button"
                     class="btn-modal-cancel"
-                    onclick="closeLogoutModal()"
+                    data-logout-close
                 >
                     Batal
                 </button>
@@ -252,16 +235,12 @@
                 <form
                     action="{{ route('admin.logout') }}"
                     method="POST"
-                    style="flex:1;margin:0;"
+                    class="modal-logout-form"
                 >
 
                     @csrf
 
-                    <button
-                        type="submit"
-                        class="btn-modal-logout"
-                        style="width:100%;cursor:pointer;"
-                    >
+                    <button type="submit" class="btn-modal-logout">
                         Keluar
                     </button>
 
@@ -275,142 +254,11 @@
 
 
     <!-- =========================
-         MODAL LOGOUT STYLE
-    ========================== -->
-
-    <style>
-
-        .modal-logout-overlay{
-            position:fixed;
-            inset:0;
-            background:rgba(15,23,42,.45);
-            backdrop-filter:blur(2px);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            z-index:99999;
-        }
-
-        .modal-logout-box{
-            background:#fff;
-            padding:32px;
-            border-radius:20px;
-            width:90%;
-            max-width:440px;
-            box-shadow:0 20px 25px -5px rgba(0,0,0,.1);
-            text-align:left;
-            animation:modalFadeIn .2s ease-out;
-        }
-
-        @keyframes modalFadeIn{
-            from{
-                opacity:0;
-                transform:scale(.95);
-            }
-
-            to{
-                opacity:1;
-                transform:scale(1);
-            }
-        }
-
-        .modal-logout-title{
-            font-size:20px;
-            font-weight:700;
-            color:#20456E;
-            margin:0 0 8px;
-            font-family:sans-serif;
-        }
-
-        .modal-logout-desc{
-            font-size:14px;
-            color:#64748B;
-            margin:0 0 24px;
-            font-family:sans-serif;
-        }
-
-        .modal-logout-actions{
-            display:flex;
-            align-items:center;
-            gap:12px;
-        }
-
-        .btn-modal-cancel{
-            background:#fff;
-            color:#334155;
-            border:1px solid #CBD5E1;
-            padding:12px 24px;
-            border-radius:10px;
-            font-size:14px;
-            font-weight:600;
-            cursor:pointer;
-            transition:.2s;
-        }
-
-        .btn-modal-cancel:hover{
-            background:#F8FAFC;
-        }
-
-        .btn-modal-logout{
-            display:block;
-            background:#DC2626;
-            color:#fff;
-            border:none;
-            padding:12px 24px;
-            border-radius:10px;
-            font-size:15px;
-            font-weight:700;
-            text-align:center;
-            transition:.2s;
-        }
-
-        .btn-modal-logout:hover{
-            background:#B91C1C;
-        }
-
-    </style>
-
-
-    <!-- =========================
-         LOGOUT JAVASCRIPT
-    ========================== -->
-
-    <script>
-
-        function openLogoutModal(){
-
-            document.getElementById('logoutModal').style.display = 'flex';
-
-        }
-
-
-        function closeLogoutModal(){
-
-            document.getElementById('logoutModal').style.display = 'none';
-
-        }
-
-
-        window.addEventListener('click', function(e){
-
-            const modal = document.getElementById('logoutModal');
-
-            if(e.target === modal){
-
-                closeLogoutModal();
-
-            }
-
-        });
-
-    </script>
-
-
-    <!-- =========================
-         JAVASCRIPT GLOBAL
+         JAVASCRIPT
     ========================== -->
 
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/logout-modal-jurusan.js') }}"></script>
 
     @yield('scripts')
 

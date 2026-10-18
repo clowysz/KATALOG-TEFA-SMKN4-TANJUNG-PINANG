@@ -1,7 +1,10 @@
-
 @extends('admin.layouts.app')
 
 @section('title', 'Profil Saya')
+
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/profil-tefa.css') }}?v=1">
+@endpush
 
 @section('content')
 
@@ -28,51 +31,45 @@
     <div class="profile-details">
 
         <!-- Nama Lengkap -->
-        <div
-            class="detail-section"
-            style="border-bottom: 1px solid #f5f5f5; padding-bottom: 16px; margin-bottom: 16px;"
-        >
+        <div class="profile-section">
             <div class="detail-label">
                 Nama Lengkap
             </div>
 
-            <div class="detail-value" style="font-weight: 500;">
+            <div class="detail-value">
                 {{ Auth::user()->nama }}
             </div>
         </div>
 
         <!-- Email -->
-        <div
-            class="detail-section"
-            style="border-bottom: 1px solid #f5f5f5; padding-bottom: 16px; margin-bottom: 16px;"
-        >
+        <div class="profile-section">
             <div class="detail-label">
                 Email
             </div>
 
-            <div class="detail-value" style="font-weight: 500;">
+            <div class="detail-value">
                 {{ Auth::user()->email }}
             </div>
         </div>
 
         <!-- Role Akses -->
-        <div class="detail-section">
+        <div class="profile-section">
             <div class="detail-label">
                 Role Akses
             </div>
 
-            <div class="detail-value" style="font-weight: 500;">
+            <div class="detail-value">
                 Admin TEFA
             </div>
         </div>
 
     </div>
 
-    <!-- Logout -->
+    <!-- Logout (membuka modal logout di layout) -->
     <button
         type="button"
         class="btn-outline btn-logout"
-        onclick="openLogoutModal()"
+        data-logout-open
     >
         Logout
     </button>

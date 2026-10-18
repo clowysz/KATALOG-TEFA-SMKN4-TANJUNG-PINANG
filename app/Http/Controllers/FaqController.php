@@ -8,6 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class FaqController extends Controller
 {
+    // =====================================================================
+    // PUBLIK
+    // =====================================================================
+
+    public function publik()
+    {
+        $faqs = Faq::latest('id_faq')->get();
+
+        return view('public.faq', compact('faqs'));
+    }
+
+    // =====================================================================
+    // ADMIN TEFA
+    // =====================================================================
+
     public function index()
     {
         $faqs = Faq::latest('id_faq')->get();

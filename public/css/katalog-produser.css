@@ -1,0 +1,281 @@
+/* =========================================================
+   PRODUK/JASA SAYA (KATALOG PRODUSER)
+   Judul halaman & kotak pencarian ada di admin-produser.css
+========================================================= */
+
+.katalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+    gap: 24px;
+}
+
+.katalog-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--prod-border);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.katalog-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--prod-info-border);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.katalog-thumb {
+    position: relative;
+    height: 190px;
+    background: #f1f5f9;
+    overflow: hidden;
+}
+
+.katalog-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.katalog-thumb-empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--prod-text-sec);
+    font-size: 48px;
+}
+
+.katalog-type-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--prod-text-main);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.katalog-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+}
+
+.katalog-jurusan {
+    font-size: 12px;
+    color: var(--prod-text-sec);
+    margin-bottom: 6px;
+}
+
+.katalog-title {
+    font-size: 17px;
+    color: var(--prod-text-main);
+    font-weight: 700;
+    margin-bottom: 8px;
+    word-break: break-word;
+}
+
+.katalog-desc {
+    font-size: 13px;
+    color: var(--prod-text-sec);
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.katalog-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+    margin-top: auto;
+    margin-bottom: 16px;
+}
+
+.katalog-meta-label {
+    font-size: 11px;
+    color: var(--prod-text-sec);
+    margin-bottom: 3px;
+}
+
+.katalog-price {
+    font-size: 17px;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.katalog-meta-right {
+    text-align: right;
+}
+
+.katalog-count {
+    font-size: 14px;
+    color: var(--prod-text-main);
+    font-weight: 600;
+}
+
+.katalog-btn {
+    width: 100%;
+    padding: 10px 14px;
+}
+
+/* Kosong / tidak ada hasil */
+.katalog-empty {
+    grid-column: 1 / -1;
+    padding: 60px 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--prod-border);
+}
+
+.katalog-empty .prod-empty-icon {
+    font-size: 48px;
+}
+
+.katalog-empty-title {
+    color: var(--prod-text-main);
+    margin: 14px 0 8px;
+}
+
+.katalog-empty .prod-empty-text {
+    margin: 0;
+}
+
+/* ================= RESPONSIF ================= */
+@media (max-width: 768px) {
+    .katalog-grid {
+        gap: 16px;
+    }
+
+    .katalog-thumb {
+        height: 170px;
+    }
+
+    .katalog-body {
+        padding: 16px;
+    }
+
+    .katalog-empty {
+        padding: 40px 16px;
+    }
+}
+
+/* ---------- Tablet kecil & HP (<= 768px): 3 kartu per baris ---------- */
+@media (max-width: 768px) {
+    .katalog-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .katalog-card:hover {
+        transform: none;
+    }
+
+    .katalog-thumb {
+        height: 110px;
+    }
+
+    .katalog-body {
+        padding: 10px;
+    }
+
+    .katalog-jurusan,
+    .katalog-desc,
+    .katalog-meta-right {
+        display: none;
+    }
+
+    .katalog-title {
+        font-size: 13px;
+        line-height: 1.3;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .katalog-meta {
+        margin-bottom: 10px;
+    }
+
+    .katalog-price {
+        font-size: 13px;
+        line-height: 1.3;
+        word-break: break-word;
+    }
+
+    .katalog-btn {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+}
+
+/* ---------- HP kecil (<= 480px): lebih ringkas lagi ---------- */
+@media (max-width: 480px) {
+    .katalog-grid {
+        gap: 8px;
+    }
+
+    .katalog-card {
+        border-radius: 10px;
+    }
+
+    .katalog-thumb {
+        height: 84px;
+    }
+
+    .katalog-thumb-empty {
+        font-size: 28px;
+    }
+
+    .katalog-type-badge {
+        top: 6px;
+        left: 6px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 9px;
+    }
+
+    .katalog-body {
+        padding: 8px;
+    }
+
+    .katalog-meta-label,
+    .katalog-btn i {
+        display: none;
+    }
+
+    .katalog-title {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .katalog-meta {
+        margin-bottom: 8px;
+    }
+
+    .katalog-price {
+        font-size: 11px;
+    }
+
+    .katalog-btn {
+        padding: 6px 4px;
+        font-size: 11px;
+        border-radius: 6px;
+    }
+
+    .katalog-empty {
+        padding: 32px 12px;
+    }
+}

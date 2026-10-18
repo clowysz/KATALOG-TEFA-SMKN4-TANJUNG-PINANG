@@ -1,0 +1,707 @@
+/* =========================================================
+   AKUN TEFA
+   - Daftar Akun   (admin_tefa/akun/index)
+   - Tambah Akun   (admin_tefa/akun/create)
+   - Edit Akun     (admin_tefa/akun/edit)
+   - Detail Akun   (admin_tefa/akun/show)
+
+   Gaya form umum & tombol kembali ada di admin-tefa.css.
+
+   Desktop : tabel biasa, form & detail di tengah
+   Mobile  : (<= 768px) tabel berubah jadi kartu, form & detail
+             selebar layar
+========================================================= */
+
+/* =========================================================
+   1. KOMPONEN BERSAMA
+========================================================= */
+
+/* ---------- Alert ---------- */
+
+.alert-custom {
+  padding: 14px 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.alert-success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.alert-danger {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.alert-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* =========================================================
+   2. DAFTAR AKUN (INDEX)
+========================================================= */
+
+.akun-page-header {
+  margin-top: 3px;
+  margin-bottom: 24px;
+}
+
+.akun-page-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.akun-page-subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* ---------- Tombol tambah akun ---------- */
+
+.btn-tambah-akun {
+  background: #1e3a8ad9;
+  color: #ffffff;
+  text-decoration: none;
+  width: auto;
+  transition: background 0.2s ease;
+}
+
+.btn-tambah-akun:hover {
+  background: #1e3a8a;
+  color: #ffffff;
+}
+
+.btn-tambah-akun:active {
+  background: #14255a;
+  color: #ffffff;
+}
+
+.btn-tambah-akun:focus-visible {
+  outline: 3px solid #eab308;
+  outline-offset: 2px;
+}
+
+/* ---------- Keadaan kosong ---------- */
+
+.akun-table td.akun-empty {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.akun-empty-title {
+  color: #1e293b;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.akun-empty-text {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.akun-empty-filter {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* =========================================================
+   3. FORM TAMBAH & EDIT AKUN
+   (gaya form umum ada di admin-tefa.css)
+========================================================= */
+
+.akun-form-intro {
+  margin: 0 0 25px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Teks bantuan jurusan */
+.akun-help-text {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+/* Versi halaman edit: menempel ke kolom jurusan di atasnya */
+.akun-help-text-tight {
+  margin-top: -12px;
+}
+
+/* =========================================================
+   4. DETAIL AKUN
+========================================================= */
+
+.detail-wrapper {
+  padding: 0 24px;
+  max-width: 700px;
+  margin: 24px auto;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+}
+
+/* ---------- Kartu detail ---------- */
+
+.detail-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 32px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.info-row {
+  display: flex;
+  padding: 16px 0;
+  border-bottom: 1px solid #f1f5f9;
+  align-items: center;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.info-label {
+  width: 35%;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.info-value {
+  width: 65%;
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 600;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.info-value-password {
+  letter-spacing: 2px;
+}
+
+/* ---------- Badge ---------- */
+
+.badge-role {
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badge-status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ---------- Tombol aksi ---------- */
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.access-form {
+  margin: 0;
+}
+
+.btn-custom {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-custom:focus-visible {
+  outline: 3px solid #eab308;
+  outline-offset: 2px;
+}
+
+.btn-primary-custom {
+  background: #1e3a8ad9;
+  color: #fff;
+}
+
+.btn-primary-custom:hover,
+.btn-primary-custom:focus {
+  background: #1e3a8a;
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-primary-custom:active {
+  background: #172e6f;
+  color: #fff;
+}
+
+.btn-outline-primary-custom {
+  background: #fff;
+  color: #1e3a8a;
+  border-color: #1e3a8a;
+}
+
+.btn-outline-primary-custom:hover {
+  background: #f0f4ff;
+  color: #1e3a8a;
+}
+
+.btn-outline-danger-custom {
+  background: #fff;
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.btn-outline-danger-custom:hover {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+/* ---------- Form reset password ---------- */
+
+.reset-form-box {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.reset-form-title {
+  margin-top: 0;
+  color: #1e293b;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.form-group-custom {
+  margin-bottom: 16px;
+}
+
+.form-group-custom label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #475569;
+  font-size: 14px;
+}
+
+.form-control-custom {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.form-control-custom:focus {
+  outline: none;
+  border-color: #3b698f;
+}
+
+.reset-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* ---------- Modal konfirmasi akses ---------- */
+
+.modal-access-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 99999;
+}
+
+.modal-access-box {
+  background: #fff;
+  padding: 32px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  animation: accessModalFadeIn 0.2s ease-out;
+}
+
+@keyframes accessModalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-access-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #20456e;
+  margin: 0 0 8px;
+  font-family: sans-serif;
+}
+
+.modal-access-desc {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 24px;
+  font-family: sans-serif;
+  line-height: 1.5;
+}
+
+.modal-access-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-modal-access-cancel {
+  background: #fff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  flex: 1;
+}
+
+.btn-modal-access-cancel:hover {
+  background: #f8fafc;
+}
+
+.btn-modal-access-confirm {
+  display: block;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  transition: 0.2s;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btn-modal-access-confirm:hover {
+  background: #b91c1c;
+}
+
+/* Varian biru: untuk "Aktifkan Akses" */
+.btn-modal-access-confirm.is-primary {
+  background: #1e3a8a;
+}
+
+.btn-modal-access-confirm.is-primary:hover {
+  background: #172e6f;
+}
+
+/* =========================================================
+   5. RESPONSIVE
+========================================================= */
+
+/* ---------- MOBILE & TABLET KECIL (<= 768px) ---------- */
+@media (max-width: 768px) {
+  /* ----- Daftar akun: tabel menjadi kartu ----- */
+
+  .akun-page-header {
+    margin-bottom: 18px;
+  }
+
+  .akun-page-title {
+    font-size: 18px;
+  }
+
+  .akun-page-subtitle {
+    font-size: 13px;
+  }
+
+  .table-responsive {
+    overflow: visible;
+  }
+
+  .akun-table {
+    display: block;
+    overflow: visible;
+  }
+
+  /* Header kolom disembunyikan secara visual (tetap terbaca screen reader) */
+  .akun-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .akun-table tbody {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  /* Satu akun = satu kartu */
+  .akun-table .akun-row {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 4px 16px 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  }
+
+  .akun-table .akun-row:hover {
+    background: #fff;
+  }
+
+  /* Tiap sel = satu baris "label : isi" */
+  .akun-table .akun-row td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    white-space: normal;
+    text-align: right;
+    overflow-wrap: anywhere;
+    font-size: 14px;
+  }
+
+  .akun-table .akun-row td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  /* Nama pengguna = judul kartu */
+  .akun-table .akun-row td.col-nama {
+    justify-content: flex-start;
+    padding: 12px 0;
+    color: #1e293b;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .akun-table .akun-row td.col-nama::before,
+  .akun-table .akun-row td.col-aksi::before {
+    display: none;
+  }
+
+  /* Tombol detail selebar kartu */
+  .akun-table .akun-row td.col-aksi {
+    display: block;
+    margin-top: auto; /* tombol selalu menempel di dasar kartu */
+    padding: 12px 0 0;
+    border-bottom: none;
+  }
+
+  .btn-lihat-detail {
+    display: block;
+    width: 100%;
+    padding: 9px 12px;
+    text-align: center;
+  }
+
+  /* Keadaan kosong: satu blok penuh, bukan kartu */
+  .akun-table .akun-empty-row {
+    display: block;
+    grid-column: 1 / -1;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .akun-table td.akun-empty {
+    display: block;
+    padding: 40px 12px;
+    white-space: normal;
+    border-bottom: none;
+  }
+
+  .akun-empty-filter {
+    padding: 28px 12px;
+  }
+
+  /* ----- Form tambah & edit ----- */
+
+  .akun-form-intro {
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+
+  /* ----- Detail akun ----- */
+
+  .detail-wrapper {
+    padding: 0;
+    margin: 8px auto 0;
+  }
+
+  .page-title {
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+
+  .detail-card {
+    padding: 8px 16px;
+    margin-bottom: 18px;
+  }
+
+  .info-row {
+    padding: 14px 0;
+  }
+
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .action-buttons .btn-custom {
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 11px 12px;
+  }
+
+  .reset-form-box {
+    padding: 18px 16px;
+  }
+
+  .reset-form-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-control-custom {
+    font-size: 16px; /* mencegah auto-zoom di iOS */
+  }
+
+  /* ----- Modal ----- */
+
+  .modal-access-box {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+}
+
+/* ---------- KARTU 1 KOLOM & INFO DITUMPUK (<= 560px) ---------- */
+@media (max-width: 560px) {
+  .akun-table tbody {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .info-label,
+  .info-value {
+    width: 100%;
+  }
+}
+
+/* ---------- HP KECIL (<= 480px) ---------- */
+@media (max-width: 480px) {
+  .action-buttons {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reset-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .reset-form-actions .btn-custom {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .modal-access-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .btn-modal-access-cancel,
+  .btn-modal-access-confirm {
+    width: 100%;
+    flex: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-tambah-akun,
+  .btn-custom,
+  .btn-modal-access-cancel,
+  .btn-modal-access-confirm {
+    transition: none;
+  }
+
+  .modal-access-box {
+    animation: none;
+  }
+}

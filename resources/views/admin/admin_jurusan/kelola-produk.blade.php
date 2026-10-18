@@ -2,81 +2,36 @@
 
 @section('title', 'Kelola Produk')
 
+@section('styles')
+<link rel="stylesheet" href="{{ asset('css/kelola-jurusan.css') }}?v=4">
+@endsection
+
 @section('content')
-<style>
-    /* Tombol Tambah & Simpan (sama seperti Tambah FAQ) */
-    .btn-produk-primary {
-        background: #1e3a8ad9;
-        color: white;
-        padding: 10px 16px;
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 14px;
-        cursor: pointer;
-        width: auto;
-    }
 
-    .btn-produk-primary:hover {
-        background: #1E3A8A;
-        color: white;
-    }
+<div class="header-action">
 
-    /* Tombol Hapus di modal: hover merah */
-    .btn-produk-delete,
-    #btnConfirmDelete {
-        background: #dc3545 !important;
-        color: white !important;
-        padding: 10px 16px !important;
-        border: none !important;
-        border-radius: 8px !important;
-        font-weight: 600 !important;
-        font-size: 14px !important;
-        cursor: pointer !important;
-        width: auto !important;
-    }
-
-    .btn-produk-delete:hover,
-    #btnConfirmDelete:hover {
-        background: #B91C1C !important;
-        color: white !important;
-    }
-
-    /* Tombol Hapus di card: hover merah (inline style dari JS perlu !important) */
-    #kelolaProdukContainer .btn-delete {
-        background: transparent !important;
-        color: #dc3545 !important;
-        border: 1px solid #dc3545 !important;
-        transition: all 0.2s ease;
-    }
-
-    #kelolaProdukContainer .btn-delete:hover {
-        background: #dc3545 !important;
-        color: #ffffff !important;
-    }
-</style>
-<div class="header-action" style="align-items: center;">
     <div>
         <h2>Kelola Produk</h2>
         <p>Tambah, ubah, atau hapus produk jurusan</p>
     </div>
 
-    <div style="display: flex; gap: 12px;">
+    <div>
         <input
             type="text"
             id="searchItem"
             class="search-input"
             placeholder="Cari produk..."
-            style="width: 250px; margin-bottom: 0;"
         >
 
-       <button
-    onclick="openLayananModal('modalAdd')"
-    class="btn-produk-primary"
->
-    + Tambah Produk
-</button>
+        <button
+            type="button"
+            data-open-tambah
+            class="btn-jurusan-primary"
+        >
+            + Tambah Produk
+        </button>
     </div>
+
 </div>
 
 <div id="kelolaProdukContainer" class="catalog-grid"></div>
@@ -84,17 +39,17 @@
 
 <!-- Modal Tambah/Edit -->
 <div id="modalAdd" class="modal-overlay">
-    <div class="modal-box" style="max-width: 500px;">
+    <div class="modal-box modal-box-form">
 
         <div class="modal-title" id="modalFormTitle">
             Tambah Produk
         </div>
 
-        <form id="formLayanan" enctype="multipart/form-data">
+        <form id="formLayanan" data-jenis="produk" enctype="multipart/form-data">
 
             <input type="hidden" id="formId">
 
-            <label class="detail-label">
+            <label for="formName" class="detail-label">
                 Nama Produk
             </label>
 
@@ -105,8 +60,7 @@
                 required
             >
 
-
-            <label class="detail-label">
+            <label for="formDesc" class="detail-label">
                 Deskripsi Produk
             </label>
 
@@ -117,8 +71,7 @@
                 required
             ></textarea>
 
-
-            <label class="detail-label">
+            <label for="formPrice" class="detail-label">
                 Harga
             </label>
 
@@ -131,7 +84,7 @@
             >
 
             <label for="formUnit" class="detail-label">
-                Satuan Harga <span style="color:#94A3B8;">(Opsional)</span>
+                Satuan Harga <span class="label-optional">(Opsional)</span>
             </label>
 
             <input
@@ -142,7 +95,7 @@
                 maxlength="50"
             >
 
-            <label class="detail-label">
+            <label for="formImg" class="detail-label">
                 Upload Gambar Produk
             </label>
 
@@ -150,40 +103,26 @@
                 type="file"
                 name="gambar[]"
                 id="formImg"
-                class="form-control"
+                class="form-control form-file-input"
                 accept="image/*"
                 multiple
-                style="padding: 10px; cursor: pointer; background: #F8FAFC;"
             >
 
-            <div
-                id="imagePreviewContainer"
-                style="
-                    display: flex;
-                    gap: 12px;
-                    flex-wrap: wrap;
-                    margin-top: 12px;
-                    margin-bottom: 16px;
-                "
-            ></div>
-
+            <div id="imagePreviewContainer" class="upload-preview"></div>
 
             <div class="modal-actions">
 
                 <button
                     type="button"
                     class="btn-outline"
-                    onclick="closeLayananModal('modalAdd')"
+                    data-close-modal="modalAdd"
                 >
                     Batal
                 </button>
 
-                <button
-    type="submit"
-    class="btn-produk-primary"
->
-    Simpan
-</button>
+                <button type="submit" class="btn-jurusan-primary">
+                    Simpan
+                </button>
 
             </div>
 
@@ -194,7 +133,6 @@
 
 <!-- Modal Hapus -->
 <div id="modalDelete" class="modal-overlay">
-
     <div class="modal-box">
 
         <div class="modal-title">
@@ -205,28 +143,25 @@
             Data yang dihapus akan hilang dari Katalog dan tidak bisa dikembalikan.
         </div>
 
-        <input
-            type="hidden"
-            id="deleteId"
-        >
+        <input type="hidden" id="deleteId">
 
         <div class="modal-actions">
 
             <button
                 type="button"
                 class="btn-outline"
-                onclick="closeLayananModal('modalDelete')"
+                data-close-modal="modalDelete"
             >
                 Batal
             </button>
 
             <button
-    type="button"
-    id="btnConfirmDelete"
-    class="btn-produk-delete"
->
-    Hapus
-</button>
+                type="button"
+                id="btnConfirmDelete"
+                class="btn-jurusan-danger"
+            >
+                Hapus
+            </button>
 
         </div>
 
@@ -240,224 +175,7 @@
 
 
 @section('scripts')
-
 <script src="{{ asset('js/kelola-layanan.js') }}"></script>
-
-<script>
-    // =========================================================
-    // DEKLARASI ELEMEN & STATE (harus paling atas)
-    // =========================================================
-    window.uploadedFiles = [];
-
-    const formLayanan      = document.getElementById('formLayanan');
-    const formId           = document.getElementById('formId');
-    const formName         = document.getElementById('formName');
-    const formDesc         = document.getElementById('formDesc');
-    const formPrice        = document.getElementById('formPrice');
-    const formImg          = document.getElementById('formImg');
-    const previewContainer = document.getElementById('imagePreviewContainer');
-
-
-    // =========================================================
-    // VALIDASI FORM PRODUK - BAHASA INDONESIA
-    // =========================================================
-
-    // Helper: pasang pesan custom untuk field required
-    function setIndonesianValidation(element, message) {
-        if (!element) {
-            return;
-        }
-
-        element.addEventListener('invalid', function () {
-            if (this.validity.valueMissing) {
-                this.setCustomValidity(message);
-            } else {
-                this.setCustomValidity('');
-            }
-        });
-
-        element.addEventListener('input', function () {
-            this.setCustomValidity('');
-        });
-    }
-
-    setIndonesianValidation(formName,  'Nama produk wajib diisi.');
-    setIndonesianValidation(formDesc,  'Deskripsi produk wajib diisi.');
-    setIndonesianValidation(formPrice, 'Harga wajib diisi.');
-
-    // kelola-layanan.js memasang atribut "required" pada input gambar saat mode tambah,
-    // jadi validasi bawaan browser yang jalan duluan. Pesannya diganti di sini.
-    setIndonesianValidation(formImg, 'Minimal satu gambar wajib diunggah.');
-
-    // Validasi gambar (dicek manual karena file dikelola lewat uploadedFiles)
-    if (formLayanan) {
-        formLayanan.addEventListener('submit', function (event) {
-
-            // Mode tambah = formId kosong. Mode edit boleh tanpa gambar baru.
-            const isAddMode = !formId || formId.value === '';
-
-            if (isAddMode && window.uploadedFiles.length === 0) {
-                event.preventDefault();
-
-                formImg.setCustomValidity(
-                    'Minimal satu gambar produk wajib diunggah.'
-                );
-
-                formImg.reportValidity();
-            } else {
-                formImg.setCustomValidity('');
-            }
-        });
-    }
-
-
-    // =========================================================
-    // UPLOAD & PREVIEW GAMBAR
-    // =========================================================
-    if (formImg) {
-        formImg.addEventListener('change', function (event) {
-
-            // Hapus pesan validasi setelah gambar dipilih
-            this.setCustomValidity('');
-
-            const files = event.target.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            Array.from(files).forEach(file => {
-                window.uploadedFiles.push(file);
-            });
-
-            updateFileInput();
-            renderPreviews();
-        });
-    }
-
-
-    // Sinkronkan input file dengan uploadedFiles
-    function updateFileInput() {
-
-        if (!formImg) {
-            return;
-        }
-
-        const dataTransfer = new DataTransfer();
-
-        window.uploadedFiles.forEach(file => {
-            dataTransfer.items.add(file);
-        });
-
-        formImg.files = dataTransfer.files;
-    }
-
-
-    // Preview gambar
-    function renderPreviews() {
-
-        if (!previewContainer) {
-            return;
-        }
-
-        previewContainer.innerHTML = '';
-
-        window.uploadedFiles.forEach((file, index) => {
-
-            const reader = new FileReader();
-
-            reader.onload = function (event) {
-
-                const wrapper = document.createElement('div');
-
-                wrapper.style.position = 'relative';
-                wrapper.style.display = 'inline-block';
-
-
-                const img = document.createElement('img');
-
-                img.src = event.target.result;
-
-                img.style.width = '70px';
-                img.style.height = '70px';
-                img.style.objectFit = 'cover';
-                img.style.borderRadius = '8px';
-                img.style.border = '1px solid #CBD5E1';
-                img.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
-
-
-                const removeBtn = document.createElement('span');
-
-                removeBtn.innerHTML = '✖';
-
-                removeBtn.style.position = 'absolute';
-                removeBtn.style.top = '-6px';
-                removeBtn.style.right = '-6px';
-                removeBtn.style.background = '#dc2626';
-                removeBtn.style.color = '#ffffff';
-                removeBtn.style.borderRadius = '50%';
-                removeBtn.style.width = '20px';
-                removeBtn.style.height = '20px';
-                removeBtn.style.fontSize = '10px';
-                removeBtn.style.display = 'flex';
-                removeBtn.style.alignItems = 'center';
-                removeBtn.style.justifyContent = 'center';
-                removeBtn.style.cursor = 'pointer';
-                removeBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
-
-
-                removeBtn.onclick = function () {
-
-                    window.uploadedFiles.splice(index, 1);
-
-                    updateFileInput();
-                    renderPreviews();
-                };
-
-
-                wrapper.appendChild(img);
-                wrapper.appendChild(removeBtn);
-
-                previewContainer.appendChild(wrapper);
-            };
-
-            reader.readAsDataURL(file);
-        });
-    }
-
-
-    // =========================================================
-    // RESET UPLOAD SAAT MODAL DITUTUP
-    // =========================================================
-    const originalCloseModal = window.closeLayananModal;
-
-    window.closeLayananModal = function (modalId) {
-
-        if (modalId === 'modalAdd') {
-
-            window.uploadedFiles = [];
-
-            if (previewContainer) {
-                previewContainer.innerHTML = '';
-            }
-
-            if (formImg) {
-                formImg.value = '';
-                formImg.setCustomValidity('');
-            }
-        }
-
-        if (typeof originalCloseModal === 'function') {
-            originalCloseModal(modalId);
-        } else {
-
-            const modal = document.getElementById(modalId);
-
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        }
-    };
-</script>
-
+<script src="{{ asset('js/form-helper-jurusan.js') }}"></script>
+<script src="{{ asset('js/kelola-layanan-form-jurusan.js') }}"></script>
 @endsection

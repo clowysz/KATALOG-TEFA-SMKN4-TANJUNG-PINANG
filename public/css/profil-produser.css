@@ -1,0 +1,289 @@
+/* =========================================================
+   PROFIL PRODUSER
+========================================================= */
+
+.profile-page {
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
+.profile-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    padding: 0;
+}
+
+/* ---------- Hero ---------- */
+.profile-hero {
+    background: var(--primary);
+    padding: 40px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    background: #d8893d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-hero-info {
+    min-width: 0;
+}
+
+.profile-name {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.profile-role-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* ---------- Informasi akun ---------- */
+.profile-body {
+    padding: 32px;
+}
+
+.profile-section-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--prod-text-sec);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+}
+
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--prod-border);
+    margin-bottom: 16px;
+}
+
+.profile-row:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+    margin-bottom: 0;
+}
+
+.profile-row-label {
+    color: var(--prod-text-sec);
+    font-size: 15px;
+}
+
+.profile-row-value {
+    color: var(--prod-text-main);
+    font-weight: 600;
+    font-size: 15px;
+    text-align: right;
+    word-break: break-word;
+}
+
+.profile-row-value.is-active {
+    color: var(--prod-success);
+}
+
+.profile-row-value.is-inactive {
+    color: var(--prod-error);
+}
+
+/* ---------- Tanggung jawab produk/jasa ---------- */
+.profile-products {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 32px;
+}
+
+.profile-products-header {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--prod-border);
+}
+
+.profile-products-title {
+    font-size: 18px;
+    color: var(--prod-text-main);
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.profile-products-desc {
+    font-size: 14px;
+    color: var(--prod-text-sec);
+}
+
+.profile-product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.profile-product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--prod-border);
+    border-radius: 12px;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.profile-product-item:hover {
+    border-color: var(--prod-info-border);
+    background: var(--prod-surface-hover);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.profile-product-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.profile-product-thumb {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid var(--prod-border);
+}
+
+.profile-product-thumb-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: var(--prod-text-sec);
+    font-size: 24px;
+}
+
+.profile-product-name {
+    font-weight: 700;
+    color: var(--prod-text-main);
+    font-size: 16px;
+    margin-bottom: 6px;
+    word-break: break-word;
+}
+
+.profile-product-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.profile-product-jurusan {
+    font-size: 12px;
+    color: var(--prod-text-sec);
+    font-weight: 500;
+}
+
+.profile-product-side {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.profile-product-price {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.profile-product-count {
+    font-size: 12px;
+    color: var(--prod-text-sec);
+}
+
+/* ================= RESPONSIF ================= */
+@media (max-width: 768px) {
+    .profile-page {
+        margin-bottom: 24px;
+    }
+
+    .profile-hero {
+        padding: 28px 20px;
+        gap: 18px;
+    }
+
+    .profile-avatar {
+        width: 68px;
+        height: 68px;
+        font-size: 30px;
+    }
+
+    .profile-name {
+        font-size: 22px;
+    }
+
+    .profile-body,
+    .profile-products {
+        padding: 22px 18px;
+    }
+}
+
+@media (max-width: 560px) {
+    .profile-hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-row {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .profile-row-value {
+        text-align: left;
+    }
+
+    .profile-product-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-product-side {
+        width: 100%;
+        text-align: left;
+        padding-top: 12px;
+        border-top: 1px dashed var(--prod-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .profile-product-price {
+        margin-bottom: 0;
+    }
+}

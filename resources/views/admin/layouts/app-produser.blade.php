@@ -7,25 +7,28 @@
 
     <title>@yield('title') - Admin Produser</title>
 
-    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/global-admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin-produser.css') }}">
+
+    {{-- CSS khusus halaman (dimuat setelah CSS dasar agar bisa menimpa) --}}
+    @stack('styles')
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 
 <body class="produser-mode">
 
+    {{-- ================= HEADER ================= --}}
     <header class="header">
         <span class="hamburger" onclick="toggleDrawer()">
             <i class="ph ph-list"></i>
         </span>
 
-        <h2 style="font-family: 'Inter', sans-serif;">
-            @yield('title')
-        </h2>
+        <h2 class="header-title">@yield('title')</h2>
     </header>
 
-    <nav class="drawer" id="navDrawer">
+    {{-- ================= DRAWER / MENU ================= --}}
+    <nav class="drawer" id="navDrawer" aria-label="Menu admin produser">
 
         <div class="drawer-top-header">
             <h3>TEFA Admin Produser</h3>
@@ -72,40 +75,34 @@
             </li>
 
             <li>
-                <a href="#"
-                   onclick="openModal('modalLogoutProduser'); return false;"
-                   class="logout-link">
+                <button type="button"
+                        class="logout-link"
+                        data-modal-open="modalLogoutProduser">
                     <i class="ph ph-sign-out"></i>
                     Logout
-                </a>
+                </button>
             </li>
 
         </ul>
 
     </nav>
 
-    <div class="overlay"
-         id="overlay"
-         onclick="toggleDrawer()">
-    </div>
+    <div class="overlay" id="overlay" onclick="toggleDrawer()"></div>
 
+    {{-- ================= KONTEN ================= --}}
     <main class="main-content">
         @yield('content')
     </main>
 
-    {{-- Modal Logout --}}
-    <div id="modalLogoutProduser"
-         class="modal-overlay">
+    {{-- ================= MODAL LOGOUT ================= --}}
+    <div id="modalLogoutProduser" class="modal-overlay">
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="logoutTitle">
 
-        <div class="modal-box"
-             style="border-radius: 14px;">
-
-            <div class="modal-title">
+            <div class="modal-title" id="logoutTitle">
                 Keluar dari akun?
             </div>
 
-            <div class="modal-desc"
-                 style="color: var(--prod-text-sec);">
+            <div class="modal-desc">
                 Anda akan diarahkan kembali ke halaman login.
             </div>
 
@@ -113,56 +110,27 @@
 
                 <button type="button"
                         class="btn-outline"
-                        onclick="closeModal('modalLogoutProduser')">
+                        data-modal-close="modalLogoutProduser">
                     Batal
                 </button>
 
-                {{-- Logout menggunakan POST agar Auth::logout() benar-benar dipanggil --}}
-                <form action="{{ url('/admin/logout') }}"
-                      method="POST"
-                      style="margin: 0;">
-
+                {{-- Logout memakai POST agar Auth::logout() benar-benar dipanggil --}}
+                <form action="{{ url('/admin/logout') }}" method="POST">
                     @csrf
 
-                    <button type="submit"
-                            class="btn-primary"
-                            style="
-                                border: none;
-                                cursor: pointer;
-                                background: var(--prod-error);
-                            ">
+                    <button type="submit" class="btn-primary btn-danger-produser">
                         Logout
                     </button>
-
                 </form>
 
             </div>
 
         </div>
-
     </div>
 
     <script src="{{ asset('js/script.js') }}"></script>
-
     <script src="{{ asset('js/produser-action.js') }}"></script>
-
-    <script>
-        function openModal(id) {
-            const modal = document.getElementById(id);
-
-            if (modal) {
-                modal.classList.add('active');
-            }
-        }
-
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-
-            if (modal) {
-                modal.classList.remove('active');
-            }
-        }
-    </script>
+    <script src="{{ asset('js/layout-produser.js') }}"></script>
 
     @stack('scripts')
 

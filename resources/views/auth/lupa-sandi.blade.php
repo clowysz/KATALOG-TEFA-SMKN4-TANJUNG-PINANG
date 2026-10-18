@@ -2,34 +2,6 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/login-pembeli.css') }}">
-    <style>
-        .login-alert {
-            padding: 12px 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            line-height: 1.5;
-            text-align: left;
-        }
-
-        .login-alert-success {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .login-alert-error {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .login-alert a {
-            display: block;
-            margin-top: 8px;
-            color: #1E3A8A;
-            font-weight: 600;
-            text-decoration: underline;
-        }
-    </style>
 @endpush
 
 @section('content')
@@ -111,38 +83,9 @@
     </p>
 
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
 
-    const emailInput = document.getElementById('email');
-
-    if (emailInput) {
-
-        function validateEmail() {
-
-            const value = emailInput.value.trim();
-
-            if (value === '') {
-                emailInput.setCustomValidity('Email wajib diisi.');
-                return;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailPattern.test(value)) {
-                emailInput.setCustomValidity(
-                    'Silakan masukkan alamat email yang valid. Contoh: nama@email.com.'
-                );
-                return;
-            }
-
-            emailInput.setCustomValidity('');
-        }
-
-        emailInput.addEventListener('invalid', validateEmail);
-        emailInput.addEventListener('input', validateEmail);
-    }
-
-});
-</script>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/lupa-sandi-pembeli.js') }}"></script>
+@endpush

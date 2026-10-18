@@ -1,0 +1,147 @@
+/* =========================================================
+   DESKRIPSI JURUSAN - ADMIN JURUSAN
+   ========================================================= */
+
+.deskripsi-header {
+    margin: 16px 24px;
+}
+
+.deskripsi-card {
+    margin: 24px;
+    padding: 24px;
+}
+
+.deskripsi-identity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.deskripsi-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    background: #fcf4e8;
+    color: var(--accent-rpl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border-radius: 8px;
+}
+
+.deskripsi-nama {
+    color: var(--accent-rpl);
+    margin-bottom: 4px;
+}
+
+.deskripsi-sekolah {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* ---------- Pesan ---------- */
+
+.alert-jurusan {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.alert-jurusan ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.alert-jurusan-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-jurusan-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* ---------- Form ---------- */
+
+.deskripsi-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.deskripsi-textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    background-color: #f8f9fa;
+}
+
+.deskripsi-textarea.is-editing {
+    background-color: #ffffff;
+    border-color: var(--accent-rpl);
+}
+
+.deskripsi-actions {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+}
+
+.deskripsi-actions[hidden] {
+    display: none;
+}
+
+/* Tombol Simpan: warna oranye dipertahankan */
+.btn-simpan-deskripsi {
+    background: #ffffff;
+    color: var(--accent-rpl);
+    padding: 8px 16px;
+    border: 1px solid var(--accent-rpl);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    width: auto;
+    transition: all 0.2s ease;
+}
+
+.btn-simpan-deskripsi:hover {
+    background: var(--accent-rpl);
+    color: #ffffff;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .deskripsi-header {
+        margin: 0 0 16px;
+    }
+
+    .deskripsi-card {
+        margin: 0;
+        padding: 16px;
+    }
+
+    .deskripsi-textarea {
+        font-size: 16px; /* mencegah auto-zoom iOS */
+    }
+}
+
+@media (max-width: 480px) {
+    .deskripsi-actions {
+        flex-direction: column-reverse;
+    }
+
+    .deskripsi-actions > * {
+        width: 100%;
+    }
+}

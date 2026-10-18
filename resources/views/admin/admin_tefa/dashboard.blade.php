@@ -12,75 +12,75 @@
 <!-- 5 Summary Cards -->
 <div class="summary-grid">
 
-    <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #1E3A8A;">
+    <div class="tefa-card summary-card summary-total">
+        <div class="summary-icon">
             <i class="ph ph-package"></i>
         </div>
 
         <div class="summary-info">
             <p>Total Pesanan</p>
 
-            <h3 style="color: #1E3A8A;">
+            <h3>
                 {{ $totalPesanan }}
             </h3>
         </div>
     </div>
 
 
-    <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #573911;">
+    <div class="tefa-card summary-card summary-menunggu">
+        <div class="summary-icon">
             <i class="ph ph-hourglass"></i>
         </div>
 
         <div class="summary-info">
             <p>Menunggu Konfirmasi</p>
 
-            <h3 style="color: #573911;">
+            <h3>
                 {{ $menungguKonfirmasi }}
             </h3>
         </div>
     </div>
 
 
-    <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #002f56;">
+    <div class="tefa-card summary-card summary-konfirmasi">
+        <div class="summary-icon">
             <i class="ph ph-clipboard-text"></i>
         </div>
 
         <div class="summary-info">
             <p>Dikonfirmasi</p>
 
-            <h3 style="color: #002f56;">
+            <h3>
                 {{ $dikonfirmasi }}
             </h3>
         </div>
     </div>
 
 
-    <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #470d4f;">
+    <div class="tefa-card summary-card summary-proses">
+        <div class="summary-icon">
             <i class="ph ph-gear"></i>
         </div>
 
         <div class="summary-info">
             <p>Sedang Diproses</p>
 
-            <h3 style="color: #470d4f;">
+            <h3>
                 {{ $sedangDiproses }}
             </h3>
         </div>
     </div>
 
 
-    <div class="tefa-card summary-card">
-        <div class="summary-icon" style="background-color: #016e30;">
+    <div class="tefa-card summary-card summary-selesai">
+        <div class="summary-icon">
             <i class="ph ph-check-circle"></i>
         </div>
 
         <div class="summary-info">
             <p>Selesai</p>
 
-            <h3 style="color: #016e30;">
+            <h3>
                 {{ $selesai }}
             </h3>
         </div>
@@ -127,7 +127,7 @@
 
         @else
 
-            <p style="color: #64748b;font-size:14px;margin-top:16px;">
+            <p class="perf-empty">
                 Belum ada data produk atau jasa yang dipesan.
             </p>
 
@@ -144,7 +144,7 @@
     <!-- Pesanan Terbaru -->
     <div class="tefa-card">
 
-        <h3 style="margin-bottom: 16px;">
+        <h3 class="card-title">
             Pesanan Terbaru
         </h3>
 
@@ -171,15 +171,7 @@
                     @else
 
                         <div
-                            class="recent-img"
-                            style="
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                background:#EBF3F9;
-                                color: #1E3A8A;
-                                font-size:24px;
-                            "
+                            class="recent-img recent-img-placeholder"
                         >
                             <i class="ph ph-package"></i>
                         </div>
@@ -214,13 +206,7 @@
 
         @else
 
-            <div
-                style="
-                    padding:30px 0;
-                    text-align:center;
-                    color: #64748b;
-                "
-            >
+            <div class="dashboard-empty">
                 Belum ada pesanan.
             </div>
 
@@ -232,24 +218,24 @@
     <!-- Grafik Pesanan Berdasarkan Jurusan -->
     <div class="tefa-card">
 
-        <h3 style="margin-bottom: 16px;">
+        <h3 class="card-title">
             Pesanan Berdasarkan Jurusan
         </h3>
 
 
         @if(count($chartLabels) > 0)
 
-            <canvas id="jurusanChart"></canvas>
+            <div class="chart-wrap">
+                <canvas
+                    id="jurusanChart"
+                    data-labels="{{ json_encode($chartLabels) }}"
+                    data-values="{{ json_encode($chartData) }}"
+                ></canvas>
+            </div>
 
         @else
 
-            <div
-                style="
-                    padding:40px 20px;
-                    text-align:center;
-                    color: #64748b;
-                "
-            >
+            <div class="dashboard-empty dashboard-empty-lg">
                 Belum ada data jurusan.
             </div>
 
@@ -266,13 +252,6 @@
 
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-<!-- Data Grafik dari Controller -->
-<script>
-    window.jurusanChartLabels = @json($chartLabels);
-    window.jurusanChartData = @json($chartData);
-</script>
 
 
 <!-- Dashboard JavaScript -->

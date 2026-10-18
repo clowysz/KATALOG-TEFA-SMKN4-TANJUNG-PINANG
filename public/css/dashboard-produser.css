@@ -1,0 +1,118 @@
+/* =========================================================
+   DASHBOARD PRODUSER
+   Tabel pesanan memakai gaya dari pesanan-produser.css
+   (order-card, order-table, progress-*, status-pill, dll).
+========================================================= */
+
+.dashboard-intro {
+    margin-bottom: 32px;
+}
+
+/* ---------- Kartu statistik ---------- */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--prod-border);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--prod-info-border);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--prod-text-sec);
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--prod-text-main);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 24px;
+}
+
+/* ---------- Kartu pesanan terkait ---------- */
+.dashboard-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.dashboard-card-title {
+    color: var(--prod-text-main);
+    font-size: 18px;
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.dashboard-card-desc {
+    color: var(--prod-text-sec);
+    font-size: 13px;
+}
+
+.dashboard-card .order-table th {
+    padding: 16px 12px;
+}
+
+/* ================= RESPONSIF ================= */
+@media (max-width: 768px) {
+    .dashboard-intro {
+        margin-bottom: 20px;
+    }
+
+    .stat-grid {
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .stat-card {
+        padding: 18px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .dashboard-card-header {
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 16px;
+    }
+
+    .dashboard-card-header .prod-btn {
+        width: 100%;
+    }
+}

@@ -2,46 +2,20 @@
 
 @section('title','Daftar Akun')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/akun-tefa.css') }}?v=2">
+@endpush
+
 @section('content')
 
-<style>
-    .page-header{
-        margin-top:3px;
-        margin-bottom:24px;
-    }
-
-    /* =========================
-       TOMBOL TAMBAH AKUN
-       ========================= */
-
-    .btn-tambah-akun {
-        background: #1e3a8ad9;
-        color: #ffffff;
-        text-decoration: none;
-        width: auto;
-        transition: background 0.2s ease;
-    }
-
-    .btn-tambah-akun:hover {
-        background: #1E3A8A;
-        color: #ffffff;
-    }
-
-    .btn-tambah-akun:active {
-        background: #14255A;
-        color: #ffffff;
-    }
-</style>
-
-
-<div class="header-action page-header">
+<div class="header-action page-header akun-page-header">
 
     <div>
-        <h2 style="font-size:20px;font-weight:bold;color:#1e293b;">
+        <h2 class="akun-page-title">
             Daftar Akun
         </h2>
 
-        <p style="color:#64748b;font-size:14px;margin-top:4px;">
+        <p class="akun-page-subtitle">
             Kelola akses pengguna internal TEFA
         </p>
     </div>
@@ -59,7 +33,7 @@
 
 @if(session('success'))
 
-<div class="alert alert-success" style="margin-bottom:20px;">
+<div class="alert-custom alert-success">
     {{ session('success') }}
 </div>
 
@@ -117,11 +91,11 @@
     </div>
 
 
-    <!-- Tabel Akun -->
+    <!-- Tabel Akun (di layar kecil tampil sebagai kartu) -->
     <div class="table-responsive">
 
         <table
-            class="tefa-table"
+            class="tefa-table akun-table"
             id="akunTable"
         >
 
@@ -143,20 +117,21 @@
 
                 @forelse($akuns as $akun)
 
-                <tr>
+                <tr class="akun-row">
 
-                    <td class="col-nama">
+                    <td class="col-nama" data-label="Nama Pengguna">
                         {{ $akun->nama }}
                     </td>
 
 
-                    <td class="col-email">
+                    <td class="col-email" data-label="Email">
                         {{ $akun->email }}
                     </td>
 
 
                     <td
                         class="col-role"
+                        data-label="Role"
                         data-role="{{ $akun->role }}"
                     >
 
@@ -173,7 +148,7 @@
                     </td>
 
 
-                    <td class="col-jurusan">
+                    <td class="col-jurusan" data-label="Jurusan">
 
                         {{ $akun->jurusanDipegang->nama_jurusan ?? '-' }}
 
@@ -182,6 +157,7 @@
 
                     <td
                         class="col-status"
+                        data-label="Status"
                         data-status="{{ $akun->status }}"
                     >
 
@@ -202,7 +178,7 @@
                     </td>
 
 
-                    <td>
+                    <td class="col-aksi" data-label="Aksi">
 
                         <a
                             href="{{ route('akun.show',$akun->id) }}"
@@ -217,30 +193,18 @@
 
                 @empty
 
-                <tr>
+                <tr class="akun-empty-row">
 
                     <td
                         colspan="6"
-                        style="text-align:center;padding:60px 20px;"
+                        class="akun-empty"
                     >
 
-                        <h3
-                            style="
-                                color:#1e293b;
-                                margin-bottom:8px;
-                                font-size:18px;
-                            "
-                        >
+                        <h3 class="akun-empty-title">
                             Belum Ada Akun
                         </h3>
 
-
-                        <p
-                            style="
-                                color:#64748b;
-                                font-size:14px;
-                            "
-                        >
+                        <p class="akun-empty-text">
                             Data akun saat ini masih kosong atau belum
                             ditambahkan ke dalam database.
                         </p>
@@ -258,32 +222,18 @@
     </div>
 
 
+    <!-- Pesan ketika hasil filter/pencarian kosong (ditampilkan oleh akun.js) -->
     <div
         id="emptyAkun"
-        style="
-            display:none;
-            text-align:center;
-            padding:40px 20px;
-        "
+        class="akun-empty-filter"
+        style="display:none;"
     >
 
-        <h3
-            style="
-                color:#1e293b;
-                margin-bottom:8px;
-                font-size:18px;
-            "
-        >
+        <h3 class="akun-empty-title">
             Akun Tidak Ditemukan
         </h3>
 
-
-        <p
-            style="
-                color:#64748b;
-                font-size:14px;
-            "
-        >
+        <p class="akun-empty-text">
             Tidak ada akun yang sesuai dengan pencarian atau filter.
         </p>
 
@@ -296,6 +246,6 @@
 
 @section('scripts')
 
-<script src="{{ asset('js/akun.js') }}"></script>
+<script src="{{ asset('js/akun-index.js') }}"></script>
 
 @endsection

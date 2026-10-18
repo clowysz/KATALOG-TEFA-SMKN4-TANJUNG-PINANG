@@ -88,6 +88,29 @@ class AdminJurusanController extends Controller
 
 
     // =========================================================
+    // HALAMAN KELOLA DESKRIPSI JURUSAN
+    // =========================================================
+
+    public function deskripsi()
+    {
+        $user = Auth::user();
+        $jurusan = $user->jurusanDipegang;
+
+        if (!$jurusan) {
+            abort(
+                404,
+                'Jurusan untuk akun ini belum ditemukan.'
+            );
+        }
+
+        return view(
+            'admin.admin_jurusan.kelola-deskripsi',
+            compact('jurusan')
+        );
+    }
+
+
+    // =========================================================
     // DAFTAR AKUN ADMIN PRODUSER
     // =========================================================
 

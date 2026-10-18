@@ -2,121 +2,18 @@
 
 @section('title', 'Jurusan')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/jurusan-tefa.css') }}?v=1">
+@endpush
+
 @section('content')
 
-<style>
-    .tefa-jurusan-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 24px;
-        margin-top: 20px;
-    }
-
-    .j-card {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 24px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        border: 1px solid #f1f5f9;
-    }
-
-    .j-card-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 20px;
-    }
-
-    .j-stats {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-    }
-
-    .j-stat-box {
-        background: #f8fafc;
-        border-radius: 8px;
-        padding: 16px;
-    }
-
-    .j-stat-num {
-        font-size: 24px;
-        font-weight: 800;
-        line-height: 1;
-        margin-bottom: 6px;
-    }
-
-    .j-stat-label {
-        font-size: 13px;
-        color: #64748b;
-        font-weight: 500;
-    }
-
-    .theme-rpl {
-        border-top: 4px solid #d97706;
-    }
-
-    .theme-rpl .j-stat-num {
-        color: #d97706;
-    }
-
-    .theme-tkj {
-        border-top: 4px solid #059669;
-    }
-
-    .theme-tkj .j-stat-num {
-        color: #059669;
-    }
-
-    .theme-dkv {
-        border-top: 4px solid #991b1b;
-    }
-
-    .theme-dkv .j-stat-num {
-        color: #991b1b;
-    }
-
-    .theme-animasi {
-        border-top: 4px solid #024cb4;
-    }
-
-    .theme-animasi .j-stat-num {
-        color: #024cb4;
-    }
-
-    .theme-gim {
-        border-top: 4px solid #7fbfff;
-    }
-
-    .theme-gim .j-stat-num {
-        color: #7fbfff;
-    }
-
-    .theme-pspt {
-        border-top: 4px solid #c5c528;
-    }
-
-    .theme-pspt .j-stat-num {
-        color: #c5c528;
-    }
-
-    .empty-jurusan {
-        text-align: center;
-        padding: 60px 20px;
-        color: #64748b;
-        background: #ffffff;
-        border-radius: 12px;
-        border: 1px solid #f1f5f9;
-    }
-</style>
-
-
 <div class="page-header">
-    <h2 style="font-size: 20px; font-weight: bold; color: #1e293b;">
+    <h2 class="jurusan-page-title">
         Jurusan
     </h2>
 
-    <p style="color: #64748b; margin-top: 6px;">
+    <p class="jurusan-page-subtitle">
         Ringkasan produk, jasa, portofolio, dan pesanan setiap jurusan.
     </p>
 </div>
@@ -207,11 +104,11 @@
 
     <div class="empty-jurusan">
 
-        <h3 style="margin-bottom: 8px; color: #1e293b;">
+        <h3 class="empty-jurusan-title">
             Belum Ada Jurusan
         </h3>
 
-        <p style="margin: 0;">
+        <p class="empty-jurusan-text">
             Data jurusan belum tersedia di dalam sistem.
         </p>
 

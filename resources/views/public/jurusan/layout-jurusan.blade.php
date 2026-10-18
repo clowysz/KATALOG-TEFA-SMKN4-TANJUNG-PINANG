@@ -11,9 +11,9 @@
 
     <title>@yield('title', 'TEFA SMKN 4 Tanjungpinang')</title>
 
-    <link rel="stylesheet" href="{{ asset('css/front.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pembeli.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jurusan-detail.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar-pembeli.css') }}">
 
     @stack('css')
 

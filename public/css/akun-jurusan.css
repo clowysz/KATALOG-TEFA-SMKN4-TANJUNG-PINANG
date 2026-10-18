@@ -1,0 +1,254 @@
+/* =========================================================
+   DAFTAR AKUN - ADMIN JURUSAN
+   Tombol "Tambah Akun" memakai .btn-jurusan-primary
+   (admin-jurusan.css)
+   ========================================================= */
+
+.akun-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.akun-page-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.akun-page-header p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 4px 0 0;
+}
+
+.akun-card {
+  padding: 0;
+}
+
+.akun-filter-bar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 24px 24px 0;
+  flex-wrap: wrap;
+}
+
+.akun-filter-bar .search-input {
+  flex: 1;
+  min-width: 250px;
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+
+.akun-filter-bar .filter-select {
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  min-width: 200px;
+  margin-bottom: 0;
+  box-sizing: border-box;
+}
+
+.akun-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.akun-table th,
+.akun-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.akun-table th {
+  font-weight: 600;
+  color: var(--text-muted);
+  background-color: #fcfcfc;
+}
+
+.akun-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.akun-layanan-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.akun-layanan-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  background-color: #f0f7ff;
+  color: var(--primary);
+}
+
+.akun-no-tanggung-jawab {
+  color: #64748b;
+}
+
+.akun-status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.akun-status-aktif {
+  background-color: #e6f4ea;
+  color: #28a745;
+}
+
+.akun-status-tidak-aktif {
+  background-color: #f8d7da;
+  color: #dc3545;
+}
+
+.akun-action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.akun-action-button {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.akun-action-button:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.akun-empty-row {
+  text-align: center;
+  padding: 60px 20px !important;
+}
+
+.akun-empty-row h3,
+.akun-filter-empty h3 {
+  color: #1e293b;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.akun-empty-row p,
+.akun-filter-empty p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
+
+.akun-filter-empty {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   Di layar kecil, tabel berubah menjadi satu kartu per akun.
+   Label kolom diambil dari atribut data-label pada <td>.
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .akun-page-header {
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .akun-filter-bar {
+    padding: 16px 16px 0;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+
+  .akun-filter-bar .search-input,
+  .akun-filter-bar .filter-select {
+    flex: 1 1 100%;
+    min-width: 0;
+    font-size: 16px; /* mencegah auto-zoom iOS */
+  }
+
+  .akun-table,
+  .akun-table tbody {
+    display: block;
+  }
+
+  .akun-table thead {
+    display: none;
+  }
+
+  .akun-table tbody tr {
+    display: block;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .akun-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .akun-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 6px 0;
+    border-bottom: none;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .akun-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: left;
+  }
+
+  .akun-table td.akun-empty-row {
+    display: block;
+    text-align: center;
+  }
+
+  .akun-table td.akun-empty-row::before {
+    content: none;
+  }
+
+  .akun-layanan-list {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .akun-page-header .btn-jurusan-primary {
+    width: 100%;
+  }
+}

@@ -1,0 +1,148 @@
+/* =========================================================
+   DETAIL AKUN - ADMIN JURUSAN
+   Tombol memakai .btn-jurusan-* (admin-jurusan.css)
+   Modal memakai .modal-overlay / .modal-box (global-admin.css)
+   ========================================================= */
+
+.akun-detail-wrapper {
+  padding: 24px;
+}
+
+.akun-detail-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.akun-detail-title {
+  margin: 0;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.akun-detail-subtitle {
+  margin: 5px 0 0;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.akun-detail-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
+}
+
+.akun-detail-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 20px;
+}
+
+/* ---------- Baris informasi ---------- */
+
+.akun-detail-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.akun-detail-row:last-child {
+  border-bottom: none;
+}
+
+.akun-detail-label {
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.akun-detail-value {
+  color: #212529;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Status ---------- */
+
+.akun-detail-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.akun-detail-status--aktif {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.akun-detail-status--tidak-aktif {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ---------- Produk / jasa ---------- */
+
+.akun-detail-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.akun-detail-service {
+  padding: 9px 14px;
+  border-radius: 10px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e3a8a;
+  font-weight: 600;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.akun-detail-empty {
+  color: #6c757d;
+  margin: 0;
+}
+
+/* ---------- Aksi ---------- */
+
+.akun-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .akun-detail-wrapper {
+    padding: 0;
+  }
+
+  .akun-detail-card {
+    padding: 18px;
+  }
+
+  .akun-detail-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .akun-detail-actions > * {
+    width: 100%;
+  }
+}

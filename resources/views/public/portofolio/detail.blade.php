@@ -8,7 +8,7 @@
 
 <div class="detail-page-wrapper">
 
-    <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="detail-back-wrap">
 
         <a
             href="/jurusan/{{ $jurusan->slug }}/portofolio"
@@ -48,7 +48,6 @@
                                 src="{{ asset('storage/' . $gambar->path_gambar) }}"
                                 class="thumb-item {{ $loop->first ? 'active' : '' }}"
                                 alt="{{ $portofolio->judul }}"
-                                onclick="changePortfolioImage(this)"
                             >
 
                         @endforeach
@@ -72,13 +71,7 @@
 
         <div class="detail-info">
 
-            <div
-                class="detail-badge"
-                style="
-                    background: #16A34A;
-                    color: white;
-                "
-            >
+            <div class="detail-badge badge-karya">
                 KARYA DAN PROYEK
             </div>
 
@@ -90,47 +83,19 @@
 
             @if($portofolio->tahun)
 
-                <div
-                    style="
-                        margin-top: 24px;
-                        display: flex;
-                        align-items: center;
-                        gap: 12px;
-                    "
-                >
+                <div class="detail-year">
 
-                    <div
-                        style="
-                            background: #F1F5F9;
-                            padding: 12px;
-                            border-radius: 8px;
-                            color: #1E3A8A;
-                        "
-                    >
-                        <i
-                            class="ph ph-calendar-blank"
-                            style="font-size: 24px;"
-                        ></i>
+                    <div class="detail-year-icon">
+                        <i class="ph ph-calendar-blank"></i>
                     </div>
 
                     <div>
 
-                        <div
-                            style="
-                                font-size: 13px;
-                                color: #64748B;
-                            "
-                        >
+                        <div class="detail-year-label">
                             Tahun Pembuatan
                         </div>
 
-                        <div
-                            style="
-                                font-size: 16px;
-                                font-weight: 600;
-                                color: #1E2D3D;
-                            "
-                        >
+                        <div class="detail-year-value">
                             {{ $portofolio->tahun }}
                         </div>
 
@@ -159,31 +124,8 @@
 
 </div>
 
-
-<script>
-
-    function changePortfolioImage(element) {
-
-        const mainImage =
-            document.getElementById('mainPortfolioImage');
-
-        if (!mainImage) {
-            return;
-        }
-
-        mainImage.src = element.src;
-
-        document
-            .querySelectorAll('.thumb-item')
-            .forEach(function (thumb) {
-
-                thumb.classList.remove('active');
-
-            });
-
-        element.classList.add('active');
-    }
-
-</script>
-
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/portofolio-detail-pembeli.js') }}"></script>
+@endpush

@@ -74,9 +74,9 @@
                         required
                     >
                     <i
-                        class="ph ph-eye"
+                        class="ph ph-eye toggle-eye"
                         id="togglePasswordPembeli"
-                        style="cursor: pointer; margin-right: 0; margin-left: 12px;"
+                        data-toggle-password="#passwordPembeli"
                     ></i>
                 </div>
             </div>
@@ -87,9 +87,9 @@
                     Ingat saya
                 </label>
 
-              <a href="{{ route('password.request') }}">
-                 Lupa sandi?
-              </a>
+                <a href="{{ route('password.request') }}">
+                    Lupa sandi?
+                </a>
             </div>
 
             <button type="submit" class="btn-login-submit">
@@ -106,7 +106,6 @@
                 'back' => $back,
                 'redirect' => $redirect
             ])) }}"
-            style="color: white; font-weight: 600; text-decoration: underline;"
         >
             Daftar akun
         </a>
@@ -114,30 +113,8 @@
 
 </div>
 
-<!-- Script untuk Tombol Mata Password -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const togglePassword = document.querySelector('#togglePasswordPembeli');
-        const password = document.querySelector('#passwordPembeli');
-
-        if (togglePassword && password) {
-            togglePassword.addEventListener('click', function () {
-                const type = password.getAttribute('type') === 'password'
-                    ? 'text'
-                    : 'password';
-
-                password.setAttribute('type', type);
-
-                if (type === 'password') {
-                    this.classList.remove('ph-eye-slash');
-                    this.classList.add('ph-eye');
-                } else {
-                    this.classList.remove('ph-eye');
-                    this.classList.add('ph-eye-slash');
-                }
-            });
-        }
-    });
-</script>
-
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/password-toggle.js') }}"></script>
+@endpush

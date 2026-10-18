@@ -1,0 +1,309 @@
+/* =========================================================
+   EDIT AKUN - ADMIN JURUSAN
+   Tombol memakai .btn-jurusan-* (admin-jurusan.css)
+   ========================================================= */
+
+.akun-edit-wrapper {
+  padding: 24px;
+}
+
+.akun-edit-header {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.akun-edit-title {
+  margin: 0;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.akun-edit-subtitle {
+  margin: 5px 0 0;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.akun-edit-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.akun-edit-card-title {
+  color: #1e3a8a;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.akun-edit-card-desc {
+  color: #6c757d;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 18px;
+}
+
+/* ---------- Form ---------- */
+
+.akun-edit-group {
+  margin-bottom: 18px;
+}
+
+.akun-edit-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #343a40;
+}
+
+.akun-edit-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 14px;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  outline: none;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+}
+
+.akun-edit-input:focus {
+  border-color: #1e3a8a;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+/* ---------- Produk / jasa ---------- */
+
+.akun-edit-service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.akun-edit-service-option {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.akun-edit-service-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.akun-edit-service-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 1px solid #d8dee9;
+  border-radius: 10px;
+  background: #fff;
+  color: #343a40;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.akun-edit-service-box:hover {
+  border-color: #1e3a8a;
+  background: #f8faff;
+}
+
+.akun-edit-service-check {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  border: 2px solid #adb5bd;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.akun-edit-service-check::after {
+  content: "✓";
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0;
+}
+
+.akun-edit-service-option input:checked + .akun-edit-service-box {
+  border-color: #1e3a8a;
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+
+.akun-edit-service-option
+  input:checked
+  + .akun-edit-service-box
+  .akun-edit-service-check {
+  background: #1e3a8a;
+  border-color: #1e3a8a;
+}
+
+.akun-edit-service-option
+  input:checked
+  + .akun-edit-service-box
+  .akun-edit-service-check::after {
+  opacity: 1;
+}
+
+.akun-edit-service-name {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.akun-edit-empty {
+  padding: 14px;
+  border-radius: 10px;
+  background: #f8f9fa;
+  color: #6c757d;
+}
+
+/* ---------- Status ---------- */
+
+.akun-edit-status-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.akun-edit-status-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.akun-edit-status-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.akun-edit-status-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 16px;
+  border: 1px solid #d8dee9;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  color: #495057;
+  transition: all 0.2s ease;
+}
+
+.akun-edit-status-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #adb5bd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.akun-edit-status-dot::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+}
+
+.akun-edit-status-option input:checked + .akun-edit-status-box {
+  border-color: #1e3a8a;
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+
+.akun-edit-status-option
+  input:checked
+  + .akun-edit-status-box
+  .akun-edit-status-dot {
+  background: #1e3a8a;
+  border-color: #1e3a8a;
+}
+
+.akun-edit-status-option
+  input:checked
+  + .akun-edit-status-box
+  .akun-edit-status-dot::after {
+  opacity: 1;
+}
+
+/* ---------- Error & tombol ---------- */
+
+.akun-edit-error {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #9f1239;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.akun-edit-error ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.akun-edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .akun-edit-wrapper {
+    padding: 0;
+  }
+
+  .akun-edit-card {
+    padding: 18px;
+  }
+
+  .akun-edit-service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .akun-edit-input {
+    font-size: 16px; /* mencegah auto-zoom iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .akun-edit-status-options,
+  .akun-edit-actions {
+    flex-direction: column;
+  }
+
+  .akun-edit-status-box,
+  .akun-edit-actions > * {
+    width: 100%;
+  }
+
+  .akun-edit-actions {
+    flex-direction: column-reverse;
+  }
+}

@@ -1,38 +1,40 @@
 @extends('public.layouts')
 
+@section('title', 'Detail Pesanan')
+
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/riwayat-detail.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/riwayat-pembeli.css') }}">
 @endpush
 
 @section('content')
 
 @php
-    $statusLabels=[
-        'menunggu konfirmasi'=>'Menunggu Konfirmasi',
-        'konfirmasi'=>'Dikonfirmasi',
-        'diproses'=>'Diproses',
-        'selesai'=>'Selesai',
-        'dibatalkan'=>'Dibatalkan',
+    $statusLabels = [
+        'menunggu konfirmasi' => 'Menunggu Konfirmasi',
+        'konfirmasi'          => 'Dikonfirmasi',
+        'diproses'            => 'Diproses',
+        'selesai'             => 'Selesai',
+        'dibatalkan'          => 'Dibatalkan',
     ];
 
-    $statusIcons=[
-        'menunggu konfirmasi'=>'clock',
-        'konfirmasi'=>'check-circle',
-        'diproses'=>'spinner-gap',
-        'selesai'=>'check-circle',
-        'dibatalkan'=>'x-circle',
+    $statusIcons = [
+        'menunggu konfirmasi' => 'clock',
+        'konfirmasi'          => 'check-circle',
+        'diproses'            => 'spinner-gap',
+        'selesai'             => 'check-circle',
+        'dibatalkan'          => 'x-circle',
     ];
 
-    $produk=$pesanan->produkJasa;
-    $gambar=$produk?->gambars?->first();
+    $produk = $pesanan->produkJasa;
+    $gambar = $produk?->gambars?->first();
 
-    $progressTerakhir=$pesanan->progressPengerjaan
+    $progressTerakhir = $pesanan->progressPengerjaan
         ->sortByDesc('tanggal_update')
         ->first();
 
-    $progressSaatIni=$progressTerakhir
+    $progressSaatIni = $progressTerakhir
         ? $progressTerakhir->persentase_progress
-        : ($pesanan->status==='selesai' ? 100 : 0);
+        : ($pesanan->status === 'selesai' ? 100 : 0);
 @endphp
 
 <div class="rd-page">
@@ -42,10 +44,7 @@
 
         <div class="rd-container">
 
-            <a
-                href="{{ route('pembeli.riwayat') }}"
-                class="rd-back-btn"
-            >
+            <a href="{{ route('pembeli.riwayat') }}" class="rw-back-btn">
                 <i class="ph ph-arrow-left"></i>
                 Kembali ke Riwayat Pemesanan
             </a>
@@ -57,13 +56,9 @@
                 </div>
 
                 <div>
-
                     <h1>Detail Pesanan</h1>
 
-                    <p>
-                        Informasi lengkap mengenai pesanan Anda.
-                    </p>
-
+                    <p>Informasi lengkap mengenai pesanan Anda.</p>
                 </div>
 
             </div>
@@ -79,42 +74,30 @@
         <div class="rd-container">
 
 
-            <!-- INFORMASI STATUS -->
-            <div class="rd-card rd-flex-between">
+            <!-- RINGKASAN: NOMOR PESANAN + STATUS -->
+            <div class="rd-card rd-summary">
 
                 <div>
-
-                    <div class="rd-label">
-                        No. Pesanan
-                    </div>
+                    <div class="rd-label">No. Pesanan</div>
 
                     <div class="rd-order-id">
-                        #{{ str_pad($pesanan->id_pesanan,5,'0',STR_PAD_LEFT) }}
+                        #{{ str_pad($pesanan->id_pesanan, 5, '0', STR_PAD_LEFT) }}
                     </div>
 
                     <div class="rd-date">
-
                         {{ \Carbon\Carbon::parse($pesanan->tanggal_pesan)->translatedFormat('d F Y, H:i') }}
-
                     </div>
-
                 </div>
 
-
-                <div class="rd-status-box warning">
+                <div class="rd-status-box">
 
                     <div class="rd-status-title">
-
                         <i class="ph ph-{{ $statusIcons[$pesanan->status] ?? 'info' }}"></i>
-
                         {{ $statusLabels[$pesanan->status] ?? $pesanan->status }}
-
                     </div>
 
-                    <div class="rd-status-est">
-
+                    <div class="rd-status-note">
                         Progress saat ini: {{ $progressSaatIni }}%
-
                     </div>
 
                 </div>
@@ -128,19 +111,14 @@
                 @if($gambar)
 
                     <img
-                        src="{{ asset('storage/'.$gambar->path_gambar) }}"
+                        src="{{ asset('storage/' . $gambar->path_gambar) }}"
                         alt="{{ $produk?->nama_produk_jasa }}"
                     >
 
                 @else
 
-                    <div
-                        style="width:100%;max-width:400px;min-height:220px;background:#E2E8F0;display:flex;align-items:center;justify-content:center;border-radius:12px;"
-                    >
-                        <i
-                            class="ph ph-image"
-                            style="font-size:60px;color:#94A3B8;"
-                        ></i>
+                    <div class="rd-noimg">
+                        <i class="ph ph-image"></i>
                     </div>
 
                 @endif
@@ -152,21 +130,17 @@
                         {{ strtoupper($produk?->jenis ?? 'PRODUK') }}
                     </span>
 
-                    <h2>
-                        {{ $produk?->nama_produk_jasa ?? 'Produk/Jasa' }}
-                    </h2>
+                    <h2>{{ $produk?->nama_produk_jasa ?? 'Produk/Jasa' }}</h2>
 
                     <p>
                         {{ $produk?->deskripsi ?? 'Deskripsi produk atau jasa tidak tersedia.' }}
                     </p>
 
                     <div class="rd-price">
-                        Rp {{ number_format($pesanan->total_harga,0,',','.') }}
+                        Rp {{ number_format($pesanan->total_harga, 0, ',', '.') }}
                     </div>
 
-                    <div class="rd-qty">
-                        Jumlah: {{ $pesanan->jumlah }}
-                    </div>
+                    <div class="rd-qty">Jumlah: {{ $pesanan->jumlah }}</div>
 
                 </div>
 
@@ -176,9 +150,7 @@
             <!-- STATUS PESANAN -->
             <div class="rd-card">
 
-                <h3 class="rd-card-title">
-                    Status Pesanan
-                </h3>
+                <h3 class="rd-card-title">Status Pesanan</h3>
 
                 <div class="rd-timeline">
 
@@ -187,9 +159,7 @@
                         <div class="rd-step active">
 
                             <div class="rd-icon">
-
                                 <i class="ph ph-check"></i>
-
                             </div>
 
                             <div class="rd-text">
@@ -199,7 +169,6 @@
                                 <br>
 
                                 <span>
-
                                     {{ \Carbon\Carbon::parse($riwayat->tanggal_update)->translatedFormat('d F Y') }}
 
                                     <br>
@@ -210,25 +179,22 @@
                                         <br>
                                         {{ $riwayat->keterangan }}
                                     @endif
-
                                 </span>
 
                             </div>
 
                         </div>
 
-                        @if(!$loop->last)
+                        @unless($loop->last)
                             <div class="rd-line active"></div>
-                        @endif
+                        @endunless
 
                     @empty
 
                         <div class="rd-step active">
 
                             <div class="rd-icon">
-
                                 <i class="ph ph-check"></i>
-
                             </div>
 
                             <div class="rd-text">
@@ -237,9 +203,7 @@
 
                                 <br>
 
-                                <span>
-                                    Belum ada riwayat perubahan status.
-                                </span>
+                                <span>Belum ada riwayat perubahan status.</span>
 
                             </div>
 
@@ -255,256 +219,136 @@
             <!-- PROGRESS PENGERJAAN -->
             <div class="rd-card">
 
-                <h3 class="rd-card-title">
-                    Progress Pengerjaan
-                </h3>
+                <h3 class="rd-card-title">Progress Pengerjaan</h3>
 
-                <div style="margin-bottom:20px;">
+                <div class="rd-progress-block">
 
-                    <div
-                        style="display:flex;justify-content:space-between;margin-bottom:8px;"
-                    >
-
-                        <strong>
-                            Progress
-                        </strong>
-
-                        <strong>
-                            {{ $progressSaatIni }}%
-                        </strong>
-
+                    <div class="rd-progress-head">
+                        <strong>Progress</strong>
+                        <strong>{{ $progressSaatIni }}%</strong>
                     </div>
 
-                    <div
-                        style="width:100%;height:12px;background:#E2E8F0;border-radius:20px;overflow:hidden;"
-                    >
-
+                    <div class="rd-bar">
                         <div
-                            style="width:{{ min(100,max(0,$progressSaatIni)) }}%;height:100%;background:#1E3A8A;border-radius:20px;"
+                            class="rd-bar-fill"
+                            style="width: {{ min(100, max(0, $progressSaatIni)) }}%;"
                         ></div>
-
                     </div>
 
                 </div>
 
 
-                @if($pesanan->progressPengerjaan->count())
+                @forelse($pesanan->progressPengerjaan->sortByDesc('tanggal_update') as $progress)
 
-                    <div>
+                    <div class="rd-log-item">
 
-                        @foreach($pesanan->progressPengerjaan->sortByDesc('tanggal_update') as $progress)
+                        <div class="rd-log-head">
 
-                            <div
-                                style="padding:14px 0;border-bottom:1px solid #E2E8F0;"
-                            >
+                            <strong>{{ $progress->persentase_progress }}%</strong>
 
-                                <div
-                                    style="display:flex;justify-content:space-between;gap:15px;"
-                                >
+                            <span class="rd-log-date">
+                                {{ \Carbon\Carbon::parse($progress->tanggal_update)->translatedFormat('d F Y, H:i') }}
+                            </span>
 
-                                    <strong>
-                                        {{ $progress->persentase_progress }}%
-                                    </strong>
+                        </div>
 
-                                    <span
-                                        style="font-size:13px;color:#64748B;"
-                                    >
-                                        {{ \Carbon\Carbon::parse($progress->tanggal_update)->translatedFormat('d F Y, H:i') }}
-                                    </span>
-
-                                </div>
-
-                                @if($progress->keterangan_progress)
-
-                                    <div
-                                        style="margin-top:6px;color:#64748B;font-size:14px;"
-                                    >
-                                        {{ $progress->keterangan_progress }}
-                                    </div>
-
-                                @endif
-
+                        @if($progress->keterangan_progress)
+                            <div class="rd-log-note">
+                                {{ $progress->keterangan_progress }}
                             </div>
-
-                        @endforeach
+                        @endif
 
                     </div>
 
-                @else
+                @empty
 
-                    <p style="color:#64748B;margin:0;">
+                    <p class="rd-empty-text">
                         Belum ada update progress pengerjaan.
                     </p>
 
-                @endif
+                @endforelse
 
             </div>
 
 
             <!-- TAHAPAN PENGERJAAN -->
-@if($pesanan->tahapanPengerjaan->count())
+            @if($pesanan->tahapanPengerjaan->count())
 
-    <div class="rd-card">
+                <div class="rd-card">
 
-        <h3 class="rd-card-title">
-            Tahapan Pengerjaan
-        </h3>
+                    <h3 class="rd-card-title">Tahapan Pengerjaan</h3>
 
-        <div>
+                    @foreach($pesanan->tahapanPengerjaan->sortBy('urutan') as $tahapan)
 
-            @foreach($pesanan->tahapanPengerjaan->sortBy('urutan') as $tahapan)
+                        <div class="rd-stage">
 
-                <div style="
-                    padding:18px 0;
-                    border-bottom:1px solid #E2E8F0;
-                ">
+                            <div class="rd-stage-head">
 
-                    <div style="
-                        display:flex;
-                        align-items:center;
-                        justify-content:space-between;
-                        gap:15px;
-                    ">
+                                <div class="rd-stage-name">
 
-                        <div style="
-                            display:flex;
-                            align-items:center;
-                            gap:12px;
-                        ">
+                                    <div class="rd-stage-num">
+                                        {{ $loop->iteration }}
+                                    </div>
 
-                            <div style="
-                                width:32px;
-                                height:32px;
-                                border-radius:50%;
-                                background:#1E3A8A;
-                                color:white;
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                flex-shrink:0;
-                                font-weight:700;
-                            ">
-                                {{ $loop->iteration }}
+                                    <strong>{{ $tahapan->nama_tahapan }}</strong>
+
+                                </div>
+
+                                <strong>{{ $tahapan->persentase_progress }}%</strong>
+
                             </div>
 
-                            <strong>
-                                {{ $tahapan->nama_tahapan }}
-                            </strong>
+
+                            <div class="rd-stage-body">
+
+                                <div class="rd-stage-meta">
+                                    <span>{{ $tahapan->status }}</span>
+                                    <span>Progress</span>
+                                </div>
+
+                                <div class="rd-bar rd-bar--sm">
+                                    <div
+                                        class="rd-bar-fill"
+                                        style="width: {{ min(100, max(0, $tahapan->persentase_progress)) }}%;"
+                                    ></div>
+                                </div>
+
+                            </div>
 
                         </div>
 
-                        <strong>
-                            {{ $tahapan->persentase_progress }}%
-                        </strong>
-
-                    </div>
-
-
-                    <div style="
-                        margin-top:12px;
-                        margin-left:44px;
-                    ">
-
-                        <div style="
-                            display:flex;
-                            justify-content:space-between;
-                            margin-bottom:6px;
-                            font-size:13px;
-                            color:#64748B;
-                        ">
-
-                            <span>
-                                {{ $tahapan->status }}
-                            </span>
-
-                            <span>
-                                Progress
-                            </span>
-
-                        </div>
-
-
-                        <div style="
-                            width:100%;
-                            height:8px;
-                            background:#E2E8F0;
-                            border-radius:20px;
-                            overflow:hidden;
-                        ">
-
-                            <div style="
-                                width:{{ min(100, max(0, $tahapan->persentase_progress)) }}%;
-                                height:100%;
-                                background:#1E3A8A;
-                                border-radius:20px;
-                            "></div>
-
-                        </div>
-
-                    </div>
+                    @endforeach
 
                 </div>
 
-            @endforeach
-
-        </div>
-
-    </div>
-
-@endif
+            @endif
 
 
-            <!-- GRID INFORMASI -->
-            <div class="rd-grid-2">
+            <!-- INFORMASI PEMESAN & DETAIL PESANAN -->
+            <div class="rd-grid">
 
 
                 <!-- PEMESAN -->
                 <div class="rd-card">
 
-                    <h3 class="rd-card-title">
-                        Informasi Pemesan
-                    </h3>
+                    <h3 class="rd-card-title">Informasi Pemesan</h3>
 
                     <div class="rd-info-row">
-
                         <i class="ph ph-user"></i>
-
-                        <span>
-                            Nama Lengkap
-                        </span>
-
-                        <strong>
-                            {{ $pesanan->pembeli?->nama ?? '-' }}
-                        </strong>
-
+                        <span>Nama Lengkap</span>
+                        <strong>{{ $pesanan->pembeli?->nama ?? '-' }}</strong>
                     </div>
 
                     <div class="rd-info-row">
-
                         <i class="ph ph-phone"></i>
-
-                        <span>
-                            No. WhatsApp
-                        </span>
-
-                        <strong>
-                            {{ $pesanan->pembeli?->nomor_hp ?? '-' }}
-                        </strong>
-
+                        <span>No. WhatsApp</span>
+                        <strong>{{ $pesanan->pembeli?->nomor_hp ?? '-' }}</strong>
                     </div>
 
                     <div class="rd-info-row">
-
                         <i class="ph ph-envelope"></i>
-
-                        <span>
-                            Email
-                        </span>
-
-                        <strong>
-                            {{ $pesanan->pembeli?->email ?? '-' }}
-                        </strong>
-
+                        <span>Email</span>
+                        <strong>{{ $pesanan->pembeli?->email ?? '-' }}</strong>
                     </div>
 
                 </div>
@@ -513,64 +357,35 @@
                 <!-- DETAIL PESANAN -->
                 <div class="rd-card">
 
-                    <h3 class="rd-card-title">
-                        Detail Pesanan
-                    </h3>
+                    <h3 class="rd-card-title">Detail Pesanan</h3>
 
                     <div class="rd-info-row">
-
                         <i class="ph ph-receipt"></i>
-
-                        <span>
-                            Produk / Jasa
-                        </span>
-
-                        <strong>
-                            {{ $produk?->nama_produk_jasa ?? '-' }}
-                        </strong>
-
+                        <span>Produk / Jasa</span>
+                        <strong>{{ $produk?->nama_produk_jasa ?? '-' }}</strong>
                     </div>
 
                     <div class="rd-info-row">
-
                         <i class="ph ph-tag"></i>
-
-                        <span>
-                            Harga Satuan
-                        </span>
-
+                        <span>Harga Satuan</span>
                         <strong>
-    Rp {{ number_format($produk?->harga ?? 0,0,',','.') }}{{ $produk?->satuan_harga ? '/' . $produk->satuan_harga : '' }}
-</strong>
-
+                            Rp {{ number_format($produk?->harga ?? 0, 0, ',', '.') }}{{ $produk?->satuan_harga ? '/' . $produk->satuan_harga : '' }}
+                        </strong>
                     </div>
 
                     <div class="rd-info-row">
-
                         <i class="ph ph-package"></i>
-
-                        <span>
-                            Jumlah
-                        </span>
-
-                        <strong>
-                            {{ $pesanan->jumlah }}
-                        </strong>
-
+                        <span>Jumlah</span>
+                        <strong>{{ $pesanan->jumlah }}</strong>
                     </div>
 
                     <div class="rd-divider"></div>
 
-                    <div class="rd-info-row total">
-
-                        <span>
-                            Total
-                        </span>
-
+                    <div class="rd-info-row rd-info-row--total">
+                        <span>Total</span>
                         <strong>
-                            Rp {{ number_format($pesanan->total_harga,0,',','.') }}
+                            Rp {{ number_format($pesanan->total_harga, 0, ',', '.') }}
                         </strong>
-
                     </div>
 
                 </div>
@@ -584,11 +399,8 @@
                 <div class="rd-card">
 
                     <h3 class="rd-card-title">
-
                         <i class="ph ph-chat-circle-text"></i>
-
                         Catatan Pesanan
-
                     </h3>
 
                     <div class="rd-notes">

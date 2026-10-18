@@ -1,258 +1,310 @@
-// Buka modal
+/* =========================================================
+   KELOLA PRODUK & KELOLA JASA - ADMIN JURUSAN
+
+   Satu file untuk dua halaman. Jenis halaman dideteksi dari
+   container: #kelolaProdukContainer (produk) atau
+   #kelolaJasaContainer (jasa).
+
+   Atribut di blade:
+   - data-open-tambah        : membuka modal tambah
+   - data-close-modal="id"   : menutup modal
+========================================================= */
+
+// =========================================================
+// MODAL (global: dibungkus oleh form-helper-jurusan.js)
+// =========================================================
+
 function openLayananModal(id) {
-    const modal = document.getElementById(id);
-    if (modal) modal.classList.add("active");
+  const modal = document.getElementById(id);
+
+  if (modal) {
+    modal.classList.add("active");
+  }
 }
 
-// Tutup modal
 function closeLayananModal(id) {
-    const modal = document.getElementById(id);
-    if (modal) modal.classList.remove("active");
+  const modal = document.getElementById(id);
+
+  if (modal) {
+    modal.classList.remove("active");
+  }
 }
 
-// CSRF
+// =========================================================
+// UTILITAS HALAMAN
+// =========================================================
+
 function getCsrfToken() {
-    const meta = document.querySelector('meta[name="csrf-token"]');
+  const meta = document.querySelector('meta[name="csrf-token"]');
 
-    if (!meta) {
-        console.error("CSRF token tidak ditemukan.");
-        return "";
-    }
+  if (!meta) {
+    console.error("CSRF token tidak ditemukan.");
+    return "";
+  }
 
-    return meta.getAttribute("content");
+  return meta.getAttribute("content");
 }
 
-// Toast
 function showLayananToast(message, success = true) {
-    const toast = document.getElementById("toastNotif");
+  const toast = document.getElementById("toastNotif");
 
-    if (!toast) return;
+  if (!toast) {
+    return;
+  }
 
-    toast.textContent = message;
-    toast.style.backgroundColor = success ? "#28a745" : "#dc3545";
-    toast.classList.add("show");
+  toast.textContent = message;
+  toast.classList.toggle("is-error", !success);
+  toast.classList.add("show");
 
-    setTimeout(() => {
-        toast.classList.remove("show");
-    }, 3000);
+  setTimeout(function () {
+    toast.classList.remove("show");
+  }, 3000);
 }
 
-// Deteksi halaman
 function isHalamanProduk() {
-    return document.getElementById("kelolaProdukContainer") !== null;
+  return document.getElementById("kelolaProdukContainer") !== null;
 }
 
 function getTipeLayanan() {
-    return isHalamanProduk() ? "Produk" : "Jasa";
+  return isHalamanProduk() ? "Produk" : "Jasa";
 }
 
 function getJenisLayanan() {
-    return isHalamanProduk() ? "produk" : "jasa";
+  return isHalamanProduk() ? "produk" : "jasa";
 }
 
-// Modal tambah
+function escapeHtml(text) {
+  const div = document.createElement("div");
+
+  div.textContent = text ?? "";
+
+  return div.innerHTML;
+}
+
+function formatRupiah(value) {
+  if (value === null || value === undefined || value === "") {
+    return "Rp0";
+  }
+
+  const number = Number(value);
+
+  if (isNaN(number)) {
+    return value;
+  }
+
+  return "Rp" + new Intl.NumberFormat("id-ID").format(number);
+}
+
+function shortDescription(text, length = 60) {
+  if (!text) {
+    return "";
+  }
+
+  return text.length <= length ? text : text.substring(0, length) + "...";
+}
+
+// =========================================================
+// MODAL TAMBAH
+// =========================================================
+
 function openTambahModal() {
-    const form = document.getElementById("formLayanan");
+  const form = document.getElementById("formLayanan");
 
-    if (form) form.reset();
+  if (form) {
+    form.reset();
+  }
 
-    const formId = document.getElementById("formId");
-    if (formId) formId.value = "";
+  const formId = document.getElementById("formId");
 
-    const modalTitle = document.getElementById("modalFormTitle");
+  if (formId) {
+    formId.value = "";
+  }
 
-    if (modalTitle) {
-        modalTitle.textContent = `Tambah ${getTipeLayanan()}`;
-    }
+  const modalTitle = document.getElementById("modalFormTitle");
 
-    const formImg = document.getElementById("formImg");
+  if (modalTitle) {
+    modalTitle.textContent = `Tambah ${getTipeLayanan()}`;
+  }
 
-    if (formImg) {
-        formImg.setAttribute("required", "true");
-        formImg.value = "";
-    }
+  const formImg = document.getElementById("formImg");
 
-    const preview = document.getElementById("imagePreviewContainer");
+  if (formImg) {
+    formImg.setAttribute("required", "true");
+    formImg.value = "";
+  }
 
-    if (preview) {
-        preview.innerHTML = "";
-    }
+  const preview = document.getElementById("imagePreviewContainer");
 
-    window.uploadedFiles = [];
+  if (preview) {
+    preview.innerHTML = "";
+  }
 
-    openLayananModal("modalAdd");
+  window.uploadedFiles = [];
+
+  openLayananModal("modalAdd");
 }
 
-// Saat halaman siap
+// =========================================================
+// HALAMAN SIAP
+// =========================================================
+
 document.addEventListener("DOMContentLoaded", function () {
-    const isProduk = isHalamanProduk();
+  const tipeLayanan = getTipeLayanan();
+  const jenisLayanan = getJenisLayanan();
 
-    const container = document.getElementById(
-        isProduk ? "kelolaProdukContainer" : "kelolaJasaContainer",
-    );
+  const container = document.getElementById(
+    isHalamanProduk() ? "kelolaProdukContainer" : "kelolaJasaContainer",
+  );
 
-    const tipeLayanan = getTipeLayanan();
-    const jenisLayanan = getJenisLayanan();
+  const searchInput = document.getElementById("searchItem");
+  const form = document.getElementById("formLayanan");
+  const formImg = document.getElementById("formImg");
+  const previewContainer = document.getElementById("imagePreviewContainer");
 
-    const searchInput = document.getElementById("searchItem");
-    const form = document.getElementById("formLayanan");
-    const formImg = document.getElementById("formImg");
-    const previewContainer = document.getElementById("imagePreviewContainer");
+  let dataItems = [];
 
-    // Tombol tambah
-    const btnTambah = document.querySelector(
-        "button[onclick=\"openLayananModal('modalAdd')\"]",
-    );
-
-    if (btnTambah) {
-        btnTambah.setAttribute("onclick", "openTambahModal()");
+  // ------------------------------------------------------
+  // Tombol buka / tutup modal (lewat atribut data-*)
+  // closeLayananModal dipanggil lewat nama global supaya
+  // versi yang dibungkus form-helper-jurusan.js ikut berjalan.
+  // ------------------------------------------------------
+  document.addEventListener("click", function (event) {
+    if (event.target.closest("[data-open-tambah]")) {
+      openTambahModal();
+      return;
     }
 
-    let dataItems = [];
+    const closeButton = event.target.closest("[data-close-modal]");
 
-    // Ambil data
-    async function loadData() {
-        if (!container) return;
+    if (closeButton) {
+      closeLayananModal(closeButton.dataset.closeModal);
+    }
+  });
 
-        try {
-            const response = await fetch(
-                `/jurusan-admin/produk?jenis=${jenisLayanan}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Accept: "application/json",
-                    },
-                },
-            );
-
-            if (!response.ok) {
-                throw new Error("Gagal mengambil data.");
-            }
-
-            const result = await response.json();
-
-            dataItems = result.data || [];
-
-            renderCards();
-        } catch (error) {
-            console.error(error);
-
-            container.innerHTML = `
-                <div style="grid-column:1/-1;text-align:center;padding:80px 20px;">
-                    <div style="font-size:56px;margin-bottom:16px;">
-    <i class="ph ph-warning"></i>
-</div>
-                    <h3 style="color:var(--text-dark);margin-bottom:8px;">
-                        Gagal memuat ${tipeLayanan.toLowerCase()}
-                    </h3>
-                    <p style="color:var(--text-muted);">
-                        Silakan refresh halaman dan coba lagi.
-                    </p>
+  // ------------------------------------------------------
+  // Tampilan kosong / error di dalam grid
+  // ------------------------------------------------------
+  function stateHtml(icon, title, text) {
+    return `
+            <div class="grid-state">
+                <div class="grid-state-icon">
+                    <i class="ph ${icon}"></i>
                 </div>
-            `;
-        }
+                <h3 class="grid-state-title">${title}</h3>
+                <p class="grid-state-text">${text}</p>
+            </div>
+        `;
+  }
+
+  // ------------------------------------------------------
+  // Gambar
+  // ------------------------------------------------------
+  function getImageUrl(item) {
+    if (item.gambars && item.gambars.length > 0) {
+      return "/storage/" + item.gambars[0].path_gambar;
     }
 
-    // Format harga
-    function formatRupiah(value) {
-        if (value === null || value === undefined || value === "") {
-            return "Rp0";
-        }
+    return (
+      "https://placehold.co/600x400/E2E8F0/1E3A8A?text=" +
+      encodeURIComponent(tipeLayanan)
+    );
+  }
 
-        const number = Number(value);
-
-        if (isNaN(number)) return value;
-
-        return "Rp" + new Intl.NumberFormat("id-ID").format(number);
+  // ------------------------------------------------------
+  // Ambil data
+  // ------------------------------------------------------
+  async function loadData() {
+    if (!container) {
+      return;
     }
 
-    // Potong deskripsi
-    function shortDescription(text, length = 60) {
-        if (!text) return "";
+    try {
+      const response = await fetch(
+        `/jurusan-admin/produk?jenis=${jenisLayanan}`,
+        {
+          method: "GET",
+          headers: { Accept: "application/json" },
+        },
+      );
 
-        return text.length <= length ? text : text.substring(0, length) + "...";
+      if (!response.ok) {
+        throw new Error("Gagal mengambil data.");
+      }
+
+      const result = await response.json();
+
+      dataItems = result.data || [];
+
+      renderCards(searchInput ? searchInput.value : "");
+    } catch (error) {
+      console.error(error);
+
+      container.innerHTML = stateHtml(
+        "ph-warning",
+        `Gagal memuat ${tipeLayanan.toLowerCase()}`,
+        "Silakan refresh halaman dan coba lagi.",
+      );
+    }
+  }
+
+  // ------------------------------------------------------
+  // Render kartu
+  // ------------------------------------------------------
+  function renderCards(filterText = "") {
+    if (!container) {
+      return;
     }
 
-    // Gambar
-    function getImageUrl(item) {
-        if (item.gambars && item.gambars.length > 0) {
-            return "/storage/" + item.gambars[0].path_gambar;
-        }
+    container.innerHTML = "";
 
-        return (
-            "https://placehold.co/600x400/E2E8F0/1E3A8A?text=" +
-            encodeURIComponent(tipeLayanan)
-        );
+    const keyword = filterText.toLowerCase().trim();
+
+    const filteredData = dataItems.filter(function (item) {
+      return (item.nama_produk_jasa || "").toLowerCase().includes(keyword);
+    });
+
+    if (filteredData.length === 0) {
+      container.innerHTML = stateHtml(
+        "ph-package",
+        `Tidak ada ${tipeLayanan.toLowerCase()} ditemukan.`,
+        "Coba gunakan kata kunci pencarian yang lain.",
+      );
+
+      return;
     }
 
-    // Render card
-    function renderCards(filterText = "") {
-        if (!container) return;
+    filteredData.forEach(function (item) {
+      const card = document.createElement("div");
 
-        container.innerHTML = "";
+      card.className = "catalog-card";
 
-        const keyword = filterText.toLowerCase().trim();
+      const satuanHarga = item.satuan_harga ? `/${item.satuan_harga}` : "";
+      const harga = formatRupiah(item.harga) + satuanHarga;
+      const pesanan = item.pesanans_count || 0;
+      const nama = escapeHtml(item.nama_produk_jasa);
 
-        const filteredData = dataItems.filter((item) => {
-            const name = item.nama_produk_jasa || "";
-            return name.toLowerCase().includes(keyword);
-        });
-
-        if (filteredData.length === 0) {
-            container.innerHTML = `
-                <div style="grid-column:1/-1;text-align:center;padding:80px 20px;">
-                   <div style="font-size:56px;margin-bottom:16px;">
-    <i class="ph ph-package"></i>
-</div>
-                    <h3 style="color:var(--text-dark);margin-bottom:8px;">
-                        Tidak ada ${tipeLayanan.toLowerCase()} ditemukan.
-                    </h3>
-                    <p style="color:var(--text-muted);">
-                        Coba gunakan kata kunci pencarian yang lain.
-                    </p>
-                </div>
-            `;
-
-            return;
-        }
-
-        filteredData.forEach((item) => {
-            const card = document.createElement("div");
-
-            card.className = "catalog-card";
-
-            const imageUrl = getImageUrl(item);
-            const satuanHarga = item.satuan_harga
-                ? `/${item.satuan_harga}`
-                : "";
-
-            const harga = formatRupiah(item.harga) + satuanHarga;
-            const pesanan = item.pesanans_count || 0;
-
-            card.innerHTML = `
+      card.innerHTML = `
                 <img
-                    src="${imageUrl}"
-                    alt="${item.nama_produk_jasa}"
+                    src="${getImageUrl(item)}"
+                    alt="${nama}"
                     class="catalog-img"
-                    style="object-fit:cover;"
                 >
 
                 <div class="catalog-content">
-                    <div class="catalog-title">
-                        ${item.nama_produk_jasa}
-                    </div>
+                    <div class="catalog-title">${nama}</div>
 
                     <div class="catalog-desc">
-                        ${shortDescription(item.deskripsi)}
+                        ${escapeHtml(shortDescription(item.deskripsi))}
                     </div>
 
-                    <div class="catalog-meta" style="margin-bottom:0;">
-                        <span class="catalog-price">${harga}</span>
+                    <div class="catalog-meta">
+                        <span class="catalog-price">${escapeHtml(harga)}</span>
                         <span class="catalog-stats">${pesanan} pesanan</span>
                     </div>
 
                     <div class="catalog-actions">
                         <button
+                            type="button"
                             class="btn-outline btn-edit"
                             data-id="${item.id_produk_jasa}"
                         >
@@ -260,9 +312,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         </button>
 
                         <button
+                            type="button"
                             class="btn-outline btn-delete"
                             data-id="${item.id_produk_jasa}"
-                            style="color:#dc3545;border-color:#dc3545;"
                         >
                             Hapus
                         </button>
@@ -270,223 +322,222 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
 
-            container.appendChild(card);
-        });
+      container.appendChild(card);
+    });
+  }
 
-        // Edit
-        container.querySelectorAll(".btn-edit").forEach((btn) => {
-            btn.addEventListener("click", function () {
-                const id = this.getAttribute("data-id");
-
-                const item = dataItems.find(
-                    (data) => String(data.id_produk_jasa) === String(id),
-                );
-
-                if (!item) return;
-
-                document.getElementById("formId").value = item.id_produk_jasa;
-
-                document.getElementById("formName").value =
-                    item.nama_produk_jasa;
-
-                document.getElementById("formDesc").value = item.deskripsi;
-
-                document.getElementById("formPrice").value = item.harga;
-
-                const formUnit = document.getElementById("formUnit");
-                if (formUnit) formUnit.value = item.satuan_harga || "";
-
-                if (formImg) {
-                    formImg.removeAttribute("required");
-                    formImg.value = "";
-                }
-
-                if (previewContainer) {
-                    previewContainer.innerHTML = "";
-
-                    if (item.gambars && item.gambars.length > 0) {
-                        item.gambars.forEach((gambar) => {
-                            const wrapper = document.createElement("div");
-
-                            wrapper.style.position = "relative";
-                            wrapper.style.display = "inline-block";
-
-                            const img = document.createElement("img");
-
-                            img.src = "/storage/" + gambar.path_gambar;
-                            img.style.width = "70px";
-                            img.style.height = "70px";
-                            img.style.objectFit = "cover";
-                            img.style.borderRadius = "8px";
-                            img.style.border = "1px solid #CBD5E1";
-
-                            wrapper.appendChild(img);
-                            previewContainer.appendChild(wrapper);
-                        });
-                    } else {
-                        previewContainer.innerHTML = `
-                            <div style="font-size:12px;color:#64748b;">
-                                Belum ada gambar.
-                            </div>
-                        `;
-                    }
-                }
-
-                window.uploadedFiles = [];
-
-                document.getElementById("modalFormTitle").textContent =
-                    `Edit ${tipeLayanan}`;
-
-                openLayananModal("modalAdd");
-            });
-        });
-
-        // Hapus
-        container.querySelectorAll(".btn-delete").forEach((btn) => {
-            btn.addEventListener("click", function () {
-                const id = this.getAttribute("data-id");
-
-                document.getElementById("deleteId").value = id;
-
-                openLayananModal("modalDelete");
-            });
-        });
+  // ------------------------------------------------------
+  // Edit & hapus (event delegation pada container)
+  // ------------------------------------------------------
+  function renderOldImages(item) {
+    if (!previewContainer) {
+      return;
     }
 
-    // Search
-    if (searchInput) {
-        searchInput.addEventListener("keyup", function () {
-            renderCards(this.value);
-        });
+    previewContainer.innerHTML = "";
+
+    if (!item.gambars || item.gambars.length === 0) {
+      previewContainer.innerHTML =
+        '<div class="upload-preview-empty">Belum ada gambar.</div>';
+      return;
     }
 
-    // Submit
-    if (form) {
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault();
+    item.gambars.forEach(function (gambar) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "upload-preview-item";
 
-            const id = document.getElementById("formId").value;
-            const isEdit = id !== "";
-            const csrf = getCsrfToken();
+      const img = document.createElement("img");
+      img.className = "upload-preview-img";
+      img.alt = "Gambar lama";
+      img.src = "/storage/" + gambar.path_gambar;
 
-            if (!csrf) {
-                showLayananToast("Token keamanan tidak ditemukan.", false);
-                return;
-            }
+      wrapper.appendChild(img);
+      previewContainer.appendChild(wrapper);
+    });
+  }
 
-            try {
-                const formData = new FormData();
+  function openEditModal(id) {
+    const item = dataItems.find(function (data) {
+      return String(data.id_produk_jasa) === String(id);
+    });
 
-                formData.append(
-                    "nama_produk_jasa",
-                    document.getElementById("formName").value,
-                );
-
-                formData.append("jenis", jenisLayanan);
-
-                formData.append(
-                    "deskripsi",
-                    document.getElementById("formDesc").value,
-                );
-
-                let harga = document.getElementById("formPrice").value;
-
-                harga = harga.replace(/[^0-9]/g, "");
-
-                formData.append("harga", harga);
-                const satuanHarga =
-                    document.getElementById("formUnit")?.value.trim() || "";
-
-                formData.append("satuan_harga", satuanHarga);
-                formData.append("_token", csrf);
-
-                if (window.uploadedFiles.length > 0) {
-                    window.uploadedFiles.forEach((file) => {
-                        formData.append("gambar[]", file);
-                    });
-                }
-
-                if (isEdit) {
-                    formData.append("_method", "PUT");
-                }
-
-                const url = isEdit
-                    ? `/jurusan-admin/produk/${id}`
-                    : "/jurusan-admin/produk";
-
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                    },
-                    body: formData,
-                });
-
-                const result = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(result.message || "Gagal menyimpan data.");
-                }
-
-                showLayananToast(result.message || "Data berhasil disimpan.");
-
-                closeLayananModal("modalAdd");
-
-                await loadData();
-            } catch (error) {
-                console.error(error);
-
-                showLayananToast(error.message || "Terjadi kesalahan.", false);
-            }
-        });
+    if (!item) {
+      return;
     }
 
-    // Konfirmasi hapus
-    const btnConfirmDelete = document.getElementById("btnConfirmDelete");
+    document.getElementById("formId").value = item.id_produk_jasa;
+    document.getElementById("formName").value = item.nama_produk_jasa;
+    document.getElementById("formDesc").value = item.deskripsi;
+    document.getElementById("formPrice").value = item.harga;
 
-    if (btnConfirmDelete) {
-        btnConfirmDelete.addEventListener("click", async function () {
-            const id = document.getElementById("deleteId").value;
+    const formUnit = document.getElementById("formUnit");
 
-            const csrf = getCsrfToken();
-
-            if (!csrf) {
-                showLayananToast("Token keamanan tidak ditemukan.", false);
-                return;
-            }
-
-            try {
-                const formData = new FormData();
-
-                formData.append("_token", csrf);
-                formData.append("_method", "DELETE");
-
-                const response = await fetch(`/jurusan-admin/produk/${id}`, {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                    },
-                    body: formData,
-                });
-
-                const result = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(result.message || "Gagal menghapus data.");
-                }
-
-                showLayananToast(result.message || "Data berhasil dihapus.");
-
-                closeLayananModal("modalDelete");
-
-                await loadData();
-            } catch (error) {
-                console.error(error);
-
-                showLayananToast(error.message || "Terjadi kesalahan.", false);
-            }
-        });
+    if (formUnit) {
+      formUnit.value = item.satuan_harga || "";
     }
 
-    loadData();
+    if (formImg) {
+      formImg.removeAttribute("required");
+      formImg.value = "";
+    }
+
+    renderOldImages(item);
+
+    window.uploadedFiles = [];
+
+    document.getElementById("modalFormTitle").textContent =
+      `Edit ${tipeLayanan}`;
+
+    openLayananModal("modalAdd");
+  }
+
+  if (container) {
+    container.addEventListener("click", function (event) {
+      const editButton = event.target.closest(".btn-edit");
+      const deleteButton = event.target.closest(".btn-delete");
+
+      if (editButton) {
+        openEditModal(editButton.dataset.id);
+        return;
+      }
+
+      if (deleteButton) {
+        document.getElementById("deleteId").value = deleteButton.dataset.id;
+
+        openLayananModal("modalDelete");
+      }
+    });
+  }
+
+  // ------------------------------------------------------
+  // Pencarian
+  // ------------------------------------------------------
+  if (searchInput) {
+    searchInput.addEventListener("keyup", function () {
+      renderCards(this.value);
+    });
+  }
+
+  // ------------------------------------------------------
+  // Simpan (tambah / edit)
+  // ------------------------------------------------------
+  if (form) {
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const id = document.getElementById("formId").value;
+      const isEdit = id !== "";
+      const csrf = getCsrfToken();
+
+      if (!csrf) {
+        showLayananToast("Token keamanan tidak ditemukan.", false);
+        return;
+      }
+
+      try {
+        const formData = new FormData();
+
+        formData.append(
+          "nama_produk_jasa",
+          document.getElementById("formName").value,
+        );
+        formData.append("jenis", jenisLayanan);
+        formData.append("deskripsi", document.getElementById("formDesc").value);
+
+        const harga = document
+          .getElementById("formPrice")
+          .value.replace(/[^0-9]/g, "");
+
+        formData.append("harga", harga);
+
+        const satuanHarga =
+          document.getElementById("formUnit")?.value.trim() || "";
+
+        formData.append("satuan_harga", satuanHarga);
+        formData.append("_token", csrf);
+
+        window.uploadedFiles.forEach(function (file) {
+          formData.append("gambar[]", file);
+        });
+
+        if (isEdit) {
+          formData.append("_method", "PUT");
+        }
+
+        const url = isEdit
+          ? `/jurusan-admin/produk/${id}`
+          : "/jurusan-admin/produk";
+
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.message || "Gagal menyimpan data.");
+        }
+
+        showLayananToast(result.message || "Data berhasil disimpan.");
+
+        closeLayananModal("modalAdd");
+
+        await loadData();
+      } catch (error) {
+        console.error(error);
+
+        showLayananToast(error.message || "Terjadi kesalahan.", false);
+      }
+    });
+  }
+
+  // ------------------------------------------------------
+  // Konfirmasi hapus
+  // ------------------------------------------------------
+  const btnConfirmDelete = document.getElementById("btnConfirmDelete");
+
+  if (btnConfirmDelete) {
+    btnConfirmDelete.addEventListener("click", async function () {
+      const id = document.getElementById("deleteId").value;
+      const csrf = getCsrfToken();
+
+      if (!csrf) {
+        showLayananToast("Token keamanan tidak ditemukan.", false);
+        return;
+      }
+
+      try {
+        const formData = new FormData();
+
+        formData.append("_token", csrf);
+        formData.append("_method", "DELETE");
+
+        const response = await fetch(`/jurusan-admin/produk/${id}`, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.message || "Gagal menghapus data.");
+        }
+
+        showLayananToast(result.message || "Data berhasil dihapus.");
+
+        closeLayananModal("modalDelete");
+
+        await loadData();
+      } catch (error) {
+        console.error(error);
+
+        showLayananToast(error.message || "Terjadi kesalahan.", false);
+      }
+    });
+  }
+
+  loadData();
 });

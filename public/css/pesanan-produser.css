@@ -1,0 +1,204 @@
+/* =========================================================
+   DAFTAR PESANAN PRODUSER
+   Desktop: tabel. Mobile (<= 768px): tiap baris jadi kartu.
+========================================================= */
+
+.order-card {
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 12px;
+}
+
+/* ---------- Tabel ---------- */
+.order-table th {
+    background: #ffffff;
+    border-bottom: 1px solid var(--prod-border);
+}
+
+.order-table tbody tr.order-row {
+    transition: background-color 0.2s ease;
+}
+
+.order-table tbody tr.order-row:hover {
+    background: var(--prod-surface-hover);
+}
+
+.cell-center {
+    text-align: center;
+}
+
+.order-id {
+    font-weight: 700;
+    color: var(--prod-text-main);
+}
+
+.order-sub {
+    font-size: 12px;
+    color: var(--prod-text-sec);
+    margin-top: 4px;
+}
+
+.order-strong {
+    font-weight: 600;
+    color: var(--prod-text-main);
+}
+
+.progress-wrap {
+    min-width: 120px;
+}
+
+.progress-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.progress-label {
+    font-size: 12px;
+    color: var(--prod-text-sec);
+}
+
+.progress-percent {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--prod-text-main);
+}
+
+.progress-track {
+    width: 100%;
+    height: 7px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+.status-pill {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #f1f5f9;
+    color: var(--prod-text-main);
+}
+
+.empty-cell {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--prod-text-sec);
+}
+
+.empty-cell-icon {
+    font-size: 42px;
+}
+
+.empty-cell-text {
+    margin: 12px 0 0;
+    font-size: 14px;
+}
+
+/* ================= RESPONSIF ================= */
+@media (max-width: 768px) {
+    .order-card {
+        padding: 16px;
+    }
+
+    /* Tabel -> kartu */
+    .table-modern.order-table,
+    .table-modern.order-table tbody,
+    .table-modern.order-table tr,
+    .table-modern.order-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-modern.order-table thead {
+        display: none;
+    }
+
+    .table-modern.order-table tr.order-row {
+        border: 1px solid var(--prod-border);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 12px;
+        background: #ffffff;
+    }
+
+    .table-modern.order-table tr.order-row:hover {
+        border-color: var(--prod-info-border);
+        background: var(--prod-surface-hover);
+    }
+
+    .table-modern.order-table td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 0;
+        white-space: normal;
+        text-align: right;
+    }
+
+    .table-modern.order-table td::before {
+        content: attr(data-label);
+        flex-shrink: 0;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--prod-text-sec);
+        text-align: left;
+    }
+
+    /* Order ID: judul kartu, tanpa label */
+    .table-modern.order-table td.cell-id {
+        display: block;
+        text-align: left;
+        padding-top: 0;
+        padding-bottom: 12px;
+        margin-bottom: 4px;
+        border-bottom: 1px solid var(--prod-border);
+    }
+
+    .table-modern.order-table td.cell-id::before {
+        display: none;
+    }
+
+    .progress-wrap {
+        width: 60%;
+        min-width: 0;
+    }
+
+    /* Tombol detail penuh */
+    .table-modern.order-table td.cell-action {
+        display: block;
+        padding: 12px 0 0;
+        margin-top: 4px;
+        border-top: 1px solid var(--prod-border);
+    }
+
+    .table-modern.order-table td.cell-action::before {
+        display: none;
+    }
+
+    .table-modern.order-table td.cell-action .prod-btn {
+        width: 100%;
+    }
+
+    /* Baris kosong / hasil pencarian kosong */
+    .table-modern.order-table tr.empty-row td {
+        display: block;
+        text-align: center;
+        padding: 40px 12px;
+    }
+
+    .table-modern.order-table tr.empty-row td::before {
+        display: none;
+    }
+}

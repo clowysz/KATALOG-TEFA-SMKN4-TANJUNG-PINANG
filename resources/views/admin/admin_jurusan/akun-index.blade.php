@@ -2,321 +2,213 @@
 
 @section('title', 'Daftar Akun')
 
+@section('styles')
+<link rel="stylesheet" href="{{ asset('css/akun-jurusan.css') }}?v=1">
+@endsection
+
 @section('content')
 
 <div class="header-action akun-page-header">
 
+    <div>
+        <h2>Daftar Akun</h2>
+        <p>Kelola Admin Produser untuk mengelola produk dan jasa</p>
+    </div>
 
-<div>
-    <h2>Daftar Akun</h2>
-    <p>Kelola Admin Produser untuk mengelola produk dan jasa</p>
-</div>
-
-<a
-    href="/jurusan-admin/akun/tambah"
-    class="btn-primary btn-tambah-akun-jurusan"
->
-    + Tambah Akun
-</a>
-
+    <a href="/jurusan-admin/akun/tambah" class="btn-jurusan-primary">
+        + Tambah Akun
+    </a>
 
 </div>
+
 
 <div class="tefa-card akun-card">
 
+    {{-- FILTER --}}
+    <div class="akun-filter-bar">
 
-<div class="akun-filter-bar">
+        <input
+            type="text"
+            id="searchAkun"
+            class="search-input"
+            placeholder="Cari nama, email..."
+        >
 
-    <input
-        type="text"
-        id="searchAkun"
-        class="search-input"
-        placeholder="Cari nama, email..."
-    >
+        <select id="filterStatus" class="filter-select">
+            <option value="semua">Semua Status</option>
+            <option value="aktif">Aktif</option>
+            <option value="tidak_aktif">Tidak Aktif</option>
+        </select>
 
-    <select
-        id="filterStatus"
-        class="filter-select"
-    >
-        <option value="semua">Semua Status</option>
-        <option value="aktif">Aktif</option>
-        <option value="tidak_aktif">Tidak Aktif</option>
-    </select>
+        <select id="filterLayanan" class="filter-select">
+            <option value="semua">Semua Produk/Jasa</option>
 
-    <select
-        id="filterLayanan"
-        class="filter-select"
-    >
-        <option value="semua">Semua Produk/Jasa</option>
+            @foreach ($produkJasas as $produkJasa)
+                <option value="{{ strtolower($produkJasa->nama_produk_jasa) }}">
+                    {{ $produkJasa->nama_produk_jasa }}
+                </option>
+            @endforeach
+        </select>
 
-        @foreach ($produkJasas as $produkJasa)
-
-            <option value="{{ strtolower($produkJasa->nama_produk_jasa) }}">
-                {{ $produkJasa->nama_produk_jasa }}
-            </option>
-
-        @endforeach
-
-    </select>
-
-</div>
+    </div>
 
 
-<div class="table-responsive">
+    {{-- TABEL --}}
+    <div class="table-responsive">
 
-    <table class="akun-table">
+        <table class="akun-table">
 
-        <thead>
+            <thead>
+                <tr>
+                    <th>Nama Pengguna</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Tanggung Jawab</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
 
-            <tr>
-                <th>Nama Pengguna</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Tanggung Jawab</th>
-                <th>Status</th>
-                <th>Aksi</th>
-            </tr>
+            <tbody id="akunTableBody">
 
-        </thead>
+                @forelse ($akuns as $akun)
 
+                    @php
+                        $layananAkun = $akun->penugasanProduser
+                            ->map(function ($penugasan) {
+                                return $penugasan->produkJasa
+                                    ? $penugasan->produkJasa->nama_produk_jasa
+                                    : null;
+                            })
+                            ->filter()
+                            ->values();
+                    @endphp
 
-        <tbody id="akunTableBody">
+                    <tr
+                        class="akun-row"
+                        data-nama="{{ strtolower($akun->nama) }}"
+                        data-email="{{ strtolower($akun->email) }}"
+                        data-status="{{ strtolower($akun->status) }}"
+                        data-layanan="{{ strtolower($layananAkun->implode(', ')) }}"
+                    >
 
-            @forelse ($akuns as $akun)
+                        <td data-label="Nama">
+                            <strong>{{ $akun->nama }}</strong>
+                        </td>
 
-                @php
-                    $layananAkun = $akun->penugasanProduser
-                        ->map(function ($penugasan) {
-                            return $penugasan->produkJasa
-                                ? $penugasan->produkJasa->nama_produk_jasa
-                                : null;
-                        })
-                        ->filter()
-                        ->values();
-                @endphp
+                        <td data-label="Email">
+                            {{ $akun->email }}
+                        </td>
 
+                        <td data-label="Role">
+                            Admin Produser
+                        </td>
 
-                <tr
-                    class="akun-row"
-                    data-nama="{{ strtolower($akun->nama) }}"
-                    data-email="{{ strtolower($akun->email) }}"
-                    data-status="{{ strtolower($akun->status) }}"
-                    data-layanan="{{ strtolower($layananAkun->implode(', ')) }}"
-                >
+                        <td data-label="Tanggung Jawab">
 
-                    <td>
-                        <strong>{{ $akun->nama }}</strong>
-                    </td>
+                            @if ($layananAkun->count() > 0)
 
-                    <td>
-                        {{ $akun->email }}
-                    </td>
+                                <div class="akun-layanan-list">
+                                    @foreach ($layananAkun as $layanan)
+                                        <span class="akun-layanan-badge">
+                                            {{ $layanan }}
+                                        </span>
+                                    @endforeach
+                                </div>
 
-                    <td>
-                        Admin Produser
-                    </td>
+                            @else
 
-                    <td>
+                                <span class="akun-no-tanggung-jawab">
+                                    Belum ada tanggung jawab
+                                </span>
 
-                        @if ($layananAkun->count() > 0)
+                            @endif
 
-                            <div class="akun-layanan-list">
+                        </td>
 
-                                @foreach ($layananAkun as $layanan)
+                        <td data-label="Status">
 
-                                    <span class="akun-layanan-badge">
-                                        {{ $layanan }}
-                                    </span>
+                            @if ($akun->status === 'aktif')
 
-                                @endforeach
+                                <span class="akun-status-badge akun-status-aktif">
+                                    Aktif
+                                </span>
+
+                            @else
+
+                                <span class="akun-status-badge akun-status-tidak-aktif">
+                                    Tidak Aktif
+                                </span>
+
+                            @endif
+
+                        </td>
+
+                        <td data-label="Aksi">
+
+                            <div class="akun-action-buttons">
+
+                                <a
+                                    href="/jurusan-admin/akun/detail?id={{ $akun->id }}"
+                                    class="akun-action-button"
+                                >
+                                    Detail
+                                </a>
+
+                                <a
+                                    href="/jurusan-admin/akun/edit?id={{ $akun->id }}&from=index"
+                                    class="akun-action-button"
+                                >
+                                    Edit
+                                </a>
 
                             </div>
 
-                        @else
+                        </td>
 
-                            <span class="akun-no-tanggung-jawab">
-                                Belum ada tanggung jawab
-                            </span>
+                    </tr>
 
-                        @endif
+                @empty
 
-                    </td>
+                    <tr id="emptyAkunRow">
 
-                    <td>
+                        <td colspan="6" class="akun-empty-row">
 
-                        @if ($akun->status === 'aktif')
+                            <h3>Belum Ada Akun</h3>
 
-                            <span class="akun-status-badge akun-status-aktif">
-                                Aktif
-                            </span>
+                            <p>
+                                Belum ada Admin Produser yang dibuat untuk jurusan ini.
+                            </p>
 
-                        @else
+                        </td>
 
-                            <span class="akun-status-badge akun-status-tidak-aktif">
-                                Tidak Aktif
-                            </span>
+                    </tr>
 
-                        @endif
+                @endforelse
 
-                    </td>
+            </tbody>
 
-                    <td>
+        </table>
 
-                        <div class="akun-action-buttons">
-
-                            <a
-                                href="/jurusan-admin/akun/detail?id={{ $akun->id }}"
-                                class="akun-action-button"
-                            >
-                                Detail
-                            </a>
-
-                            <a
-    href="/jurusan-admin/akun/edit?id={{ $akun->id }}&from=index"
-    class="akun-action-button"
->
-    Edit
-</a>
-
-                        </div>
-
-                    </td>
-
-                </tr>
-
-            @empty
-
-                <tr id="emptyAkunRow">
-
-                    <td
-                        colspan="6"
-                        class="akun-empty-row"
-                    >
-
-                        <h3>
-                            Belum Ada Akun
-                        </h3>
-
-                        <p>
-                            Belum ada Admin Produser yang dibuat untuk jurusan ini.
-                        </p>
-
-                    </td>
-
-                </tr>
-
-            @endforelse
-
-        </tbody>
-
-    </table>
-
-</div>
+    </div>
 
 
-<div
-    id="emptyAkun"
-    class="akun-filter-empty"
->
+    {{-- HASIL FILTER KOSONG --}}
+    <div id="emptyAkun" class="akun-filter-empty">
 
-    <h3>
-        Akun Tidak Ditemukan
-    </h3>
+        <h3>Akun Tidak Ditemukan</h3>
 
-    <p>
-        Tidak ada akun yang sesuai dengan pencarian atau filter.
-    </p>
+        <p>
+            Tidak ada akun yang sesuai dengan pencarian atau filter.
+        </p>
 
-</div>
-
+    </div>
 
 </div>
 
 @endsection
 
+
 @section('scripts')
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    const searchInput = document.getElementById('searchAkun');
-    const filterStatus = document.getElementById('filterStatus');
-    const filterLayanan = document.getElementById('filterLayanan');
-
-    const rows = document.querySelectorAll('.akun-row');
-    const emptyAkun = document.getElementById('emptyAkun');
-    const emptyAkunRow = document.getElementById('emptyAkunRow');
-
-
-    function filterAkun() {
-
-        const search = searchInput.value.toLowerCase().trim();
-        const status = filterStatus.value.toLowerCase();
-        const layanan = filterLayanan.value.toLowerCase();
-
-        let jumlahTampil = 0;
-
-
-        rows.forEach(function (row) {
-
-            const nama = row.dataset.nama || '';
-            const email = row.dataset.email || '';
-            const rowStatus = row.dataset.status || '';
-            const dataLayanan = row.dataset.layanan || '';
-
-
-            const cocokSearch =
-                nama.includes(search) ||
-                email.includes(search);
-
-
-            const cocokStatus =
-                status === 'semua' ||
-                rowStatus === status;
-
-
-            const cocokLayanan =
-                layanan === 'semua' ||
-                dataLayanan.includes(layanan);
-
-
-            if (
-                cocokSearch &&
-                cocokStatus &&
-                cocokLayanan
-            ) {
-
-                row.style.display = '';
-                jumlahTampil++;
-
-            } else {
-
-                row.style.display = 'none';
-
-            }
-
-        });
-
-
-        if (emptyAkunRow) {
-            emptyAkunRow.style.display = 'none';
-        }
-
-
-        if (jumlahTampil === 0 && rows.length > 0) {
-            emptyAkun.style.display = 'block';
-        } else {
-            emptyAkun.style.display = 'none';
-        }
-
-    }
-
-
-    searchInput.addEventListener('input', filterAkun);
-    filterStatus.addEventListener('change', filterAkun);
-    filterLayanan.addEventListener('change', filterAkun);
-
-});
-</script>
-
+<script src="{{ asset('js/akun-index-jurusan.js') }}"></script>
 @endsection

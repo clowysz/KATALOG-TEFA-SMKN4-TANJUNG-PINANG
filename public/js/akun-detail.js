@@ -1,278 +1,197 @@
-function openModal(modalId){
-    const modal=document.getElementById(modalId);
-    if(modal)modal.classList.add('active');
-}
+/* =========================================================
+   DETAIL AKUN (admin_tefa/akun/show)
 
-function closeModal(modalId){
-    const modal=document.getElementById(modalId);
-    if(modal)modal.classList.remove('active');
-}
+   1. Menampilkan / menyembunyikan form reset password
+   2. Validasi password baru dan konfirmasinya
+   3. Modal konfirmasi akses akun
 
-
-// ==========================================================
-// VALIDASI PASSWORD DAN KONFIRMASI PASSWORD
-// ==========================================================
-
-const passwordInput = document.getElementById('password');
-const passwordConfirmationInput = document.getElementById('password_confirmation');
-
-if (passwordInput) {
-    passwordInput.addEventListener('invalid', function () {
-        if (this.validity.valueMissing) {
-            this.setCustomValidity('Password baru wajib diisi.');
-        } else if (this.validity.tooShort) {
-            this.setCustomValidity('Password harus memiliki minimal 6 karakter.');
-        }
-    });
-
-    passwordInput.addEventListener('input', function () {
-        if (this.value.length === 0) {
-            this.setCustomValidity('Password baru wajib diisi.');
-        } else if (this.value.length < 6) {
-            this.setCustomValidity('Password harus memiliki minimal 6 karakter.');
-        } else {
-            this.setCustomValidity('');
-        }
-
-        if (
-            passwordConfirmationInput &&
-            passwordConfirmationInput.value.length > 0
-        ) {
-            if (passwordConfirmationInput.value !== this.value) {
-                passwordConfirmationInput.setCustomValidity(
-                    'Konfirmasi password tidak cocok.'
-                );
-            } else if (passwordConfirmationInput.value.length < 6) {
-                passwordConfirmationInput.setCustomValidity(
-                    'Konfirmasi password harus memiliki minimal 6 karakter.'
-                );
-            } else {
-                passwordConfirmationInput.setCustomValidity('');
-            }
-        }
-    });
-}
-
-if (passwordConfirmationInput) {
-    passwordConfirmationInput.addEventListener('invalid', function () {
-        if (this.validity.valueMissing) {
-            this.setCustomValidity('Konfirmasi password wajib diisi.');
-        } else if (this.validity.tooShort) {
-            this.setCustomValidity(
-                'Konfirmasi password harus memiliki minimal 6 karakter.'
-            );
-        }
-    });
-
-    passwordConfirmationInput.addEventListener('input', function () {
-        if (this.value.length === 0) {
-            this.setCustomValidity('Konfirmasi password wajib diisi.');
-        } else if (this.value.length < 6) {
-            this.setCustomValidity(
-                'Konfirmasi password harus memiliki minimal 6 karakter.'
-            );
-        } else if (
-            passwordInput &&
-            this.value !== passwordInput.value
-        ) {
-            this.setCustomValidity(
-                'Konfirmasi password tidak cocok.'
-            );
-        } else {
-            this.setCustomValidity('');
-        }
-    });
-}
-
+   Pemicu modal di blade (tanpa onclick inline):
+   - data-access-open="aktifkan|nonaktifkan" : buka modal
+   - data-access-close                       : tutup modal
+   - data-access-submit                      : kirim form akses
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
+    initResetPasswordToggle();
+    initPasswordValidation();
+    initAccessModal();
 
     // ==========================================================
-    // TAMPILKAN / SEMBUNYIKAN JURUSAN SAAT EDIT
+    // 1. FORM RESET PASSWORD
     // ==========================================================
 
-    const roleSelect = document.getElementById('roleSelect');
-    const jurusanWrapper = document.getElementById('jurusanWrapper');
-    const jurusanSelect = document.getElementById('jurusanSelect');
+    function initResetPasswordToggle() {
+        const resetButton = document.getElementById("btnResetPassword");
+        const resetForm = document.getElementById("resetPasswordForm");
+        const cancelReset = document.getElementById("cancelReset");
 
+        if (!resetForm) {
+            return;
+        }
+
+        if (resetButton) {
+            resetButton.addEventListener("click", function () {
+                resetForm.style.display = "block";
+            });
+        }
+
+        if (cancelReset) {
+            cancelReset.addEventListener("click", function () {
+                resetForm.style.display = "none";
+            });
+        }
+    }
 
     // ==========================================================
-    // VALIDASI JURUSAN SAAT EDIT
+    // 2. VALIDASI PASSWORD & KONFIRMASI PASSWORD
     // ==========================================================
 
-    if (jurusanSelect) {
+    function initPasswordValidation() {
+        const passwordInput = document.getElementById("password");
+        const confirmInput = document.getElementById("password_confirmation");
 
-        jurusanSelect.addEventListener('invalid', function () {
+        const MSG_PASSWORD_REQUIRED = "Password baru wajib diisi.";
+        const MSG_PASSWORD_MIN = "Password harus memiliki minimal 6 karakter.";
+        const MSG_CONFIRM_REQUIRED = "Konfirmasi password wajib diisi.";
+        const MSG_CONFIRM_MIN =
+            "Konfirmasi password harus memiliki minimal 6 karakter.";
+        const MSG_CONFIRM_MISMATCH = "Konfirmasi password tidak cocok.";
 
-            if (
-                roleSelect &&
-                roleSelect.value === 'admin_jurusan' &&
-                this.validity.valueMissing
+        function validateConfirmation() {
+            if (!confirmInput) {
+                return;
+            }
+
+            if (confirmInput.value.length === 0) {
+                confirmInput.setCustomValidity(MSG_CONFIRM_REQUIRED);
+            } else if (confirmInput.value.length < 6) {
+                confirmInput.setCustomValidity(MSG_CONFIRM_MIN);
+            } else if (
+                passwordInput &&
+                confirmInput.value !== passwordInput.value
             ) {
-                this.setCustomValidity(
-                    'Jurusan wajib dipilih untuk Admin Jurusan.'
-                );
+                confirmInput.setCustomValidity(MSG_CONFIRM_MISMATCH);
             } else {
-                this.setCustomValidity('');
-            }
-        });
-
-        jurusanSelect.addEventListener('change', function () {
-            this.setCustomValidity('');
-        });
-    }
-
-
-    // ==========================================================
-    // TOGGLE JURUSAN
-    // ==========================================================
-
-    if(roleSelect){
-
-        function toggleJurusan(){
-
-            if(roleSelect.value === 'admin_jurusan'){
-
-                if(jurusanWrapper){
-                    jurusanWrapper.style.display = 'block';
-                }
-
-                if(jurusanSelect){
-                    jurusanSelect.removeAttribute('disabled');
-                    jurusanSelect.setAttribute('required', 'required');
-                }
-
-            }else{
-
-                if(jurusanWrapper){
-                    jurusanWrapper.style.display = 'none';
-                }
-
-                if(jurusanSelect){
-                    jurusanSelect.setAttribute('disabled', 'disabled');
-                    jurusanSelect.removeAttribute('required');
-                    jurusanSelect.value = '';
-                    jurusanSelect.setCustomValidity('');
-                }
+                confirmInput.setCustomValidity("");
             }
         }
 
-        roleSelect.addEventListener('change', function () {
+        if (passwordInput) {
+            passwordInput.addEventListener("invalid", function () {
+                if (this.validity.valueMissing) {
+                    this.setCustomValidity(MSG_PASSWORD_REQUIRED);
+                } else if (this.validity.tooShort) {
+                    this.setCustomValidity(MSG_PASSWORD_MIN);
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
 
-            roleSelect.setCustomValidity('');
+            passwordInput.addEventListener("input", function () {
+                if (this.value.length === 0) {
+                    this.setCustomValidity(MSG_PASSWORD_REQUIRED);
+                } else if (this.value.length < 6) {
+                    this.setCustomValidity(MSG_PASSWORD_MIN);
+                } else {
+                    this.setCustomValidity("");
+                }
 
-            toggleJurusan();
-
-        });
-
-        toggleJurusan();
-    }
-
-
-    // ==========================================================
-    // TAMPILKAN / SEMBUNYIKAN FORM RESET PASSWORD
-    // ==========================================================
-
-    const resetButton = document.getElementById('btnResetPassword');
-    const resetForm = document.getElementById('resetPasswordForm');
-    const cancelReset = document.getElementById('cancelReset');
-
-    if(resetButton && resetForm){
-        resetButton.addEventListener('click',function(){
-            resetForm.style.display='block';
-        });
-    }
-
-    if(cancelReset && resetForm){
-        cancelReset.addEventListener('click',function(){
-            resetForm.style.display='none';
-        });
-    }
-
-});
-
-
-// ==========================================================
-// FITUR LIGHTBOX
-// FOTO "NGAMBANG" BESAR KETIKA DIKLIK
-// ==========================================================
-
-document.addEventListener('DOMContentLoaded', function() {
-
-    // 1. Buat elemen HTML untuk Modal Lightbox secara otomatis
-
-    const modal = document.createElement('div');
-
-    modal.className = 'image-lightbox-modal';
-
-    modal.innerHTML = `
-        <button class="lightbox-close">&times;</button>
-        <img class="lightbox-content" src="" alt="Preview Besar">
-    `;
-
-    document.body.appendChild(modal);
-
-
-    // 2. Ambil elemen gambar dan tombol close
-
-    const lightboxImg = modal.querySelector('.lightbox-content');
-    const closeBtn = modal.querySelector('.lightbox-close');
-
-
-    // 3. Pilih semua gambar di slide utama maupun thumbnail
-
-    const clickableImages = document.querySelectorAll(
-        '.carousel-slide img, .thumb-item img'
-    );
-
-
-    // 4. Beri aksi saat gambar diklik
-
-    clickableImages.forEach(img => {
-
-        img.addEventListener('click', function() {
-
-            lightboxImg.src = this.src;
-
-            modal.classList.add('active');
-
-        });
-
-    });
-
-
-    // 5. Tutup modal saat tombol X diklik
-
-    closeBtn.addEventListener('click', () => {
-
-        modal.classList.remove('active');
-
-    });
-
-
-    // 6. Tutup modal jika area gelap di luar gambar diklik
-
-    modal.addEventListener('click', (e) => {
-
-        if (e.target === modal) {
-
-            modal.classList.remove('active');
-
+                // Password berubah: cocokkan ulang dengan konfirmasi yang sudah diisi
+                if (confirmInput && confirmInput.value.length > 0) {
+                    validateConfirmation();
+                }
+            });
         }
 
-    });
+        if (confirmInput) {
+            confirmInput.addEventListener("invalid", function () {
+                if (this.validity.valueMissing) {
+                    this.setCustomValidity(MSG_CONFIRM_REQUIRED);
+                } else if (this.validity.tooShort) {
+                    this.setCustomValidity(MSG_CONFIRM_MIN);
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
 
+            confirmInput.addEventListener("input", validateConfirmation);
+        }
+    }
 
-    // 7. Tutup modal menggunakan tombol ESC
+    // ==========================================================
+    // 3. MODAL KONFIRMASI AKSES
+    // ==========================================================
 
-    document.addEventListener('keydown', (e) => {
+    function initAccessModal() {
+        const modal = document.getElementById("accessModal");
 
-        if (e.key === 'Escape') {
-
-            modal.classList.remove('active');
-
+        if (!modal) {
+            return;
         }
 
-    });
+        const title = document.getElementById("accessModalTitle");
+        const desc = document.getElementById("accessModalDesc");
+        const confirmButton = modal.querySelector(".btn-modal-access-confirm");
 
+        const TEXTS = {
+            aktifkan: {
+                title: "Aktifkan Akses?",
+                desc: "Apakah Anda yakin ingin mengaktifkan kembali akses akun ini?",
+                button: "Aktifkan Akses",
+                primary: true,
+            },
+            nonaktifkan: {
+                title: "Hapus Akses?",
+                desc: "Apakah Anda yakin ingin menonaktifkan akses akun ini?",
+                button: "Hapus Akses",
+                primary: false,
+            },
+        };
+
+        let accessActionForm = null;
+
+        function openModal(action) {
+            const text = TEXTS[action] || TEXTS.nonaktifkan;
+
+            accessActionForm = document.getElementById("accessActionForm");
+
+            title.textContent = text.title;
+            desc.textContent = text.desc;
+            confirmButton.textContent = text.button;
+            confirmButton.classList.toggle("is-primary", text.primary);
+
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+
+            accessActionForm = null;
+        }
+
+        document.addEventListener("click", function (event) {
+            const opener = event.target.closest("[data-access-open]");
+
+            if (opener) {
+                openModal(opener.dataset.accessOpen);
+                return;
+            }
+
+            if (event.target.closest("[data-access-submit]")) {
+                if (accessActionForm) {
+                    accessActionForm.submit();
+                }
+
+                return;
+            }
+
+            // Tombol Batal, atau klik di area gelap di luar kotak modal
+            if (
+                event.target.closest("[data-access-close]") ||
+                event.target === modal
+            ) {
+                closeModal();
+            }
+        });
+    }
 });

@@ -6,11 +6,11 @@
 
 @section('content')
 
-<section class="jurusan-hero-section" style="padding-top: 80px; position: relative;">
+<section class="jurusan-hero-section hero-page">
     <div class="bubble" style="width: 100px; height: 100px; top: 20%; right: 10%; animation-duration: 7s;"></div>
     <div class="bubble" style="width: 60px; height: 60px; bottom: 40%; right: 20%; animation-duration: 5s;"></div>
 
-    <div class="jurusan-hero-content" style="position: relative; z-index: 10;">
+    <div class="jurusan-hero-content">
         <div class="jurusan-hero-image">
             <img
                 src="{{ asset($jurusan->hero) }}"
@@ -26,11 +26,7 @@
                 siswa-siswi SMKN 4 Tanjungpinang untuk memenuhi
                 kebutuhan di era digital.
             </p>
-            <a
-                href="/#jurusan-unggulan"
-                class="btn-kembali-beranda"
-                style="position: relative; z-index: 50;"
-            >
+            <a href="/#jurusan-unggulan" class="btn-kembali-beranda">
                 <i class="ph ph-arrow-u-up-left"></i>
                 Kembali ke Daftar Jurusan
             </a>
@@ -41,14 +37,6 @@
         class="wave-jurusan"
         viewBox="0 0 1440 320"
         xmlns="http://www.w3.org/2000/svg"
-        style="
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            display: block;
-            z-index: 1;
-        "
     >
         <path
             fill="#F8FAFC"
@@ -82,10 +70,11 @@
                         <img
                             src="{{ asset('storage/' . $gambar->path_gambar) }}"
                             alt="{{ $item->nama_produk_jasa }}"
+                            loading="lazy"
                         >
                     @else
-                        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#E2E8F0;color:#64748B;">
-                            <i class="ph ph-image" style="font-size:48px;"></i>
+                        <div class="k-card-img-empty">
+                            <i class="ph ph-image"></i>
                         </div>
                     @endif
                 </div>
@@ -112,43 +101,10 @@
                 </div>
             </div>
         @empty
-            <div
-                style="
-                    grid-column: 1 / -1;
-                    text-align: center;
-                    padding: 60px 20px;
-                    background: white;
-                    border-radius: 12px;
-                    border: 1px dashed #CBD5E1;
-                "
-            >
-                <i
-                    class="ph ph-package"
-                    style="
-                        font-size: 48px;
-                        color: #94A3B8;
-                        margin-bottom: 16px;
-                    "
-                ></i>
-                <h3
-                    style="
-                        font-size: 18px;
-                        font-weight: 600;
-                        color: #1E2D3D;
-                        margin-bottom: 8px;
-                    "
-                >
-                    Belum ada data Produk
-                </h3>
-                <p
-                    style="
-                        font-size: 14px;
-                        color: #64748B;
-                        margin: 0;
-                    "
-                >
-                    Katalog produk untuk jurusan ini belum tersedia.
-                </p>
+            <div class="katalog-empty">
+                <i class="ph ph-package"></i>
+                <h3>Belum ada data Produk</h3>
+                <p>Katalog produk untuk jurusan ini belum tersedia.</p>
             </div>
         @endforelse
     </div>

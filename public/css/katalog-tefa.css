@@ -1,0 +1,1636 @@
+/* =========================================================
+   KATALOG TEFA (admin_tefa/katalog-gabungan)
+   Desktop : 4 kolom x 4 baris = 16 item
+   Mobile  : 3 kolom x 5 baris = 15 item
+========================================================= */
+
+.katalog-container {
+  padding: 8px 24px 24px 24px; /* Padding atas diperkecil agar lebih rapat dengan nav */
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.katalog-header {
+  margin-bottom: 16px;
+}
+
+.katalog-header h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.katalog-header p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* =========================
+   TOOLBAR PDF
+========================= */
+
+.katalog-toolbar {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.selected-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #1e3a8a;
+  font-size: 14px;
+  font-weight: 700;
+
+  background: #eff6ff;
+  padding: 9px 13px;
+  border-radius: 10px;
+}
+
+.selected-info i {
+  font-size: 18px;
+}
+
+.btn-select-all {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+
+  padding: 9px 14px;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.btn-select-all:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #1e3a8a;
+}
+
+.btn-generate-pdf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: none;
+
+  background: #1e3a8a;
+  color: #ffffff;
+
+  padding: 10px 17px;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.btn-generate-pdf:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.btn-generate-pdf:disabled {
+  background: #cbd5e1;
+  color: #ffffff;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================
+   ALERT
+========================= */
+
+.katalog-alert {
+  background: #fef2f2;
+  color: #b91c1c;
+
+  border: 1px solid #fecaca;
+
+  padding: 12px 15px;
+  border-radius: 10px;
+
+  margin-bottom: 20px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================
+   FILTER & PENCARIAN
+========================= */
+
+.katalog-filter {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.katalog-filter-search {
+  position: relative;
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.katalog-filter-search i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.katalog-filter-search input {
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+}
+
+.katalog-filter-select {
+  min-width: 160px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.katalog-filter-search input:focus,
+.katalog-filter-select:focus {
+  border-color: #3b698f;
+  box-shadow: 0 0 0 3px rgba(59, 105, 143, 0.1);
+}
+
+.btn-filter-cari {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  border: none;
+  background: #1e3a8a;
+  color: #ffffff;
+
+  padding: 10px 18px;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-filter-cari:hover {
+  background: #1d4ed8;
+}
+
+.btn-filter-reset {
+  padding: 9px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: all 0.2s ease;
+}
+
+.btn-filter-reset:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #1e3a8a;
+}
+
+.btn-filter-cari:focus-visible,
+.btn-filter-reset:focus-visible {
+  outline: 3px solid #eab308;
+  outline-offset: 2px;
+}
+
+/* =========================
+   GRID KATALOG
+   Desktop: 4 kolom (16 item = 4 baris penuh)
+========================= */
+
+.katalog-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.katalog-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+
+  display: flex;
+  flex-direction: column;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+
+  position: relative;
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.katalog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.1);
+}
+
+/* =========================
+   CARD TERPILIH
+========================= */
+
+.katalog-card.selected {
+  border-color: #1e40af;
+
+  background: #f8faff;
+
+  box-shadow:
+    0 0 0 3px rgba(30, 64, 175, 0.1),
+    0 10px 25px rgba(30, 58, 138, 0.12);
+}
+
+/* =========================
+   CHECK INDICATOR
+========================= */
+
+.card-check {
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  border: 2px solid #cbd5e1;
+
+  color: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 5;
+
+  transition: all 0.2s ease;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.card-check i {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.katalog-card.selected .card-check {
+  background: #1e40af;
+  border-color: #1e40af;
+  color: #ffffff;
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+.card-img-wrapper {
+  position: relative;
+
+  width: 100%;
+  height: 150px;
+
+  background: #e2e8f0;
+
+  overflow: hidden;
+}
+
+.card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform 0.3s ease;
+}
+
+.katalog-card:hover .card-img-wrapper img {
+  transform: scale(1.02);
+}
+
+.card-img-wrapper .no-img {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e2e8f0;
+  color: #64748b;
+
+  font-size: 48px;
+}
+
+/* =========================
+   BADGE
+========================= */
+
+.badge-jenis {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  background: rgba(30, 58, 138, 0.9);
+
+  color: #ffffff;
+
+  padding: 4px 12px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  border-radius: 20px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  z-index: 3;
+}
+
+/* =========================
+   CARD BODY
+========================= */
+
+.card-body-content {
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #1e2d3d;
+
+  margin-bottom: 8px;
+
+  font-family: "Poppins", sans-serif;
+
+  line-height: 1.4;
+
+  word-break: break-word;
+}
+
+.card-jurusan {
+  font-size: 12px;
+
+  color: #64748b;
+
+  line-height: 1.5;
+
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 12px;
+
+  color: #64748b;
+
+  line-height: 1.5;
+
+  margin-bottom: 16px;
+
+  flex-grow: 1;
+}
+
+.card-price {
+  font-size: 18px;
+  font-weight: 800;
+
+  color: #1e3a8a;
+
+  margin-bottom: 16px;
+
+  word-break: break-word;
+}
+
+/* =========================
+   DETAIL BUTTON
+========================= */
+
+.btn-detail {
+  display: block;
+
+  text-align: center;
+
+  padding: 10px;
+
+  background: #f8fafc;
+
+  color: #1e3a8a;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  border-radius: 8px;
+
+  border: 1px solid #e2e8f0;
+
+  text-decoration: none;
+
+  transition: 0.3s;
+}
+
+.btn-detail:hover {
+  background: #1e3a8a;
+  color: #ffffff;
+
+  border-color: #1e3a8a;
+}
+
+.btn-detail .d-short {
+  display: none;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+  grid-column: 1 / -1;
+
+  text-align: center;
+
+  padding: 60px 20px;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+
+  border: 1px dashed #cbd5e1;
+
+  margin-top: 10px;
+
+  color: #64748b;
+}
+
+.empty-state i {
+  font-size: 48px;
+  color: #cbd5e1;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.empty-state p {
+  font-weight: 600;
+  margin: 0;
+}
+
+/* =========================
+   PAGINATION
+========================= */
+
+.pagination-wrapper {
+  margin-top: 40px;
+
+  padding-top: 24px;
+
+  border-top: 1px solid #e2e8f0;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.pagination-info {
+  font-size: 13px;
+
+  color: #64748b;
+
+  font-weight: 500;
+
+  margin: 0;
+
+  text-align: center;
+}
+
+.custom-pagination {
+  display: flex;
+
+  gap: 6px;
+
+  list-style: none;
+
+  padding: 0;
+  margin: 0;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+}
+
+.custom-pagination .page-item {
+  margin: 0;
+}
+
+.custom-pagination .page-link {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 38px;
+  height: 38px;
+
+  padding: 0 10px;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  color: #475569;
+
+  font-weight: 600;
+
+  font-size: 14px;
+
+  text-decoration: none;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  transition: all 0.2s ease;
+}
+
+.custom-pagination .page-item.active .page-link {
+  background: #1e40af;
+
+  color: #ffffff;
+
+  border-color: #1e40af;
+
+  box-shadow: 0 4px 10px rgba(30, 64, 175, 0.25);
+}
+
+.custom-pagination .page-link:hover:not(.active) {
+  background: #f8fafc;
+
+  border-color: #cbd5e1;
+
+  color: #1e40af;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+  background: #f8fafc;
+
+  color: #cbd5e1;
+
+  border-color: #e2e8f0;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* ---------- TABLET (4 kolom, lebih rapat) ---------- */
+@media (max-width: 1024px) {
+  .katalog-grid {
+    gap: 16px;
+  }
+
+  .card-img-wrapper {
+    height: 130px;
+  }
+
+  .card-body-content {
+    padding: 14px;
+  }
+
+  .card-title {
+    font-size: 14px;
+  }
+
+  .card-price {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+}
+
+/* ---------- MOBILE (3 kolom, 15 item per halaman) ---------- */
+@media (max-width: 768px) {
+  .katalog-container {
+    padding: 4px 0 16px 0; /* padding samping sudah dari main-content */
+  }
+
+  .katalog-header h3 {
+    font-size: 18px;
+  }
+
+  .katalog-header p {
+    font-size: 13px;
+  }
+
+  /* Filter & pencarian */
+  .katalog-filter {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 12px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+  }
+
+  .katalog-filter-search {
+    grid-column: 1 / -1;
+    flex: none;
+  }
+
+  .katalog-filter-search input,
+  .katalog-filter-select {
+    font-size: 16px; /* mencegah auto-zoom di iOS */
+  }
+
+  .katalog-filter-select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .btn-filter-cari {
+    width: 100%;
+    padding: 11px 14px;
+  }
+
+  /* Tombol Cari sendirian (tanpa Reset) memenuhi satu baris */
+  .btn-filter-cari:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .btn-filter-reset {
+    text-align: center;
+    padding: 10px 14px;
+  }
+
+  /* Toolbar */
+  .katalog-toolbar {
+    padding: 12px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .toolbar-left {
+    width: 100%;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .selected-info {
+    flex: 1;
+    font-size: 13px;
+    padding: 9px 10px;
+    white-space: nowrap;
+  }
+
+  .btn-select-all {
+    flex: 1;
+    font-size: 13px;
+    padding: 9px 10px;
+    white-space: nowrap;
+  }
+
+  #pdf-form {
+    width: 100%;
+  }
+
+  .btn-generate-pdf {
+    width: 100%;
+    padding: 12px 16px;
+  }
+
+  /* Grid 3 kolom */
+  .katalog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    max-width: none;
+  }
+
+  .katalog-card {
+    border-radius: 12px;
+  }
+
+  .katalog-card:hover {
+    transform: none;
+  }
+
+  .card-img-wrapper {
+    height: 110px;
+  }
+
+  .card-img-wrapper .no-img {
+    font-size: 32px;
+  }
+
+  .card-check {
+    top: 6px;
+    left: 6px;
+    width: 22px;
+    height: 22px;
+    border-width: 1.5px;
+  }
+
+  .card-check i {
+    font-size: 13px;
+  }
+
+  .badge-jenis {
+    top: 6px;
+    right: 6px;
+    padding: 2px 7px;
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .card-body-content {
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 12px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-jurusan {
+    font-size: 10px;
+    margin-bottom: 6px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Deskripsi disembunyikan agar card ringkas */
+  .card-desc {
+    display: none;
+  }
+
+  .card-price {
+    font-size: 12px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    margin-top: auto;
+  }
+
+  .btn-detail {
+    padding: 7px 4px;
+    font-size: 11px;
+    border-radius: 6px;
+  }
+
+  .btn-detail .d-full {
+    display: none;
+  }
+
+  .btn-detail .d-short {
+    display: inline;
+  }
+
+  .empty-state {
+    padding: 40px 16px;
+  }
+
+  /* Pagination */
+  .pagination-wrapper {
+    margin-top: 28px;
+    padding-top: 18px;
+  }
+
+  .pagination-info {
+    font-size: 12px;
+  }
+
+  .custom-pagination {
+    gap: 4px;
+  }
+
+  .custom-pagination .page-link {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+
+  /* Sembunyikan nomor halaman yang jauh dari halaman aktif */
+  .custom-pagination .page-item.page-far {
+    display: none;
+  }
+}
+
+/* ---------- HP KECIL ---------- */
+@media (max-width: 480px) {
+  .katalog-grid {
+    gap: 8px;
+  }
+
+  .card-img-wrapper {
+    height: 90px;
+  }
+
+  .card-body-content {
+    padding: 8px;
+  }
+
+  .card-title {
+    font-size: 11px;
+  }
+
+  .card-price {
+    font-size: 11px;
+  }
+
+  .btn-detail {
+    font-size: 10px;
+    padding: 6px 2px;
+  }
+
+  .selected-info i {
+    display: none;
+  }
+}
+
+/* =========================================================
+   KATALOG DETAIL TEFA (admin_tefa/katalog-detail)
+   Desktop : galeri kiri, info kanan
+   Tablet  : galeri atas, info bawah
+   Mobile  : versi ringkas
+========================================================= */
+
+.detail-page-wrapper {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  padding: 0 24px 40px;
+}
+
+.detail-container-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================
+   TOMBOL KEMBALI
+   (disamakan dengan tombol kembali halaman FAQ)
+========================= */
+
+.back-link-wrapper {
+  margin-bottom: 2px;
+}
+
+.back-link {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border: 1px solid #1e3a8a;
+  border-radius: 8px;
+  color: #1e3a8a;
+  background: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.back-link i {
+  color: inherit;
+}
+
+.back-link:hover {
+  background: #1e3a8a;
+  color: #ffffff;
+  border-color: #1e3a8a;
+}
+
+.back-link:focus-visible {
+  outline: 3px solid #eab308;
+  outline-offset: 3px;
+}
+
+/* =========================
+   CONTAINER UTAMA (GALERI + INFO)
+========================= */
+
+.detail-top-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  box-shadow:
+    0 4px 20px -2px rgba(15, 23, 42, 0.05),
+    0 2px 6px -1px rgba(15, 23, 42, 0.03);
+  border: 1px solid #f1f5f9;
+  margin-bottom: 30px;
+}
+
+/* =========================
+   GALERI & SLIDER
+========================= */
+
+.detail-gallery {
+  width: 100%;
+  min-width: 0;
+}
+
+.admin-product-gallery {
+  width: 100%;
+}
+
+.admin-main-image {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  touch-action: pan-y pinch-zoom;
+}
+
+.admin-gallery-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  cursor: zoom-in;
+}
+
+.admin-gallery-image.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+/* TOMBOL NAVIGASI GALERI */
+.admin-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-gallery-arrow:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.admin-gallery-arrow:active {
+  transform: translateY(-50%) scale(0.94);
+}
+
+.admin-gallery-prev {
+  left: 14px;
+}
+
+.admin-gallery-next {
+  right: 14px;
+}
+
+/* DOTS */
+.admin-gallery-dots {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  z-index: 10;
+}
+
+.admin-gallery-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-gallery-dot.active {
+  width: 20px;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+/* THUMBNAILS */
+.admin-gallery-thumbnails {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 14px;
+  padding-bottom: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-gallery-thumbnails::-webkit-scrollbar {
+  height: 4px;
+}
+
+.admin-gallery-thumbnails::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.admin-gallery-thumb {
+  flex: 0 0 70px;
+  width: 70px;
+  height: 55px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e2e8f0;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-gallery-thumb:hover,
+.admin-gallery-thumb.active {
+  opacity: 1;
+  border-color: #1e3a8a;
+}
+
+.admin-gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =========================
+   INFORMASI PRODUK / JASA
+========================= */
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.detail-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.detail-title {
+  color: #0f172a;
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0 0 20px;
+  overflow-wrap: anywhere;
+}
+
+.price-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.price-label {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.detail-price {
+  color: #1e3a8a;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   META CARDS (JENIS, JURUSAN, PESANAN)
+========================= */
+
+.detail-meta-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 30px;
+}
+
+.meta-card-item {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+}
+
+.meta-card-item > div:last-child {
+  min-width: 0;
+}
+
+.meta-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meta-icon i {
+  font-size: 20px;
+}
+
+.meta-label {
+  display: block;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+}
+
+.meta-value {
+  display: block;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   CARD DESKRIPSI
+========================= */
+
+.detail-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow:
+    0 4px 20px -2px rgba(15, 23, 42, 0.05),
+    0 2px 6px -1px rgba(15, 23, 42, 0.03);
+  border: 1px solid #f1f5f9;
+  color: #0f172a;
+}
+
+.detail-section-title {
+  margin: 0 0 16px;
+  color: #0f172a;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.detail-text {
+  color: #334155;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  text-align: justify;
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+.admin-gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(4px);
+}
+
+.admin-gallery-lightbox.active {
+  display: flex;
+}
+
+.admin-lightbox-image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.admin-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* =========================
+   RESPONSIVE DETAIL
+========================= */
+
+/* ---------- TABLET: galeri di atas, info di bawah ---------- */
+@media (max-width: 992px) {
+  .detail-top-card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding: 24px;
+  }
+
+  .admin-main-image {
+    height: 320px;
+  }
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .detail-page-wrapper {
+    padding: 0 0 24px; /* padding samping sudah dari main-content */
+    min-height: auto;
+  }
+
+  .back-link {
+    font-size: 13px;
+    padding: 7px 14px;
+    margin-bottom: 14px;
+  }
+
+  .detail-top-card {
+    padding: 14px;
+    border-radius: 16px;
+    gap: 18px;
+    margin-bottom: 14px;
+  }
+
+  /* Galeri */
+  .admin-main-image {
+    height: clamp(210px, 64vw, 320px);
+    border-radius: 12px;
+  }
+
+  .admin-gallery-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
+  }
+
+  .admin-gallery-prev {
+    left: 8px;
+  }
+
+  .admin-gallery-next {
+    right: 8px;
+  }
+
+  .admin-gallery-dots {
+    bottom: 8px;
+  }
+
+  .admin-gallery-dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .admin-gallery-dot.active {
+    width: 16px;
+  }
+
+  .admin-gallery-thumbnails {
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .admin-gallery-thumb {
+    flex: 0 0 58px;
+    width: 58px;
+    height: 46px;
+    border-radius: 7px;
+  }
+
+  /* Info */
+  .detail-badge {
+    font-size: 11px;
+    padding: 5px 12px;
+    margin-bottom: 10px;
+  }
+
+  .detail-title {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+
+  .price-box {
+    padding: 12px 16px;
+    margin-bottom: 0;
+  }
+
+  .price-label {
+    font-size: 11px;
+  }
+
+  .detail-price {
+    font-size: 22px;
+    margin-bottom: 0;
+  }
+
+  /* Meta: 3 kotak sejajar versi ringkas */
+  .detail-meta-cards {
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .meta-card-item {
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-start;
+    padding: 12px 6px;
+    gap: 8px;
+    border-radius: 12px;
+  }
+
+  .meta-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .meta-icon i {
+    font-size: 18px;
+  }
+
+  .meta-label {
+    font-size: 9px;
+    letter-spacing: 0.2px;
+  }
+
+  .meta-value {
+    font-size: 12px;
+  }
+
+  /* Deskripsi */
+  .detail-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .detail-section-title {
+    font-size: 15px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+  }
+
+  .detail-text {
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  /* Lightbox */
+  .admin-gallery-lightbox {
+    padding: 12px;
+  }
+
+  .admin-lightbox-image {
+    max-width: 94vw;
+    max-height: 80vh;
+    border-radius: 10px;
+  }
+
+  .admin-lightbox-close {
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+  }
+}
+
+/* ---------- HP KECIL: kotak meta ditumpuk ---------- */
+@media (max-width: 480px) {
+  .detail-meta-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .meta-card-item {
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .meta-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+  }
+
+  .meta-value {
+    font-size: 13px;
+  }
+
+  .detail-title {
+    font-size: 20px;
+  }
+
+  .detail-price {
+    font-size: 20px;
+  }
+
+  .detail-card {
+    padding: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-gallery-image,
+  .admin-gallery-arrow,
+  .back-link {
+    transition: none;
+  }
+}

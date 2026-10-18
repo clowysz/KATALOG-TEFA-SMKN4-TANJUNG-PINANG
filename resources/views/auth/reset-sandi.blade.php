@@ -2,21 +2,6 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/login-pembeli.css') }}">
-    <style>
-        .login-alert {
-            padding: 12px 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            line-height: 1.5;
-            text-align: left;
-        }
-
-        .login-alert-error {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-    </style>
 @endpush
 
 @section('content')
@@ -72,9 +57,8 @@
                         required
                     >
                     <i
-                        class="ph ph-eye toggle-password"
-                        data-target="password"
-                        style="cursor: pointer; margin-right: 0; margin-left: 12px;"
+                        class="ph ph-eye toggle-eye"
+                        data-toggle-password="#password"
                     ></i>
                 </div>
             </div>
@@ -91,9 +75,8 @@
                         required
                     >
                     <i
-                        class="ph ph-eye toggle-password"
-                        data-target="password_confirmation"
-                        style="cursor: pointer; margin-right: 0; margin-left: 12px;"
+                        class="ph ph-eye toggle-eye"
+                        data-toggle-password="#password_confirmation"
                     ></i>
                 </div>
             </div>
@@ -111,67 +94,9 @@
 
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    const passwordInput = document.getElementById('password');
-    const confirmInput = document.getElementById('password_confirmation');
-
-    // ================= TOGGLE MATA =================
-    document.querySelectorAll('.toggle-password').forEach(function (icon) {
-        icon.addEventListener('click', function () {
-            const input = document.getElementById(this.dataset.target);
-            if (!input) return;
-
-            const isPassword = input.getAttribute('type') === 'password';
-            input.setAttribute('type', isPassword ? 'text' : 'password');
-
-            this.classList.toggle('ph-eye', !isPassword);
-            this.classList.toggle('ph-eye-slash', isPassword);
-        });
-    });
-
-    // ================= SANDI BARU =================
-    if (passwordInput) {
-
-        passwordInput.addEventListener('invalid', function () {
-            if (this.validity.valueMissing) {
-                this.setCustomValidity('Sandi baru wajib diisi.');
-            } else {
-                this.setCustomValidity('');
-            }
-        });
-
-        passwordInput.addEventListener('input', function () {
-            this.setCustomValidity('');
-            checkConfirmation();
-        });          
-    }
-
-    // ================= KONFIRMASI SANDI =================
-    function checkConfirmation() {
-
-        if (!confirmInput || !passwordInput) return;
-
-        if (confirmInput.value === '') {
-            confirmInput.setCustomValidity('Konfirmasi sandi wajib diisi.');
-            return;
-        }
-
-        if (confirmInput.value !== passwordInput.value) {
-            confirmInput.setCustomValidity('Konfirmasi sandi tidak sama dengan sandi baru.');
-            return;
-        }
-
-        confirmInput.setCustomValidity('');
-    }
-
-    if (confirmInput) {
-        confirmInput.addEventListener('invalid', checkConfirmation);
-        confirmInput.addEventListener('input', checkConfirmation);
-    }
-
-});
-</script>
-
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/password-toggle.js') }}"></script>
+    <script src="{{ asset('js/reset-sandi-pembeli.js') }}"></script>
+@endpush

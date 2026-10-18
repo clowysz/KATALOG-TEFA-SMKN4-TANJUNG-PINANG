@@ -28,7 +28,7 @@
         style="width:120px;height:120px;bottom:10%;right:20%;animation-duration:9s;"
     ></div>
 
-    <div style="width:100%;max-width:600px;z-index:10;">
+    <div class="back-wrap narrow">
 
         <a href="/" class="btn-back-white">
             <i class="ph ph-arrow-left"></i>
@@ -105,36 +105,20 @@
         </div>
 
         <!-- Area Tombol -->
-        <div
-            style="display:flex;flex-direction:column;align-items:center;margin-top:40px;gap:16px;"
-        >
+        <div class="profil-actions">
 
             <!-- Riwayat Pesanan -->
-            <a
-                href="/riwayat-pesanan"
-                class="btn-riwayat-pesanan"
-                style="margin:0;"
-            >
+            <a href="/riwayat-pesanan" class="btn-riwayat-pesanan">
                 Riwayat Pesanan
             </a>
 
             <!-- Logout -->
-            <div
-                style="width:100%;display:flex;justify-content:flex-end;"
-            >
+            <div class="profil-logout-row">
 
-               <form
-    action="{{ route('logout') }}"
-    method="POST"
-                    style="margin:0;"
-                >
+                <form action="{{ route('logout') }}" method="POST">
                     @csrf
 
-                    <button
-                        type="submit"
-                        class="btn-logout-right"
-                        style="margin:0;border:none;cursor:pointer;"
-                    >
+                    <button type="submit" class="btn-logout-right">
                         Keluar Akun
                     </button>
 

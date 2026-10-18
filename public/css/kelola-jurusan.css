@@ -1,0 +1,180 @@
+/* =========================================================
+   KELOLA PRODUK / JASA / PORTOFOLIO - ADMIN JURUSAN
+   Tombol umum (.btn-jurusan-primary, .btn-jurusan-danger)
+   ada di admin-jurusan.css
+   ========================================================= */
+
+/* Modal form */
+.modal-box.modal-box-form {
+  max-width: 500px;
+}
+
+.label-optional {
+  color: #94a3b8;
+}
+
+/* Input file */
+.form-file-input {
+  padding: 10px;
+  cursor: pointer;
+  background: #f8fafc;
+}
+
+/* =========================================================
+   PREVIEW GAMBAR UPLOAD
+   ========================================================= */
+
+.upload-preview {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.upload-preview-item {
+  position: relative;
+  display: inline-block;
+}
+
+.upload-preview-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.upload-preview-img.is-contain {
+  object-fit: contain;
+}
+
+.upload-preview-label {
+  font-size: 11px;
+  text-align: center;
+  margin-top: 4px;
+  color: #64748b;
+}
+
+.upload-preview-empty {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.upload-preview-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================================================
+   KARTU (dibuat oleh kelola-layanan.js & kelola-portofolio.js)
+   ========================================================= */
+
+.catalog-card .catalog-meta {
+  margin-bottom: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Harga + satuan yang panjang turun baris, tidak mendorong badge pesanan */
+.catalog-card .catalog-price {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.catalog-card .catalog-stats {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.portfolio-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Tombol Hapus di kartu: merah */
+.catalog-actions .btn-delete,
+.catalog-actions .btn-delete-porto {
+  background: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  transition: all 0.2s ease;
+}
+
+.catalog-actions .btn-delete:hover,
+.catalog-actions .btn-delete-porto:hover {
+  background: #dc3545;
+  color: #ffffff;
+  border-color: #dc3545;
+}
+
+/* =========================================================
+   KOSONG / ERROR DI DALAM GRID
+   ========================================================= */
+
+.grid-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.grid-state-icon {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.grid-state-title {
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.grid-state-text {
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   TOAST ERROR
+   ========================================================= */
+
+.toast-notification.is-error {
+  background-color: #dc3545;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .grid-state {
+    padding: 48px 16px;
+  }
+
+  .grid-state-icon {
+    font-size: 44px;
+  }
+}
+
+/* =========================================================
+   TEXTAREA DI MODAL: tidak bisa di-resize
+   ========================================================= */
+
+.modal-box textarea.form-control {
+  resize: none;
+}

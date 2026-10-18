@@ -2,165 +2,13 @@
 
 @section('title','Tambah Akun')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/akun-tefa.css') }}?v=2">
+@endpush
+
 @section('content')
 
-<style>
-    .akun-create-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    .btn-back {
-        display: inline-block;
-        padding: 8px 16px;
-        border: 1px solid #1E3A8A;
-        border-radius: 8px;
-        color: #1E3A8A;
-        background: #fff;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 24px;
-    }
-
-    .btn-back:hover {
-        background: #1E3A8A;
-        color: #fff;
-    }
-
-    .akun-create-title {
-        margin-bottom: 20px;
-        color: #1E2D3D;
-        font-size: 24px;
-        font-weight: 700;
-    }
-
-    .akun-form-card {
-        background: white;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        border: 1px solid #f1f5f9;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 8px;
-        color: #1E2D3D;
-        font-size: 14px;
-    }
-
-    .form-control {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #CBD5E1;
-        border-radius: 8px;
-        font-size: 14px;
-        color: #334155;
-        outline: none;
-        box-sizing: border-box;
-        font-family: inherit;
-        background: #fff;
-    }
-
-    .form-control:focus {
-        border-color: #3B698F;
-        box-shadow: 0 0 0 3px rgba(59, 105, 143, 0.1);
-    }
-
-    .form-actions {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        margin-top: 30px;
-    }
-
-    .btn-primary {
-        background: #1e3a8ad9;
-        color: white;
-        padding: 10px 24px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 14px;
-        transition: all 0.2s ease;
-    }
-
-    .btn-primary:hover,
-    .btn-primary:focus {
-        background: #1E3A8A;
-        color: white;
-    }
-
-    .btn-primary:active {
-        background: #172E6F;
-        color: white;
-    }
-
-    .btn-secondary {
-        text-decoration: none;
-        padding: 10px 24px;
-        border: 1px solid #CBD5E1;
-        border-radius: 8px;
-        color: #1E3A8A;
-        background: #F8FAFC;
-        font-weight: 600;
-        font-size: 14px;
-    }
-
-    .btn-secondary:hover {
-        background: #E2E8F0;
-        color: #1E293B;
-    }
-
-    .error-message {
-        background: #FEF2F2;
-        color: #991B1B;
-        border: 1px solid #FECACA;
-        padding: 12px 16px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        font-size: 14px;
-    }
-
-    .error-message ul {
-        margin: 0;
-        padding-left: 20px;
-    }
-
-    @media (max-width: 768px) {
-
-        .akun-create-container {
-            padding: 15px;
-        }
-
-        .akun-form-card {
-            padding: 20px;
-        }
-
-        .form-actions {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .btn-primary,
-        .btn-secondary {
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-        }
-    }
-</style>
-
-
-<div class="akun-create-container">
+<div class="form-container">
 
     {{-- Tombol kembali --}}
     <a
@@ -171,20 +19,14 @@
     </a>
 
 
-    <h2 class="akun-create-title">
+    <h2 class="form-title">
         Tambah Akun Baru
     </h2>
 
 
-    <div class="akun-form-card">
+    <div class="form-card">
 
-        <p
-            style="
-                margin:0 0 25px;
-                color:#64748B;
-                font-size:14px;
-            "
-        >
+        <p class="akun-form-intro">
             Tambahkan admin baru untuk mengelola TEFA
         </p>
 
@@ -211,11 +53,12 @@
         @endif
 
 
-      <form
-    action="{{ route('akun.store') }}"
-    method="POST"
-    id="formTambahAkun"
->
+        <form
+            action="{{ route('akun.store') }}"
+            method="POST"
+            id="formTambahAkun"
+        >
+
             @csrf
 
 
@@ -275,15 +118,15 @@
                     Password
                 </label>
 
-               <input
-    type="password"
-    id="password"
-    name="password"
-    class="form-control"
-    placeholder="Masukkan password"
-    minlength="6"
-    required
->
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Masukkan password"
+                    minlength="6"
+                    required
+                >
 
             </div>
 
@@ -332,11 +175,11 @@
             </div>
 
 
-            <!-- JURUSAN -->
+            <!-- JURUSAN (ditampilkan / disembunyikan oleh akun.js) -->
             <div
                 id="jurusanContainer"
-                style="display:none;"
                 class="form-group"
+                style="display:none;"
             >
 
                 <label
@@ -367,6 +210,10 @@
                             {{ old('id_jurusan') == $jurusan->id_jurusan ? 'selected' : '' }}
                         >
                             {{ $jurusan->nama_jurusan }}
+
+                            @if($jurusan->user && $jurusan->user->status === 'tidak_aktif')
+                                (admin sebelumnya nonaktif)
+                            @endif
                         </option>
 
                     @endforeach
@@ -379,12 +226,7 @@
             <!-- BANTUAN JURUSAN -->
             <span
                 id="helpTextJurusan"
-                style="
-                    display:block;
-                    color:#64748B;
-                    font-size:13px;
-                    margin-bottom:20px;
-                "
+                class="akun-help-text"
             >
                 Pilih role terlebih dahulu untuk menentukan kebutuhan jurusan.
             </span>
@@ -456,6 +298,6 @@
 
 @section('scripts')
 
-<script src="{{ asset('js/akun.js') }}"></script>
+<script src="{{ asset('js/akun-form.js') }}"></script>
 
 @endsection

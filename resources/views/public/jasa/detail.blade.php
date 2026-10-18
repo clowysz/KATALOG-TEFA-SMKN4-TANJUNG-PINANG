@@ -8,7 +8,7 @@
 
 <div class="detail-page-wrapper">
 
-    <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="detail-back-wrap">
         @php
             $isFromKatalog = request()->query('from') === 'katalog';
 
@@ -49,26 +49,26 @@
                     </div>
 
                     @if($gambars->count() > 1)
-                        <button type="button" class="carousel-btn prev-btn" onclick="moveSlide(-1)">
+                        <button type="button" class="carousel-btn prev-btn" aria-label="Gambar sebelumnya" data-slide-dir="-1">
                             <i class="ph ph-caret-left"></i>
                         </button>
-                        <button type="button" class="carousel-btn next-btn" onclick="moveSlide(1)">
+                        <button type="button" class="carousel-btn next-btn" aria-label="Gambar berikutnya" data-slide-dir="1">
                             <i class="ph ph-caret-right"></i>
                         </button>
 
                         <div class="carousel-nav-dots">
                             @foreach($gambars as $index => $gambar)
-                                <button type="button" class="carousel-dot {{ $index === 0 ? 'active' : '' }}" onclick="goToSlide({{ $index }})"></button>
+                                <button type="button" class="carousel-dot {{ $index === 0 ? 'active' : '' }}" aria-label="Gambar {{ $index + 1 }}" data-slide-index="{{ $index }}"></button>
                             @endforeach
                         </div>
                     @endif
                 </div>
 
-                <!-- PREVIEW GAMBAR KECIL DI BAWAH (SESUAI PERMINTAAN) -->
+                <!-- PREVIEW GAMBAR KECIL DI BAWAH -->
                 @if($gambars->count() > 1)
                     <div class="carousel-thumbnails">
                         @foreach($gambars as $index => $gambar)
-                            <div class="thumb-item {{ $index === 0 ? 'active' : '' }}" onclick="goToSlide({{ $index }})">
+                            <div class="thumb-item {{ $index === 0 ? 'active' : '' }}" data-slide-index="{{ $index }}">
                                 <img src="{{ asset('storage/' . $gambar->path_gambar) }}" alt="Thumbnail {{ $index + 1 }}">
                             </div>
                         @endforeach
@@ -113,9 +113,9 @@
                     : $loginUrl }}"
                 class="btn-pesan"
             >
-                <i class="ph ph-shopping-cart" style="font-size: 22px;"></i>
+                <i class="ph ph-shopping-cart ico-lead"></i>
                 Pesan Sekarang
-                <i class="ph ph-arrow-right" style="font-size: 18px; margin-left: auto;"></i>
+                <i class="ph ph-arrow-right ico-arrow"></i>
             </a>
         </div>
 
@@ -161,68 +161,8 @@
 
 </div>
 
-<script>
-    let currentIndex = 0;
-
-    function moveSlide(direction) {
-        const track = document.getElementById('carouselTrack');
-        if (!track) return;
-
-        const slides = Array.from(track.children);
-
-        currentIndex += direction;
-
-        if (currentIndex >= slides.length) {
-            currentIndex = 0;
-        } else if (currentIndex < 0) {
-            currentIndex = slides.length - 1;
-        }
-
-        updateCarousel();
-    }
-
-    function goToSlide(index) {
-        currentIndex = index;
-        updateCarousel();
-    }
-
-    function updateCarousel() {
-        const track = document.getElementById('carouselTrack');
-        if (!track) return;
-
-        const slides = Array.from(track.children);
-        if (slides.length === 0) return;
-
-        const slideWidth = slides[0].getBoundingClientRect().width;
-
-        track.style.transform =
-            'translateX(-' + (currentIndex * slideWidth) + 'px)';
-
-        const dots = document.querySelectorAll('.carousel-dot');
-
-        dots.forEach((dot, idx) => {
-            if (idx === currentIndex) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
-        });
-
-        // Update Thumbnails Active State
-        const thumbs = document.querySelectorAll('.thumb-item');
-
-        thumbs.forEach((thumb, idx) => {
-            if (idx === currentIndex) {
-                thumb.classList.add('active');
-            } else {
-                thumb.classList.remove('active');
-            }
-        });
-    }
-
-    window.addEventListener('resize', () => {
-        updateCarousel();
-    });
-</script>
-
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/detail-galeri-pembeli.js') }}"></script>
+@endpush

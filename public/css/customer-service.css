@@ -1,0 +1,150 @@
+/* =====================================================================
+   HALAMAN CUSTOMER SERVICE (pembeli belum punya pesanan)
+   Taruh di: public/css/customer-service.css
+   ===================================================================== */
+
+main {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.footer,
+footer {
+  margin-top: 0 !important;
+}
+
+.cs-page {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.cs-card {
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.cs-icon {
+  font-size: 60px;
+  color: #1e3a8a;
+  margin-bottom: 20px;
+}
+
+.cs-card h2 {
+  font-size: 24px;
+  color: #1e2d3d;
+  margin-bottom: 10px;
+}
+
+.cs-card p {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.btn-jurusan {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #1e3a8a;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-jurusan:hover {
+  background: #2545a7;
+  transform: scale(1.08);
+}
+
+.btn-jurusan:active {
+  transform: scale(0.97);
+}
+
+.btn-jurusan:focus-visible {
+  outline: 3px solid #eab308;
+  outline-offset: 3px;
+}
+
+/* ---------- Tablet & HP ---------- */
+@media (max-width: 768px) {
+  .cs-page {
+    min-height: 60vh;
+    padding: 28px 16px;
+  }
+
+  .cs-card {
+    padding: 32px 24px;
+    border-radius: 18px;
+  }
+
+  .cs-icon {
+    font-size: 52px;
+    margin-bottom: 14px;
+  }
+
+  .cs-card h2 {
+    font-size: 21px;
+  }
+
+  .cs-card p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .cs-page {
+    min-height: 55vh;
+    padding: 20px 14px;
+  }
+
+  .cs-card {
+    padding: 24px 18px;
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  }
+
+  .cs-icon {
+    font-size: 44px;
+    margin-bottom: 10px;
+  }
+
+  .cs-card h2 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .cs-card p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .btn-jurusan {
+    margin-top: 16px;
+    padding: 10px 20px;
+    font-size: 13.5px;
+    border-radius: 9px;
+  }
+
+  .btn-jurusan:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-jurusan {
+    transition: none !important;
+  }
+}

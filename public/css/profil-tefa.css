@@ -1,0 +1,128 @@
+/* =========================================================
+   PROFIL TEFA (admin_tefa/profil)
+
+   Desktop : kartu profil di tengah (maks. 450px)
+   Mobile  : (<= 768px) kartu selebar layar, avatar & teks mengecil
+========================================================= */
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 450px;
+  margin: 40px auto;
+  padding: 32px;
+}
+
+/* ---------- Identitas ---------- */
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+  border: 4px solid #ebf3f9;
+  background-color: #f8f9fa;
+}
+
+.profile-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.profile-role {
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding: 6px 14px;
+  background: #ebf3f9;
+  border-radius: 20px;
+}
+
+/* ---------- Detail ---------- */
+
+.profile-details {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.profile-section {
+  border-bottom: 1px solid #f5f5f5;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+.profile-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* ---------- Tombol logout ---------- */
+
+.btn-logout {
+  color: #dc3545;
+  border-color: #dc3545;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.btn-logout:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-logout:focus-visible {
+  outline: 3px solid #eab308;
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* ---------- MOBILE (<= 768px) ---------- */
+@media (max-width: 768px) {
+  .profile-container {
+    margin: 16px auto;
+    padding: 20px;
+  }
+
+  .profile-avatar {
+    width: 96px;
+    height: 96px;
+  }
+
+  .profile-name {
+    font-size: 20px;
+  }
+
+  .btn-logout {
+    padding: 12px;
+  }
+}
+
+/* ---------- HP KECIL (<= 480px) ---------- */
+@media (max-width: 480px) {
+  .profile-container {
+    margin: 8px auto;
+    padding: 20px 16px;
+  }
+
+  .profile-role {
+    margin-bottom: 20px;
+  }
+
+  .profile-details {
+    margin-bottom: 24px;
+  }
+}

@@ -1,0 +1,123 @@
+/* =========================================================
+   MODAL LOGOUT - ADMIN JURUSAN
+   Dibuka / ditutup oleh js/logout-modal-jurusan.js
+   ========================================================= */
+
+.modal-logout-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 99999;
+}
+
+.modal-logout-overlay.active {
+    display: flex;
+}
+
+.modal-logout-box {
+    background: #fff;
+    padding: 32px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 440px;
+    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-logout-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #20456e;
+    margin: 0 0 8px;
+}
+
+.modal-logout-desc {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 24px;
+}
+
+.modal-logout-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-logout-form {
+    flex: 1;
+    margin: 0;
+}
+
+.btn-modal-cancel {
+    background: #fff;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-modal-cancel:hover {
+    background: #f8fafc;
+}
+
+.btn-modal-logout {
+    display: block;
+    width: 100%;
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-modal-logout:hover {
+    background: #b91c1c;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 480px) {
+    .modal-logout-box {
+        padding: 24px 20px;
+        border-radius: 16px;
+    }
+
+    .modal-logout-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .btn-modal-cancel {
+        width: 100%;
+    }
+}

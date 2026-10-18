@@ -2,352 +2,17 @@
 
 @section('title','Detail Akun')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/akun-tefa.css') }}?v=2">
+@endpush
+
 @section('content')
-
-<style>
-    /* Styling khusus untuk halaman detail */
-    .detail-wrapper {
-        padding: 0px 24px;
-        max-width: 700px;
-        margin: 24px auto;
-    }
-
-    .back-link {
-        display: inline-block;
-        padding: 8px 16px;
-        border: 1px solid #1E3A8A;
-        border-radius: 8px;
-        color: #1E3A8A;
-        background: #fff;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 24px;
-    }
-
-    .back-link:hover {
-        background: #1E3A8A;
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .page-title {
-        font-size: 22px;
-        font-weight: 700;
-        color: #1e293b;
-        margin: 0 0 24px 0;
-    }
-
-    .alert-custom {
-        padding: 14px 20px;
-        border-radius: 8px;
-        margin-bottom: 24px;
-        font-size: 14px;
-    }
-
-    .alert-success {
-        background: #dcfce7;
-        color: #166534;
-        border: 1px solid #bbf7d0;
-    }
-
-    .alert-danger {
-        background: #fee2e2;
-        color: #991b1b;
-        border: 1px solid #fecaca;
-    }
-
-    /* Card Detail */
-    .detail-card {
-        background: #fff;
-        border-radius: 12px;
-        padding: 24px 32px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        border: 1px solid #e2e8f0;
-        margin-bottom: 24px;
-    }
-
-    .info-row {
-        display: flex;
-        padding: 16px 0;
-        border-bottom: 1px solid #f1f5f9;
-        align-items: center;
-    }
-
-    .info-row:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-
-    .info-label {
-        width: 35%;
-        color: #64748b;
-        font-weight: 600;
-        font-size: 14px;
-    }
-
-    .info-value {
-        width: 65%;
-        color: #0f172a;
-        font-size: 15px;
-        font-weight: 600;
-    }
-
-    /* Badges */
-    .badge-role {
-        background: #e0e7ff;
-        color: #3730a3;
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    .badge-status {
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .status-active {
-        background: #dcfce7;
-        color: #166534;
-    }
-
-    .status-inactive {
-        background: #fee2e2;
-        color: #991b1b;
-    }
-
-    /* Buttons */
-    .action-buttons {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 24px;
-    }
-
-    .btn-custom {
-        padding: 10px 18px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        text-decoration: none;
-        border: 1px solid transparent;
-        transition: all 0.2s ease;
-    }
-
-    /* Edit Akun - disamakan dengan primary sebelumnya */
-    .btn-primary-custom {
-        background: #1e3a8ad9;
-        color: #fff;
-    }
-
-    .btn-primary-custom:hover,
-    .btn-primary-custom:focus {
-        background: #1E3A8A;
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .btn-primary-custom:active {
-        background: #172E6F;
-        color: #fff;
-    }
-
-    .btn-outline-primary-custom {
-        background: #fff;
-        color: #1E3A8A;
-        border-color: #1E3A8A;
-    }
-
-    .btn-outline-primary-custom:hover {
-        background: #F0F4FF;
-        color: #1E3A8A;
-    }
-
-    .btn-outline-danger-custom {
-        background: #fff;
-        color: #ef4444;
-        border-color: #ef4444;
-    }
-
-    .btn-outline-danger-custom:hover {
-        background: #fef2f2;
-        color: #ef4444;
-    }
-
-    /* Form Reset */
-    .reset-form-box {
-        background: #f8fafc;
-        border-radius: 12px;
-        padding: 24px;
-        border: 1px solid #e2e8f0;
-    }
-
-    .form-group-custom {
-        margin-bottom: 16px;
-    }
-
-    .form-group-custom label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        color: #475569;
-        font-size: 14px;
-    }
-
-    .form-control-custom {
-        width: 100%;
-        padding: 10px 14px;
-        border: 1px solid #cbd5e1;
-        border-radius: 8px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
-
-    .form-control-custom:focus {
-        outline: none;
-        border-color: #3B698F;
-    }
-
-
-    /* =========================
-       MODAL AKSES AKUN
-    ========================== */
-
-    .modal-access-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(15, 23, 42, 0.45);
-        backdrop-filter: blur(2px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 99999;
-    }
-
-    .modal-access-box {
-        background: #fff;
-        padding: 32px;
-        border-radius: 20px;
-        width: 90%;
-        max-width: 440px;
-        box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-        text-align: left;
-        animation: accessModalFadeIn 0.2s ease-out;
-    }
-
-    @keyframes accessModalFadeIn {
-        from {
-            opacity: 0;
-            transform: scale(.95);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    .modal-access-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: #20456E;
-        margin: 0 0 8px;
-        font-family: sans-serif;
-    }
-
-    .modal-access-desc {
-        font-size: 14px;
-        color: #64748B;
-        margin: 0 0 24px;
-        font-family: sans-serif;
-        line-height: 1.5;
-    }
-
-    .modal-access-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .btn-modal-access-cancel {
-        background: #fff;
-        color: #334155;
-        border: 1px solid #CBD5E1;
-        padding: 12px 24px;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: .2s;
-        flex: 1;
-    }
-
-    .btn-modal-access-cancel:hover {
-        background: #F8FAFC;
-    }
-
-    .btn-modal-access-confirm {
-        display: block;
-        background: #DC2626;
-        color: #fff;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 10px;
-        font-size: 15px;
-        font-weight: 700;
-        text-align: center;
-        transition: .2s;
-        cursor: pointer;
-        flex: 1;
-    }
-
-    .btn-modal-access-confirm:hover {
-        background: #B91C1C;
-    }
-
-
-    /* =========================
-       RESPONSIVE
-    ========================== */
-
-    @media (max-width: 768px) {
-
-        .detail-wrapper {
-            padding: 15px;
-        }
-
-        .action-buttons {
-            flex-wrap: wrap;
-        }
-
-        .modal-access-box {
-            padding: 24px;
-        }
-
-        .modal-access-actions {
-            flex-direction: column;
-        }
-
-        .btn-modal-access-cancel,
-        .btn-modal-access-confirm {
-            width: 100%;
-        }
-    }
-</style>
-
 
 <div class="detail-wrapper">
 
     <a
         href="{{ route('akun.index') }}"
-        class="back-link"
+        class="btn-back"
     >
         &larr; Kembali ke Daftar Akun
     </a>
@@ -371,7 +36,7 @@
 
         <div class="alert-custom alert-danger">
 
-            <ul style="margin:0; padding-left:20px;">
+            <ul class="alert-list">
 
                 @foreach($errors->all() as $error)
 
@@ -479,10 +144,7 @@
                 Password
             </span>
 
-            <span
-                class="info-value"
-                style="letter-spacing: 2px;"
-            >
+            <span class="info-value info-value-password">
                 ••••••••
             </span>
 
@@ -515,9 +177,9 @@
 
             <form
                 id="accessActionForm"
+                class="access-form"
                 action="{{ route('akun.updateStatus',$akun->id) }}"
                 method="POST"
-                style="margin: 0;"
             >
 
                 @csrf
@@ -533,7 +195,7 @@
                 <button
                     type="button"
                     class="btn-custom btn-outline-danger-custom"
-                    onclick="openAccessModal('nonaktifkan')"
+                    data-access-open="nonaktifkan"
                 >
                     Hapus Akses
                 </button>
@@ -544,9 +206,9 @@
 
             <form
                 id="accessActionForm"
+                class="access-form"
                 action="{{ route('akun.updateStatus',$akun->id) }}"
                 method="POST"
-                style="margin: 0;"
             >
 
                 @csrf
@@ -562,7 +224,7 @@
                 <button
                     type="button"
                     class="btn-custom btn-outline-primary-custom"
-                    onclick="openAccessModal('aktifkan')"
+                    data-access-open="aktifkan"
                 >
                     Aktifkan Akses
                 </button>
@@ -574,21 +236,14 @@
     </div>
 
 
-    <!-- Form Reset Password -->
+    <!-- Form Reset Password (ditampilkan / disembunyikan oleh akun-detail.js) -->
     <div
         id="resetPasswordForm"
         class="reset-form-box"
         style="display:none;"
     >
 
-        <h3
-            style="
-                margin-top:0;
-                color:#1e293b;
-                font-size:18px;
-                margin-bottom:20px;
-            "
-        >
+        <h3 class="reset-form-title">
             Reset Password
         </h3>
 
@@ -639,13 +294,7 @@
             </div>
 
 
-            <div
-                style="
-                    display:flex;
-                    gap:12px;
-                    margin-top:24px;
-                "
-            >
+            <div class="reset-form-actions">
 
                 <button
                     type="button"
@@ -674,6 +323,7 @@
 
 {{-- =========================
      MODAL KONFIRMASI AKSES
+     (ditampilkan oleh akun-access-modal.js)
 ========================== --}}
 
 <div
@@ -705,7 +355,7 @@
             <button
                 type="button"
                 class="btn-modal-access-cancel"
-                onclick="closeAccessModal()"
+                data-access-close
             >
                 Batal
             </button>
@@ -714,7 +364,7 @@
             <button
                 type="button"
                 class="btn-modal-access-confirm"
-                onclick="submitAccessForm()"
+                data-access-submit
             >
                 Hapus Akses
             </button>
@@ -732,110 +382,5 @@
 @section('scripts')
 
 <script src="{{ asset('js/akun-detail.js') }}"></script>
-
-
-<script>
-
-    let accessActionForm = null;
-
-
-    function openAccessModal(action) {
-
-        accessActionForm =
-            document.getElementById('accessActionForm');
-
-
-        const modal =
-            document.getElementById('accessModal');
-
-
-        const title =
-            document.getElementById('accessModalTitle');
-
-
-        const desc =
-            document.getElementById('accessModalDesc');
-
-
-        const confirmButton =
-            document.querySelector(
-                '.btn-modal-access-confirm'
-            );
-
-
-        if (action === 'aktifkan') {
-
-            title.textContent = 'Aktifkan Akses?';
-
-            desc.textContent =
-                'Apakah Anda yakin ingin mengaktifkan kembali akses akun ini?';
-
-            confirmButton.textContent =
-                'Aktifkan Akses';
-
-            confirmButton.style.background =
-                '#1E3A8A';
-
-        } else {
-
-            title.textContent = 'Hapus Akses?';
-
-            desc.textContent =
-                'Apakah Anda yakin ingin menonaktifkan akses akun ini?';
-
-            confirmButton.textContent =
-                'Hapus Akses';
-
-            confirmButton.style.background =
-                '#DC2626';
-
-        }
-
-
-        modal.style.display = 'flex';
-
-    }
-
-
-    function closeAccessModal() {
-
-        const modal =
-            document.getElementById('accessModal');
-
-        modal.style.display = 'none';
-
-        accessActionForm = null;
-
-    }
-
-
-    function submitAccessForm() {
-
-        if (accessActionForm) {
-
-            accessActionForm.submit();
-
-        }
-
-    }
-
-
-    window.addEventListener(
-        'click',
-        function(e) {
-
-            const modal =
-                document.getElementById('accessModal');
-
-            if (e.target === modal) {
-
-                closeAccessModal();
-
-            }
-
-        }
-    );
-
-</script>
 
 @endsection

@@ -1,0 +1,218 @@
+/* =========================================================
+   JURUSAN TEFA (admin_tefa/jurusan)
+   Desktop : kartu menyesuaikan lebar (minimal 320px per kartu)
+   Mobile  : kartu 1 kolom, statistik 2 x 2 versi ringkas
+========================================================= */
+
+/* ---------- Header halaman ---------- */
+
+.jurusan-page-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.jurusan-page-subtitle {
+    color: #64748b;
+    margin-top: 6px;
+}
+
+/* ---------- Grid kartu jurusan ---------- */
+
+.tefa-jurusan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.j-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+    min-width: 0;
+}
+
+.j-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 20px;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- Statistik ---------- */
+
+.j-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.j-stat-box {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.j-stat-num {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.j-stat-label {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* ---------- Tema warna per jurusan ---------- */
+
+.theme-rpl {
+    border-top: 4px solid #d97706;
+}
+
+.theme-rpl .j-stat-num {
+    color: #d97706;
+}
+
+.theme-tkj {
+    border-top: 4px solid #059669;
+}
+
+.theme-tkj .j-stat-num {
+    color: #059669;
+}
+
+.theme-dkv {
+    border-top: 4px solid #991b1b;
+}
+
+.theme-dkv .j-stat-num {
+    color: #991b1b;
+}
+
+.theme-animasi {
+    border-top: 4px solid #024cb4;
+}
+
+.theme-animasi .j-stat-num {
+    color: #024cb4;
+}
+
+.theme-gim {
+    border-top: 4px solid #7fbfff;
+}
+
+.theme-gim .j-stat-num {
+    color: #7fbfff;
+}
+
+.theme-pspt {
+    border-top: 4px solid #c5c528;
+}
+
+.theme-pspt .j-stat-num {
+    color: #c5c528;
+}
+
+/* ---------- Keadaan kosong ---------- */
+
+.empty-jurusan {
+    text-align: center;
+    padding: 60px 20px;
+    color: #64748b;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+}
+
+.empty-jurusan-title {
+    margin-bottom: 8px;
+    color: #1e293b;
+}
+
+.empty-jurusan-text {
+    margin: 0;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* ---------- TABLET ---------- */
+@media (max-width: 1024px) {
+    .tefa-jurusan-grid {
+        gap: 20px;
+    }
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+    .jurusan-page-title {
+        font-size: 18px;
+    }
+
+    .jurusan-page-subtitle {
+        font-size: 13px;
+        margin-top: 4px;
+    }
+
+    .tefa-jurusan-grid {
+        gap: 14px;
+        margin-top: 16px;
+    }
+
+    .j-card {
+        padding: 18px;
+        border-radius: 10px;
+    }
+
+    .j-card-title {
+        font-size: 15px;
+        margin-bottom: 14px;
+    }
+
+    .j-stats {
+        gap: 10px;
+    }
+
+    .j-stat-box {
+        padding: 12px;
+    }
+
+    .j-stat-num {
+        font-size: 22px;
+    }
+
+    .j-stat-label {
+        font-size: 12px;
+    }
+
+    .empty-jurusan {
+        padding: 40px 16px;
+    }
+}
+
+/* ---------- HP KECIL ---------- */
+@media (max-width: 380px) {
+    .j-card {
+        padding: 14px;
+    }
+
+    .j-stats {
+        gap: 8px;
+    }
+
+    .j-stat-box {
+        padding: 10px;
+    }
+
+    .j-stat-num {
+        font-size: 20px;
+    }
+}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -11,6 +12,61 @@ use App\Models\Jurusan;
 
 class AkunController extends Controller
 {
+    // =========================================================
+    // ATURAN JURUSAN (1 jurusan = 1 Admin Jurusan aktif)
+    // =========================================================
+
+    /**
+     * Daftar jurusan yang boleh dipilih pada form.
+     *
+     * Sebuah jurusan boleh dipilih jika:
+     *  - belum memiliki Admin Jurusan, atau
+     *  - Admin Jurusan-nya berstatus tidak aktif, atau
+     *  - jurusan itu milik akun yang sedang diedit ($akun).
+     */
+    private function jurusanTersedia(?User $akun = null)
+    {
+        return Jurusan::with('user:id,nama,status')
+            ->where(function ($query) use ($akun) {
+
+                $query->whereDoesntHave('user')
+                    ->orWhereHas('user', function ($user) {
+                        $user->where('status', 'tidak_aktif');
+                    });
+
+                if ($akun) {
+                    $query->orWhere('id_user', $akun->id);
+                }
+
+            })
+            ->orderBy('nama_jurusan')
+            ->get();
+    }
+
+
+    /**
+     * Pemeriksaan di sisi server (dropdown saja tidak cukup).
+     * Aturannya sama dengan jurusanTersedia().
+     */
+    private function jurusanBisaDipakai(Jurusan $jurusan, ?int $akunId = null): bool
+    {
+        // Belum punya admin
+        if (!$jurusan->id_user) {
+            return true;
+        }
+
+        // Admin-nya adalah akun itu sendiri
+        if ($akunId && (int) $jurusan->id_user === $akunId) {
+            return true;
+        }
+
+        // Admin lama sudah tidak ada, atau berstatus tidak aktif
+        $pemegang = $jurusan->user;
+
+        return !$pemegang || $pemegang->status === 'tidak_aktif';
+    }
+
+
     // =========================================================
     // DAFTAR AKUN
     // =========================================================
@@ -39,9 +95,8 @@ class AkunController extends Controller
 
     public function create()
     {
-        // Hanya jurusan yang belum memiliki Admin Jurusan
-        // yang dapat dipilih.
-        $jurusanKosong = Jurusan::whereNull('id_user')->get();
+        // Jurusan yang belum punya admin, atau adminnya nonaktif.
+        $jurusanKosong = $this->jurusanTersedia();
 
         return view(
             'admin.admin_tefa.akun.create',
@@ -101,53 +156,69 @@ class AkunController extends Controller
 
         if ($request->role === 'admin_jurusan') {
 
-            $jurusan = Jurusan::findOrFail(
+            $jurusan = Jurusan::with('user')->findOrFail(
                 $request->id_jurusan
             );
 
-            // Satu jurusan hanya boleh memiliki
-            // satu Admin Jurusan.
-            if ($jurusan->id_user) {
+            // Satu jurusan hanya boleh memiliki satu Admin Jurusan
+            // yang aktif. Jurusan dengan admin nonaktif boleh diambil alih.
+            if (!$this->jurusanBisaDipakai($jurusan)) {
                 return redirect()
                     ->back()
                     ->withInput()
                     ->withErrors([
                         'id_jurusan' =>
-                            'Jurusan ini sudah memiliki Admin Jurusan.'
+                            'Jurusan ini sudah memiliki Admin Jurusan yang aktif.'
                     ]);
             }
 
+            // Admin lama (nonaktif) yang akan digantikan, jika ada
+            $adminLama = $jurusan->user;
 
-            // Buat akun Admin Jurusan
-            $akun = User::create([
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => 'admin_jurusan',
-                'status' => $request->status,
-            ]);
+            DB::transaction(function () use ($request, $jurusan) {
 
+                // Buat akun Admin Jurusan
+                $akun = User::create([
+                    'nama' => $request->nama,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'role' => 'admin_jurusan',
+                    'status' => $request->status,
+                ]);
 
-            // Hubungkan jurusan dengan akun tersebut
-            $jurusan->update([
-                'id_user' => $akun->id,
-            ]);
+                // Hubungkan jurusan dengan akun baru. Karena relasinya
+                // satu kolom (jurusans.id_user), admin lama otomatis
+                // tidak lagi memegang jurusan ini.
+                $jurusan->update([
+                    'id_user' => $akun->id,
+                ]);
+            });
 
-        } else {
+            $pesan = 'Akun berhasil ditambahkan.';
 
-            // =================================================
-            // JIKA ROLE ADMIN TEFA
-            // =================================================
+            if ($adminLama) {
+                $pesan .= ' Admin sebelumnya (' . $adminLama->nama
+                    . ') tidak lagi memegang jurusan ini.';
+            }
 
-            // Admin TEFA tidak terikat jurusan.
-            User::create([
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => 'admin_tefa',
-                'status' => $request->status,
-            ]);
+            return redirect()
+                ->route('akun.index')
+                ->with('success', $pesan);
         }
+
+
+        // =====================================================
+        // JIKA ROLE ADMIN TEFA
+        // =====================================================
+
+        // Admin TEFA tidak terikat jurusan.
+        User::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'admin_tefa',
+            'status' => $request->status,
+        ]);
 
 
         return redirect()
@@ -192,21 +263,9 @@ class AkunController extends Controller
         ->with('jurusanDipegang')
         ->findOrFail($id);
 
-        // Jurusan yang belum memiliki Admin Jurusan.
-        // Jurusan milik akun yang sedang diedit juga
-        // tetap dimasukkan.
-        $jurusanKosong = Jurusan::where(function ($query) use ($akun) {
-
-            $query->whereNull('id_user');
-
-            if ($akun->jurusanDipegang) {
-                $query->orWhere(
-                    'id_jurusan',
-                    $akun->jurusanDipegang->id_jurusan
-                );
-            }
-
-        })->get();
+        // Jurusan yang belum punya admin, atau adminnya nonaktif.
+        // Jurusan milik akun yang sedang diedit juga tetap dimasukkan.
+        $jurusanKosong = $this->jurusanTersedia($akun);
 
         return view(
             'admin.admin_tefa.akun.edit',
@@ -264,71 +323,65 @@ class AkunController extends Controller
         ]);
 
 
-        // =====================================================
-        // LEPAS JURUSAN LAMA
-        // =====================================================
-
         $jurusanLama = $akun->jurusanDipegang;
-
-
-        if ($jurusanLama) {
-            $jurusanLama->update([
-                'id_user' => null,
-            ]);
-        }
+        $jurusanBaru = null;
 
 
         // =====================================================
-        // UPDATE DATA USER
-        // =====================================================
-
-        $akun->update([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'role' => $request->role,
-            'status' => $request->status,
-        ]);
-
-
-        // =====================================================
-        // JIKA MENJADI ADMIN JURUSAN
+        // JIKA MENJADI / TETAP ADMIN JURUSAN
         // =====================================================
 
         if ($request->role === 'admin_jurusan') {
 
-            $jurusanBaru = Jurusan::findOrFail(
+            $jurusanBaru = Jurusan::with('user')->findOrFail(
                 $request->id_jurusan
             );
 
-
-            // Pastikan jurusan tersebut tidak sedang
-            // dimiliki Admin Jurusan lain.
-            if (
-                $jurusanBaru->id_user &&
-                $jurusanBaru->id_user != $akun->id
-            ) {
-
-                // Kembalikan jurusan lama jika ada.
-                if ($jurusanLama) {
-                    $jurusanLama->update([
-                        'id_user' => $akun->id,
-                    ]);
-                }
-
+            // Diperiksa SEBELUM ada data yang diubah, supaya jika ditolak
+            // tidak ada perubahan yang tersimpan setengah-setengah.
+            if (!$this->jurusanBisaDipakai($jurusanBaru, $akun->id)) {
                 return redirect()
                     ->back()
                     ->withInput()
                     ->withErrors([
                         'id_jurusan' =>
-                            'Jurusan ini sudah memiliki Admin Jurusan.'
+                            'Jurusan ini sudah memiliki Admin Jurusan yang aktif.'
                     ]);
             }
-
-
-            $jurusanBaru->update([
-                'id_user' => $akun->id,
-            ]);
         }
+
+
+        DB::transaction(function () use ($request, $akun, $jurusanLama, $jurusanBaru) {
+
+            // Lepas jurusan lama jika pindah jurusan atau
+            // berubah menjadi Admin TEFA.
+            if (
+                $jurusanLama &&
+                (
+                    !$jurusanBaru ||
+                    (int) $jurusanLama->id_jurusan !== (int) $jurusanBaru->id_jurusan
+                )
+            ) {
+                $jurusanLama->update([
+                    'id_user' => null,
+                ]);
+            }
+
+            // Update data user
+            $akun->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'role' => $request->role,
+                'status' => $request->status,
+            ]);
+
+            // Pasang jurusan baru (jika Admin Jurusan)
+            if ($jurusanBaru) {
+                $jurusanBaru->update([
+                    'id_user' => $akun->id,
+                ]);
+            }
+        });
 
 
         return redirect()
@@ -361,6 +414,23 @@ class AkunController extends Controller
                 ]),
             ],
         ]);
+
+
+        // Admin Jurusan yang jurusannya sudah diambil alih admin lain
+        // tidak boleh langsung diaktifkan: ia tidak lagi memegang jurusan.
+        if (
+            $request->status === 'aktif' &&
+            $akun->role === 'admin_jurusan' &&
+            !$akun->jurusanDipegang
+        ) {
+            return redirect()
+                ->back()
+                ->withErrors([
+                    'status' =>
+                        'Akun ini tidak lagi memegang jurusan (sudah dipakai admin lain). '
+                        . 'Edit akun dan pilih jurusan terlebih dahulu sebelum mengaktifkannya.'
+                ]);
+        }
 
 
         $akun->update([

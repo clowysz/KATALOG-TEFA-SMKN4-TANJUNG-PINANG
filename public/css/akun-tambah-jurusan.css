@@ -1,0 +1,281 @@
+/* =========================================================
+   TAMBAH AKUN - ADMIN JURUSAN
+   ========================================================= */
+
+.jurusan-akun-create-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.jurusan-akun-back {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid #1e3a8a;
+  border-radius: 8px;
+  color: #1e3a8a;
+  background: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.jurusan-akun-back:hover {
+  background: #1e3a8a;
+  color: #fff;
+  text-decoration: none;
+}
+
+.jurusan-akun-create-title {
+  margin-bottom: 20px;
+  color: #1e2d3d;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.jurusan-akun-form-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+}
+
+.jurusan-akun-form-group {
+  margin-bottom: 20px;
+}
+
+.jurusan-akun-form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1e2d3d;
+  font-size: 14px;
+}
+
+/* Tidak dipakai: label Tambah Akun tidak memakai tanda bintang */
+.jurusan-akun-required {
+  color: #dc3545;
+}
+
+.jurusan-akun-form-control {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #334155;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  background: #fff;
+}
+
+.jurusan-akun-form-control:focus {
+  border-color: #3b698f;
+  box-shadow: 0 0 0 3px rgba(59, 105, 143, 0.1);
+}
+
+.jurusan-akun-form-control[readonly] {
+  background: #f8fafc;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.jurusan-akun-password-wrapper {
+  position: relative;
+}
+
+.jurusan-akun-password-wrapper .jurusan-akun-form-control {
+  padding-right: 42px;
+}
+
+.jurusan-akun-toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  border-radius: 4px;
+}
+
+.jurusan-akun-toggle-password:hover {
+  color: #3b698f;
+}
+
+.jurusan-akun-checkbox-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.jurusan-akun-checkbox-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.jurusan-akun-checkbox-item:hover {
+  border-color: #3b698f;
+  background-color: #f0f7ff;
+}
+
+.jurusan-akun-checkbox-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #3b698f;
+  cursor: pointer;
+  margin: 0;
+}
+
+.jurusan-akun-checkbox-item:has(input[type="checkbox"]:checked) {
+  border-color: #3b698f;
+  background-color: #eff6ff;
+  color: #3b698f;
+}
+
+.jurusan-akun-help-text {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.jurusan-akun-error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.jurusan-akun-error ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.jurusan-akun-form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.jurusan-akun-btn-primary {
+  flex: 1;
+  width: auto;
+  box-sizing: border-box;
+  background: #1e3a8ad9;
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.jurusan-akun-btn-primary:hover,
+.jurusan-akun-btn-primary:focus {
+  background: #1e3a8a;
+  color: white;
+}
+
+.jurusan-akun-btn-primary:active {
+  background: #172e6f;
+  color: white;
+}
+
+.jurusan-akun-btn-secondary {
+  flex: 0 0 auto;
+  width: auto;
+  text-decoration: none;
+  padding: 10px 24px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #1e3a8a;
+  background: #f8fafc;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.jurusan-akun-btn-secondary:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+/* Ikon mata: tampil / sembunyikan kata sandi */
+.jurusan-akun-toggle-password .icon-off {
+  display: none;
+}
+
+.jurusan-akun-toggle-password.is-visible .icon-on {
+  display: none;
+}
+
+.jurusan-akun-toggle-password.is-visible .icon-off {
+  display: block;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .jurusan-akun-create-container {
+    padding: 15px 0;
+  }
+
+  .jurusan-akun-create-title {
+    font-size: 20px;
+  }
+
+  .jurusan-akun-form-card {
+    padding: 20px;
+  }
+
+  .jurusan-akun-form-control {
+    font-size: 16px; /* mencegah auto-zoom iOS */
+  }
+
+  .jurusan-akun-form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .jurusan-akun-btn-primary,
+  .jurusan-akun-btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .jurusan-akun-checkbox-item {
+    width: 100%;
+  }
+}
