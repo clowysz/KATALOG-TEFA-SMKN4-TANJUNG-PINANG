@@ -64,4 +64,14 @@ class Pesanan extends Model
             'id_pesanan'
         )->orderBy('urutan');
     }
+    
+    public function permintaanPembatalan()
+    {
+        return $this->hasOne(
+            PermintaanPembatalan::class,
+            'id_pesanan',
+            'id_pesanan'
+        );
+        
+    }
 }

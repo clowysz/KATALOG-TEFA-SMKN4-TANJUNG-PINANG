@@ -7,6 +7,8 @@ use App\Models\ProdukJasa;
 use App\Models\RiwayatStatusPesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\PermintaanPembatalan;
+use Illuminate\Support\Facades\DB;
 
 class PesananPembeliController extends Controller
 {
@@ -121,5 +123,88 @@ class PesananPembeliController extends Controller
             'success',
             'Pesanan berhasil dibuat! Menunggu konfirmasi dari admin.'
         );
+
+   }    
+    public function batalkan(Request $request, $id_pesanan)
+    {
+        if (auth()->user()->role !== 'pembeli') {
+            abort(403, 'Hanya pembeli yang dapat membatalkan pesanan.');
+        }
+
+        $data = $request->validate([
+            'alasan' => 'required|string|max:2000',
+        ]);
+
+        return DB::transaction(function () use ($data, $id_pesanan) {
+            $pesanan = Pesanan::where('id_pesanan', $id_pesanan)
+                ->where('id_user', auth()->id())
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            // Pesanan yang masih menunggu konfirmasi langsung dibatalkan.
+            if ($pesanan->status === 'menunggu konfirmasi') {
+                $pesanan->status = 'dibatalkan';
+                $pesanan->save();
+
+                RiwayatStatusPesanan::create([
+                    'id_pesanan' => $pesanan->id_pesanan,
+                    'status' => 'dibatalkan',
+                    'keterangan' => 'Pesanan dibatalkan langsung oleh pembeli. Alasan: '
+                        . $data['alasan'],
+                    'tanggal_update' => now(),
+                    'id_user' => auth()->id(),
+                ]);
+
+                return redirect('/riwayat-pesanan')
+                    ->with('success', 'Pesanan berhasil dibatalkan.');
+            }
+
+            // Pesanan yang sudah dikonfirmasi perlu persetujuan admin.
+            if ($pesanan->status === 'konfirmasi') {
+                $permintaan = PermintaanPembatalan::firstOrCreate(
+                    ['id_pesanan' => $pesanan->id_pesanan],
+                    [
+                        'alasan' => $data['alasan'],
+                        'status_permintaan' => 'menunggu',
+                    ]
+                );
+
+                if (!$permintaan->wasRecentlyCreated) {
+                    if ($permintaan->status_permintaan === 'menunggu') {
+                        return redirect('/riwayat-pesanan')
+                            ->withErrors([
+                                'error' => 'Permintaan pembatalan pesanan ini masih menunggu keputusan admin.',
+                            ]);
+                    }
+
+                    // Jika permintaan sebelumnya ditolak, izinkan pengajuan ulang.
+                    if ($permintaan->status_permintaan === 'ditolak') {
+                        $permintaan->update([
+                            'alasan' => $data['alasan'],
+                            'status_permintaan' => 'menunggu',
+                            'catatan_admin' => null,
+                            'tanggal_keputusan' => null,
+                            'id_admin' => null,
+                        ]);
+                    } else {
+                        return redirect('/riwayat-pesanan')
+                            ->withErrors([
+                                'error' => 'Permintaan pembatalan ini sudah disetujui.',
+                            ]);
+                    }
+                }
+
+                return redirect('/riwayat-pesanan')
+                    ->with('success', 'Permintaan pembatalan berhasil diajukan dan menunggu keputusan Admin TEFA.');
+            }
+
+            return redirect('/riwayat-pesanan')
+                ->withErrors([
+                    'error' => 'Pesanan tidak dapat dibatalkan karena statusnya sudah '
+                        . $pesanan->status . '.',
+                ]);
+        });
     }
-}
+
+
+        }

@@ -121,6 +121,7 @@ Route::middleware(['auth', 'role:pembeli'])->group(function () {
 
     Route::post('/checkout', [PesananPembeliController::class, 'store'])
         ->name('pesanan.store');
+    Route::post('/riwayat-pesanan/{id_pesanan}/batalkan',[PesananPembeliController::class, 'batalkan'])->name('pembeli.pesanan.batalkan');
 });
 
 
@@ -145,6 +146,23 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
 
     Route::get('/tefa/jurusan', [DashboardController::class, 'jurusan'])
         ->name('admin.tefa.jurusan');
+    
+    // Permintaan pembatalan pesanan
+    Route::get(
+        '/pesanan/permintaan-pembatalan',
+        [PesananController::class, 'permintaanPembatalan']
+    )->name('pesanan.permintaan-pembatalan.index');
+
+    Route::post(
+        '/pesanan/permintaan-pembatalan/{id_permintaan}/setujui',
+        [PesananController::class, 'setujuiPembatalan']
+    )->name('pesanan.permintaan-pembatalan.setujui');
+
+    Route::post(
+        '/pesanan/permintaan-pembatalan/{id_permintaan}/tolak',
+        [PesananController::class, 'tolakPembatalan']
+    )->name('pesanan.permintaan-pembatalan.tolak');
+
 
     // Katalog gabungan TEFA
     Route::get('/katalog-gabungan', [KatalogTefaController::class, 'index'])
