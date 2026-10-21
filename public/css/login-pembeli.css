@@ -1,10 +1,10 @@
-/* =====================================================================
+/* 
    HALAMAN LOGIN / DAFTAR / LUPA SANDI / RESET SANDI (pembeli)
    Taruh di: public/css/login-pembeli.css
    Desktop = tampilan asli. Tablet/HP = kartu dan teks dirapikan.
-   ===================================================================== */
+    */
 
-/* ---------- Tanpa gap putih di bawah / di atas footer ---------- */
+/*  Tanpa gap putih di bawah / di atas footer  */
 main {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
@@ -15,9 +15,9 @@ footer {
     margin-top: 0 !important;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    PEMBUNGKUS HALAMAN
-   --------------------------------------------------------------------- */
+    */
 .login-page-wrapper {
     background: #1e3a8a;
     min-height: 100vh;
@@ -37,9 +37,9 @@ footer {
     box-sizing: border-box;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    TOMBOL KEMBALI
-   --------------------------------------------------------------------- */
+    */
 .login-back-button {
     position: absolute;
     top: 32px;
@@ -105,9 +105,9 @@ footer {
     outline-offset: 3px;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    HEADER
-   --------------------------------------------------------------------- */
+    */
 .login-header-text {
     text-align: center;
     color: white;
@@ -131,9 +131,9 @@ footer {
     margin: 0;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    KARTU
-   --------------------------------------------------------------------- */
+    */
 .login-card {
     background: white;
 
@@ -151,9 +151,9 @@ footer {
     box-sizing: border-box;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    AVATAR
-   --------------------------------------------------------------------- */
+    */
 .login-avatar {
     width: 80px;
     height: 80px;
@@ -176,9 +176,9 @@ footer {
     box-shadow: 0 8px 20px rgba(30, 58, 138, 0.25);
 }
 
-/* ---------------------------------------------------------------------
+/* 
    PESAN (sukses / error)
-   --------------------------------------------------------------------- */
+    */
 .login-alert {
     padding: 12px 15px;
     border-radius: 10px;
@@ -206,9 +206,9 @@ footer {
     text-decoration: underline;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    FORM
-   --------------------------------------------------------------------- */
+    */
 .login-form-group {
     margin-bottom: 20px;
     text-align: left;
@@ -283,9 +283,9 @@ footer {
     color: #94a3b8;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    OPSI (Ingat saya / Lupa sandi)
-   --------------------------------------------------------------------- */
+    */
 .login-options {
     display: flex;
 
@@ -324,9 +324,9 @@ footer {
     color: #172554;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    TOMBOL MASUK / DAFTAR / KIRIM
-   --------------------------------------------------------------------- */
+    */
 .btn-login-submit {
     width: 100%;
 
@@ -367,9 +367,9 @@ footer {
     transform: scale(0.98);
 }
 
-/* ---------------------------------------------------------------------
+/* 
    TEKS BAWAH
-   --------------------------------------------------------------------- */
+    */
 .login-footer-text {
     text-align: center;
 
@@ -398,9 +398,9 @@ footer {
     opacity: 0.8;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    ANIMASI GELEMBUNG
-   --------------------------------------------------------------------- */
+    */
 .bubble {
     position: absolute;
 
@@ -424,12 +424,12 @@ footer {
     }
 }
 
-/* =====================================================================
+/* 
    RESPONSIF
    Avatar menonjol ke atas kartu; jarak judul sengaja disisakan.
-   ===================================================================== */
+    */
 
-/* ---------- TABLET (maks 768px) ---------- */
+/*  TABLET (maks 768px)  */
 @media (max-width: 768px) {
     .login-page-wrapper {
         padding: 84px 16px 56px;
@@ -455,7 +455,7 @@ footer {
     }
 }
 
-/* ---------- HP (maks 576px) ---------- */
+/*  HP (maks 576px)  */
 @media (max-width: 576px) {
     .login-page-wrapper {
         padding: 66px 14px 40px;
@@ -561,7 +561,7 @@ footer {
     }
 }
 
-/* ---------- HP kecil (maks 380px) ---------- */
+/*  HP kecil (maks 380px)  */
 @media (max-width: 380px) {
     .login-card {
         padding: 22px 15px 20px;

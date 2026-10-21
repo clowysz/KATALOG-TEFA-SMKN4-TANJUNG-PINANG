@@ -1,7 +1,7 @@
-/* =========================================================
+/* 
    PRODUK/JASA SAYA (KATALOG PRODUSER)
    Judul halaman & kotak pencarian ada di admin-produser.css
-========================================================= */
+ */
 
 .katalog-grid {
     display: grid;
@@ -150,7 +150,7 @@
     margin: 0;
 }
 
-/* ================= RESPONSIF ================= */
+/*  RESPONSIF  */
 @media (max-width: 768px) {
     .katalog-grid {
         gap: 16px;
@@ -169,7 +169,7 @@
     }
 }
 
-/* ---------- Tablet kecil & HP (<= 768px): 3 kartu per baris ---------- */
+/*  Tablet kecil & HP (<= 768px): 3 kartu per baris  */
 @media (max-width: 768px) {
     .katalog-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -221,7 +221,7 @@
     }
 }
 
-/* ---------- HP kecil (<= 480px): lebih ringkas lagi ---------- */
+/*  HP kecil (<= 480px): lebih ringkas lagi  */
 @media (max-width: 480px) {
     .katalog-grid {
         gap: 8px;

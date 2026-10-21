@@ -12,9 +12,9 @@ use App\Models\Jurusan;
 
 class AkunController extends Controller
 {
-    // =========================================================
+    // =
     // ATURAN JURUSAN (1 jurusan = 1 Admin Jurusan aktif)
-    // =========================================================
+    // =
 
     /**
      * Daftar jurusan yang boleh dipilih pada form.
@@ -67,9 +67,9 @@ class AkunController extends Controller
     }
 
 
-    // =========================================================
+    // =
     // DAFTAR AKUN
-    // =========================================================
+    // =
 
     public function index()
     {
@@ -89,9 +89,9 @@ class AkunController extends Controller
     }
 
 
-    // =========================================================
+    // =
     // FORM TAMBAH AKUN
-    // =========================================================
+    // =
 
     public function create()
     {
@@ -105,9 +105,9 @@ class AkunController extends Controller
     }
 
 
-    // =========================================================
+    // =
     // SIMPAN AKUN BARU
-    // =========================================================
+    // =
 
     public function store(Request $request)
     {
@@ -150,9 +150,9 @@ class AkunController extends Controller
         ]);
 
 
-        // =====================================================
+        // ====
         // JIKA ROLE ADMIN JURUSAN
-        // =====================================================
+        // ====
 
         if ($request->role === 'admin_jurusan') {
 
@@ -207,9 +207,9 @@ class AkunController extends Controller
         }
 
 
-        // =====================================================
+        // ====
         // JIKA ROLE ADMIN TEFA
-        // =====================================================
+        // ====
 
         // Admin TEFA tidak terikat jurusan.
         User::create([
@@ -230,9 +230,9 @@ class AkunController extends Controller
     }
 
 
-    // =========================================================
+    // =
     // DETAIL AKUN
-    // =========================================================
+    // =
 
     public function show($id)
     {
@@ -250,9 +250,9 @@ class AkunController extends Controller
     }
 
 
-    // =========================================================
+    // =
     // FORM EDIT AKUN
-    // =========================================================
+    // =
 
     public function edit($id)
     {
@@ -277,9 +277,9 @@ class AkunController extends Controller
     }
 
 
-    // =========================================================
+    // =
     // UPDATE AKUN
-    // =========================================================
+    // =
 
     public function update(Request $request, $id)
     {
@@ -327,9 +327,9 @@ class AkunController extends Controller
         $jurusanBaru = null;
 
 
-        // =====================================================
+        // ====
         // JIKA MENJADI / TETAP ADMIN JURUSAN
-        // =====================================================
+        // ====
 
         if ($request->role === 'admin_jurusan') {
 
@@ -393,9 +393,9 @@ class AkunController extends Controller
     }
 
 
-    // =========================================================
+    // =
     // UBAH STATUS AKUN
-    // =========================================================
+    // =
 
     public function updateStatus(Request $request, $id)
     {
@@ -447,9 +447,9 @@ class AkunController extends Controller
     }
 
 
-    // =========================================================
+    // =
     // RESET PASSWORD
-    // =========================================================
+    // =
 
     public function resetPassword(Request $request, $id)
     {

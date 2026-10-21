@@ -1,8 +1,8 @@
-/* =========================================================
+/* =
    KELOLA PRODUK / JASA / PORTOFOLIO - ADMIN JURUSAN
    Tombol umum (.btn-jurusan-primary, .btn-jurusan-danger)
    ada di admin-jurusan.css
-   ========================================================= */
+   = */
 
 /* Modal form */
 .modal-box.modal-box-form {
@@ -20,9 +20,9 @@
   background: #f8fafc;
 }
 
-/* =========================================================
+/* =
    PREVIEW GAMBAR UPLOAD
-   ========================================================= */
+   = */
 
 .upload-preview {
   display: flex;
@@ -82,9 +82,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* =========================================================
+/* =
    KARTU (dibuat oleh kelola-layanan.js & kelola-portofolio.js)
-   ========================================================= */
+   = */
 
 .catalog-card .catalog-meta {
   margin-bottom: 0;
@@ -125,9 +125,9 @@
   border-color: #dc3545;
 }
 
-/* =========================================================
+/* =
    KOSONG / ERROR DI DALAM GRID
-   ========================================================= */
+   = */
 
 .grid-state {
   grid-column: 1 / -1;
@@ -149,17 +149,17 @@
   color: var(--text-muted);
 }
 
-/* =========================================================
+/* =
    TOAST ERROR
-   ========================================================= */
+   = */
 
 .toast-notification.is-error {
   background-color: #dc3545;
 }
 
-/* =========================================================
+/* =
    RESPONSIVE
-   ========================================================= */
+   = */
 
 @media (max-width: 768px) {
   .grid-state {
@@ -171,9 +171,9 @@
   }
 }
 
-/* =========================================================
+/* =
    TEXTAREA DI MODAL: tidak bisa di-resize
-   ========================================================= */
+   = */
 
 .modal-box textarea.form-control {
   resize: none;

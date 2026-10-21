@@ -26,9 +26,9 @@
 
 <body>
 
-    <!-- =========================
+    <!-- 
          HEADER
-    ========================== -->
+    = -->
 
     <header class="header">
 
@@ -43,9 +43,9 @@
     </header>
 
 
-    <!-- =========================
+    <!-- 
          NAVIGATION DRAWER
-    ========================== -->
+    = -->
 
     <nav class="drawer" id="navDrawer">
 
@@ -186,16 +186,16 @@
     </nav>
 
 
-    <!-- =========================
+    <!-- 
          OVERLAY
-    ========================== -->
+    = -->
 
     <div class="overlay" id="overlay" data-drawer-toggle></div>
 
 
-    <!-- =========================
+    <!-- 
          KONTEN
-    ========================== -->
+    = -->
 
     <main class="main-content">
 
@@ -204,9 +204,9 @@
     </main>
 
 
-    <!-- =========================
+    <!-- 
          MODAL LOGOUT
-    ========================== -->
+    = -->
 
     <div id="logoutModal" class="modal-logout-overlay">
 
@@ -253,9 +253,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- 
          JAVASCRIPT
-    ========================== -->
+    = -->
 
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/logout-modal-jurusan.js') }}"></script>

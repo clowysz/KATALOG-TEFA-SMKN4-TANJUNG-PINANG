@@ -1,7 +1,7 @@
-/* =========================================================
+/* 
    DAFTAR PESANAN PRODUSER
    Desktop: tabel. Mobile (<= 768px): tiap baris jadi kartu.
-========================================================= */
+ */
 
 .order-card {
     padding: 24px;
@@ -9,7 +9,7 @@
     border-radius: 12px;
 }
 
-/* ---------- Tabel ---------- */
+/*  Tabel  */
 .order-table th {
     background: #ffffff;
     border-bottom: 1px solid var(--prod-border);

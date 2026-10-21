@@ -19,9 +19,9 @@ use App\Http\Controllers\KatalogPublikController;
 use App\Http\Controllers\CustomerServiceController;
 use App\Http\Controllers\JurusanPublikController;
 
-// =========================================================================
+// 
 // PUBLIK
-// =========================================================================
+// 
 
 Route::view('/', 'public.home');
 
@@ -38,9 +38,9 @@ Route::get('/katalog', [KatalogPublikController::class, 'index'])
     ->name('public.katalog');
 
 
-// =========================================================================
+// 
 // AUTH (LOGIN SATU DOMAIN)
-// =========================================================================
+// 
 
 Route::get('/login', [LoginController::class, 'showLogin'])
     ->name('login');
@@ -77,9 +77,9 @@ Route::post('/daftar-pembeli', [AuthPembeliController::class, 'register'])
     ->name('pembeli.register.proses');
 
 
-// =========================================================================
+// 
 // JURUSAN PUBLIK
-// =========================================================================
+// 
 
 Route::prefix('jurusan/{slug}')
     ->controller(JurusanPublikController::class)
@@ -101,9 +101,9 @@ Route::prefix('jurusan/{slug}')
     });
 
 
-// =========================================================================
+// 
 // PEMBELI
-// =========================================================================
+// 
 
 Route::middleware(['auth', 'role:pembeli'])->group(function () {
 
@@ -124,9 +124,9 @@ Route::middleware(['auth', 'role:pembeli'])->group(function () {
 });
 
 
-// =========================================================================
+// 
 // ADMIN TEFA
-// =========================================================================
+// 
 
 Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
 
@@ -180,9 +180,9 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
 });
 
 
-// =========================================================================
+// 
 // ADMIN JURUSAN
-// =========================================================================
+// 
 
 Route::middleware(['auth', 'role:admin_jurusan'])->group(function () {
 
@@ -247,9 +247,9 @@ Route::middleware(['auth', 'role:admin_jurusan'])->group(function () {
 });
 
 
-// =========================================================================
+// 
 // ADMIN PRODUSER
-// =========================================================================
+// 
 
 Route::middleware(['auth', 'role:admin_produser'])->group(function () {
 

@@ -1,8 +1,8 @@
-/* =========================================================
+/* 
    DETAIL PESANAN PRODUSER
    Komponen bersama (prod-btn, prod-card, prod-alert, form, range,
    icon-btn, prod-empty) ada di admin-produser.css.
-========================================================= */
+ */
 
 #produserOrderPage {
     width: 100%;
@@ -12,7 +12,7 @@
     box-sizing: border-box;
 }
 
-/* ---------- Header halaman ---------- */
+/*  Header halaman  */
 .detail-page-header {
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@
     font-size: 14px;
 }
 
-/* ---------- Hero ---------- */
+/*  Hero  */
 .order-hero-card {
     border-radius: 14px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
@@ -122,7 +122,7 @@
     word-break: break-word;
 }
 
-/* ---------- Informasi pesanan ---------- */
+/*  Informasi pesanan  */
 .detail-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -154,7 +154,7 @@
     font-size: 13px;
 }
 
-/* ---------- Layout 2 kolom ---------- */
+/*  Layout 2 kolom  */
 .two-column {
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
@@ -162,7 +162,7 @@
     margin-bottom: 24px;
 }
 
-/* ---------- Stepper tahapan ---------- */
+/*  Stepper tahapan  */
 #produserOrderPage .stepper-container {
     margin-top: 10px;
 }
@@ -231,7 +231,7 @@
     transition: width 0.3s ease;
 }
 
-/* ---------- Form progress ---------- */
+/*  Form progress  */
 .progress-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -242,7 +242,7 @@
     margin-top: 20px;
 }
 
-/* ---------- Riwayat progress ---------- */
+/*  Riwayat progress  */
 .history-list {
     position: relative;
 }
@@ -322,7 +322,7 @@
     white-space: nowrap;
 }
 
-/* ---------- Modal ---------- */
+/*  Modal  */
 .prod-modal-overlay {
     position: fixed;
     top: 0;
@@ -434,7 +434,7 @@
     border-top: 1px solid var(--prod-border);
 }
 
-/* ---------- Toolbar kelola tahapan ---------- */
+/*  Toolbar kelola tahapan  */
 .stage-toolbar {
     display: flex;
     justify-content: space-between;
@@ -460,7 +460,7 @@
     margin-left: auto;
 }
 
-/* ---------- Tabel tahapan ---------- */
+/*  Tabel tahapan  */
 .table-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -565,7 +565,7 @@ body.is-dragging * {
 
 /* ================= RESPONSIF ================= */
 
-/* ---------- Tablet ---------- */
+/*  Tablet  */
 @media (max-width: 900px) {
     #produserOrderPage {
         padding: 20px;
@@ -585,7 +585,7 @@ body.is-dragging * {
     }
 }
 
-/* ---------- Mobile ---------- */
+/*  Mobile  */
 @media (max-width: 650px) {
     #produserOrderPage {
         padding: 14px;

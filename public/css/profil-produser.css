@@ -1,6 +1,6 @@
-/* =========================================================
+/* 
    PROFIL PRODUSER
-========================================================= */
+ */
 
 .profile-page {
     max-width: 800px;
@@ -15,7 +15,7 @@
     padding: 0;
 }
 
-/* ---------- Hero ---------- */
+/*  Hero  */
 .profile-hero {
     background: var(--primary);
     padding: 40px 32px;
@@ -61,7 +61,7 @@
     display: inline-block;
 }
 
-/* ---------- Informasi akun ---------- */
+/*  Informasi akun  */
 .profile-body {
     padding: 32px;
 }
@@ -111,7 +111,7 @@
     color: var(--prod-error);
 }
 
-/* ---------- Tanggung jawab produk/jasa ---------- */
+/*  Tanggung jawab produk/jasa  */
 .profile-products {
     background: #ffffff;
     border-radius: 12px;
@@ -225,7 +225,7 @@
     color: var(--prod-text-sec);
 }
 
-/* ================= RESPONSIF ================= */
+/*  RESPONSIF  */
 @media (max-width: 768px) {
     .profile-page {
         margin-bottom: 24px;

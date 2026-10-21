@@ -1,9 +1,6 @@
-/* =========================================================
+/* 
    PROFIL TEFA (admin_tefa/profil)
-
-   Desktop : kartu profil di tengah (maks. 450px)
-   Mobile  : (<= 768px) kartu selebar layar, avatar & teks mengecil
-========================================================= */
+ */
 
 .profile-container {
   display: flex;
@@ -14,7 +11,7 @@
   padding: 32px;
 }
 
-/* ---------- Identitas ---------- */
+/*  Identitas  */
 
 .profile-avatar {
   width: 120px;
@@ -45,7 +42,7 @@
   border-radius: 20px;
 }
 
-/* ---------- Detail ---------- */
+/*  Detail  */
 
 .profile-details {
   width: 100%;
@@ -66,7 +63,7 @@
   margin-bottom: 0;
 }
 
-/* ---------- Tombol logout ---------- */
+/*  Tombol logout  */
 
 .btn-logout {
   color: #dc3545;
@@ -86,11 +83,11 @@
   outline-offset: 2px;
 }
 
-/* =========================================================
+/* 
    RESPONSIVE
-========================================================= */
+ */
 
-/* ---------- MOBILE (<= 768px) ---------- */
+/*  MOBILE (<= 768px)  */
 @media (max-width: 768px) {
   .profile-container {
     margin: 16px auto;
@@ -111,7 +108,7 @@
   }
 }
 
-/* ---------- HP KECIL (<= 480px) ---------- */
+/*  HP KECIL (<= 480px)  */
 @media (max-width: 480px) {
   .profile-container {
     margin: 8px auto;

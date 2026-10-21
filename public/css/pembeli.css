@@ -1,4 +1,4 @@
-/* ================= VARIABLES & FONTS ================= */
+/*  VARIABLES & FONTS  */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 :root {
@@ -36,7 +36,7 @@ main {
   min-width: 0;
 }
 
-/* ================= NAVBAR (CADANGAN) =================
+/*  NAVBAR (CADANGAN) 
    Navbar sebenarnya diatur di navbar.css (dimuat setelah file ini).
    Blok ini dibiarkan agar layout lain yang hanya memuat front.css
    tampilannya tidak berubah. */
@@ -161,7 +161,7 @@ main {
   display: none;
 }
 
-/* ================= HERO SECTION & WAVE ================= */
+/*  HERO SECTION & WAVE  */
 .hero-section {
   margin-top: 0;
   background: var(--primary-blue);
@@ -250,7 +250,7 @@ main {
   z-index: 1;
 }
 
-/* ================= JURUSAN UNGGULAN (SLIDER) ================= */
+/*  JURUSAN UNGGULAN (SLIDER)  */
 .jurusan-section {
   position: relative;
   padding: 60px 5% 80px 5%;
@@ -485,7 +485,7 @@ main {
   outline-offset: 3px;
 }
 
-/* ================= FOOTER ================= */
+/*  FOOTER  */
 .footer {
   background: #162e67 !important;
   color: white;
@@ -619,12 +619,12 @@ main {
   transform: scale(1.1);
 }
 
-/* =====================================================================
+/* =
    RESPONSIF
    Prinsip: susunan desktop dipertahankan, hanya dikecilkan.
-   ===================================================================== */
+   = */
 
-/* ---------- TABLET (maks 900px) ---------- */
+/*  TABLET (maks 900px)  */
 @media (max-width: 900px) {
   :root {
     --card-gap: 14px;
@@ -814,7 +814,7 @@ main {
   }
 }
 
-/* ---------- HP (maks 600px) ---------- */
+/*  HP (maks 600px)  */
 @media (max-width: 600px) {
   :root {
     --card-gap: 8px;
@@ -1018,7 +1018,7 @@ main {
   }
 }
 
-/* ---------- HP kecil (maks 400px) ---------- */
+/*  HP kecil (maks 400px)  */
 @media (max-width: 400px) {
   .jurusan-icon-box {
     height: 52px;

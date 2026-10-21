@@ -1,7 +1,6 @@
-/* =========================================================
-   MODAL LOGOUT - ADMIN JURUSAN
+/*   MODAL LOGOUT - ADMIN JURUSAN
    Dibuka / ditutup oleh js/logout-modal-jurusan.js
-   ========================================================= */
+    */
 
 .modal-logout-overlay {
     position: fixed;
@@ -105,7 +104,7 @@
     background: #b91c1c;
 }
 
-/* ---------- MOBILE ---------- */
+/*  MOBILE  */
 @media (max-width: 480px) {
     .modal-logout-box {
         padding: 24px 20px;

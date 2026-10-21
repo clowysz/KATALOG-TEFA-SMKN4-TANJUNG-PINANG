@@ -1,13 +1,13 @@
-/* =====================================================================
+/* 
    KATALOG & PENCARIAN (halaman publik pembeli)
    Taruh di: public/css/katalog.css
    Dimuat SETELAH jurusan-detail.css, jadi aturan di sini yang menang.
-   Desktop = tampilan asli. Tablet/HP = kartu dan filter dirapikan.
-   ===================================================================== */
+   Desktop  tampilan asli. Tablet/HP  kartu dan filter dirapikan.
+    */
 
-/* ---------------------------------------------------------------------
+/* 
    1. PEMBUNGKUS HALAMAN
-   --------------------------------------------------------------------- */
+    */
 .katalog-page {
     padding: 40px 5% 80px;
     min-height: 85vh;
@@ -71,9 +71,9 @@
     overflow-wrap: anywhere;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    2. FILTER (Semua / Produk / Jasa + dropdown jurusan)
-   --------------------------------------------------------------------- */
+    */
 .filter-area {
     display: flex;
     flex-direction: column;
@@ -168,9 +168,9 @@
     font-size: 18px;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    3. KARTU PRODUK / JASA (poles ringan; dipakai katalog & pencarian)
-   --------------------------------------------------------------------- */
+    */
 .k-card-img {
     overflow: hidden;
 }
@@ -233,9 +233,9 @@
     line-height: 1.6;
 }
 
-/* ---------------------------------------------------------------------
+/* 
    4. PAGINATION
-   --------------------------------------------------------------------- */
+    */
 .pagination-wrapper {
     margin-top: 48px;
     padding-top: 24px;
@@ -319,11 +319,11 @@
     cursor: default;
 }
 
-/* =====================================================================
+/* 
    RESPONSIF
-   ===================================================================== */
+    */
 
-/* ---------- TABLET (701px – 900px): 4 kartu per baris, ringkas ---------- */
+/*  TABLET (701px – 900px): 4 kartu per baris, ringkas  */
 @media (min-width: 701px) and (max-width: 900px) {
     .katalog-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -385,7 +385,7 @@
     }
 }
 
-/* ---------- HP & tablet kecil (maks 700px): 3 kartu per baris ---------- */
+/*  HP & tablet kecil (maks 700px): 3 kartu per baris  */
 /* Ukuran memakai clamp() supaya halus: makin sempit layar, makin kecil kartu. */
 @media (max-width: 700px) {
     .katalog-grid {
@@ -463,7 +463,7 @@
     }
 }
 
-/* ---------- TABLET & HP (maks 900px) ---------- */
+/*  TABLET & HP (maks 900px)  */
 @media (max-width: 900px) {
     .katalog-page {
         padding: 32px 5% 64px;
@@ -490,7 +490,7 @@
     }
 }
 
-/* ---------- HP (maks 600px): filter, header, pagination ---------- */
+/*  HP (maks 600px): filter, header, pagination  */
 @media (max-width: 600px) {
     .katalog-page {
         padding: 22px 4% 48px;
@@ -602,7 +602,7 @@
     }
 }
 
-/* ---------- HP kecil (maks 360px) ---------- */
+/*  HP kecil (maks 360px)  */
 @media (max-width: 360px) {
     .custom-pagination .page-link {
         min-width: 31px;
