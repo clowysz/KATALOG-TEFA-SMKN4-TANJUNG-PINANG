@@ -354,43 +354,68 @@
                 </div>
 
 
-                <!-- DETAIL PESANAN -->
-                <div class="rd-card">
+                   
+<!-- KOLOM DETAIL PESANAN DAN PEMBATALAN -->
+<div class="rd-detail-column">
 
-                    <h3 class="rd-card-title">Detail Pesanan</h3>
+    <!-- DETAIL PESANAN -->
+    <div class="rd-card">
+        <h3 class="rd-card-title">Detail Pesanan</h3>
 
-                    <div class="rd-info-row">
-                        <i class="ph ph-receipt"></i>
-                        <span>Produk / Jasa</span>
-                        <strong>{{ $produk?->nama_produk_jasa ?? '-' }}</strong>
-                    </div>
+        <div class="rd-info-row">
+            <i class="ph ph-receipt"></i>
+            <span>Produk / Jasa</span>
+            <strong>{{ $produk?->nama_produk_jasa ?? '-' }}</strong>
+        </div>
 
-                    <div class="rd-info-row">
-                        <i class="ph ph-tag"></i>
-                        <span>Harga Satuan</span>
-                        <strong>
-                            Rp {{ number_format($produk?->harga ?? 0, 0, ',', '.') }}{{ $produk?->satuan_harga ? '/' . $produk->satuan_harga : '' }}
-                        </strong>
-                    </div>
+        <div class="rd-info-row">
+            <i class="ph ph-tag"></i>
+            <span>Harga Satuan</span>
+            <strong>
+                Rp {{ number_format($produk?->harga ?? 0, 0, ',', '.') }}{{ $produk?->satuan_harga ? '/' . $produk->satuan_harga : '' }}
+            </strong>
+        </div>
 
-                    <div class="rd-info-row">
-                        <i class="ph ph-package"></i>
-                        <span>Jumlah</span>
-                        <strong>{{ $pesanan->jumlah }}</strong>
-                    </div>
+        <div class="rd-info-row">
+            <i class="ph ph-package"></i>
+            <span>Jumlah</span>
+            <strong>{{ $pesanan->jumlah }}</strong>
+        </div>
 
-                    <div class="rd-divider"></div>
+        <div class="rd-divider"></div>
 
-                    <div class="rd-info-row rd-info-row--total">
-                        <span>Total</span>
-                        <strong>
-                            Rp {{ number_format($pesanan->total_harga, 0, ',', '.') }}
-                        </strong>
-                    </div>
+        <div class="rd-info-row rd-info-row--total">
+            <span>Total</span>
+            <strong>
+                Rp {{ number_format($pesanan->total_harga, 0, ',', '.') }}
+            </strong>
+        </div>
+    </div>
 
-                </div>
+    <!-- PEMBATALAN PESANAN -->
+    @if(in_array($pesanan->status, ['menunggu konfirmasi', 'konfirmasi']))
+        <div class="rd-card rd-cancel-card">
+            <h3 class="rd-card-title">Pembatalan Pesanan</h3>
 
-            </div>
+            <p>
+                Ingin membatalkan pesanan ini? Tekan tombol berikut untuk
+                memilih alasan pembatalan.
+            </p>
+
+            <button
+                type="button"
+                class="rw-btn-cancel"
+                data-pesanan-id="{{ $pesanan->id_pesanan }}"
+                data-cancel-url="{{ route('pembeli.pesanan.batalkan', $pesanan->id_pesanan) }}"
+            >
+                <i class="ph ph-x-circle"></i>
+                Batalkan Pesanan
+            </button>
+        </div>
+    @endif
+  </div>
+</div>
+
 
 
             <!-- CATATAN -->
@@ -417,5 +442,5 @@
     </div>
 
 </div>
-
+@include('public.popup.batal-pesanan')
 @endsection

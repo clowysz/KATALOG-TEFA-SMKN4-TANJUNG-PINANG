@@ -12,18 +12,19 @@ use Illuminate\Support\Facades\DB;
 
 class PesananController extends Controller
 {
-    public function index()
-    {
-        $pesanans = Pesanan::with([
-            'pembeli',
-            'produkJasa.jurusan'
-        ])->get();
+   public function index()
+{
+    $pesanans = Pesanan::with([
+        'pembeli',
+        'produkJasa.jurusan',
+        'permintaanPembatalan',
+    ])->get();
 
-        return view(
-            'admin.admin_tefa.pesanan.index',
-            compact('pesanans')
-        );
-    }
+    return view(
+        'admin.admin_tefa.pesanan.index',
+        compact('pesanans')
+    );
+}
 
     public function show($id)
     {
@@ -37,53 +38,74 @@ class PesananController extends Controller
             compact('pesanan')
         );
     }
+public function updateStatus(Request $request, $id)
+{
+    $request->validate([
+        'status' => 'required|in:menunggu konfirmasi,konfirmasi,diproses,selesai,dibatalkan',
+    ]);
 
-    public function updateStatus(Request $request, $id)
-    {
-        $request->validate([
-            'status' => 'required|in:menunggu konfirmasi,konfirmasi,diproses,selesai,dibatalkan',
-        ]);
+    $pesanan = Pesanan::with('permintaanPembatalan')
+        ->findOrFail($id);
 
-        if ($request->status === 'dibatalkan') {
+    // Pesanan yang sudah dibatalkan tidak boleh diubah lagi.
+if ($pesanan->status === 'dibatalkan') {
     return redirect()->back()->withErrors([
-        'error' => 'Gunakan proses pembatalan pesanan untuk mengubah status menjadi dibatalkan.',
+        'error' => 'Pesanan sudah dibatalkan dan statusnya tidak dapat diubah lagi.',
     ]);
 }
-
-        $pesanan = Pesanan::with('produkJasa')
-            ->findOrFail($id);
-
-        if ($request->status === 'diproses') {
-
-            $adaProduser = PenugasanProduser::where(
-                'id_produk_jasa',
-                $pesanan->id_produk_jasa
-            )->exists();
-
-            if (!$adaProduser) {
-                return redirect()->back()->withErrors([
-                    'error' => 'Produk/jasa ini belum memiliki Admin Produksi yang ditugaskan.'
-                ]);
-            }
-        }
-
-        $pesanan->status = $request->status;
-        $pesanan->save();
-
-        RiwayatStatusPesanan::create([
-            'id_pesanan' => $pesanan->id_pesanan,
-            'status' => $request->status,
-            'keterangan' => 'Status pesanan diperbarui oleh Admin TEFA.',
-            'tanggal_update' => now(),
-            'id_user' => Auth::id(),
+    
+        // Pesanan yang sudah dibatalkan tidak boleh diubah lagi.
+if ($pesanan->status === 'dibatalkan') {
+    return redirect()->back()->withErrors([
+        'error' => 'Pesanan sudah dibatalkan dan statusnya tidak dapat diubah lagi.',
+    ]);
+}
+    // Blokir perubahan status selama permintaan pembatalan menunggu.
+    if (
+        $pesanan->permintaanPembatalan &&
+        $pesanan->permintaanPembatalan->status_permintaan === 'menunggu'
+    ) {
+        return redirect()->back()->withErrors([
+            'error' => 'Status pesanan terkunci karena permintaan pembatalan sedang menunggu keputusan Admin TEFA.',
         ]);
-
-        return redirect()->back()->with(
-            'success',
-            'Status pesanan berhasil diperbarui!'
-        );
     }
 
+    // Pembatalan harus melalui proses khusus.
+    if ($request->status === 'dibatalkan') {
+        return redirect()->back()->withErrors([
+            'error' => 'Gunakan proses pembatalan pesanan untuk mengubah status menjadi dibatalkan.',
+        ]);
+    }
+
+    if ($request->status === 'diproses') {
+        $adaProduser = PenugasanProduser::where(
+            'id_produk_jasa',
+            $pesanan->id_produk_jasa
+        )->exists();
+
+        if (!$adaProduser) {
+            return redirect()->back()->withErrors([
+                'error' => 'Produk/jasa ini belum memiliki Admin Produksi yang ditugaskan.',
+            ]);
+        }
+    }
+
+    $pesanan->status = $request->status;
+    $pesanan->save();
+
+    RiwayatStatusPesanan::create([
+        'id_pesanan' => $pesanan->id_pesanan,
+        'status' => $request->status,
+        'keterangan' => 'Status pesanan diperbarui oleh Admin TEFA.',
+        'tanggal_update' => now(),
+        'id_user' => Auth::id(),
+    ]);
+
+    return redirect()->back()->with(
+        'success',
+        'Status pesanan berhasil diperbarui!'
+    );
+}
     
 public function permintaanPembatalan()
 {

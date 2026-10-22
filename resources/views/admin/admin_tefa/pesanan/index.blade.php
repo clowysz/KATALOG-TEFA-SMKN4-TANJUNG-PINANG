@@ -195,71 +195,72 @@
                         </td>
 
 
-                        <td class="col-status" data-label="Status">
+                    
+<td class="col-status" data-label="Status">
+    <div class="status-cell-content">
+        <form
+            action="{{ route('pesanan.updateStatus', $pesanan->id_pesanan) }}"
+            method="POST"
+            class="status-update-form"
+        >
+            @csrf
 
-                            <form
-                                action="{{ route('pesanan.updateStatus', $pesanan->id_pesanan) }}"
-                                method="POST"
-                                class="status-update-form"
-                            >
+            <select
+                name="status"
+                class="status-update-select"
+                required
+                @disabled(
+                    $pesanan->permintaanPembatalan &&
+                    $pesanan->permintaanPembatalan->status_permintaan === 'menunggu'
+                )
+            >
+                <option value="menunggu konfirmasi"
+                    {{ $pesanan->status === 'menunggu konfirmasi' ? 'selected' : '' }}>
+                    Menunggu Konfirmasi
+                </option>
+                <option value="konfirmasi"
+                    {{ $pesanan->status === 'konfirmasi' ? 'selected' : '' }}>
+                    Konfirmasi
+                </option>
+                <option value="diproses"
+                    {{ $pesanan->status === 'diproses' ? 'selected' : '' }}>
+                    Diproses
+                </option>
+                <option value="selesai"
+                    {{ $pesanan->status === 'selesai' ? 'selected' : '' }}>
+                    Selesai
+                </option>
+                <option value="dibatalkan"
+                    {{ $pesanan->status === 'dibatalkan' ? 'selected' : '' }}>
+                    Dibatalkan
+                </option>
+            </select>
 
-                                @csrf
+            <button
+                type="submit"
+                class="btn-update-pesanan"
+                @disabled(
+                    $pesanan->permintaanPembatalan &&
+                    $pesanan->permintaanPembatalan->status_permintaan === 'menunggu'
+                )
+            >
+                Update
+            </button>
+        </form>
 
-                                <select
-                                    name="status"
-                                    class="status-update-select"
-                                    required
-                                >
-
-                                    <option
-                                        value="menunggu konfirmasi"
-                                        {{ $pesanan->status == 'menunggu konfirmasi' ? 'selected' : '' }}
-                                    >
-                                        Menunggu Konfirmasi
-                                    </option>
-
-                                    <option
-                                        value="konfirmasi"
-                                        {{ $pesanan->status == 'konfirmasi' ? 'selected' : '' }}
-                                    >
-                                        Konfirmasi
-                                    </option>
-
-                                    <option
-                                        value="diproses"
-                                        {{ $pesanan->status == 'diproses' ? 'selected' : '' }}
-                                    >
-                                        Diproses
-                                    </option>
-
-                                    <option
-                                        value="selesai"
-                                        {{ $pesanan->status == 'selesai' ? 'selected' : '' }}
-                                    >
-                                        Selesai
-                                    </option>
-
-                                    <option
-                                        value="dibatalkan"
-                                        {{ $pesanan->status == 'dibatalkan' ? 'selected' : '' }}
-                                    >
-                                        Dibatalkan
-                                    </option>
-
-                                </select>
-
-
-                                <button
-                                    type="submit"
-                                    class="btn-update-pesanan"
-                                >
-                                    Update
-                                </button>
-
-                            </form>
-
-                        </td>
-
+        @if(
+            $pesanan->permintaanPembatalan &&
+            $pesanan->permintaanPembatalan->status_permintaan === 'menunggu'
+        )
+            <div class="cancellation-table-notice">
+                <span class="cancellation-badge pending">
+                    Pembatalan diajukan
+                </span>
+                <p>Menunggu keputusan Admin TEFA</p>
+            </div>
+        @endif
+    </div>
+</td>
 
                         <td class="col-aksi" data-label="Aksi">
 
@@ -332,4 +333,4 @@
 
 <script src="{{ asset('js/pesanan.js') }}"></script>
 
-@endsection
+@endsection 

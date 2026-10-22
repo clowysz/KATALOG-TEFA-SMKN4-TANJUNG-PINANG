@@ -128,7 +128,7 @@
                                 ->first();
                         @endphp
 
-                        <tr>
+                        <tr id="pesanan-{{ $item->id_pesanan }}">
 
                             <!-- PRODUK / JASA -->
                             <td data-label="Pesanan">
@@ -201,18 +201,30 @@
                                 </div>
                             </td>
 
-                            <!-- AKSI -->
-                            <td class="rw-action" data-label="Aksi">
-                                <a
-                                    href="{{ route('pembeli.riwayat.detail', $item->id_pesanan) }}"
-                                    class="rw-btn-detail"
-                                >
-                                    Detail Pesanan
-                                    <i class="ph ph-caret-right"></i>
-                                </a>
-                            </td>
+                      
+<!-- AKSI -->
+<td class="rw-action" data-label="Aksi">
+    <div class="rw-action-buttons">
+        <a
+            href="{{ route('pembeli.riwayat.detail', $item->id_pesanan) }}"
+            class="rw-btn-detail"
+        >
+            Detail Pesanan
+            <i class="ph ph-caret-right"></i>
+        </a>
 
-                        </tr>
+        @if(in_array($item->status, ['menunggu konfirmasi', 'konfirmasi']))
+            <button
+                type="button"
+                class="rw-btn-cancel"
+                data-pesanan-id="{{ $item->id_pesanan }}"
+                data-cancel-url="{{ route('pembeli.pesanan.batalkan', $item->id_pesanan) }}"
+            >
+                Batalkan Pesanan
+            </button>
+        @endif
+    </div>
+</td>
 
                     @empty
 
@@ -241,5 +253,5 @@
     </div>
 
 </div>
-
+   @include('public.popup.batal-pesanan')
 @endsection

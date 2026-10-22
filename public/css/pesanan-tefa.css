@@ -1,102 +1,96 @@
+
 /* =========================================================
    PESANAN TEFA
-   - Kelola Pesanan  (admin_tefa/pesanan)
-   - Detail Pesanan  (admin_tefa/pesanan-detail)
-
-   Desktop : tabel biasa
-   Tablet  : (<= 1024px) tabel berubah jadi kartu, 2 kolom
-   Mobile  : (<= 640px)  kartu 1 kolom
+   Kelola pesanan dan detail pesanan.
+   Desktop: tabel | Tablet: kartu 2 kolom | HP: 1 kolom
 ========================================================= */
+
 
 /* =========================================================
    1. KOMPONEN BERSAMA
 ========================================================= */
 
-/* ---------- Header halaman ---------- */
-
+/* Header halaman */
 .page-header {
   margin-top: 3px;
   margin-bottom: 24px;
 }
 
 .page-header h2 {
-  font-size: 20px;
-  font-weight: bold;
-  color: #1e293b;
   margin-bottom: 0;
+  color: #1e293b;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .page-header p {
+  margin: 4px 0 0;
   color: #64748b;
   font-size: 14px;
-  margin-top: 4px;
-  margin-bottom: 0;
 }
 
-/* ---------- Alert hasil update status ---------- */
-
+/* Notifikasi berhasil dan gagal */
 .pesanan-alert {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   padding: 12px 16px;
-  border-radius: 8px;
   margin-bottom: 20px;
+  border-radius: 8px;
   font-size: 14px;
   line-height: 1.5;
 }
 
 .pesanan-alert i {
-  font-size: 18px;
   flex-shrink: 0;
   margin-top: 1px;
+  font-size: 18px;
 }
 
 .pesanan-alert-success {
-  background: #ecfdf5;
   color: #166534;
+  background: #ecfdf5;
   border: 1px solid #bbf7d0;
 }
 
 .pesanan-alert-error {
-  background: #fef2f2;
   color: #991b1b;
+  background: #fef2f2;
   border: 1px solid #fecaca;
 }
 
+
 /* =========================================================
-   2. KELOLA PESANAN (TABEL)
+   2. KELOLA PESANAN
 ========================================================= */
 
-/* ---------- Tabel ---------- */
-
+/* Ukuran teks tabel */
 .pesanan-table th,
 .pesanan-table td {
   font-size: 15px;
 }
 
-/* ---------- Tombol Update & Detail ---------- */
-
+/* Tombol Update dan Detail */
 .btn-update-pesanan,
 .btn-detail-pesanan {
   display: inline-block;
-  text-decoration: none;
   padding: 8px 14px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   color: #1e3a8a;
   background: #f8fafc;
-  font-weight: 600;
   font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   transition: all 0.2s ease;
-  white-space: nowrap;
 }
 
 .btn-update-pesanan:hover,
 .btn-detail-pesanan:hover {
-  background: #e2e8f0;
   color: #1e293b;
+  background: #e2e8f0;
   border-color: #cbd5e1;
 }
 
@@ -111,20 +105,26 @@
   outline-offset: 2px;
 }
 
-/* ---------- Select status di tabel ---------- */
+.btn-update-pesanan:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
+/* Form dan pilihan status */
 .status-update-form {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
+  margin: 0;
 }
 
 .status-update-select {
+  min-width: 0;
   padding: 8px 12px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-  background: #fff;
   color: #334155;
+  background: #fff;
   font-size: 13px;
   outline: none;
   cursor: pointer;
@@ -135,16 +135,49 @@
   box-shadow: 0 0 0 3px rgba(59, 105, 143, 0.1);
 }
 
-/* ---------- Keadaan kosong ---------- */
+.status-update-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-.pesanan-table td.pesanan-empty {
+/* Informasi permintaan pembatalan di tabel */
+.cancellation-table-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  margin-bottom: 8px;
   text-align: center;
+}
+
+.cancellation-table-notice .cancellation-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: #805b00;
+  background: #fff2cc;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cancellation-table-notice p {
+  margin: 6px 0;
+  color: #b45309;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Pesan ketika tidak ada pesanan */
+.pesanan-table td.pesanan-empty {
   padding: 60px 20px;
+  text-align: center;
 }
 
 .pesanan-empty-title {
-  color: #1e293b;
   margin-bottom: 8px;
+  color: #1e293b;
   font-size: 18px;
 }
 
@@ -154,22 +187,23 @@
 }
 
 .pesanan-empty-filter {
-  text-align: center;
   padding: 40px 20px;
+  text-align: center;
 }
+
 
 /* =========================================================
    3. DETAIL PESANAN
 ========================================================= */
 
+/* Pembungkus halaman detail */
 .detail-pesanan-container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* ---------- Header ---------- */
-
+/* Header dan tombol kembali */
 .detail-pesanan-header {
   margin-bottom: 24px;
 }
@@ -177,20 +211,20 @@
 .btn-back-pesanan {
   display: inline-block;
   padding: 8px 16px;
+  margin-bottom: 20px;
   border: 1px solid #1e3a8a;
   border-radius: 8px;
   color: #1e3a8a;
   background: #fff;
-  text-decoration: none;
-  font-weight: 600;
   font-size: 14px;
-  margin-bottom: 20px;
+  font-weight: 600;
+  text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .btn-back-pesanan:hover {
-  background: #1e3a8a;
   color: #fff;
+  background: #1e3a8a;
 }
 
 .btn-back-pesanan:focus-visible {
@@ -211,8 +245,7 @@
   font-size: 14px;
 }
 
-/* ---------- Grid ---------- */
-
+/* Susunan kartu informasi */
 .detail-pesanan-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -224,27 +257,26 @@
   grid-column: 1 / -1;
 }
 
-/* ---------- Card ---------- */
-
+/* Tampilan kartu */
 .detail-pesanan-card {
-  background: #fff;
+  min-width: 0;
   padding: 26px 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .detail-card-title {
+  padding-bottom: 14px;
   margin: 0 0 20px;
+  border-bottom: 1px solid #e2e8f0;
   color: #1e3a8a;
   font-size: 18px;
   font-weight: 700;
-  padding-bottom: 14px;
-  border-bottom: 1px solid #e2e8f0;
 }
 
-/* ---------- Informasi detail ---------- */
-
+/* Informasi pelanggan dan pesanan */
 .detail-info-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -252,9 +284,9 @@
 }
 
 .detail-info-item {
+  min-width: 0;
   padding: 14px 0;
   border-bottom: 1px solid #f1f5f9;
-  min-width: 0;
 }
 
 .detail-info-item:last-child {
@@ -274,56 +306,52 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 1.5;
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
-/* ---------- Status ---------- */
-
+/* Badge status pesanan */
 .badge-status-pesanan {
   display: inline-flex;
   align-items: center;
   padding: 6px 12px;
   border-radius: 20px;
-  background: #e0e7ff;
   color: #3730a3;
+  background: #e0e7ff;
   font-size: 12px;
   font-weight: 700;
 }
 
-/* ---------- Catatan ---------- */
-
+/* Catatan tambahan pesanan */
 .catatan-pesanan {
-  margin-top: 20px;
   padding-top: 20px;
+  margin-top: 20px;
   border-top: 1px solid #e2e8f0;
 }
 
 .catatan-content {
-  color: #475569;
-  font-size: 14px;
-  line-height: 1.7;
-  font-weight: 400;
-  background: #f8fafc;
+  padding: 14px 16px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 14px 16px;
+  color: #475569;
+  background: #f8fafc;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
   overflow-wrap: anywhere;
 }
 
-/* ---------- Info diteruskan ke produser ---------- */
-
+/* Informasi pesanan diteruskan ke produser */
 .detail-pesanan-alert {
-  background: #ecfdf5;
-  color: #166534;
-  border: 1px solid #bbf7d0;
   padding: 12px 16px;
-  border-radius: 8px;
   margin-bottom: 20px;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  color: #166534;
+  background: #ecfdf5;
   font-size: 14px;
 }
 
-/* ---------- Update status ---------- */
-
+/* Form update status di halaman detail */
 .status-card {
   margin-top: 20px;
 }
@@ -341,17 +369,17 @@
 }
 
 .status-select {
+  box-sizing: border-box;
   width: 100%;
   max-width: 360px;
   padding: 11px 12px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-  background: #fff;
   color: #334155;
-  font-size: 14px;
+  background: #fff;
   font-family: inherit;
+  font-size: 14px;
   outline: none;
-  box-sizing: border-box;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -366,21 +394,21 @@
 }
 
 .btn-save-status {
-  background: #1e3a8ad9;
-  color: #fff;
   padding: 10px 24px;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
+  color: #fff;
+  background: #1e3a8ad9;
   font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-save-status:hover,
 .btn-save-status:focus {
-  background: #1e3a8a;
   color: #fff;
+  background: #1e3a8a;
 }
 
 .btn-save-status:active {
@@ -392,11 +420,175 @@
   outline-offset: 2px;
 }
 
+
 /* =========================================================
-   4. RESPONSIVE
+   4. PEMBATALAN PESANAN
 ========================================================= */
 
-/* ---------- TABLET & HP: tabel menjadi kartu (<= 1024px) ---------- */
+/* Kartu update status dan pembatalan */
+.detail-pesanan-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+    width: 100%;
+}
+
+.detail-pesanan-bottom > .status-card,
+.detail-pesanan-bottom > .cancellation-card {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.detail-pesanan-bottom > .detail-pesanan-card {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Pesan ketika belum ada permintaan pembatalan */
+.cancellation-empty {
+  padding: 14px;
+  border-radius: 8px;
+  color: #555;
+  background: #f5f7fa;
+  line-height: 1.6;
+}
+
+.cancellation-empty p {
+  margin: 0 0 6px;
+}
+
+.cancellation-empty p:last-child {
+  margin-bottom: 0;
+}
+
+/* Rincian permintaan pembatalan */
+.cancellation-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.cancellation-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cancellation-row p {
+  margin: 0;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.cancellation-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #555;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Status permintaan pembatalan */
+.cancellation-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cancellation-badge.pending {
+  color: #805b00;
+  background: #fff2cc;
+}
+
+.cancellation-badge.approved {
+  color: #176b35;
+  background: #dff5e5;
+}
+
+.cancellation-badge.rejected {
+  color: #a32121;
+  background: #fde5e5;
+}
+
+/* Form alasan dan tombol keputusan */
+.cancellation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.cancellation-actions form {
+  min-width: 0;
+}
+
+.cancellation-textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border: 1px solid #d5dbe3;
+  border-radius: 8px;
+  font: inherit;
+  resize: vertical;
+}
+
+.cancellation-textarea:focus {
+  border-color: #1769aa;
+  outline: 2px solid #b7d8f7;
+}
+
+/* Tombol setujui dan tolak pembatalan */
+.btn-cancellation-approve,
+.btn-cancellation-reject {
+  width: 100%;
+  padding: 11px 14px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancellation-approve {
+  background: #218448;
+}
+
+.btn-cancellation-approve:hover {
+  background: #176b35;
+}
+
+.btn-cancellation-reject {
+  background: #c0392b;
+}
+
+.btn-cancellation-reject:hover {
+  background: #a52d22;
+}
+
+/* Pemberitahuan pembatalan */
+.cancellation-notice {
+  margin-top: 16px;
+  color: #805b00;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   5. RESPONSIVE TABLET DAN HP
+========================================================= */
+
+/* Tablet: ubah tabel menjadi kartu 2 kolom */
 @media (max-width: 1024px) {
   .table-responsive {
     overflow: visible;
@@ -407,7 +599,7 @@
     overflow: visible;
   }
 
-  /* Header kolom disembunyikan secara visual (tetap terbaca screen reader) */
+  /* Sembunyikan header visual, tetap tersedia bagi pembaca layar */
   .pesanan-table thead {
     position: absolute;
     width: 1px;
@@ -423,14 +615,14 @@
     gap: 14px;
   }
 
-  /* Satu pesanan = satu kartu */
+  /* Setiap pesanan menjadi kartu */
   .pesanan-table .pesanan-row {
     display: flex;
     flex-direction: column;
-    background: #fff;
+    padding: 4px 16px 14px;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 4px 16px 14px;
+    background: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   }
 
@@ -438,37 +630,37 @@
     background: #fff;
   }
 
-  /* Tiap sel = satu baris "label : isi" */
+  /* Susun setiap sel sebagai label dan isi */
   .pesanan-table .pesanan-row td {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
     padding: 10px 0;
     border-bottom: 1px solid #f1f5f9;
-    white-space: normal;
-    text-align: right;
-    overflow-wrap: anywhere;
     font-size: 14px;
+    text-align: right;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .pesanan-table .pesanan-row td::before {
-    content: attr(data-label);
     flex-shrink: 0;
+    content: attr(data-label);
     color: #64748b;
     font-size: 12px;
     font-weight: 600;
     text-align: left;
   }
 
-  /* Nomor pesanan = judul kartu */
+  /* Nomor pesanan menjadi judul kartu */
   .pesanan-table .pesanan-row td.col-id {
     justify-content: flex-start;
     padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
     color: #1e3a8a;
     font-size: 15px;
     font-weight: 700;
-    border-bottom: 1px solid #e2e8f0;
   }
 
   .pesanan-table .pesanan-row td.col-id::before,
@@ -476,12 +668,16 @@
     display: none;
   }
 
-  /* Status: label di atas, select + tombol di bawahnya */
+  /* Susunan kolom status */
   .pesanan-table .pesanan-row td.col-status {
     flex-direction: column;
     align-items: stretch;
-    text-align: left;
     gap: 6px;
+    text-align: left;
+  }
+
+  .status-update-form {
+    align-items: stretch;
   }
 
   .status-update-select {
@@ -495,11 +691,16 @@
     padding: 9px 16px;
   }
 
-  /* Tombol detail selebar kartu */
+  .cancellation-table-notice {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  /* Tombol detail memenuhi lebar bagian bawah kartu */
   .pesanan-table .pesanan-row td.col-aksi {
     display: block;
-    margin-top: auto; /* tombol selalu menempel di dasar kartu */
     padding: 12px 0 0;
+    margin-top: auto;
     border-bottom: none;
   }
 
@@ -508,27 +709,28 @@
     width: 100%;
     padding: 10px 14px;
     text-align: center;
+    box-sizing: border-box;
   }
 
-  /* Keadaan kosong: satu blok penuh, bukan kartu */
+  /* Baris kosong memenuhi lebar tabel */
   .pesanan-table .pesanan-empty-row {
     display: block;
     grid-column: 1 / -1;
-    background: transparent;
-    border: none;
-    box-shadow: none;
     padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
   }
 
   .pesanan-table td.pesanan-empty {
     display: block;
     padding: 40px 12px;
-    white-space: normal;
     border-bottom: none;
+    white-space: normal;
   }
 }
 
-/* ---------- TABLET: detail 1 kolom (<= 992px) ---------- */
+/* Tablet: detail menjadi satu kolom */
 @media (max-width: 992px) {
   .detail-pesanan-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -536,11 +738,10 @@
   }
 }
 
-/* ---------- MOBILE (<= 768px) ---------- */
+/* HP: rapikan header, alert, dan detail */
 @media (max-width: 768px) {
-  /* Kelola pesanan */
-  .page-header {
-    margin-bottom: 18px;
+  .detail-pesanan-bottom {
+  grid-template-columns: minmax(0, 1fr);
   }
 
   .page-header h2 {
@@ -552,18 +753,17 @@
   }
 
   .pesanan-alert {
-    font-size: 13px;
     padding: 10px 14px;
     margin-bottom: 16px;
+    font-size: 13px;
   }
 
   .pesanan-empty-filter {
     padding: 28px 12px;
   }
 
-  /* Detail pesanan */
   .detail-pesanan-container {
-    padding: 4px 0 16px; /* padding samping sudah dari main-content */
+    padding: 4px 0 16px;
   }
 
   .detail-pesanan-header {
@@ -571,9 +771,9 @@
   }
 
   .btn-back-pesanan {
-    font-size: 13px;
     padding: 7px 14px;
     margin-bottom: 14px;
+    font-size: 13px;
   }
 
   .detail-pesanan-title {
@@ -591,9 +791,9 @@
   }
 
   .detail-card-title {
-    font-size: 16px;
-    margin-bottom: 12px;
     padding-bottom: 12px;
+    margin-bottom: 12px;
+    font-size: 16px;
   }
 
   .status-card {
@@ -602,16 +802,21 @@
 
   .status-select {
     max-width: 100%;
-    font-size: 16px; /* mencegah auto-zoom di iOS */
+    font-size: 16px;
   }
 
   .btn-save-status {
     width: 100%;
     padding: 12px 24px;
   }
+
+  /* Kartu update status dan pembatalan tersusun vertikal */
+  .detail-pesanan-bottom {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
-/* ---------- KARTU PESANAN 1 KOLOM (<= 640px) ---------- */
+/* HP: satu kartu pesanan per baris */
 @media (max-width: 640px) {
   .pesanan-table tbody {
     grid-template-columns: minmax(0, 1fr);
@@ -619,7 +824,7 @@
   }
 }
 
-/* ---------- HP (<= 560px): info detail jadi baris "label : isi" ---------- */
+/* HP: informasi detail menjadi baris label dan isi */
 @media (max-width: 560px) {
   .detail-info-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -627,15 +832,15 @@
 
   .detail-info-item {
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
+    justify-content: space-between;
     gap: 12px;
     padding: 12px 0;
   }
 
   .detail-info-item .detail-label {
-    margin-bottom: 0;
     flex-shrink: 0;
+    margin-bottom: 0;
   }
 
   .detail-info-item .detail-value {
@@ -643,18 +848,19 @@
   }
 }
 
-/* ---------- HP KECIL (<= 380px) ---------- */
+/* HP sangat kecil: form status tersusun vertikal */
 @media (max-width: 380px) {
   .pesanan-table .pesanan-row td.col-status .status-update-form {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .btn-update-pesanan {
+  .pesanan-table .pesanan-row td.col-status .btn-update-pesanan {
     width: 100%;
   }
 }
 
+/* Kurangi animasi sesuai pengaturan perangkat */
 @media (prefers-reduced-motion: reduce) {
   .btn-update-pesanan,
   .btn-detail-pesanan,
@@ -664,3 +870,229 @@
     transition: none;
   }
 }
+
+
+/* =========================================
+   LAYOUT PESANAN DENGAN PEMBATALAN
+========================================= */
+
+/* Sejajarkan isi kolom Status dan Aksi */
+.pesanan-table td.col-status,
+.pesanan-table td.col-aksi {
+    vertical-align: middle;
+}
+
+/* Susunan khusus saat ada permintaan pembatalan */
+.status-cell-content:has(.cancellation-table-notice) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+/* Baris atas: pilihan status dan Update tetap berdampingan */
+.status-cell-content:has(.cancellation-table-notice)
+.status-update-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin: 0;
+}
+
+/* Pilihan status tidak mengambil seluruh ruang */
+.status-cell-content:has(.cancellation-table-notice)
+.status-update-select {
+    min-width: 0;
+    flex: 1;
+}
+
+/* Tombol Update tidak turun ke baris berikutnya */
+.status-cell-content:has(.cancellation-table-notice)
+.btn-update-pesanan {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* Bagian informasi pembatalan berada di bawah */
+.status-cell-content:has(.cancellation-table-notice)
+.cancellation-table-notice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    text-align: center;
+}
+
+.status-cell-content:has(.cancellation-table-notice)
+.cancellation-table-notice p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* Detail tetap berada di tengah tinggi sel */
+.pesanan-table td.col-aksi .btn-detail-pesanan {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Tampilan layar kecil */
+@media (max-width: 1024px) {
+    .status-cell-content:has(.cancellation-table-notice)
+    .cancellation-table-notice {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+
+/* ===== MODAL KONFIRMASI PEMBATALAN ===== */
+
+.cancellation-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.cancellation-modal.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.cancellation-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.48);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+}
+
+.cancellation-modal-box {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 26px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.22);
+    text-align: center;
+    transform: translateY(12px) scale(0.98);
+    transition: transform 0.2s ease;
+}
+
+.cancellation-modal.show .cancellation-modal-box {
+    transform: translateY(0) scale(1);
+}
+
+.cancellation-modal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #fff7ed;
+    color: #ea580c;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.cancellation-modal-box.is-reject .cancellation-modal-icon {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.cancellation-modal-box h3 {
+    margin: 0 0 10px;
+    color: #111827;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.cancellation-modal-box p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.cancellation-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.cancellation-modal-btn {
+    min-height: 42px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cancellation-modal-btn:hover {
+    transform: translateY(-1px);
+}
+
+.cancellation-modal-btn.cancel {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.cancellation-modal-btn.cancel:hover {
+    background: #e5e7eb;
+}
+
+.cancellation-modal-btn.confirm {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+.cancellation-modal-btn.confirm:hover {
+    background: #15803d;
+}
+
+.cancellation-modal-box.is-reject .cancellation-modal-btn.confirm {
+    background: #dc2626;
+}
+
+.cancellation-modal-box.is-reject .cancellation-modal-btn.confirm:hover {
+    background: #b91c1c;
+}
+
+@media (max-width: 480px) {
+    .cancellation-modal-box {
+        padding: 26px 20px;
+    }
+
+    .cancellation-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancellation-modal-btn {
+        width: 100%;
+    }
+}
+
+

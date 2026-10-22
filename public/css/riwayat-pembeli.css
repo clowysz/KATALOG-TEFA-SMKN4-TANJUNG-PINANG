@@ -1378,3 +1378,398 @@ main {
     transition: none !important;
   }
 }
+
+
+/* =========================================
+   TOMBOL BATALKAN PESANAN
+========================================= */
+
+
+.rw-action-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.rw-action-buttons .rw-btn-detail,
+.rw-action-buttons .rw-btn-cancel {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 0;
+    white-space: nowrap;
+}
+
+.rw-action-buttons .rw-btn-detail {
+    padding: 9px 12px;
+}
+
+.rw-action-buttons .rw-btn-cancel {
+    padding: 9px 12px;
+}
+
+
+.rw-btn-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #dc2626;
+    border-radius: 20px;
+    background: #fff;
+    color: #dc2626;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.rw-btn-cancel:hover {
+    background: #dc2626;
+    color: #fff;
+}
+
+.rw-btn-cancel:focus-visible,
+.cancel-modal-close:focus-visible,
+.cancel-modal-submit:focus-visible {
+    outline: 3px solid var(--rw-focus);
+    outline-offset: 3px;
+}
+
+/* =========================================
+   POPUP PEMBATALAN PESANAN
+========================================= */
+
+.cancel-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(15, 23, 42, .55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.cancel-modal[hidden] {
+    display: none !important;
+}
+
+.cancel-modal-dialog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
+}
+
+.cancel-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--rw-border);
+}
+
+.cancel-modal-header h2 {
+    margin: 0;
+    color: var(--rw-text);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.cancel-modal-close {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: var(--rw-surface);
+    color: var(--rw-body);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.cancel-modal-body {
+    padding: 20px 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.cancel-modal-description {
+    margin: 0 0 16px;
+    color: var(--rw-muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.cancel-reason-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cancel-reason-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 13px;
+    border: 1px solid var(--rw-border);
+    border-radius: 10px;
+    color: var(--rw-text);
+    font-size: 13px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.cancel-reason-option:has(input:checked) {
+    border-color: var(--rw-blue-bright);
+    background: #eff6ff;
+}
+
+.cancel-reason-option input {
+    flex-shrink: 0;
+    margin-top: 3px;
+    accent-color: var(--rw-blue-bright);
+}
+
+.cancel-reason-other {
+    display: block;
+    width: 100%;
+    min-height: 100px;
+    margin-top: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid var(--rw-border);
+    border-radius: 10px;
+    font: inherit;
+    font-size: 13px;
+    resize: vertical;
+}
+
+.cancel-reason-other:focus {
+    border-color: var(--rw-blue-bright);
+    outline: 2px solid rgba(37, 99, 235, .12);
+}
+
+.cancel-modal-message {
+    margin: 0 24px 16px;
+    padding: 12px 14px;
+    border-radius: 9px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.cancel-modal-message:empty {
+    display: none;
+}
+
+.cancel-modal-message.success {
+    background: #ecfdf3;
+    color: #166534;
+}
+
+.cancel-modal-message.error {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.cancel-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 24px;
+    border-top: 1px solid var(--rw-border);
+}
+
+.cancel-modal-submit {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 9px;
+    background: #dc2626;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cancel-modal-submit:hover {
+    background: #b91c1c;
+}
+
+.cancel-modal-submit:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+@media (max-width: 576px) {
+    .cancel-modal {
+        padding: 10px;
+    }
+
+   .cancel-modal-dialog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
+}
+
+    .cancel-modal-header {
+        padding: 16px;
+    }
+
+    .cancel-modal-header h2 {
+        font-size: 17px;
+    }
+
+    .cancel-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 20px 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+    .cancel-modal-footer {
+        padding: 14px 16px;
+    }
+
+    .cancel-modal-submit {
+        width: 100%;
+    }
+
+    .cancel-modal-message {
+        margin-right: 16px;
+        margin-left: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rw-btn-cancel {
+        transition: none;
+    }
+}
+
+
+/* RESPONSIVE FILTER RIWAYAT PESANAN */
+@media (max-width: 576px) {
+    .rw-tools {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .rw-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        gap: 8px;
+    }
+
+    .rw-tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 10px 8px;
+        text-align: center;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .rw-search {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* TOTAL HARGA TETAP SEJAJAR */
+.rw-price {
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+    text-align: left;
+}
+
+
+/* JUDUL KOLOM AKSI DI TENGAH */
+.rw-table thead th:last-child {
+    text-align: center;
+}
+
+/* TOMBOL AKSI TETAP DI TENGAH KOLOM */
+.rw-table tbody td.rw-action {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.rw-table tbody td.rw-action .rw-action-buttons {
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* PERBAIKAN SCROLL ISI POPUP */
+#cancelModal {
+    align-items: center;
+    overflow: hidden;
+}
+
+#cancelModal .cancel-modal-dialog {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: 90vh;
+    max-height: 90dvh;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#cancelModal form#cancelOrderForm {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#cancelModal .cancel-modal-header,
+#cancelModal .cancel-modal-footer {
+    flex: 0 0 auto;
+}
+
+#cancelModal .cancel-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+
