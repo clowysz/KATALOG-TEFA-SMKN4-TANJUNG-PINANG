@@ -438,20 +438,20 @@
 
                     @endforeach
 
-                </div>
-
-            @else
-
-                <div class="prod-empty">
-                    <i class="ph ph-clock prod-empty-icon"></i>
-                    <p class="prod-empty-text">Belum ada riwayat progress.</p>
-                </div>
-
-            @endif
-
-        </div>
-    </div>
-
+                </div>  
+    
+            @else   
+    
+                <div class="prod-empty">    
+                    <i class="ph ph-clock prod-empty    -icon"></i>
+                    <p class="prod-empty-text">Belum     ada riwayat progress.</p>
+                </div>  
+    
+            @endif  
+    
+        </div>  
+    </div>  
+    
 </div>
 
 {{-- =========================================================
