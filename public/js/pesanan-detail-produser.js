@@ -380,14 +380,100 @@
 
         /* Konfirmasi hapus: <form data-confirm="pesan"> */
         document.addEventListener("submit", function (event) {
-            var message = event.target.dataset
-                ? event.target.dataset.confirm
-                : "";
+    var form = event.target;
 
-            if (message && !window.confirm(message)) {
-                event.preventDefault();
-            }
-        });
+    var message = form.dataset
+        ? form.dataset.confirm
+        : "";
+
+    if (!message) return;
+
+    event.preventDefault();
+
+    // Buat pop-up konfirmasi
+    var modal = document.createElement("div");
+
+    modal.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+    `;
+
+    modal.innerHTML = `
+    <div style="
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        width: 320px;
+        max-width: 90%;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    ">
+        <h3 style="
+            margin: 0 0 12px;
+            font-size: 20px;
+            color: #333;
+        ">
+            Hapus data?
+        </h3>
+
+        <p style="
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 22px;
+        ">
+            Data yang dihapus tidak dapat dikembalikan.
+        </p>
+
+        <div style="
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        ">
+            <button type="button" id="batalHapus"
+                style="
+                    padding: 9px 18px;
+                    border: 1px solid #ddd;
+                    border-radius: 6px;
+                    background: white;
+                    color: #333;
+                    cursor: pointer;
+                ">
+                Batal
+            </button>
+
+            <button type="button" id="konfirmasiHapus"
+                style="
+                    padding: 9px 18px;
+                    border: none;
+                    border-radius: 6px;
+                    background: #dc3545;
+                    color: white;
+                    cursor: pointer;
+                ">
+                Hapus
+            </button>
+        </div>
+    </div>
+`;
+
+    document.body.appendChild(modal);
+
+    modal.querySelector("#batalHapus").onclick = function () {
+        modal.remove();
+    };
+
+    modal.querySelector("#konfirmasiHapus").onclick = function () {
+        modal.remove();
+
+        // Kirim form setelah pengguna mengonfirmasi
+        HTMLFormElement.prototype.submit.call(form);
+    };
+});
 
         /* Esc menutup modal */
         document.addEventListener("keydown", function (event) {
