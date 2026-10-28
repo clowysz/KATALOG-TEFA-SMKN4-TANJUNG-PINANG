@@ -1096,3 +1096,355 @@
 }
 
 
+/* NOTIFIKASI PERMINTAAN PEMBATALAN */
+.cancellation-notification {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    background: #fffbea;
+    border: 1px solid #f0dfaa;
+    border-radius: 10px;
+}
+
+.cancellation-notification-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #795b20;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.cancellation-notification-message i {
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.btn-toggle-cancellation {
+    flex-shrink: 0;
+    padding: 9px 15px;
+    border: 1px solid #e0c98f;
+    border-radius: 7px;
+    background: #f7edcf;
+    color: #795b20;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-toggle-cancellation:hover {
+    background: #f0dfaa;
+}
+
+/* DAFTAR PERMINTAAN PEMBATALAN */
+.cancellation-list {
+    margin-bottom: 24px;
+    padding: 18px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.cancellation-list[hidden] {
+    display: none !important;
+}
+
+.cancellation-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.cancellation-list-heading h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.cancellation-list-heading span {
+    color: #9a6b20;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .cancellation-notification {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .cancellation-list-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+
+/* ==========================================
+   TABEL PEMBATALAN - DESKTOP
+========================================== */
+
+#cancellationList .table-responsive {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+}
+
+#cancellationList table.cancellation-pesanan-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    border-collapse: collapse;
+}
+
+#cancellationList .cancellation-pesanan-table th,
+#cancellationList .cancellation-pesanan-table td {
+    padding: 12px 10px;
+    vertical-align: middle;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    font-size: inherit;
+}
+
+/* ==========================================
+   TAMPILAN HP
+========================================== */
+
+@media (max-width: 768px) {
+    #cancellationList .table-responsive {
+        overflow: visible !important;
+    }
+
+    #cancellationList table.cancellation-pesanan-table,
+    #cancellationList .cancellation-pesanan-table tbody {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    #cancellationList .cancellation-pesanan-table thead {
+        display: none !important;
+    }
+
+    #cancellationList .cancellation-pesanan-table tr.cancellation-row {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 16px;
+        padding: 12px;
+        border: 1px solid #dbe3ef;
+        border-radius: 10px;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    #cancellationList .cancellation-pesanan-table tr.cancellation-row td {
+        display: flex !important;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100% !important;
+        padding: 9px 0 !important;
+        border-bottom: 1px solid #edf0f5;
+        text-align: right;
+        font-size: inherit !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere;
+        box-sizing: border-box;
+    }
+
+    #cancellationList .cancellation-pesanan-table tr.cancellation-row td:last-child {
+        border-bottom: none;
+    }
+
+    #cancellationList .cancellation-pesanan-table td::before {
+        content: attr(data-label);
+        display: block !important;
+        flex: 0 0 40%;
+        font-weight: 600;
+        text-align: left;
+        overflow-wrap: normal;
+    }
+
+    #cancellationList .cancellation-pesanan-table td > * {
+        max-width: 60%;
+        min-width: 0;
+    }
+}
+
+/* Jarak filter dengan tabel permintaan pembatalan */
+#cancellationList .cancellation-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+/* Jarak antar kotak filter */
+#cancellationList .cancellation-filter-bar .search-input,
+#cancellationList .cancellation-filter-bar .filter-select {
+    margin: 0;
+}
+
+/* Jarak tabel dari area filter */
+#cancellationList .table-responsive {
+    margin-top: 8px;
+}
+
+/* Jarak judul daftar dengan filter */
+#cancellationList .cancellation-list-heading {
+    margin-bottom: 18px;
+}
+
+/* Ratakan judul kolom Status pada tabel utama */
+#mainPesananContent #pesananTable thead th:nth-child(8) {
+    text-align: center !important;
+}
+
+/* Judul kolom Aksi rata kiri */
+#mainPesananContent #pesananTable thead th:nth-child(9) {
+    text-align: left !important;
+    padding-left: 10px !important;
+    padding-right: 0 !important;
+}
+
+
+/* ==========================================
+   RESPONSIVE TABEL PERMINTAAN PEMBATALAN
+   Desktop : tabel normal
+   Tablet  : kartu 2 kolom
+   HP      : kartu 1 kolom
+========================================== */
+
+#cancellationList .table-responsive {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+#cancellationList .cancellation-pesanan-table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+}
+
+#cancellationList .cancellation-pesanan-table th {
+    white-space: nowrap;
+}
+
+/* Tablet dan HP */
+@media (max-width: 1024px) {
+    #cancellationList .table-responsive {
+        overflow-x: visible !important;
+    }
+
+    #cancellationList .cancellation-pesanan-table {
+        display: block;
+        width: 100%;
+        min-width: 0;
+    }
+
+    #cancellationList .cancellation-pesanan-table thead {
+        display: none;
+    }
+
+    #cancellationList .cancellation-pesanan-table tbody {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        width: 100%;
+    }
+
+    #cancellationList .cancellation-pesanan-table tr.cancellation-row {
+        display: block;
+        min-width: 0;
+        padding: 8px 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    #cancellationList .cancellation-pesanan-table tr.cancellation-row td {
+        display: grid !important;
+        grid-template-columns: minmax(90px, 40%) minmax(0, 1fr);
+        align-items: start;
+        gap: 10px;
+        width: 100%;
+        min-width: 0;
+        padding: 10px 0 !important;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: left !important;
+        font-size: 14px !important;
+        line-height: 1.5;
+        white-space: normal !important;
+        overflow-wrap: anywhere;
+        box-sizing: border-box;
+    }
+
+    #cancellationList .cancellation-pesanan-table tr.cancellation-row td::before {
+        content: attr(data-label);
+        display: block;
+        min-width: 0;
+        color: #64748b;
+        font-size: 13px;
+        font-weight: 600;
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    #cancellationList .cancellation-pesanan-table tr.cancellation-row td > * {
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #cancellationList .cancellation-pesanan-table tr.cancellation-row td:last-child {
+        border-bottom: none;
+    }
+}
+
+/* HP */
+@media (max-width: 640px) {
+    #cancellationList .cancellation-pesanan-table tbody {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+}
+
+/* Filter responsif */
+@media (max-width: 600px) {
+    #cancellationList .cancellation-filter-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    #cancellationList .cancellation-filter-bar input,
+    #cancellationList .cancellation-filter-bar select,
+    #cancellationList .cancellation-filter-bar button {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 1024px) {
+    #cancellationList .cancellation-pesanan-table thead {
+        display: none !important;
+    }
+
+    #cancellationList .cancellation-pesanan-table
+    tr.cancellation-row td::before {
+        content: attr(data-label) !important;
+        display: block !important;
+        visibility: visible !important;
+        font-weight: 600;
+        color: #64748b;
+        text-align: left;
+    }
+}

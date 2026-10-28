@@ -12,17 +12,34 @@ use Illuminate\Support\Facades\DB;
 
 class PesananController extends Controller
 {
-   public function index()
+  public function index()
 {
+    // Semua pesanan untuk tabel utama.
     $pesanans = Pesanan::with([
         'pembeli',
         'produkJasa.jurusan',
         'permintaanPembatalan',
-    ])->get();
+    ])->latest()->get();
+
+    // Semua permintaan pembatalan yang belum diputuskan.
+    $permintaanPembatalan = PermintaanPembatalan::with([
+        'pesanan.pembeli',
+        'pesanan.produkJasa.jurusan',
+    ])
+    ->where('status_permintaan', 'menunggu')
+    ->latest()
+    ->get();
+
+    // Jumlah permintaan yang masih menunggu keputusan.
+    $jumlahPermintaanPembatalan = $permintaanPembatalan->count();
 
     return view(
         'admin.admin_tefa.pesanan.index',
-        compact('pesanans')
+        compact(
+            'pesanans',
+            'permintaanPembatalan',
+            'jumlahPermintaanPembatalan'
+        )
     );
 }
 

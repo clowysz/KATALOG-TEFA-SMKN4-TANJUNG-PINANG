@@ -1,11 +1,13 @@
-/* =========================================================
-   KELOLA PESANAN (admin_tefa/pesanan)
 
-   Pencarian dan filter (status & jurusan) pada tabel / kartu pesanan.
-   Baris disembunyikan dengan style.display = 'none', dan
-   ditampilkan kembali dengan style.display = ''.
-   Pesan "Pesanan Tidak Ditemukan" memakai blok #emptyPesanan
-   yang sudah ada di blade.
+/* =========================================================
+   KELOLA PESANAN ADMIN TEFA
+
+   Fitur:
+   - Pencarian pesanan
+   - Filter status
+   - Filter permintaan pembatalan
+   - Filter jurusan
+   - Pesan jika hasil filter kosong
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -21,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const tableRows = table.querySelectorAll("tbody tr.pesanan-row");
 
-    // Kode pada filter jurusan -> nama jurusan lengkap
     const JURUSAN_MAP = {
         rpl: "rekayasa perangkat lunak",
         tkj: "teknik komputer dan jaringan",
@@ -31,11 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
         pspt: "produksi dan siaran program televisi",
     };
 
-    // Ambil teks sebuah kolom pada satu baris (huruf kecil, tanpa spasi tepi)
     function getText(row, selector) {
         const element = row.querySelector(selector);
 
-        return element ? element.textContent.toLowerCase().trim() : "";
+        return element
+            ? element.textContent.toLowerCase().trim()
+            : "";
     }
 
     function filterTable() {
@@ -59,11 +61,21 @@ document.addEventListener("DOMContentLoaded", function () {
             const produk = getText(row, ".col-produk");
             const jurusan = getText(row, ".col-jurusan");
 
-            const statusSelect = row.querySelector(".col-status select");
+            const statusSelect = row.querySelector(
+                ".col-status select"
+            );
 
-            const status = statusSelect
+            const statusPesanan = statusSelect
                 ? statusSelect.value.toLowerCase().trim()
                 : "";
+
+            // Periksa apakah pesanan memiliki permintaan
+            // pembatalan yang masih menunggu keputusan.
+            const adaPermintaanPembatalan = Boolean(
+                row.querySelector(
+                    ".cancellation-table-notice .cancellation-badge.pending"
+                )
+            );
 
             const matchSearch =
                 searchTerm === "" ||
@@ -71,14 +83,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 nama.includes(searchTerm) ||
                 produk.includes(searchTerm) ||
                 jurusan.includes(searchTerm) ||
-                status.includes(searchTerm);
+                statusPesanan.includes(searchTerm) ||
+                (
+                    adaPermintaanPembatalan &&
+                    "permintaan pembatalan".includes(searchTerm)
+                );
 
-            const matchStatus = statusTerm === "semua" || status === statusTerm;
+            let matchStatus;
+
+            if (statusTerm === "semua") {
+                matchStatus = true;
+            } else if (statusTerm === "permintaan pembatalan") {
+                matchStatus = adaPermintaanPembatalan;
+            } else {
+                matchStatus = statusPesanan === statusTerm;
+            }
 
             let matchJurusan = true;
 
             if (jurusanTerm !== "semua") {
-                const namaJurusan = JURUSAN_MAP[jurusanTerm] || jurusanTerm;
+                const namaJurusan =
+                    JURUSAN_MAP[jurusanTerm] || jurusanTerm;
 
                 matchJurusan = jurusan.includes(namaJurusan);
             }
@@ -93,7 +118,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (emptyPesanan) {
             emptyPesanan.style.display =
-                visibleCount === 0 && tableRows.length > 0 ? "block" : "none";
+                visibleCount === 0 && tableRows.length > 0
+                    ? "block"
+                    : "none";
         }
     }
 
