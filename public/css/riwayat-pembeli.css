@@ -1771,5 +1771,204 @@ main {
     -webkit-overflow-scrolling: touch;
 }
 
+/* =====================================================
+   TOMBOL HAPUS RIWAYAT PESANAN
+===================================================== */
 
+.rw-delete {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.rw-delete form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rw-btn-delete {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    background: #fee2e2;
+    color: #dc2626;
+    font-size: 19px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.rw-btn-delete:hover {
+    background: #dc2626;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.rw-delete-disabled {
+    color: #94a3b8;
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+    .rw-delete {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        text-align: right;
+    }
+
+    .rw-delete::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #64748b;
+    }
+
+    .rw-delete form {
+        margin-left: auto;
+    }
+
+    .rw-btn-delete {
+        width: 42px;
+        height: 42px;
+    }
+}
+
+/* Judul kolom tabel rata tengah */
+.rw-table thead th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Isi kolom Pesanan tetap rata kiri */
+.rw-table tbody td[data-label="Pesanan"] {
+    text-align: left;
+}
+
+/* =========================================
+   POPUP KONFIRMASI HAPUS RIWAYAT
+========================================= */
+
+.rw-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.rw-modal-overlay.active {
+    display: flex;
+}
+
+.rw-modal {
+    width: 100%;
+    max-width: 380px;
+    padding: 28px 24px;
+
+    background: #ffffff;
+    border-radius: 18px;
+    text-align: center;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+
+    animation: rwModalShow 0.2s ease;
+}
+
+.rw-modal-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #fee2e2;
+    color: #dc2626;
+    font-size: 27px;
+}
+
+.rw-modal h3 {
+    margin: 0 0 9px;
+    color: #1e293b;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.rw-modal p {
+    margin: 0 0 24px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.rw-modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.rw-modal-actions button {
+    flex: 1;
+    min-height: 44px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.rw-modal-cancel {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.rw-modal-cancel:hover {
+    background: #e2e8f0;
+}
+
+.rw-modal-confirm {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.rw-modal-confirm:hover {
+    background: #b91c1c;
+}
+
+@keyframes rwModalShow {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsive HP */
+@media (max-width: 480px) {
+    .rw-modal {
+        max-width: 340px;
+        padding: 24px 18px;
+    }
+
+    .rw-modal h3 {
+        font-size: 17px;
+    }
+}
 

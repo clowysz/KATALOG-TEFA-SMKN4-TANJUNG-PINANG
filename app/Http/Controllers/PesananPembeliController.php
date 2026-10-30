@@ -23,11 +23,13 @@ class PesananPembeliController extends Controller
     // Daftar riwayat pesanan pembeli
     public function riwayat(Request $request)
     {
-        $query = Pesanan::with([
-            'produkJasa.gambars',
-            'produkJasa.jurusan',
-            'riwayatStatus',
-        ])->where('id_user', Auth::id());
+       $query = Pesanan::with([
+    'produkJasa.gambars',
+    'produkJasa.jurusan',
+    'riwayatStatus',
+    ])
+    ->where('id_user', Auth::id())
+    ->whereNull('dihapus_dari_riwayat_at');
 
         $status = $request->query('status');
         $keyword = trim($request->query('keyword', ''));
@@ -228,5 +230,29 @@ public function batalkan(Request $request, $id_pesanan)
         ->withErrors(['error' => $hasil['message']]);
 }
 
+// Hapus pesanan dari riwayat pembeli
+public function hapusRiwayat($id_pesanan)
+{
+    if (Auth::user()->role !== 'pembeli') {
+        abort(403);
+    }
 
+    $pesanan = Pesanan::where('id_pesanan', $id_pesanan)
+        ->where('id_user', Auth::id())
+        ->firstOrFail();
+
+    // Hanya pesanan selesai dan dibatalkan yang boleh dihapus.
+    if (!in_array($pesanan->status, ['selesai', 'dibatalkan'])) {
+        return redirect()
+            ->route('pembeli.riwayat')
+            ->with('error', 'Pesanan ini belum dapat dihapus dari riwayat.');
+    }
+
+    $pesanan->dihapus_dari_riwayat_at = now();
+    $pesanan->save();
+
+    return redirect()
+        ->route('pembeli.riwayat')
+        ->with('success', 'Pesanan berhasil dihapus dari riwayat.');
+}
 }

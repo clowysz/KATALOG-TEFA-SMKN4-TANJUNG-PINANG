@@ -122,6 +122,7 @@ Route::middleware(['auth', 'role:pembeli'])->group(function () {
     Route::post('/checkout', [PesananPembeliController::class, 'store'])
         ->name('pesanan.store');
     Route::post('/riwayat-pesanan/{id_pesanan}/batalkan',[PesananPembeliController::class, 'batalkan'])->name('pembeli.pesanan.batalkan');
+    Route::delete('/riwayat-pesanan/{id_pesanan}/hapus',[PesananPembeliController::class, 'hapusRiwayat'])->name('pembeli.riwayat.hapus');
 });
 
 

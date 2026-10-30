@@ -379,9 +379,7 @@
     </footer>
 
 
-    @stack('scripts')
-
-
+    @stack('js')
+    
 </body>
-
-</html>
+    </html>

@@ -113,6 +113,7 @@
                         <th>Status</th>
                         <th>Progress</th>
                         <th>Aksi</th>
+                        <th>Hapus</th>
                     </tr>
                 </thead>
 
@@ -226,10 +227,36 @@
     </div>
 </td>
 
+                <!-- HAPUS RIWAYAT -->
+                <td class="rw-delete" data-label="Hapus">
+                    @if(in_array($item->status, ['selesai', 'dibatalkan']))
+                    <form
+                        action="{{ route('pembeli.riwayat.hapus', $item->id_pesanan) }}"
+                        method="POST"
+                        class="rw-delete-form"
+                    >
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            type="button"
+                            class="rw-btn-delete"
+                            title="Hapus dari riwayat"
+                            aria-label="Hapus pesanan dari riwayat"
+                            onclick="bukaPopupHapus(this)"
+                        >
+                            <i class="ph ph-trash"></i>
+                        </button>
+                    </form>
+                    @else
+                        <span class="rw-delete-disabled">-</span>
+                    @endif
+                </td>
+
                     @empty
 
                         <tr class="rw-empty-row">
-                            <td colspan="6" class="rw-empty">
+                          <td colspan="7" class="rw-empty">
 
                                 <i class="ph ph-receipt"></i>
 
@@ -254,4 +281,34 @@
 
 </div>
    @include('public.popup.batal-pesanan')
+
+  <!-- POPUP HAPUS RIWAYAT -->
+<div class="rw-modal-overlay" id="popupHapusRiwayat">
+    <div class="rw-modal">
+        <div class="rw-modal-icon">
+            <i class="ph ph-trash"></i>
+        </div>
+
+        <h3>Hapus dari riwayat?</h3>
+
+        <p>Pesanan ini akan dihapus dari riwayat kamu.</p>
+
+        <div class="rw-modal-actions">
+            <button type="button" class="rw-modal-cancel"
+                onclick="tutupPopupHapus()">
+                Batal
+            </button>
+
+            <button type="button" class="rw-modal-confirm"
+                onclick="konfirmasiHapusRiwayat()">
+                Ya, Hapus
+            </button>
+        </div>
+    </div>
+</div>
+
+@push('js')
+    <script src="{{ asset('js/popup-hapus-riwayat.js') }}"></script>
+@endpush
+
 @endsection
