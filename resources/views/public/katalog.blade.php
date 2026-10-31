@@ -189,6 +189,6 @@
 </div>
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/katalog-pembeli.js') }}"></script>
 @endpush
