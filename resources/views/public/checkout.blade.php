@@ -269,6 +269,6 @@
 </div>
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/checkout-pembeli.js') }}"></script>
 @endpush

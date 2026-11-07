@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title') - Admin Produser</title>
+    @include('partials.favicon')
 
     <link rel="stylesheet" href="{{ asset('css/global-admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin-produser.css') }}">

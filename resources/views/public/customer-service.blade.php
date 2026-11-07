@@ -1,35 +1,31 @@
-@extends('public.layouts')
+<?php
 
-@section('title', 'Customer Service')
+namespace App\Http\Controllers;
 
-@push('css')
-    <link rel="stylesheet" href="{{ asset('css/customer-service.css') }}">
-@endpush
+use App\Models\Pengaturan;
+use App\Models\Pesanan;
+use Illuminate\Support\Facades\Auth;
 
-@section('content')
+class CustomerServiceController extends Controller
+{
+    public function index()
+    {
+        // Belum login
+        if (!Auth::check()) {
+            return redirect()->route('login', [
+                'redirect' => '/customer-service',
+                'back' => url()->previous(),
+            ]);
+        }
 
-<div class="cs-page">
+        // Akun yang sudah punya pesanan langsung diarahkan ke WhatsApp
+        // (nomor diatur admin Tefa di halaman Katalog Gabungan)
+        $hasPesanan = Pesanan::where('id_user', Auth::id())->exists();
 
-    <div class="cs-card">
+        if ($hasPesanan) {
+            return redirect()->away(Pengaturan::urlWhatsapp());
+        }
 
-        <i class="ph ph-shopping-cart-simple cs-icon"></i>
-
-        <h2>
-            Belum Ada Pesanan
-        </h2>
-
-        <p>
-            Kamu belum memiliki pesanan.
-            Silakan pilih dan pesan produk terlebih dahulu
-            untuk dapat menghubungi Customer Service.
-        </p>
-
-        <a href="/katalog" class="btn-jurusan">
-            Lihat Katalog
-        </a>
-
-    </div>
-
-</div>
-
-@endsection
+        return view('public.customer-service');
+    }
+}

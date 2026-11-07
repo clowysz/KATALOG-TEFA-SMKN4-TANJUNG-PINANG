@@ -35,6 +35,12 @@
     $progressSaatIni = $progressTerakhir
         ? $progressTerakhir->persentase_progress
         : ($pesanan->status === 'selesai' ? 100 : 0);
+
+    // Riwayat pembatalan terbaru (berisi alasan pembatalan).
+    $riwayatBatal = $pesanan->riwayatStatus
+        ->where('status', 'dibatalkan')
+        ->sortByDesc('tanggal_update')
+        ->first();
 @endphp
 
 <div class="rd-page">
@@ -216,6 +222,25 @@
             </div>
 
 
+            <!-- ALASAN PEMBATALAN -->
+            @if($pesanan->status === 'dibatalkan' && $riwayatBatal?->keterangan)
+
+                <div class="rd-card">
+
+                    <h3 class="rd-card-title">
+                        <i class="ph ph-x-circle"></i>
+                        Alasan Pembatalan
+                    </h3>
+
+                    <div class="rd-notes">
+                        {{ $riwayatBatal->keterangan }}
+                    </div>
+
+                </div>
+
+            @endif
+
+
             <!-- PROGRESS PENGERJAAN -->
             <div class="rd-card">
 
@@ -354,7 +379,7 @@
                 </div>
 
 
-                   
+
 <!-- KOLOM DETAIL PESANAN DAN PEMBATALAN -->
 <div class="rd-detail-column">
 

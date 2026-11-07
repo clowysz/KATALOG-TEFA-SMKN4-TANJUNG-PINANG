@@ -7,6 +7,9 @@
 
     <title>@yield('title') - Admin TEFA</title>
 
+    <!-- FAVICON -->
+    @include('partials.favicon')
+
     <!-- CSS GLOBAL -->
     <link rel="stylesheet" href="{{ asset('css/global-admin.css') }}?v=3">
 
@@ -112,6 +115,13 @@
                 <a href="/tefa/faq" class="{{ request()->is('tefa/faq*') ? 'active' : '' }}">
                     <i class="ph ph-question"></i>
                     Kelola FAQ
+                </a>
+            </li>
+
+            <li>
+                <a href="/tefa/customer-service" class="{{ request()->is('tefa/customer-service*') ? 'active' : '' }}">
+                    <i class="ph ph-headset"></i>
+                    Customer Service
                 </a>
             </li>
 

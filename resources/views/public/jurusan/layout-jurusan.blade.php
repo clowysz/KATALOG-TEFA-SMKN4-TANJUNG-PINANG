@@ -10,6 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'TEFA SMKN 4 Tanjungpinang')</title>
+    @include('partials.favicon')
 
     <link rel="stylesheet" href="{{ asset('css/pembeli.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jurusan-detail.css') }}">
@@ -359,7 +360,7 @@
     </a>
 
 
-    @stack('scripts')
+    @stack('js')
 
 
 </body>

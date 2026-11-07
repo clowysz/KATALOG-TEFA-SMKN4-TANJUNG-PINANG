@@ -1,10 +1,17 @@
-
 /* =========================================================
    PESANAN TEFA
    Kelola pesanan dan detail pesanan.
    Desktop: tabel | Tablet: kartu 2 kolom | HP: 1 kolom
-========================================================= */
 
+   Isi file ini:
+   1. Komponen bersama
+   2. Kelola pesanan (tabel utama, kolom status & aksi)
+   3. Notifikasi & daftar permintaan pembatalan
+   4. Detail pesanan
+   5. Pembatalan di halaman detail (kartu & modal)
+   6. Responsif
+   7. Preferensi pengurangan animasi
+========================================================= */
 
 /* =========================================================
    1. KOMPONEN BERSAMA
@@ -59,7 +66,6 @@
   border: 1px solid #fecaca;
 }
 
-
 /* =========================================================
    2. KELOLA PESANAN
 ========================================================= */
@@ -70,7 +76,24 @@
   font-size: 15px;
 }
 
-/* Tombol Update dan Detail */
+/* Judul kolom Status di tengah, kolom Aksi rata kiri */
+.pesanan-table th.th-status {
+  text-align: center;
+}
+
+.pesanan-table th.th-aksi {
+  padding-right: 0;
+  padding-left: 10px;
+  text-align: left;
+}
+
+/* Isi kolom status dan aksi sejajar di tengah tinggi sel */
+.pesanan-table td.col-status,
+.pesanan-table td.col-aksi {
+  vertical-align: middle;
+}
+
+/* ---------- Tombol Update dan Detail ---------- */
 .btn-update-pesanan,
 .btn-detail-pesanan {
   display: inline-block;
@@ -110,16 +133,34 @@
   cursor: not-allowed;
 }
 
+.pesanan-table td.col-aksi .btn-detail-pesanan {
+  vertical-align: middle;
+}
+
+/* ---------- Isi kolom status ---------- */
+/* Lebar & tinggi tetap: form status, "Pembatalan diajukan", dan
+   "Dibatalkan" semuanya sama ukuran sehingga tabel rapi. */
+.status-cell-content {
+  box-sizing: border-box;
+  width: 250px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 /* Form dan pilihan status */
 .status-update-form {
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
   margin: 0;
 }
 
 .status-update-select {
+  flex: 1 1 auto;
+  box-sizing: border-box;
   min-width: 0;
+  height: 38px;
   padding: 8px 12px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
@@ -140,36 +181,42 @@
   cursor: not-allowed;
 }
 
-/* Informasi permintaan pembatalan di tabel */
-.cancellation-table-notice {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  width: 100%;
-  margin-bottom: 8px;
-  text-align: center;
+.status-update-form .btn-update-pesanan {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
-.cancellation-table-notice .cancellation-badge {
-  display: inline-block;
-  width: fit-content;
-  padding: 6px 10px;
-  border-radius: 6px;
+/* Lencana status pengganti form (pembatalan diajukan, dibatalkan) */
+.status-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.status-pill--pending {
   color: #805b00;
   background: #fff2cc;
-  font-size: 12px;
-  font-weight: 600;
 }
 
-.cancellation-table-notice p {
-  margin: 6px 0;
-  color: #b45309;
-  font-size: 12px;
-  line-height: 1.5;
+.status-pill--cancelled {
+  color: #a32121;
+  background: #fde5e5;
 }
 
-/* Pesan ketika tidak ada pesanan */
+/* ---------- Pesan ketika tidak ada pesanan ---------- */
 .pesanan-table td.pesanan-empty {
   padding: 60px 20px;
   text-align: center;
@@ -191,9 +238,97 @@
   text-align: center;
 }
 
+/* =========================================================
+   3. NOTIFIKASI & DAFTAR PERMINTAAN PEMBATALAN
+========================================================= */
+
+/* Notifikasi permintaan pembatalan */
+.cancellation-notification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  background: #fffbea;
+  border: 1px solid #f0dfaa;
+  border-radius: 10px;
+}
+
+.cancellation-notification-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #795b20;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.cancellation-notification-message i {
+  flex-shrink: 0;
+  font-size: 21px;
+}
+
+.btn-toggle-cancellation {
+  flex-shrink: 0;
+  padding: 9px 15px;
+  border: 1px solid #e0c98f;
+  border-radius: 7px;
+  background: #f7edcf;
+  color: #795b20;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-toggle-cancellation:hover {
+  background: #f0dfaa;
+}
+
+/* Daftar permintaan pembatalan */
+.cancellation-list {
+  margin-bottom: 24px;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.cancellation-list[hidden] {
+  display: none !important;
+}
+
+.cancellation-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.cancellation-list-heading h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.cancellation-list-heading span {
+  color: #9a6b20;
+  font-size: 12px;
+}
+
+/* Filter dan tabel daftar permintaan pembatalan memakai gaya yang sama
+   dengan halaman utama (.filter-bar dan .pesanan-table). */
+#cancellationList .table-responsive {
+  margin-top: 8px;
+}
+
+/* Baris yang tersaring disembunyikan lewat atribut hidden */
+#cancellationList .cancellation-pesanan-table tr.cancellation-row[hidden] {
+  display: none !important;
+}
 
 /* =========================================================
-   3. DETAIL PESANAN
+   4. DETAIL PESANAN
 ========================================================= */
 
 /* Pembungkus halaman detail */
@@ -360,6 +495,10 @@
   margin-top: 4px;
 }
 
+.status-form-group[hidden] {
+  display: none;
+}
+
 .status-form-label {
   display: block;
   margin-bottom: 8px;
@@ -387,6 +526,28 @@
 .status-select:focus {
   border-color: #3b698f;
   box-shadow: 0 0 0 3px rgba(59, 105, 143, 0.1);
+}
+
+/* Kolom alasan pembatalan (muncul saat memilih "Dibatalkan") */
+.status-reason-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font: inherit;
+  resize: vertical;
+}
+
+.status-reason-input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.status-reason-hint {
+  display: block;
+  margin-top: 6px;
+  color: #6b7280;
 }
 
 .status-form-actions {
@@ -420,33 +581,34 @@
   outline-offset: 2px;
 }
 
+.btn-save-status:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 /* =========================================================
-   4. PEMBATALAN PESANAN
+   5. PEMBATALAN DI HALAMAN DETAIL
 ========================================================= */
 
-/* Kartu update status dan pembatalan */
+/* Kartu update status dan pembatalan berdampingan */
 .detail-pesanan-bottom {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 24px;
-    align-items: start;
-    width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+}
+
+.detail-pesanan-bottom > .detail-pesanan-card {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
 }
 
 .detail-pesanan-bottom > .status-card,
 .detail-pesanan-bottom > .cancellation-card {
-    width: 100%;
-    min-width: 0;
-    max-width: none;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-.detail-pesanan-bottom > .detail-pesanan-card {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+  max-width: none;
+  margin: 0;
 }
 
 /* Pesan ketika belum ada permintaan pembatalan */
@@ -474,13 +636,13 @@
   margin: 16px 0;
 }
 
-.cancellation-row {
+.cancellation-info .cancellation-row {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.cancellation-row p {
+.cancellation-info .cancellation-row p {
   margin: 0;
   line-height: 1.6;
   overflow-wrap: anywhere;
@@ -519,7 +681,7 @@
   background: #fde5e5;
 }
 
-/* Form alasan dan tombol keputusan */
+/* Tombol keputusan */
 .cancellation-actions {
   display: flex;
   flex-direction: column;
@@ -548,7 +710,6 @@
   outline: 2px solid #b7d8f7;
 }
 
-/* Tombol setujui dan tolak pembatalan */
 .btn-cancellation-approve,
 .btn-cancellation-reject {
   width: 100%;
@@ -583,13 +744,146 @@
   line-height: 1.6;
 }
 
+/* ---------- Modal konfirmasi pembatalan ---------- */
+.cancellation-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.cancellation-modal.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.cancellation-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.48);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.cancellation-modal-box {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  padding: 30px 26px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.22);
+  text-align: center;
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.2s ease;
+}
+
+.cancellation-modal.show .cancellation-modal-box {
+  transform: translateY(0) scale(1);
+}
+
+.cancellation-modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #fff7ed;
+  color: #ea580c;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.cancellation-modal-box.is-reject .cancellation-modal-icon {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.cancellation-modal-box h3 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.cancellation-modal-box p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.cancellation-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.cancellation-modal-btn {
+  min-height: 42px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.cancellation-modal-btn:hover {
+  transform: translateY(-1px);
+}
+
+.cancellation-modal-btn.cancel {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.cancellation-modal-btn.cancel:hover {
+  background: #e5e7eb;
+}
+
+.cancellation-modal-btn.confirm {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.cancellation-modal-btn.confirm:hover {
+  background: #15803d;
+}
+
+.cancellation-modal-box.is-reject .cancellation-modal-btn.confirm {
+  background: #dc2626;
+}
+
+.cancellation-modal-box.is-reject .cancellation-modal-btn.confirm:hover {
+  background: #b91c1c;
+}
 
 /* =========================================================
-   5. RESPONSIVE TABLET DAN HP
+   6. RESPONSIF
 ========================================================= */
 
-/* Tablet: ubah tabel menjadi kartu 2 kolom */
+/* ---------- Tablet (maks 1024px): tabel jadi kartu 2 kolom ---------- */
 @media (max-width: 1024px) {
+  /* Tabel utama */
   .table-responsive {
     overflow: visible;
   }
@@ -630,7 +924,7 @@
     background: #fff;
   }
 
-  /* Susun setiap sel sebagai label dan isi */
+  /* Setiap sel: label di kiri, isi di kanan */
   .pesanan-table .pesanan-row td {
     display: flex;
     align-items: center;
@@ -668,7 +962,7 @@
     display: none;
   }
 
-  /* Susunan kolom status */
+  /* Kolom status: label di atas, isi memenuhi lebar kartu */
   .pesanan-table .pesanan-row td.col-status {
     flex-direction: column;
     align-items: stretch;
@@ -676,24 +970,18 @@
     text-align: left;
   }
 
-  .status-update-form {
-    align-items: stretch;
+  .status-cell-content {
+    width: 100%;
+    margin: 0;
   }
 
   .status-update-select {
-    flex: 1;
-    min-width: 0;
     font-size: 14px;
   }
 
-  .btn-update-pesanan {
-    flex-shrink: 0;
-    padding: 9px 16px;
-  }
-
-  .cancellation-table-notice {
-    align-items: flex-start;
-    text-align: left;
+  .status-update-form .btn-update-pesanan {
+    padding-right: 16px;
+    padding-left: 16px;
   }
 
   /* Tombol detail memenuhi lebar bagian bawah kartu */
@@ -706,10 +994,10 @@
 
   .btn-detail-pesanan {
     display: block;
+    box-sizing: border-box;
     width: 100%;
     padding: 10px 14px;
     text-align: center;
-    box-sizing: border-box;
   }
 
   /* Baris kosong memenuhi lebar tabel */
@@ -730,7 +1018,7 @@
   }
 }
 
-/* Tablet: detail menjadi satu kolom */
+/* ---------- Tablet (maks 992px): detail jadi satu kolom ---------- */
 @media (max-width: 992px) {
   .detail-pesanan-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -738,12 +1026,8 @@
   }
 }
 
-/* HP: rapikan header, alert, dan detail */
+/* ---------- HP (maks 768px) ---------- */
 @media (max-width: 768px) {
-  .detail-pesanan-bottom {
-  grid-template-columns: minmax(0, 1fr);
-  }
-
   .page-header h2 {
     font-size: 18px;
   }
@@ -762,6 +1046,7 @@
     padding: 28px 12px;
   }
 
+  /* Detail pesanan */
   .detail-pesanan-container {
     padding: 4px 0 16px;
   }
@@ -816,7 +1101,7 @@
   }
 }
 
-/* HP: satu kartu pesanan per baris */
+/* ---------- HP (maks 640px): satu kartu per baris ---------- */
 @media (max-width: 640px) {
   .pesanan-table tbody {
     grid-template-columns: minmax(0, 1fr);
@@ -824,7 +1109,20 @@
   }
 }
 
-/* HP: informasi detail menjadi baris label dan isi */
+/* ---------- HP (maks 600px): notifikasi pembatalan ---------- */
+@media (max-width: 600px) {
+  .cancellation-notification {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cancellation-list-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* ---------- HP (maks 560px): informasi detail jadi label & isi ---------- */
 @media (max-width: 560px) {
   .detail-info-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -848,7 +1146,22 @@
   }
 }
 
-/* HP sangat kecil: form status tersusun vertikal */
+/* ---------- HP (maks 480px): modal ---------- */
+@media (max-width: 480px) {
+  .cancellation-modal-box {
+    padding: 26px 20px;
+  }
+
+  .cancellation-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancellation-modal-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- HP sangat kecil (maks 380px): form status vertikal ---------- */
 @media (max-width: 380px) {
   .pesanan-table .pesanan-row td.col-status .status-update-form {
     flex-direction: column;
@@ -860,591 +1173,79 @@
   }
 }
 
-/* Kurangi animasi sesuai pengaturan perangkat */
+/* =========================================================
+   7. PREFERENSI PENGURANGAN ANIMASI
+========================================================= */
 @media (prefers-reduced-motion: reduce) {
   .btn-update-pesanan,
   .btn-detail-pesanan,
   .btn-back-pesanan,
   .btn-save-status,
-  .status-select {
+  .status-select,
+  .cancellation-modal,
+  .cancellation-modal-box,
+  .cancellation-modal-btn {
     transition: none;
   }
 }
 
+/* =========================================================
+   TAMBAHAN: ringkasan pembatalan pesanan
+   Tempel di BAGIAN PALING BAWAH public/css/pesanan-tefa.css
+   (lalu naikkan ?v= di Blade agar cache browser diperbarui)
+========================================================= */
 
-/* =========================================
-   LAYOUT PESANAN DENGAN PEMBATALAN
-========================================= */
-
-/* Sejajarkan isi kolom Status dan Aksi */
-.pesanan-table td.col-status,
-.pesanan-table td.col-aksi {
-    vertical-align: middle;
+/* Ringkasan: siapa yang membatalkan, kapan, dan alasannya */
+.cancellation-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 20px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-/* Susunan khusus saat ada permintaan pembatalan */
-.status-cell-content:has(.cancellation-table-notice) {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+.cancellation-summary-item {
+  min-width: 0;
 }
 
-/* Baris atas: pilihan status dan Update tetap berdampingan */
-.status-cell-content:has(.cancellation-table-notice)
-.status-update-form {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    margin: 0;
+.cancellation-summary-item.full {
+  grid-column: 1 / -1;
 }
 
-/* Pilihan status tidak mengambil seluruh ruang */
-.status-cell-content:has(.cancellation-table-notice)
-.status-update-select {
-    min-width: 0;
-    flex: 1;
+/* Teks alasan: panjang apa pun tidak merusak layout */
+.cancellation-text {
+  margin: 6px 0 0;
+  line-height: 1.6;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
-/* Tombol Update tidak turun ke baris berikutnya */
-.status-cell-content:has(.cancellation-table-notice)
-.btn-update-pesanan {
-    flex-shrink: 0;
-    white-space: nowrap;
+.cancellation-text.is-empty {
+  color: #94a3b8;
+  font-style: italic;
 }
 
-/* Bagian informasi pembatalan berada di bawah */
-.status-cell-content:has(.cancellation-table-notice)
-.cancellation-table-notice {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    margin: 0;
-    text-align: center;
+/* Penanda siapa yang membatalkan */
+.cancellation-badge.by-admin {
+  background: #dbeafe;
+  color: #1e3a8a;
 }
 
-.status-cell-content:has(.cancellation-table-notice)
-.cancellation-table-notice p {
-    margin: 0;
-    font-size: 12px;
-    line-height: 1.5;
-    overflow-wrap: anywhere;
+.cancellation-badge.by-buyer {
+  background: #fef3c7;
+  color: #92400e;
 }
 
-/* Detail tetap berada di tengah tinggi sel */
-.pesanan-table td.col-aksi .btn-detail-pesanan {
-    display: inline-block;
-    vertical-align: middle;
+.cancellation-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #64748b;
 }
 
-/* Tampilan layar kecil */
-@media (max-width: 1024px) {
-    .status-cell-content:has(.cancellation-table-notice)
-    .cancellation-table-notice {
-        align-items: flex-start;
-        text-align: left;
-    }
-}
-
-
-/* ===== MODAL KONFIRMASI PEMBATALAN ===== */
-
-.cancellation-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-.cancellation-modal.show {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.cancellation-modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.48);
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
-}
-
-.cancellation-modal-box {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 420px;
-    padding: 30px 26px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 18px;
-    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.22);
-    text-align: center;
-    transform: translateY(12px) scale(0.98);
-    transition: transform 0.2s ease;
-}
-
-.cancellation-modal.show .cancellation-modal-box {
-    transform: translateY(0) scale(1);
-}
-
-.cancellation-modal-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 58px;
-    height: 58px;
-    margin: 0 auto 18px;
-    border-radius: 50%;
-    background: #fff7ed;
-    color: #ea580c;
-    font-size: 30px;
-    font-weight: 700;
-}
-
-.cancellation-modal-box.is-reject .cancellation-modal-icon {
-    background: #fef2f2;
-    color: #dc2626;
-}
-
-.cancellation-modal-box h3 {
-    margin: 0 0 10px;
-    color: #111827;
-    font-size: 21px;
-    font-weight: 700;
-}
-
-.cancellation-modal-box p {
-    margin: 0;
-    color: #6b7280;
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-.cancellation-modal-actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 26px;
-}
-
-.cancellation-modal-btn {
-    min-height: 42px;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 9px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.cancellation-modal-btn:hover {
-    transform: translateY(-1px);
-}
-
-.cancellation-modal-btn.cancel {
-    background: #f3f4f6;
-    color: #374151;
-}
-
-.cancellation-modal-btn.cancel:hover {
-    background: #e5e7eb;
-}
-
-.cancellation-modal-btn.confirm {
-    background: #16a34a;
-    color: #ffffff;
-}
-
-.cancellation-modal-btn.confirm:hover {
-    background: #15803d;
-}
-
-.cancellation-modal-box.is-reject .cancellation-modal-btn.confirm {
-    background: #dc2626;
-}
-
-.cancellation-modal-box.is-reject .cancellation-modal-btn.confirm:hover {
-    background: #b91c1c;
-}
-
-@media (max-width: 480px) {
-    .cancellation-modal-box {
-        padding: 26px 20px;
-    }
-
-    .cancellation-modal-actions {
-        flex-direction: column-reverse;
-    }
-
-    .cancellation-modal-btn {
-        width: 100%;
-    }
-}
-
-
-/* NOTIFIKASI PERMINTAAN PEMBATALAN */
-.cancellation-notification {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 14px 18px;
-    margin-bottom: 16px;
-    background: #fffbea;
-    border: 1px solid #f0dfaa;
-    border-radius: 10px;
-}
-
-.cancellation-notification-message {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #795b20;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-.cancellation-notification-message i {
-    font-size: 21px;
-    flex-shrink: 0;
-}
-
-.btn-toggle-cancellation {
-    flex-shrink: 0;
-    padding: 9px 15px;
-    border: 1px solid #e0c98f;
-    border-radius: 7px;
-    background: #f7edcf;
-    color: #795b20;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.btn-toggle-cancellation:hover {
-    background: #f0dfaa;
-}
-
-/* DAFTAR PERMINTAAN PEMBATALAN */
-.cancellation-list {
-    margin-bottom: 24px;
-    padding: 18px;
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-}
-
-.cancellation-list[hidden] {
-    display: none !important;
-}
-
-.cancellation-list-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 16px;
-}
-
-.cancellation-list-heading h3 {
-    margin: 0;
-    font-size: 16px;
-}
-
-.cancellation-list-heading span {
-    color: #9a6b20;
-    font-size: 12px;
-}
-
-@media (max-width: 600px) {
-    .cancellation-notification {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .cancellation-list-heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-}
-
-
-/* ==========================================
-   TABEL PEMBATALAN - DESKTOP
-========================================== */
-
-#cancellationList .table-responsive {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden !important;
-    box-sizing: border-box;
-}
-
-#cancellationList table.cancellation-pesanan-table {
-    width: 100% !important;
-    min-width: 0 !important;
-    table-layout: auto !important;
-    border-collapse: collapse;
-}
-
-#cancellationList .cancellation-pesanan-table th,
-#cancellationList .cancellation-pesanan-table td {
-    padding: 12px 10px;
-    vertical-align: middle;
-    white-space: normal;
-    overflow-wrap: anywhere;
-    font-size: inherit;
-}
-
-/* ==========================================
-   TAMPILAN HP
-========================================== */
-
-@media (max-width: 768px) {
-    #cancellationList .table-responsive {
-        overflow: visible !important;
-    }
-
-    #cancellationList table.cancellation-pesanan-table,
-    #cancellationList .cancellation-pesanan-table tbody {
-        display: block !important;
-        width: 100% !important;
-    }
-
-    #cancellationList .cancellation-pesanan-table thead {
-        display: none !important;
-    }
-
-    #cancellationList .cancellation-pesanan-table tr.cancellation-row {
-        display: block !important;
-        width: 100% !important;
-        margin-bottom: 16px;
-        padding: 12px;
-        border: 1px solid #dbe3ef;
-        border-radius: 10px;
-        background: #fff;
-        box-sizing: border-box;
-    }
-
-    #cancellationList .cancellation-pesanan-table tr.cancellation-row td {
-        display: flex !important;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 12px;
-        width: 100% !important;
-        padding: 9px 0 !important;
-        border-bottom: 1px solid #edf0f5;
-        text-align: right;
-        font-size: inherit !important;
-        white-space: normal !important;
-        overflow-wrap: anywhere;
-        box-sizing: border-box;
-    }
-
-    #cancellationList .cancellation-pesanan-table tr.cancellation-row td:last-child {
-        border-bottom: none;
-    }
-
-    #cancellationList .cancellation-pesanan-table td::before {
-        content: attr(data-label);
-        display: block !important;
-        flex: 0 0 40%;
-        font-weight: 600;
-        text-align: left;
-        overflow-wrap: normal;
-    }
-
-    #cancellationList .cancellation-pesanan-table td > * {
-        max-width: 60%;
-        min-width: 0;
-    }
-}
-
-/* Jarak filter dengan tabel permintaan pembatalan */
-#cancellationList .cancellation-filter-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-bottom: 22px;
-}
-
-/* Jarak antar kotak filter */
-#cancellationList .cancellation-filter-bar .search-input,
-#cancellationList .cancellation-filter-bar .filter-select {
-    margin: 0;
-}
-
-/* Jarak tabel dari area filter */
-#cancellationList .table-responsive {
-    margin-top: 8px;
-}
-
-/* Jarak judul daftar dengan filter */
-#cancellationList .cancellation-list-heading {
-    margin-bottom: 18px;
-}
-
-/* Ratakan judul kolom Status pada tabel utama */
-#mainPesananContent #pesananTable thead th:nth-child(8) {
-    text-align: center !important;
-}
-
-/* Judul kolom Aksi rata kiri */
-#mainPesananContent #pesananTable thead th:nth-child(9) {
-    text-align: left !important;
-    padding-left: 10px !important;
-    padding-right: 0 !important;
-}
-
-
-/* ==========================================
-   RESPONSIVE TABEL PERMINTAAN PEMBATALAN
-   Desktop : tabel normal
-   Tablet  : kartu 2 kolom
-   HP      : kartu 1 kolom
-========================================== */
-
-#cancellationList .table-responsive {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    box-sizing: border-box;
-}
-
-#cancellationList .cancellation-pesanan-table {
-    width: 100%;
-    min-width: 850px;
-    border-collapse: collapse;
-}
-
-#cancellationList .cancellation-pesanan-table th {
-    white-space: nowrap;
-}
-
-/* Tablet dan HP */
-@media (max-width: 1024px) {
-    #cancellationList .table-responsive {
-        overflow-x: visible !important;
-    }
-
-    #cancellationList .cancellation-pesanan-table {
-        display: block;
-        width: 100%;
-        min-width: 0;
-    }
-
-    #cancellationList .cancellation-pesanan-table thead {
-        display: none;
-    }
-
-    #cancellationList .cancellation-pesanan-table tbody {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-        width: 100%;
-    }
-
-    #cancellationList .cancellation-pesanan-table tr.cancellation-row {
-        display: block;
-        min-width: 0;
-        padding: 8px 14px;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        background: #fff;
-        box-sizing: border-box;
-    }
-
-    #cancellationList .cancellation-pesanan-table tr.cancellation-row td {
-        display: grid !important;
-        grid-template-columns: minmax(90px, 40%) minmax(0, 1fr);
-        align-items: start;
-        gap: 10px;
-        width: 100%;
-        min-width: 0;
-        padding: 10px 0 !important;
-        border-bottom: 1px solid #f1f5f9;
-        text-align: left !important;
-        font-size: 14px !important;
-        line-height: 1.5;
-        white-space: normal !important;
-        overflow-wrap: anywhere;
-        box-sizing: border-box;
-    }
-
-    #cancellationList .cancellation-pesanan-table tr.cancellation-row td::before {
-        content: attr(data-label);
-        display: block;
-        min-width: 0;
-        color: #64748b;
-        font-size: 13px;
-        font-weight: 600;
-        text-align: left;
-        overflow-wrap: anywhere;
-    }
-
-    #cancellationList .cancellation-pesanan-table tr.cancellation-row td > * {
-        min-width: 0;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    #cancellationList .cancellation-pesanan-table tr.cancellation-row td:last-child {
-        border-bottom: none;
-    }
-}
-
-/* HP */
 @media (max-width: 640px) {
-    #cancellationList .cancellation-pesanan-table tbody {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 12px;
-    }
-}
-
-/* Filter responsif */
-@media (max-width: 600px) {
-    #cancellationList .cancellation-filter-bar {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
-
-    #cancellationList .cancellation-filter-bar input,
-    #cancellationList .cancellation-filter-bar select,
-    #cancellationList .cancellation-filter-bar button {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-}
-
-@media (max-width: 1024px) {
-    #cancellationList .cancellation-pesanan-table thead {
-        display: none !important;
-    }
-
-    #cancellationList .cancellation-pesanan-table
-    tr.cancellation-row td::before {
-        content: attr(data-label) !important;
-        display: block !important;
-        visibility: visible !important;
-        font-weight: 600;
-        color: #64748b;
-        text-align: left;
-    }
+  .cancellation-summary {
+    grid-template-columns: 1fr;
+  }
 }

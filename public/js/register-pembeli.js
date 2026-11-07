@@ -2,159 +2,113 @@
 |--------------------------------------------------------------------------
 | Validasi form daftar pembeli
 |--------------------------------------------------------------------------
+| Membutuhkan form-validasi.js
 | Toggle password ditangani oleh password-toggle.js
 */
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("formDaftarPembeli");
-    const nama = document.getElementById("namaPembeli");
-    const nomorHp = document.getElementById("nomorHpPembeli");
-    const email = document.getElementById("emailDaftarPembeli");
-    const password = document.getElementById("passwordDaftar");
-    const konfirmasi = document.getElementById("passwordKonfirmasi");
+  const form = document.getElementById("formDaftarPembeli");
+  const nama = document.getElementById("namaPembeli");
+  const nomorHp = document.getElementById("nomorHpPembeli");
+  const email = document.getElementById("emailDaftarPembeli");
+  const password = document.getElementById("passwordDaftar");
+  const konfirmasi = document.getElementById("passwordKonfirmasi");
 
-    if (!form || !nama || !nomorHp || !email || !password || !konfirmasi)
-        return;
+  if (
+    !form ||
+    !nama ||
+    !nomorHp ||
+    !email ||
+    !password ||
+    !konfirmasi ||
+    !window.FormValidasi
+  )
+    return;
 
+  const polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Nomor HP: hanya boleh angka (dipasang sebelum validasi)
+  nomorHp.addEventListener("input", function () {
+    nomorHp.value = nomorHp.value.replace(/[^0-9]/g, "");
+  });
+
+  FormValidasi.pasang(form, [
     // NAMA
-    function cekNama() {
+    {
+      input: nama,
+      cek: function () {
         if (nama.value.trim() === "") {
-            nama.setCustomValidity("Nama lengkap wajib diisi.");
-            return false;
+          return "Nama lengkap wajib diisi.";
         }
 
-        nama.setCustomValidity("");
-        return true;
-    }
+        return "";
+      },
+    },
 
-    // NOMOR HP (hanya angka)
-    function cekNomorHp() {
-        nomorHp.value = nomorHp.value.replace(/[^0-9]/g, "");
-
+    // NOMOR HP
+    {
+      input: nomorHp,
+      cek: function () {
         if (nomorHp.value.trim() === "") {
-            nomorHp.setCustomValidity("Nomor telepon wajib diisi.");
-            return false;
+          return "Nomor telepon wajib diisi.";
         }
 
-        nomorHp.setCustomValidity("");
-        return true;
-    }
+        return "";
+      },
+    },
 
     // EMAIL
-    function cekEmail() {
+    {
+      input: email,
+      cek: function () {
         const value = email.value.trim();
 
         if (value === "") {
-            email.setCustomValidity("Email wajib diisi.");
-            return false;
+          return "Email wajib diisi.";
         }
-
-        const polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!polaEmail.test(value)) {
-            email.setCustomValidity(
-                "Silakan masukkan alamat email yang valid. Contoh: nama@email.com.",
-            );
-            return false;
+          return "Silakan masukkan alamat email yang valid. Contoh: nama@email.com.";
         }
 
-        email.setCustomValidity("");
-        return true;
-    }
+        return "";
+      },
+    },
 
-    // PASSWORD
-    function cekPassword() {
+    // PASSWORD (saat berubah, konfirmasi ikut dicek ulang)
+    {
+      input: password,
+      ulangi: [konfirmasi],
+      cek: function () {
         if (password.value === "") {
-            password.setCustomValidity("Password wajib diisi.");
-            return false;
+          return "Sandi wajib diisi.";
         }
 
         if (password.value.length < 8) {
-            password.setCustomValidity(
-                "Password harus memiliki minimal 8 karakter.",
-            );
-            return false;
+          return "Sandi harus memiliki minimal 8 karakter.";
         }
 
-        password.setCustomValidity("");
-        return true;
-    }
+        return "";
+      },
+    },
 
     // KONFIRMASI PASSWORD
-    function cekKonfirmasi() {
+    {
+      input: konfirmasi,
+      cek: function () {
         if (konfirmasi.value === "") {
-            konfirmasi.setCustomValidity("Konfirmasi password wajib diisi.");
-            return false;
+          return "Konfirmasi password wajib diisi.";
         }
 
         if (konfirmasi.value.length < 8) {
-            konfirmasi.setCustomValidity(
-                "Konfirmasi password harus memiliki minimal 8 karakter.",
-            );
-            return false;
+          return "Konfirmasi password harus memiliki minimal 8 karakter.";
         }
 
         if (konfirmasi.value !== password.value) {
-            konfirmasi.setCustomValidity(
-                "Konfirmasi password tidak sama dengan password.",
-            );
-            return false;
+          return "Konfirmasi password tidak sama dengan password.";
         }
 
-        konfirmasi.setCustomValidity("");
-        return true;
-    }
-
-    // VALIDASI SAAT MENGETIK
-    nama.addEventListener("input", cekNama);
-    nomorHp.addEventListener("input", cekNomorHp);
-    email.addEventListener("input", cekEmail);
-
-    password.addEventListener("input", function () {
-        cekPassword();
-
-        if (konfirmasi.value !== "") {
-            cekKonfirmasi();
-        }
-    });
-
-    konfirmasi.addEventListener("input", cekKonfirmasi);
-
-    // SUBMIT FORM
-    form.addEventListener("submit", function (event) {
-        const namaValid = cekNama();
-        const nomorHpValid = cekNomorHp();
-        const emailValid = cekEmail();
-        const passwordValid = cekPassword();
-        const konfirmasiValid = cekKonfirmasi();
-
-        if (!namaValid) {
-            event.preventDefault();
-            nama.reportValidity();
-            return;
-        }
-
-        if (!nomorHpValid) {
-            event.preventDefault();
-            nomorHp.reportValidity();
-            return;
-        }
-
-        if (!emailValid) {
-            event.preventDefault();
-            email.reportValidity();
-            return;
-        }
-
-        if (!passwordValid) {
-            event.preventDefault();
-            password.reportValidity();
-            return;
-        }
-
-        if (!konfirmasiValid) {
-            event.preventDefault();
-            konfirmasi.reportValidity();
-            return;
-        }
-    });
+        return "";
+      },
+    },
+  ]);
 });

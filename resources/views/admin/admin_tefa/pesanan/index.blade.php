@@ -3,7 +3,7 @@
 @section('title', 'Kelola Pesanan')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/pesanan-tefa.css') }}?v=2">
+    <link rel="stylesheet" href="{{ asset('css/pesanan-tefa.css') }}?v=6">
 @endpush
 
 @section('content')
@@ -45,7 +45,7 @@
         </div>
     @endif
 
-    
+
 {{-- NOTIFIKASI PERMINTAAN PEMBATALAN --}}
 @if($jumlahPermintaanPembatalan > 0)
     <div class="cancellation-notification">
@@ -81,8 +81,8 @@
             </span>
         </div>
 
-        
-<div class="cancellation-filter-bar">
+
+<div class="filter-bar cancellation-filter-bar">
 
     <input
         type="text"
@@ -105,7 +105,7 @@
 
 
         <div class="table-responsive">
-           <table class="tefa-table cancellation-pesanan-table">
+           <table class="tefa-table pesanan-table cancellation-pesanan-table">
                 <thead>
                     <tr>
                         <th>No. Pesanan</th>
@@ -115,12 +115,12 @@
                         <th>Jumlah</th>
                         <th>Total Harga</th>
                         <th>Tanggal</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
+                        <th class="th-status">Status</th>
+                        <th class="th-aksi">Aksi</th>
                     </tr>
                 </thead>
 
-              
+
 <tbody>
     @foreach($permintaanPembatalan as $permintaan)
         @php
@@ -129,25 +129,26 @@
 
         @if($pesananBatal)
             <tr
-                class="cancellation-row"
+                class="pesanan-row cancellation-row"
                 data-id="ORD-{{ $pesananBatal->id_pesanan }}"
                 data-nama="{{ strtolower($pesananBatal->pembeli?->nama ?? '') }}"
                 data-produk="{{ strtolower($pesananBatal->produkJasa?->nama_produk_jasa ?? '') }}"
                 data-jurusan="{{ strtolower($pesananBatal->produkJasa?->jurusan?->nama_jurusan ?? '') }}"
             >
-                <td data-label="No. Pesanan">
+
+                <td class="col-id" data-label="No. Pesanan">
                     #ORD-{{ str_pad($pesananBatal->id_pesanan, 3, '0', STR_PAD_LEFT) }}
                 </td>
 
-                <td data-label="Nama Pembeli">
+                <td class="col-nama" data-label="Nama Pembeli">
                     {{ $pesananBatal->pembeli?->nama ?? 'Data belum tersedia' }}
                 </td>
 
-                <td data-label="Produk/Jasa">
+                <td class="col-produk" data-label="Produk/Jasa">
                     {{ $pesananBatal->produkJasa?->nama_produk_jasa ?? 'Data belum tersedia' }}
                 </td>
 
-                <td data-label="Jurusan">
+                <td class="col-jurusan" data-label="Jurusan">
                     {{ $pesananBatal->produkJasa?->jurusan?->nama_jurusan ?? 'Data belum tersedia' }}
                 </td>
 
@@ -163,13 +164,15 @@
                     {{ \Carbon\Carbon::parse($pesananBatal->tanggal_pesan)->format('d M Y') }}
                 </td>
 
-                <td data-label="Status">
-                    <span class="cancellation-badge pending">
-                        Permintaan Pembatalan
-                    </span>
+                <td class="col-status" data-label="Status">
+                    <div class="status-cell-content">
+                        <span class="status-pill status-pill--pending">
+                            Pembatalan diajukan
+                        </span>
+                    </div>
                 </td>
 
-                <td data-label="Aksi">
+                <td class="col-aksi" data-label="Aksi">
                     <a
                         href="{{ route('pesanan.detail', $pesananBatal->id_pesanan) }}"
                         class="btn-detail-pesanan"
@@ -177,6 +180,7 @@
                         Detail
                     </a>
                 </td>
+
             </tr>
         @endif
     @endforeach
@@ -212,7 +216,7 @@
                 Semua Status
             </option>
             <option value="permintaan pembatalan">
-            Permintaan Pembatalan
+                Pembatalan Diajukan
             </option>
 
             <option value="menunggu konfirmasi">
@@ -291,8 +295,8 @@
                     <th>Jumlah</th>
                     <th>Total Harga</th>
                     <th>Tanggal</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                    <th class="th-status">Status</th>
+                    <th class="th-aksi">Aksi</th>
                 </tr>
 
             </thead>
@@ -345,20 +349,23 @@
                         </td>
 
 
-                    
-
 <td class="col-status" data-label="Status">
     <div class="status-cell-content">
 
-        @if(
+        @if($pesanan->status === 'dibatalkan')
+            {{-- Sudah dibatalkan: hanya label, tidak bisa diubah --}}
+            <span class="status-pill status-pill--cancelled">
+                Dibatalkan
+            </span>
+
+        @elseif(
             $pesanan->permintaanPembatalan &&
             $pesanan->permintaanPembatalan->status_permintaan === 'menunggu'
         )
-            <div class="cancellation-table-notice">
-                <span class="cancellation-badge pending">
-                    Pembatalan diajukan
-                </span>
-            </div>
+            <span class="status-pill status-pill--pending">
+                Pembatalan diajukan
+            </span>
+
         @else
             <form
                 action="{{ route('pesanan.updateStatus', $pesanan->id_pesanan) }}"
@@ -390,11 +397,6 @@
                     <option value="selesai"
                         {{ $pesanan->status === 'selesai' ? 'selected' : '' }}>
                         Selesai
-                    </option>
-
-                    <option value="dibatalkan"
-                        {{ $pesanan->status === 'dibatalkan' ? 'selected' : '' }}>
-                        Dibatalkan
                     </option>
                 </select>
 
@@ -471,7 +473,7 @@
             Tidak ada pesanan yang sesuai dengan pencarian atau filter.
         </p>
 
-         </div>
+    </div>
     {{-- AKHIR PEMBUNGKUS HALAMAN SEMUA PESANAN --}}
 
 </div>
@@ -484,119 +486,7 @@
 
 @section('scripts')
 
-<script src="{{ asset('js/pesanan.js') }}?v=3"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const toggleButton = document.getElementById('toggleCancellationList');
-    const cancellationList = document.getElementById('cancellationList');
-    const mainPesananContent = document.getElementById('mainPesananContent');
-
-    // ==========================================
-    // TOMBOL TAMPILKAN / SEMBUNYIKAN
-    // ==========================================
-    if (toggleButton && cancellationList && mainPesananContent) {
-        toggleButton.addEventListener('click', function () {
-            const sedangTerbuka = !cancellationList.hidden;
-
-            cancellationList.hidden = sedangTerbuka;
-            mainPesananContent.hidden = !sedangTerbuka;
-
-            toggleButton.textContent = sedangTerbuka
-                ? 'Tampilkan'
-                : 'Sembunyikan';
-
-            toggleButton.setAttribute(
-                'aria-expanded',
-                sedangTerbuka ? 'false' : 'true'
-            );
-        });
-    }
-
-    // ==========================================
-    // FILTER PERMINTAAN PEMBATALAN
-    // ==========================================
-    const searchInput = document.getElementById('searchCancellation');
-    const filterJurusan = document.getElementById('filterCancellationJurusan');
-    const rows = document.querySelectorAll(
-        '#cancellationList tr.cancellation-row'
-    );
-    const emptyMessage = document.getElementById('emptyCancellation');
-
-    function normalisasi(teks) {
-        return (teks || '')
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .trim()
-            .toLowerCase()
-            .replace(/\s+/g, ' ');
-    }
-
-    const aliasJurusan = {
-        rpl: ['rekayasa perangkat lunak', 'rpl'],
-        tkj: ['teknik komputer dan jaringan', 'tkj'],
-        dkv: ['desain komunikasi visual', 'dkv'],
-        animasi: ['animasi'],
-       gim: ['pengembangan gim','gim'],
-        pspt: [
-            'produksi dan siaran program televisi',
-            'pspt'
-        ]
-    };
-
-    function filterPermintaanPembatalan() {
-        const keyword = normalisasi(searchInput?.value);
-        const pilihan = normalisasi(filterJurusan?.value || 'semua');
-
-        let jumlahTampil = 0;
-
-        rows.forEach(function (row) {
-            const nomor = normalisasi(row.dataset.id);
-            const nama = normalisasi(row.dataset.nama);
-            const produk = normalisasi(row.dataset.produk);
-            const jurusan = normalisasi(row.dataset.jurusan);
-
-            const cocokPencarian =
-                nomor.includes(keyword) ||
-                nama.includes(keyword) ||
-                produk.includes(keyword) ||
-                jurusan.includes(keyword);
-
-            const aliasTerpilih = aliasJurusan[pilihan] || [];
-
-            const cocokJurusan =
-                pilihan === 'semua' ||
-                aliasTerpilih.includes(jurusan);
-
-            const tampilkan = cocokPencarian && cocokJurusan;
-
-            // Paksa perubahan display agar mengalahkan CSS !important.
-            row.style.setProperty(
-                'display',
-                tampilkan ? 'table-row' : 'none',
-                'important'
-            );
-
-            if (tampilkan) {
-                jumlahTampil++;
-            }
-        });
-
-        if (emptyMessage) {
-            emptyMessage.hidden = jumlahTampil > 0;
-        }
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener('input', filterPermintaanPembatalan);
-    }
-
-    if (filterJurusan) {
-        filterJurusan.addEventListener('change', filterPermintaanPembatalan);
-    }
-
-    filterPermintaanPembatalan();
-});
-</script>
+<script src="{{ asset('js/pesanan.js') }}?v=6"></script>
+<script src="{{ asset('js/pesanan-pembatalan.js') }}?v=1"></script>
 
 @endsection

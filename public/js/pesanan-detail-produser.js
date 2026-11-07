@@ -2,408 +2,478 @@
    DETAIL PESANAN PRODUSER
    Tugas file ini:
    - Modal kelola tahapan & modal tambah/edit tahapan
+   - Modal konfirmasi hapus tahapan (pengganti confirm browser)
    - Urutan tahapan (drag & drop, disimpan sekali)
    - Tampilan nilai slider
-   - Konfirmasi hapus
    - Validasi bahasa Indonesia
 
    Data dari Blade dikirim lewat atribut di #produserOrderPage:
      data-store-url        -> URL simpan tahapan baru
      data-update-base-url  -> URL dasar update tahapan (ditambah /{id})
+
+   Form hapus memakai atribut:
+     data-confirm-delete   -> penanda form yang butuh konfirmasi
+     data-confirm-name     -> nama tahapan yang ditampilkan di modal
 ========================================================= */
 (function () {
-    "use strict";
+  "use strict";
 
-    function init() {
-        var page = document.getElementById("produserOrderPage");
+  function init() {
+    var page = document.getElementById("produserOrderPage");
 
-        if (!page) {
-            return;
-        }
+    if (!page) {
+      return;
+    }
 
-        var storeUrl = page.dataset.storeUrl;
-        var updateBaseUrl = page.dataset.updateBaseUrl;
+    var storeUrl = page.dataset.storeUrl;
+    var updateBaseUrl = page.dataset.updateBaseUrl;
 
-        var modalKelola = document.getElementById("modalKelolaTahapan");
-        var modalForm = document.getElementById("modalFormTahap");
-        var formTahap = document.getElementById("formSimpanTahap");
-        var formTitle = document.getElementById("modalFormTahapTitle");
-        var methodBox = document.getElementById("methodContainer");
-        var inputNama = document.getElementById("inputNamaTahap");
-        var inputStatus = document.getElementById("inputStatusTahap");
-        var inputProgress = document.getElementById("inputProgressTahap");
-        var outputProgress = document.getElementById("tahapProgressValue");
+    var modalKelola = document.getElementById("modalKelolaTahapan");
+    var modalForm = document.getElementById("modalFormTahap");
+    var modalHapus = document.getElementById("modalKonfirmasiHapus");
+    var hapusNama = document.getElementById("konfirmasiHapusNama");
+    var btnBatalHapus = document.getElementById("btnBatalHapus");
+    var btnYakinHapus = document.getElementById("btnYakinHapus");
+    var formTahap = document.getElementById("formSimpanTahap");
+    var formTitle = document.getElementById("modalFormTahapTitle");
+    var methodBox = document.getElementById("methodContainer");
+    var inputNama = document.getElementById("inputNamaTahap");
+    var inputStatus = document.getElementById("inputStatusTahap");
+    var inputProgress = document.getElementById("inputProgressTahap");
+    var outputProgress = document.getElementById("tahapProgressValue");
 
-        /* =====================================================
+    /* Form hapus yang sedang menunggu konfirmasi */
+    var pendingDeleteForm = null;
+
+    /* =====================================================
            MODAL
         ===================================================== */
 
-        function openModal(modal) {
-            if (!modal) {
-                return;
-            }
+    function openModal(modal) {
+      if (!modal) {
+        return;
+      }
 
-            modal.classList.add("active");
-            document.body.classList.add("no-scroll");
-        }
+      modal.classList.add("active");
+      document.body.classList.add("no-scroll");
+    }
 
-        function closeModal(modal) {
-            if (!modal) {
-                return;
-            }
+    function closeModal(modal) {
+      if (!modal) {
+        return;
+      }
 
-            modal.classList.remove("active");
+      modal.classList.remove("active");
 
-            if (!document.querySelector(".prod-modal-overlay.active")) {
-                document.body.classList.remove("no-scroll");
-            }
-        }
+      if (!document.querySelector(".prod-modal-overlay.active")) {
+        document.body.classList.remove("no-scroll");
+      }
+    }
 
-        function closeKelola() {
-            closeModal(modalKelola);
-            resetReorder();
-        }
+    function closeKelola() {
+      closeModal(modalKelola);
+      resetReorder();
+    }
 
-        function closeForm() {
-            closeModal(modalForm);
-        }
+    function closeForm() {
+      closeModal(modalForm);
+    }
 
-        function fillForm(options) {
-            if (!formTahap) {
-                return;
-            }
+    function isHapusOpen() {
+      return !!modalHapus && modalHapus.classList.contains("active");
+    }
 
-            inputNama.setCustomValidity("");
-            formTitle.textContent = options.title;
-            formTahap.action = options.action;
-            methodBox.innerHTML = options.method
-                ? '<input type="hidden" name="_method" value="' +
-                  options.method +
-                  '">'
-                : "";
+    function fillForm(options) {
+      if (!formTahap) {
+        return;
+      }
 
-            inputNama.value = options.nama;
-            inputStatus.value = options.status;
-            inputProgress.value = options.progress;
-            outputProgress.textContent = options.progress + "%";
-        }
+      inputNama.setCustomValidity("");
+      formTitle.textContent = options.title;
+      formTahap.action = options.action;
+      methodBox.innerHTML = options.method
+        ? '<input type="hidden" name="_method" value="' + options.method + '">'
+        : "";
 
-        function openTambah() {
-            fillForm({
-                title: "Tambah Tahapan",
-                action: storeUrl,
-                method: "",
-                nama: "",
-                status: "Belum Dimulai",
-                progress: 0,
-            });
+      inputNama.value = options.nama;
+      inputStatus.value = options.status;
+      inputProgress.value = options.progress;
+      outputProgress.textContent = options.progress + "%";
+    }
 
-            closeKelola();
-            openModal(modalForm);
-        }
+    function openTambah() {
+      fillForm({
+        title: "Tambah Tahapan",
+        action: storeUrl,
+        method: "",
+        nama: "",
+        status: "Belum Dimulai",
+        progress: 0,
+      });
 
-        function openEdit(button) {
-            fillForm({
-                title: "Edit Tahapan",
-                action: updateBaseUrl + "/" + button.dataset.id,
-                method: "PUT",
-                nama: button.dataset.nama,
-                status: button.dataset.status,
-                progress: button.dataset.progress,
-            });
+      closeKelola();
+      openModal(modalForm);
+    }
 
-            closeKelola();
-            openModal(modalForm);
-        }
+    function openEdit(button) {
+      fillForm({
+        title: "Edit Tahapan",
+        action: updateBaseUrl + "/" + button.dataset.id,
+        method: "PUT",
+        nama: button.dataset.nama,
+        status: button.dataset.status,
+        progress: button.dataset.progress,
+      });
 
-        /* =====================================================
+      closeKelola();
+      openModal(modalForm);
+    }
+
+    /* =====================================================
+           KONFIRMASI HAPUS (modal kustom)
+        ===================================================== */
+
+    function openHapus(form) {
+      if (!modalHapus) {
+        return;
+      }
+
+      pendingDeleteForm = form;
+
+      if (hapusNama) {
+        hapusNama.textContent = form.dataset.confirmName || "ini";
+      }
+
+      if (btnYakinHapus) {
+        btnYakinHapus.disabled = false;
+      }
+
+      openModal(modalHapus);
+
+      if (btnBatalHapus) {
+        btnBatalHapus.focus();
+      }
+    }
+
+    function closeHapus() {
+      pendingDeleteForm = null;
+      closeModal(modalHapus);
+    }
+
+    function confirmHapus() {
+      if (!pendingDeleteForm) {
+        return;
+      }
+
+      var form = pendingDeleteForm;
+
+      /* Cegah klik ganda saat form dikirim */
+      if (btnYakinHapus) {
+        btnYakinHapus.disabled = true;
+      }
+
+      /* form.submit() tidak memicu event submit, jadi tidak terulang */
+      form.submit();
+    }
+
+    /* =====================================================
            URUTAN TAHAPAN (drag & drop, disimpan sekali)
         ===================================================== */
 
-        function getStageRows() {
-            return Array.prototype.slice.call(
-                document.querySelectorAll(
-                    "#modalKelolaTahapan tbody tr.stage-row",
-                ),
-            );
+    function getStageRows() {
+      return Array.prototype.slice.call(
+        document.querySelectorAll("#modalKelolaTahapan tbody tr.stage-row"),
+      );
+    }
+
+    function refreshStageRows() {
+      getStageRows().forEach(function (row, i) {
+        row.querySelector(".stage-no").textContent = i + 1;
+      });
+    }
+
+    function currentOrderIds() {
+      return getStageRows().map(function (row) {
+        return row.dataset.id;
+      });
+    }
+
+    function toggleReorderUI(changed) {
+      var btnSimpan = document.getElementById("btnSimpanUrutan");
+      var notice = document.getElementById("reorderNotice");
+
+      if (btnSimpan) {
+        btnSimpan.hidden = !changed;
+      }
+
+      if (notice) {
+        notice.hidden = !changed;
+      }
+    }
+
+    /* Kembalikan urutan baris ke kondisi awal dari server */
+    function resetReorder() {
+      var tbody = document.querySelector("#modalKelolaTahapan tbody");
+
+      if (!tbody) {
+        return;
+      }
+
+      getStageRows()
+        .sort(function (a, b) {
+          return Number(a.dataset.order) - Number(b.dataset.order);
+        })
+        .forEach(function (row) {
+          tbody.appendChild(row);
+        });
+
+      refreshStageRows();
+      toggleReorderUI(false);
+    }
+
+    function initDragReorder() {
+      var tbody = document.querySelector("#modalKelolaTahapan tbody");
+
+      if (!tbody) {
+        return;
+      }
+
+      var dragRow = null;
+      var orderBefore = "";
+
+      function onMove(event) {
+        if (!dragRow) {
+          return;
         }
 
-        function refreshStageRows() {
-            getStageRows().forEach(function (row, i) {
-                row.querySelector(".stage-no").textContent = i + 1;
-            });
+        var others = getStageRows().filter(function (row) {
+          return row !== dragRow;
+        });
+
+        var target = others.find(function (row) {
+          var box = row.getBoundingClientRect();
+          return event.clientY < box.top + box.height / 2;
+        });
+
+        if (target) {
+          if (dragRow.nextElementSibling !== target) {
+            tbody.insertBefore(dragRow, target);
+          }
+        } else if (tbody.lastElementChild !== dragRow) {
+          tbody.appendChild(dragRow);
         }
 
-        function currentOrderIds() {
-            return getStageRows().map(function (row) {
-                return row.dataset.id;
-            });
+        refreshStageRows();
+      }
+
+      function onEnd() {
+        if (!dragRow) {
+          return;
         }
 
-        function toggleReorderUI(changed) {
-            var btnSimpan = document.getElementById("btnSimpanUrutan");
-            var notice = document.getElementById("reorderNotice");
+        dragRow.classList.remove("dragging");
+        document.body.classList.remove("is-dragging");
+        dragRow = null;
 
-            if (btnSimpan) {
-                btnSimpan.hidden = !changed;
-            }
+        document.removeEventListener("pointermove", onMove);
+        document.removeEventListener("pointerup", onEnd);
+        document.removeEventListener("pointercancel", onEnd);
 
-            if (notice) {
-                notice.hidden = !changed;
-            }
-        }
+        toggleReorderUI(currentOrderIds().join(",") !== orderBefore);
+      }
 
-        /* Kembalikan urutan baris ke kondisi awal dari server */
-        function resetReorder() {
-            var tbody = document.querySelector("#modalKelolaTahapan tbody");
+      tbody.querySelectorAll(".drag-handle").forEach(function (handle) {
+        handle.addEventListener("pointerdown", function (event) {
+          if (event.button !== undefined && event.button !== 0) {
+            return;
+          }
 
-            if (!tbody) {
-                return;
-            }
+          event.preventDefault();
 
-            getStageRows()
-                .sort(function (a, b) {
-                    return Number(a.dataset.order) - Number(b.dataset.order);
-                })
-                .forEach(function (row) {
-                    tbody.appendChild(row);
-                });
+          dragRow = handle.closest("tr.stage-row");
+          orderBefore = currentOrderIds().join(",");
 
-            refreshStageRows();
-            toggleReorderUI(false);
-        }
+          dragRow.classList.add("dragging");
+          document.body.classList.add("is-dragging");
 
-        function initDragReorder() {
-            var tbody = document.querySelector("#modalKelolaTahapan tbody");
+          document.addEventListener("pointermove", onMove);
+          document.addEventListener("pointerup", onEnd);
+          document.addEventListener("pointercancel", onEnd);
+        });
+      });
+    }
 
-            if (!tbody) {
-                return;
-            }
+    function saveReorder() {
+      var form = document.getElementById("formReorderTahapan");
+      var container = document.getElementById("reorderInputs");
 
-            var dragRow = null;
-            var orderBefore = "";
+      if (!form || !container) {
+        return;
+      }
 
-            function onMove(event) {
-                if (!dragRow) {
-                    return;
-                }
+      container.innerHTML = "";
 
-                var others = getStageRows().filter(function (row) {
-                    return row !== dragRow;
-                });
+      getStageRows().forEach(function (row) {
+        var input = document.createElement("input");
 
-                var target = others.find(function (row) {
-                    var box = row.getBoundingClientRect();
-                    return event.clientY < box.top + box.height / 2;
-                });
+        input.type = "hidden";
+        input.name = "urutan[]";
+        input.value = row.dataset.id;
 
-                if (target) {
-                    if (dragRow.nextElementSibling !== target) {
-                        tbody.insertBefore(dragRow, target);
-                    }
-                } else if (tbody.lastElementChild !== dragRow) {
-                    tbody.appendChild(dragRow);
-                }
+        container.appendChild(input);
+      });
 
-                refreshStageRows();
-            }
+      form.submit();
+    }
 
-            function onEnd() {
-                if (!dragRow) {
-                    return;
-                }
-
-                dragRow.classList.remove("dragging");
-                document.body.classList.remove("is-dragging");
-                dragRow = null;
-
-                document.removeEventListener("pointermove", onMove);
-                document.removeEventListener("pointerup", onEnd);
-                document.removeEventListener("pointercancel", onEnd);
-
-                toggleReorderUI(currentOrderIds().join(",") !== orderBefore);
-            }
-
-            tbody.querySelectorAll(".drag-handle").forEach(function (handle) {
-                handle.addEventListener("pointerdown", function (event) {
-                    if (event.button !== undefined && event.button !== 0) {
-                        return;
-                    }
-
-                    event.preventDefault();
-
-                    dragRow = handle.closest("tr.stage-row");
-                    orderBefore = currentOrderIds().join(",");
-
-                    dragRow.classList.add("dragging");
-                    document.body.classList.add("is-dragging");
-
-                    document.addEventListener("pointermove", onMove);
-                    document.addEventListener("pointerup", onEnd);
-                    document.addEventListener("pointercancel", onEnd);
-                });
-            });
-        }
-
-        function saveReorder() {
-            var form = document.getElementById("formReorderTahapan");
-            var container = document.getElementById("reorderInputs");
-
-            if (!form || !container) {
-                return;
-            }
-
-            container.innerHTML = "";
-
-            getStageRows().forEach(function (row) {
-                var input = document.createElement("input");
-
-                input.type = "hidden";
-                input.name = "urutan[]";
-                input.value = row.dataset.id;
-
-                container.appendChild(input);
-            });
-
-            form.submit();
-        }
-
-        /* =====================================================
+    /* =====================================================
            VALIDASI BAHASA INDONESIA
         ===================================================== */
 
-        function setIndonesianValidation(element, message) {
-            if (!element) {
-                return;
-            }
+    function setIndonesianValidation(element, message) {
+      if (!element) {
+        return;
+      }
 
-            element.addEventListener("invalid", function () {
-                this.setCustomValidity(
-                    this.validity.valueMissing ? message : "",
-                );
-            });
+      element.addEventListener("invalid", function () {
+        this.setCustomValidity(this.validity.valueMissing ? message : "");
+      });
 
-            element.addEventListener("input", function () {
-                this.setCustomValidity("");
-            });
+      element.addEventListener("input", function () {
+        this.setCustomValidity("");
+      });
+    }
+
+    /* Tangkap input yang hanya berisi spasi */
+    function blockBlankInput(form, input, message) {
+      if (!form || !input) {
+        return;
+      }
+
+      form.addEventListener("submit", function (event) {
+        if (input.value.trim() === "") {
+          event.preventDefault();
+
+          input.value = "";
+          input.setCustomValidity(message);
+          input.reportValidity();
         }
+      });
+    }
 
-        /* Tangkap input yang hanya berisi spasi */
-        function blockBlankInput(form, input, message) {
-            if (!form || !input) {
-                return;
-            }
+    var inputKeterangan = document.getElementById("inputKeteranganProgress");
+    var formProgress = document.getElementById("formUpdateProgress");
 
-            form.addEventListener("submit", function (event) {
-                if (input.value.trim() === "") {
-                    event.preventDefault();
+    setIndonesianValidation(inputNama, "Nama tahapan wajib diisi.");
+    blockBlankInput(formTahap, inputNama, "Nama tahapan wajib diisi.");
 
-                    input.value = "";
-                    input.setCustomValidity(message);
-                    input.reportValidity();
-                }
-            });
-        }
+    setIndonesianValidation(
+      inputKeterangan,
+      "Keterangan progress wajib diisi.",
+    );
+    blockBlankInput(
+      formProgress,
+      inputKeterangan,
+      "Keterangan progress wajib diisi.",
+    );
 
-        var inputKeterangan = document.getElementById(
-            "inputKeteranganProgress",
-        );
-        var formProgress = document.getElementById("formUpdateProgress");
-
-        setIndonesianValidation(inputNama, "Nama tahapan wajib diisi.");
-        blockBlankInput(formTahap, inputNama, "Nama tahapan wajib diisi.");
-
-        setIndonesianValidation(
-            inputKeterangan,
-            "Keterangan progress wajib diisi.",
-        );
-        blockBlankInput(
-            formProgress,
-            inputKeterangan,
-            "Keterangan progress wajib diisi.",
-        );
-
-        /* =====================================================
+    /* =====================================================
            EVENT
         ===================================================== */
 
-        document.addEventListener("click", function (event) {
-            var trigger = event.target.closest("[data-action]");
+    document.addEventListener("click", function (event) {
+      var trigger = event.target.closest("[data-action]");
 
-            if (trigger) {
-                switch (trigger.dataset.action) {
-                    case "open-kelola":
-                        openModal(modalKelola);
-                        break;
-                    case "close-kelola":
-                        closeKelola();
-                        break;
-                    case "add-tahap":
-                        openTambah();
-                        break;
-                    case "edit-tahap":
-                        openEdit(trigger);
-                        break;
-                    case "close-form":
-                        closeForm();
-                        break;
-                    case "save-reorder":
-                        saveReorder();
-                        break;
-                }
+      if (trigger) {
+        switch (trigger.dataset.action) {
+          case "open-kelola":
+            openModal(modalKelola);
+            break;
+          case "close-kelola":
+            closeKelola();
+            break;
+          case "add-tahap":
+            openTambah();
+            break;
+          case "edit-tahap":
+            openEdit(trigger);
+            break;
+          case "close-form":
+            closeForm();
+            break;
+          case "save-reorder":
+            saveReorder();
+            break;
+          case "cancel-hapus":
+            closeHapus();
+            break;
+          case "confirm-hapus":
+            confirmHapus();
+            break;
+        }
 
-                return;
-            }
+        return;
+      }
 
-            /* Klik area gelap modal */
-            if (event.target === modalKelola) {
-                closeKelola();
-            } else if (event.target === modalForm) {
-                closeForm();
-            }
-        });
+      /* Klik area gelap modal (konfirmasi hapus paling atas) */
+      if (event.target === modalHapus) {
+        closeHapus();
+      } else if (event.target === modalKelola) {
+        closeKelola();
+      } else if (event.target === modalForm) {
+        closeForm();
+      }
+    });
 
-        /* Nilai slider tampil di elemen yang ditunjuk data-range-output */
-        document.addEventListener("input", function (event) {
-            var slider = event.target;
+    /* Nilai slider tampil di elemen yang ditunjuk data-range-output */
+    document.addEventListener("input", function (event) {
+      var slider = event.target;
 
-            if (!slider.dataset || !slider.dataset.rangeOutput) {
-                return;
-            }
+      if (!slider.dataset || !slider.dataset.rangeOutput) {
+        return;
+      }
 
-            var output = document.getElementById(slider.dataset.rangeOutput);
+      var output = document.getElementById(slider.dataset.rangeOutput);
 
-            if (output) {
-                output.textContent = slider.value + "%";
-            }
-        });
+      if (output) {
+        output.textContent = slider.value + "%";
+      }
+    });
 
-        /* Konfirmasi hapus: <form data-confirm="pesan"> */
-        document.addEventListener("submit", function (event) {
-            var message = event.target.dataset
-                ? event.target.dataset.confirm
-                : "";
+    /* Hapus tahapan: tahan pengiriman, tampilkan modal konfirmasi kustom */
+    document.addEventListener("submit", function (event) {
+      var form = event.target;
 
-            if (message && !window.confirm(message)) {
-                event.preventDefault();
-            }
-        });
+      if (!form.hasAttribute || !form.hasAttribute("data-confirm-delete")) {
+        return;
+      }
 
-        /* Esc menutup modal */
-        document.addEventListener("keydown", function (event) {
-            if (event.key === "Escape") {
-                closeKelola();
-                closeForm();
-            }
-        });
+      event.preventDefault();
+      openHapus(form);
+    });
 
-        refreshStageRows();
-        initDragReorder();
-    }
+    /* Esc: tutup modal konfirmasi dulu, baru modal lain */
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") {
+        return;
+      }
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
-    } else {
-        init();
-    }
+      if (isHapusOpen()) {
+        closeHapus();
+        return;
+      }
+
+      closeKelola();
+      closeForm();
+    });
+
+    refreshStageRows();
+    initDragReorder();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();

@@ -4,6 +4,7 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/katalog-tefa.css') }}?v=3">
+    <link rel="stylesheet" href="{{ asset('css/kontak-tefa.css') }}?v=4">
 @endpush
 
 @section('content')
@@ -12,7 +13,7 @@
      Dimuat di awal konten agar penyesuaian per halaman berjalan cepat.
      data-all-ids = ID seluruh item hasil query (semua halaman) untuk tombol "Pilih Semua". --}}
 <script
-    src="{{ asset('js/katalog-tefa.js') }}?v=3"
+    src="{{ asset('js/katalog-tefa.js') }}?v=4"
     data-per-page="{{ (int) $katalog->perPage() }}"
     data-all-ids="{{ $semuaId->values()->toJson() }}"
 ></script>
@@ -23,6 +24,13 @@
         <h3>Katalog TEFA</h3>
         <p>Seluruh produk dan jasa dari semua jurusan.</p>
     </div>
+
+    <!-- PESAN BERHASIL -->
+    @if(session('sukses'))
+        <div class="katalog-sukses">
+            {{ session('sukses') }}
+        </div>
+    @endif
 
     <!-- PESAN ERROR -->
     @if($errors->has('produk_jasa_ids'))
@@ -104,6 +112,25 @@
             </a>
         @endif
     </form>
+
+    <!-- NOMOR DI PDF (ringkas, diubah lewat pop-up) -->
+    <div class="kontak-ringkas">
+        <div class="kontak-ringkas-info">
+            <div class="kontak-icon">
+                <i class="ph ph-phone"></i>
+            </div>
+
+            <div class="kontak-teks">
+                <span class="kontak-label">Nomor di PDF katalog</span>
+                <strong class="kontak-nomor">{{ $nomorPdf }}</strong>
+            </div>
+        </div>
+
+        <button type="button" class="btn-kontak-ubah" data-kontak-buka>
+            <i class="ph ph-pencil-simple"></i>
+            Ubah
+        </button>
+    </div>
 
     <!-- TOOLBAR PDF -->
     <div class="katalog-toolbar">
@@ -268,5 +295,78 @@
     @endif
 </div>
 
+
+<!-- =========================================================
+     POP-UP UBAH NOMOR PDF
+     Terbuka otomatis bila server menolak nomor (agar pesan error terlihat).
+========================================================== -->
+<div
+    class="kontak-modal {{ $errors->has('nomor_pdf') ? 'active' : '' }}"
+    id="kontak-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="kontak-modal-judul"
+>
+    <div class="kontak-modal-box">
+        <form
+            action="{{ route('admin.tefa.katalog_nomor_pdf') }}"
+            method="POST"
+            id="kontak-form"
+            novalidate
+        >
+            @csrf
+            @method('PUT')
+
+            <div class="kontak-modal-kepala">
+                <h3 id="kontak-modal-judul">Ubah Nomor di PDF</h3>
+
+                <button
+                    type="button"
+                    class="kontak-modal-tutup"
+                    data-kontak-tutup
+                    aria-label="Tutup"
+                >
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+
+            <p class="kontak-modal-desc">
+                Nomor ini tampil di footer setiap halaman PDF katalog.
+            </p>
+
+            <div class="kontak-group">
+                <label for="nomor-pdf">Nomor telepon</label>
+
+                <input
+                    type="tel"
+                    name="nomor_pdf"
+                    id="nomor-pdf"
+                    class="{{ $errors->has('nomor_pdf') ? 'is-invalid' : '' }}"
+                    value="{{ old('nomor_pdf', $nomorPdf) }}"
+                    data-awal="{{ $nomorPdf }}"
+                    inputmode="tel"
+                    autocomplete="off"
+                    maxlength="20"
+                    placeholder="Contoh: 0896-5362-8650"
+                >
+
+                <p class="kontak-error" role="alert">{{ $errors->first('nomor_pdf') }}</p>
+            </div>
+
+            <div class="kontak-modal-aksi">
+                <button type="button" class="btn-kontak-batal" data-kontak-tutup>
+                    Batal
+                </button>
+
+                <button type="submit" class="btn-kontak-simpan">
+                    Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Logika nomor kontak (pop-up, validasi sendiri) --}}
+<script src="{{ asset('js/kontak-tefa.js') }}?v=3" defer></script>
 
 @endsection

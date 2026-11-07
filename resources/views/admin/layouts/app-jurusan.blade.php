@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title') - Admin Jurusan TEFA</title>
+    @include('partials.favicon')
 
     <!-- CSS GLOBAL -->
     <link rel="stylesheet" href="{{ asset('css/global-admin.css') }}?v=1">

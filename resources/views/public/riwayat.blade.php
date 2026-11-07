@@ -3,7 +3,11 @@
 @section('title', 'Riwayat Pemesanan')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/riwayat-pembeli.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/riwayat-pembeli.css') }}?v=2">
+@endpush
+
+@push('js')
+    <script src="{{ asset('js/popup-hapus-riwayat.js') }}?v=2"></script>
 @endpush
 
 @section('content')
@@ -41,11 +45,11 @@
 <div class="rw-page">
 
     <!-- Gelembung dekorasi -->
-    <div class="bubble" style="width:150px;height:150px;top:-50px;right:-50px;animation-duration:8s;"></div>
-    <div class="bubble" style="width:80px;height:80px;top:20%;left:5%;animation-duration:6s;"></div>
+    <div class="bubble rw-bubble--1"></div>
+    <div class="bubble rw-bubble--2"></div>
 
     <div class="rw-back-wrap">
-        <a href="/profil-pembeli" class="rw-back-btn">
+        <a href="{{ route('profil.pembeli') }}" class="rw-back-btn">
             <i class="ph ph-arrow-left"></i>
             Kembali ke Profil
         </a>
@@ -110,10 +114,10 @@
                         <th>Pesanan</th>
                         <th>Tanggal</th>
                         <th>Total Harga</th>
-                        <th>Status</th>
+                        <th class="rw-th-status">Status</th>
                         <th>Progress</th>
-                        <th>Aksi</th>
-                        <th>Hapus</th>
+                        <th class="rw-th-action">Aksi</th>
+                        <th class="rw-th-delete">Hapus</th>
                     </tr>
                 </thead>
 
@@ -173,7 +177,7 @@
                             </td>
 
                             <!-- STATUS -->
-                            <td data-label="Status">
+                            <td class="rw-status" data-label="Status">
                                 <span class="rw-badge {{ $badgeClasses[$item->status] ?? 'rw-badge--progress' }}">
                                     <i class="ph ph-{{ $statusIcons[$item->status] ?? 'spinner-gap' }}"></i>
                                     {{ $statusLabels[$item->status] ?? $item->status }}
@@ -202,61 +206,63 @@
                                 </div>
                             </td>
 
-                      
-<!-- AKSI -->
-<td class="rw-action" data-label="Aksi">
-    <div class="rw-action-buttons">
-        <a
-            href="{{ route('pembeli.riwayat.detail', $item->id_pesanan) }}"
-            class="rw-btn-detail"
-        >
-            Detail Pesanan
-            <i class="ph ph-caret-right"></i>
-        </a>
+                            <!-- AKSI -->
+                            <td class="rw-action" data-label="Aksi">
+                                <div class="rw-action-buttons">
 
-        @if(in_array($item->status, ['menunggu konfirmasi', 'konfirmasi']))
-            <button
-                type="button"
-                class="rw-btn-cancel"
-                data-pesanan-id="{{ $item->id_pesanan }}"
-                data-cancel-url="{{ route('pembeli.pesanan.batalkan', $item->id_pesanan) }}"
-            >
-                Batalkan Pesanan
-            </button>
-        @endif
-    </div>
-</td>
+                                    <a
+                                        href="{{ route('pembeli.riwayat.detail', $item->id_pesanan) }}"
+                                        class="rw-btn-detail"
+                                    >
+                                        Detail Pesanan
+                                        <i class="ph ph-caret-right"></i>
+                                    </a>
 
-                <!-- HAPUS RIWAYAT -->
-                <td class="rw-delete" data-label="Hapus">
-                    @if(in_array($item->status, ['selesai', 'dibatalkan']))
-                    <form
-                        action="{{ route('pembeli.riwayat.hapus', $item->id_pesanan) }}"
-                        method="POST"
-                        class="rw-delete-form"
-                    >
-                        @csrf
-                        @method('DELETE')
+                                    @if(in_array($item->status, ['menunggu konfirmasi', 'konfirmasi']))
+                                        <button
+                                            type="button"
+                                            class="rw-btn-cancel"
+                                            data-pesanan-id="{{ $item->id_pesanan }}"
+                                            data-cancel-url="{{ route('pembeli.pesanan.batalkan', $item->id_pesanan) }}"
+                                        >
+                                            Batalkan Pesanan
+                                        </button>
+                                    @endif
 
-                        <button
-                            type="button"
-                            class="rw-btn-delete"
-                            title="Hapus dari riwayat"
-                            aria-label="Hapus pesanan dari riwayat"
-                            onclick="bukaPopupHapus(this)"
-                        >
-                            <i class="ph ph-trash"></i>
-                        </button>
-                    </form>
-                    @else
-                        <span class="rw-delete-disabled">-</span>
-                    @endif
-                </td>
+                                </div>
+                            </td>
+
+                            <!-- HAPUS RIWAYAT -->
+                            <td class="rw-delete" data-label="Hapus">
+                                @if(in_array($item->status, ['selesai', 'dibatalkan']))
+                                    <form
+                                        action="{{ route('pembeli.riwayat.hapus', $item->id_pesanan) }}"
+                                        method="POST"
+                                        class="rw-delete-form"
+                                    >
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button
+                                            type="button"
+                                            class="rw-btn-delete"
+                                            title="Hapus dari riwayat"
+                                            aria-label="Hapus pesanan dari riwayat"
+                                        >
+                                            <i class="ph ph-trash"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    <span class="rw-delete-disabled">-</span>
+                                @endif
+                            </td>
+
+                        </tr>
 
                     @empty
 
                         <tr class="rw-empty-row">
-                          <td colspan="7" class="rw-empty">
+                            <td colspan="7" class="rw-empty">
 
                                 <i class="ph ph-receipt"></i>
 
@@ -280,9 +286,10 @@
     </div>
 
 </div>
-   @include('public.popup.batal-pesanan')
 
-  <!-- POPUP HAPUS RIWAYAT -->
+@include('public.popup.batal-pesanan')
+
+<!-- POPUP HAPUS RIWAYAT -->
 <div class="rw-modal-overlay" id="popupHapusRiwayat">
     <div class="rw-modal">
         <div class="rw-modal-icon">
@@ -294,21 +301,15 @@
         <p>Pesanan ini akan dihapus dari riwayat kamu.</p>
 
         <div class="rw-modal-actions">
-            <button type="button" class="rw-modal-cancel"
-                onclick="tutupPopupHapus()">
+            <button type="button" class="rw-modal-cancel" id="hapusRiwayatBatal">
                 Batal
             </button>
 
-            <button type="button" class="rw-modal-confirm"
-                onclick="konfirmasiHapusRiwayat()">
+            <button type="button" class="rw-modal-confirm" id="hapusRiwayatKonfirmasi">
                 Ya, Hapus
             </button>
         </div>
     </div>
 </div>
-
-@push('js')
-    <script src="{{ asset('js/popup-hapus-riwayat.js') }}"></script>
-@endpush
 
 @endsection

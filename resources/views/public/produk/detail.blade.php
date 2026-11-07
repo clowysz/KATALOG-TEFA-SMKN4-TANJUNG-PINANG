@@ -278,6 +278,6 @@
 
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/detail-galeri-pembeli.js') }}"></script>
 @endpush

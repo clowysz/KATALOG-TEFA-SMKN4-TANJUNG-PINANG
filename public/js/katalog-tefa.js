@@ -1,27 +1,3 @@
-/* =========================================================
-   KATALOG TEFA (admin_tefa/katalog-gabungan)
-
-   1. Menyesuaikan jumlah item per halaman dengan lebar layar
-        - Desktop / tablet (> 768px) : 4 kolom x 4 baris = 16 item
-        - Mobile (<= 768px)          : 3 kolom x 5 baris = 15 item
-      Supaya baris terakhir selalu penuh dan tidak ada ruang kosong.
-
-   2. Filter: dropdown jenis & jurusan langsung memuat ulang daftar
-      saat diganti (kolom pencarian dikirim lewat tombol Cari / Enter)
-
-   3. Memilih card untuk dijadikan PDF
-        - Pilihan TERSIMPAN saat pindah halaman (pagination),
-          jadi pilihan di halaman 1 tidak hilang di halaman 2.
-        - "Pilih Semua" memilih SEMUA item hasil query di SEMUA halaman
-          (jika ada filter: hanya item yang sesuai filter).
-
-   Script ini dimuat sebelum kontennya (agar penyesuaian per halaman
-   berjalan cepat), dan membawa nilai dari server lewat atribut:
-        <script src="..."
-                data-per-page="16"
-                data-all-ids='[1,2,3,...]'></script>
-========================================================= */
-
 (function () {
   "use strict";
 
@@ -82,7 +58,7 @@
   }
 
   // ==========================================================
-  // 3. PILIH CARD UNTUK PDF
+  // 2. PILIH CARD UNTUK PDF
   // ==========================================================
 
   // Pilihan disimpan di sessionStorage (per tab) agar bertahan
@@ -107,7 +83,7 @@
   }
 
   // ==========================================================
-  // FILTER
+  // 3. FILTER
   // ==========================================================
 
   function initFilter() {
@@ -203,10 +179,11 @@
       updateSelectedUI();
     });
 
+    // Tombol Generate PDF sudah nonaktif saat belum ada pilihan.
+    // Ini pengaman tambahan, tanpa dialog bawaan browser.
     pdfForm.addEventListener("submit", function (event) {
       if (selectedItems.size === 0) {
         event.preventDefault();
-        alert("Silakan pilih minimal satu produk atau jasa.");
       }
     });
 

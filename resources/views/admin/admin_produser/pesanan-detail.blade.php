@@ -438,20 +438,20 @@
 
                     @endforeach
 
-                </div>  
-    
-            @else   
-    
-                <div class="prod-empty">    
-                    <i class="ph ph-clock prod-empty    -icon"></i>
-                    <p class="prod-empty-text">Belum     ada riwayat progress.</p>
-                </div>  
-    
-            @endif  
-    
-        </div>  
-    </div>  
-    
+                </div>
+
+            @else
+
+                <div class="prod-empty">
+                    <i class="ph ph-clock prod-empty-icon"></i>
+                    <p class="prod-empty-text">Belum ada riwayat progress.</p>
+                </div>
+
+            @endif
+
+        </div>
+    </div>
+
 </div>
 
 {{-- =========================================================
@@ -566,9 +566,11 @@
                                                     <i class="ph ph-pencil-simple"></i>
                                                 </button>
 
+                                                {{-- Form hapus: konfirmasi ditangani modal kustom (lihat JS) --}}
                                                 <form action="{{ route('produser.tahapan.destroy', [$pesanan->id_pesanan, $tahapan->id]) }}"
                                                       method="POST"
-                                                      data-confirm="Hapus tahapan ini?">
+                                                      data-confirm-delete
+                                                      data-confirm-name="{{ $tahapan->nama_tahapan }}">
 
                                                     @csrf
                                                     @method('DELETE')
@@ -695,6 +697,47 @@
                 </div>
 
             </form>
+
+        </div>
+    </div>
+
+    {{-- ================= MODAL KONFIRMASI HAPUS ================= --}}
+    <div id="modalKonfirmasiHapus" class="prod-modal-overlay confirm-overlay">
+        <div class="prod-modal confirm-modal"
+             role="alertdialog"
+             aria-modal="true"
+             aria-labelledby="konfirmasiHapusTitle"
+             aria-describedby="konfirmasiHapusText">
+
+            <div class="confirm-icon">
+                <i class="ph ph-trash"></i>
+            </div>
+
+            <h3 class="confirm-title" id="konfirmasiHapusTitle">Hapus Tahapan?</h3>
+
+            <p class="confirm-text" id="konfirmasiHapusText">
+                Tahapan <strong id="konfirmasiHapusNama">ini</strong> akan dihapus
+                dan tidak dapat dikembalikan.
+            </p>
+
+            <div class="confirm-actions">
+
+                <button type="button"
+                        id="btnBatalHapus"
+                        class="prod-btn prod-btn-secondary"
+                        data-action="cancel-hapus">
+                    Batal
+                </button>
+
+                <button type="button"
+                        id="btnYakinHapus"
+                        class="prod-btn prod-btn-danger"
+                        data-action="confirm-hapus">
+                    <i class="ph ph-trash"></i>
+                    Ya, Hapus
+                </button>
+
+            </div>
 
         </div>
     </div>

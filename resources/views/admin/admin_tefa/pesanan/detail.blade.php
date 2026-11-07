@@ -3,10 +3,66 @@
 @section('title', 'Detail Pesanan')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/pesanan-tefa.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/pesanan-tefa.css') }}?v=5">
 @endpush
 
 @section('content')
+
+@php
+    /*
+    |--------------------------------------------------------------------------
+    | Data tampilan halaman
+    |--------------------------------------------------------------------------
+    */
+    $formatTanggal = function ($tanggal) {
+        if (!$tanggal) {
+            return '-';
+        }
+
+        return \Carbon\Carbon::parse($tanggal)
+            ->locale('id')
+            ->translatedFormat('d F Y, H:i') . ' WIB';
+    };
+
+    $permintaan         = $pesanan->permintaanPembatalan;
+    $pembatalanMenunggu = $permintaan && $permintaan->status_permintaan === 'menunggu';
+    $pesananDibatalkan  = $pesanan->status === 'dibatalkan';
+
+    // Dibatalkan lewat permintaan pembeli yang disetujui admin
+    $dibatalkanPembeli = $pesananDibatalkan
+        && $permintaan
+        && $permintaan->status_permintaan === 'disetujui';
+
+    // Selain itu, pembatalan dilakukan langsung oleh admin
+    $dibatalkanAdmin = $pesananDibatalkan && !$dibatalkanPembeli;
+
+    // Catatan pembatalan terbaru di riwayat status pesanan
+    $riwayatBatal = $pesananDibatalkan
+        ? $pesanan->riwayatStatus
+            ->where('status', 'dibatalkan')
+            ->sortByDesc('id_riwayat_status')
+            ->first()
+        : null;
+
+    // Keterangan dari controller berbentuk:
+    // "Pesanan dibatalkan oleh Admin TEFA. Alasan: <alasan>"
+    // Di sini diambil bagian alasannya saja.
+    $alasanAdmin = ($dibatalkanAdmin && filled($riwayatBatal?->keterangan))
+        ? \Illuminate\Support\Str::after($riwayatBatal->keterangan, 'Alasan: ')
+        : null;
+
+    // Nama admin yang memutuskan / membatalkan
+    $namaAdmin = $dibatalkanPembeli
+        ? $permintaan->admin?->nama
+        : $riwayatBatal?->pelaksana?->nama;
+
+    // Tanggal dibatalkan
+    $tanggalDibatalkan = $dibatalkanPembeli
+        ? ($permintaan->tanggal_keputusan ?? $riwayatBatal?->tanggal_update)
+        : ($riwayatBatal?->tanggal_update ?? $pesanan->updated_at);
+
+    $statusTerpilih = old('status', $pesanan->status);
+@endphp
 
 <div class="detail-pesanan-container">
 
@@ -294,137 +350,235 @@
     </div>
 
 
-   
-  
-{{-- PEMBUNGKUS KOTAK STATUS DAN PEMBATALAN --}}
-<div class="detail-pesanan-bottom">
+    {{-- PEMBUNGKUS KOTAK STATUS DAN PEMBATALAN --}}
+    <div class="detail-pesanan-bottom">
 
-    {{-- KOTAK UPDATE STATUS --}}
-    <div class="detail-pesanan-card status-card">
+        {{-- =========================
+             KOTAK UPDATE STATUS
+             ========================= --}}
 
-    <h3 class="detail-card-title">Update Status Pesanan</h3>
+        <div class="detail-pesanan-card status-card">
 
-    @php
-        $pembatalanMenunggu =
-            $pesanan->permintaanPembatalan &&
-            $pesanan->permintaanPembatalan->status_permintaan === 'menunggu';
-    @endphp
+            <h3 class="detail-card-title">Update Status Pesanan</h3>
 
-    @if($pesanan->status === 'diproses')
-        <div class="detail-pesanan-alert">
-            Pesanan sudah diteruskan ke Admin Produser untuk dikerjakan.
+            @if($pesanan->status === 'diproses')
+                <div class="detail-pesanan-alert">
+                    Pesanan sudah diteruskan ke Admin Produser untuk dikerjakan.
+                </div>
+            @endif
+
+            @if($pesananDibatalkan)
+
+                <p>
+                    Pesanan ini sudah dibatalkan. Status tidak dapat diubah
+                    melalui bagian ini.
+                </p>
+
+            @elseif($pembatalanMenunggu)
+
+                <div class="detail-pesanan-alert">
+                    Pembeli mengajukan pembatalan. Update status pesanan
+                    dikunci sampai Admin TEFA mengambil keputusan.
+                </div>
+
+                <form
+                    action="{{ route('pesanan.updateStatus', $pesanan->id_pesanan) }}"
+                    method="POST"
+                >
+                    @csrf
+
+                    <div class="status-form-group">
+                        <label for="statusSelect" class="status-form-label">
+                            Ubah Status Menjadi:
+                        </label>
+
+                        <select
+                            id="statusSelect"
+                            name="status"
+                            class="status-select"
+                            disabled
+                        >
+                            <option value="{{ $pesanan->status }}" selected>
+                                {{ ucfirst($pesanan->status) }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="status-form-actions">
+                        <button
+                            type="submit"
+                            class="btn-save-status"
+                            disabled
+                        >
+                            Simpan Perubahan
+                        </button>
+                    </div>
+                </form>
+
+            @else
+
+                <form
+                    action="{{ route('pesanan.updateStatus', $pesanan->id_pesanan) }}"
+                    method="POST"
+                >
+                    @csrf
+
+                    <div class="status-form-group">
+                        <label for="statusSelect" class="status-form-label">
+                            Ubah Status Menjadi:
+                        </label>
+
+                        <select
+                            id="statusSelect"
+                            name="status"
+                            class="status-select"
+                            required
+                        >
+                            <option
+                                value="menunggu konfirmasi"
+                                {{ $statusTerpilih === 'menunggu konfirmasi' ? 'selected' : '' }}
+                            >
+                                Menunggu Konfirmasi
+                            </option>
+
+                            <option
+                                value="konfirmasi"
+                                {{ $statusTerpilih === 'konfirmasi' ? 'selected' : '' }}
+                            >
+                                Konfirmasi
+                            </option>
+
+                            <option
+                                value="diproses"
+                                {{ $statusTerpilih === 'diproses' ? 'selected' : '' }}
+                            >
+                                Diproses
+                            </option>
+
+                            <option
+                                value="selesai"
+                                {{ $statusTerpilih === 'selesai' ? 'selected' : '' }}
+                            >
+                                Selesai
+                            </option>
+
+                            {{-- Pesanan yang sudah selesai tidak bisa dibatalkan --}}
+                            @if($pesanan->status !== 'selesai')
+                                <option
+                                    value="dibatalkan"
+                                    {{ $statusTerpilih === 'dibatalkan' ? 'selected' : '' }}
+                                >
+                                    Dibatalkan
+                                </option>
+                            @endif
+                        </select>
+                    </div>
+
+                    {{-- Kolom alasan: muncul hanya saat memilih "Dibatalkan" --}}
+                    <div class="status-form-group" id="alasanPembatalanGroup" hidden>
+                        <label for="alasanPembatalan" class="status-form-label">
+                            Alasan Pembatalan:
+                        </label>
+
+                        <textarea
+                            id="alasanPembatalan"
+                            name="alasan_pembatalan"
+                            class="status-reason-input"
+                            rows="4"
+                            maxlength="2000"
+                            placeholder="Tulis alasan pesanan dibatalkan..."
+                            disabled
+                        >{{ old('alasan_pembatalan') }}</textarea>
+
+                        <small class="status-reason-hint">
+                            Alasan ini akan ditampilkan kepada pembeli di riwayat pesanannya.
+                        </small>
+                    </div>
+
+                    <div class="status-form-actions">
+                        <button type="submit" class="btn-save-status">
+                            Simpan Perubahan
+                        </button>
+                    </div>
+                </form>
+
+            @endif
+
         </div>
-    @endif
-
-    @if($pesanan->status === 'dibatalkan')
-
-        <p>
-            Pesanan ini sudah dibatalkan. Status tidak dapat diubah
-            melalui bagian ini.
-        </p>
-
-    @elseif($pembatalanMenunggu)
-
-        <div class="detail-pesanan-alert">
-            Pembeli mengajukan pembatalan. Update status pesanan
-            dikunci sampai Admin TEFA mengambil keputusan.
-        </div>
-
-        <form action="{{ route('pesanan.updateStatus', $pesanan->id_pesanan) }}"
-              method="POST">
-            @csrf
-
-            <div class="status-form-group">
-                <label for="statusSelect" class="status-form-label">
-                    Ubah Status Menjadi:
-                </label>
-
-                <select id="statusSelect"
-                        name="status"
-                        class="status-select"
-                        disabled>
-                    <option value="{{ $pesanan->status }}" selected>
-                        {{ ucfirst($pesanan->status) }}
-                    </option>
-                </select>
-            </div>
-
-            <div class="status-form-actions">
-                <button type="submit"
-                        class="btn-save-status"
-                        disabled>
-                    Simpan Perubahan
-                </button>
-            </div>
-        </form>
-
-    @else
-
-        <form action="{{ route('pesanan.updateStatus', $pesanan->id_pesanan) }}"
-              method="POST">
-            @csrf
-
-            <div class="status-form-group">
-                <label for="statusSelect" class="status-form-label">
-                    Ubah Status Menjadi:
-                </label>
-
-                <select id="statusSelect"
-                        name="status"
-                        class="status-select"
-                        required>
-                    <option value="menunggu konfirmasi"
-                        {{ $pesanan->status === 'menunggu konfirmasi' ? 'selected' : '' }}>
-                        Menunggu Konfirmasi
-                    </option>
-
-                    <option value="konfirmasi"
-                        {{ $pesanan->status === 'konfirmasi' ? 'selected' : '' }}>
-                        Konfirmasi
-                    </option>
-
-                    <option value="diproses"
-                        {{ $pesanan->status === 'diproses' ? 'selected' : '' }}>
-                        Diproses
-                    </option>
-
-                    <option value="selesai"
-                        {{ $pesanan->status === 'selesai' ? 'selected' : '' }}>
-                        Selesai
-                    </option>
-                </select>
-            </div>
-
-            <div class="status-form-actions">
-                <button type="submit" class="btn-save-status">
-                    Simpan Perubahan
-                </button>
-            </div>
-        </form>
-   @endif
-</div>
 
 
+        {{-- =========================
+             KOTAK PEMBATALAN PESANAN
+             ========================= --}}
 
-        {{-- KOTAK PEMBATALAN PESANAN --}}
         <div class="detail-pesanan-card cancellation-card">
 
             <h3 class="detail-card-title">Pembatalan Pesanan</h3>
 
-            @php
-                $permintaan = $pesanan->permintaanPembatalan;
-            @endphp
-
-            @if(!$permintaan)
+            {{-- Belum ada pembatalan sama sekali --}}
+            @if(!$permintaan && !$pesananDibatalkan)
 
                 <div class="cancellation-empty">
                     <p><strong>Belum ada permintaan pembatalan.</strong></p>
                     <p>Jika pembeli mengajukan pembatalan, permintaannya akan muncul di sini.</p>
                 </div>
 
-            @else
+            @endif
+
+
+            {{-- Ringkasan: siapa yang membatalkan, kapan, dan alasannya --}}
+            @if($pesananDibatalkan)
+
+                <div class="cancellation-summary">
+
+                    <div class="cancellation-summary-item">
+                        <span class="cancellation-label">Dibatalkan Oleh</span>
+
+                        @if($dibatalkanPembeli)
+                            <span class="cancellation-badge by-buyer">Pembeli</span>
+                            <span class="cancellation-note">
+                                Disetujui oleh Admin TEFA{{ $namaAdmin ? ' (' . $namaAdmin . ')' : '' }}
+                            </span>
+                        @else
+                            <span class="cancellation-badge by-admin">Admin TEFA</span>
+
+                            @if($namaAdmin)
+                                <span class="cancellation-note">{{ $namaAdmin }}</span>
+                            @endif
+                        @endif
+                    </div>
+
+                    <div class="cancellation-summary-item">
+                        <span class="cancellation-label">Tanggal Dibatalkan</span>
+                        <p class="cancellation-text">{{ $formatTanggal($tanggalDibatalkan) }}</p>
+                    </div>
+
+                    {{-- Alasan admin hanya tampil jika admin yang membatalkan.
+                         Alasan pembeli ada di bagian permintaan di bawah. --}}
+                    @if($dibatalkanAdmin)
+                        <div class="cancellation-summary-item full">
+                            <span class="cancellation-label">Alasan Admin</span>
+
+                            @if($alasanAdmin)
+                                <p class="cancellation-text">{{ $alasanAdmin }}</p>
+                            @else
+                                <p class="cancellation-text is-empty">
+                                    Tidak ada alasan yang tercatat.
+                                </p>
+                            @endif
+                        </div>
+                    @endif
+
+                </div>
+
+            @endif
+
+
+            {{-- Detail permintaan pembatalan dari pembeli --}}
+            @if($permintaan)
 
                 <div class="cancellation-info">
+
                     <div class="cancellation-row">
                         <span class="cancellation-label">Status Permintaan</span>
 
@@ -438,30 +592,40 @@
                     </div>
 
                     <div class="cancellation-row">
+                        <span class="cancellation-label">Tanggal Pengajuan</span>
+                        <p class="cancellation-text">{{ $formatTanggal($permintaan->created_at) }}</p>
+                    </div>
+
+                    @if($permintaan->status_permintaan === 'ditolak')
+                        <div class="cancellation-row">
+                            <span class="cancellation-label">Tanggal Ditolak</span>
+                            <p class="cancellation-text">{{ $formatTanggal($permintaan->tanggal_keputusan) }}</p>
+                        </div>
+                    @endif
+
+                    <div class="cancellation-row">
                         <span class="cancellation-label">Alasan Pembeli</span>
-                        <p>{{ $permintaan->alasan }}</p>
+                        <p class="cancellation-text">{{ $permintaan->alasan }}</p>
                     </div>
 
                     @if($permintaan->catatan_admin)
                         <div class="cancellation-row">
                             <span class="cancellation-label">Catatan Admin</span>
-                            <p>{{ $permintaan->catatan_admin }}</p>
+                            <p class="cancellation-text">{{ $permintaan->catatan_admin }}</p>
                         </div>
                     @endif
+
                 </div>
 
-                @if(
-                    $permintaan->status_permintaan === 'menunggu'
-                    && $pesanan->status === 'konfirmasi'
-                )
+                @if($pembatalanMenunggu && $pesanan->status === 'konfirmasi')
 
                     <div class="cancellation-actions">
 
                         <form
-                        action="{{ route('pesanan.permintaan-pembatalan.setujui', $permintaan->id_permintaan) }}"
-                        method="POST"
-                        class="cancellation-confirm-form"
-                        data-confirm-type="approve"
+                            action="{{ route('pesanan.permintaan-pembatalan.setujui', $permintaan->id_permintaan) }}"
+                            method="POST"
+                            class="cancellation-confirm-form"
+                            data-confirm-type="approve"
                         >
                             @csrf
 
@@ -471,10 +635,10 @@
                         </form>
 
                         <form
-                        action="{{ route('pesanan.permintaan-pembatalan.tolak', $permintaan->id_permintaan) }}"
-                        method="POST"
-                        class="cancellation-confirm-form"
-                        data-confirm-type="reject"
+                            action="{{ route('pesanan.permintaan-pembatalan.tolak', $permintaan->id_permintaan) }}"
+                            method="POST"
+                            class="cancellation-confirm-form"
+                            data-confirm-type="reject"
                         >
                             @csrf
 
@@ -485,7 +649,7 @@
 
                     </div>
 
-                @elseif($permintaan->status_permintaan === 'menunggu')
+                @elseif($pembatalanMenunggu)
 
                     <p class="cancellation-notice">
                         Permintaan belum dapat diproses karena status pesanan bukan Konfirmasi.
@@ -498,23 +662,27 @@
         </div>
 
     </div>
+
 </div>
 
 
 {{-- MODAL KONFIRMASI PEMBATALAN --}}
-<div id="cancellationConfirmModal"
-     class="cancellation-modal"
-     aria-hidden="true">
+<div
+    id="cancellationConfirmModal"
+    class="cancellation-modal"
+    aria-hidden="true"
+>
 
     <div class="cancellation-modal-backdrop"></div>
 
-    <div class="cancellation-modal-box"
-         role="dialog"
-         aria-modal="true"
-         aria-labelledby="cancellationModalTitle">
+    <div
+        class="cancellation-modal-box"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cancellationModalTitle"
+    >
 
-        <div id="cancellationModalIcon"
-             class="cancellation-modal-icon">
+        <div id="cancellationModalIcon" class="cancellation-modal-icon">
             !
         </div>
 
@@ -527,15 +695,19 @@
         </p>
 
         <div class="cancellation-modal-actions">
-            <button type="button"
-                    id="cancellationModalCancel"
-                    class="cancellation-modal-btn cancel">
+            <button
+                type="button"
+                id="cancellationModalCancel"
+                class="cancellation-modal-btn cancel"
+            >
                 Kembali
             </button>
 
-            <button type="button"
-                    id="cancellationModalConfirm"
-                    class="cancellation-modal-btn confirm">
+            <button
+                type="button"
+                id="cancellationModalConfirm"
+                class="cancellation-modal-btn confirm"
+            >
                 Ya, Lanjutkan
             </button>
         </div>
@@ -543,74 +715,9 @@
     </div>
 </div>
 
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('cancellationConfirmModal');
-    const modalBox = modal.querySelector('.cancellation-modal-box');
-    const title = document.getElementById('cancellationModalTitle');
-    const message = document.getElementById('cancellationModalMessage');
-    const confirmButton = document.getElementById('cancellationModalConfirm');
-    const cancelButton = document.getElementById('cancellationModalCancel');
-
-    let selectedForm = null;
-
-    function closeModal() {
-        modal.classList.remove('show');
-        modal.setAttribute('aria-hidden', 'true');
-        selectedForm = null;
-    }
-
-    document.querySelectorAll('.cancellation-confirm-form').forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            selectedForm = form;
-
-            const type = form.dataset.confirmType;
-            modalBox.classList.remove('is-reject');
-
-            if (type === 'approve') {
-                title.textContent = 'Setujui Pembatalan?';
-                message.textContent =
-                    'Apakah kamu yakin ingin menyetujui pembatalan pesanan ini? Pesanan akan berstatus dibatalkan.';
-                confirmButton.textContent = 'Ya, Setujui';
-            } else {
-                title.textContent = 'Tolak Permintaan?';
-                message.textContent =
-                    'Apakah kamu yakin ingin menolak permintaan pembatalan ini? Pesanan akan tetap berjalan.';
-                confirmButton.textContent = 'Ya, Tolak';
-                modalBox.classList.add('is-reject');
-            }
-
-            modal.classList.add('show');
-            modal.setAttribute('aria-hidden', 'false');
-            confirmButton.focus();
-        });
-    });
-
-    confirmButton.addEventListener('click', function () {
-        if (!selectedForm) return;
-
-        const formToSubmit = selectedForm;
-        closeModal();
-
-        // Kirim form ke Laravel setelah admin mengonfirmasi.
-        HTMLFormElement.prototype.submit.call(formToSubmit);
-    });
-
-    cancelButton.addEventListener('click', closeModal);
-
-    modal.querySelector('.cancellation-modal-backdrop')
-        .addEventListener('click', closeModal);
-
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && modal.classList.contains('show')) {
-            closeModal();
-        }
-    });
-});
-</script>
+@endsection
 
 
+@section('scripts')
+    <script src="{{ asset('js/detail-pesanan.js') }}?v=2"></script>
 @endsection

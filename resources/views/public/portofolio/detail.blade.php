@@ -126,6 +126,6 @@
 
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/portofolio-detail-pembeli.js') }}"></script>
 @endpush

@@ -1,42 +1,83 @@
-let formHapusRiwayat = null;
+/* =========================================================
+   POPUP HAPUS RIWAYAT PESANAN (PEMBELI)
 
-function bukaPopupHapus(button) {
-    formHapusRiwayat = button.closest('.rw-delete-form');
+   Dipakai oleh: resources/views/public/riwayat.blade.php
 
-    const popup = document.getElementById('popupHapusRiwayat');
+   Tombol sampah (.rw-btn-delete) membuka popup konfirmasi.
+   Jika dikonfirmasi, form hapus di baris yang sama dikirim.
+========================================================= */
 
-    if (!formHapusRiwayat || !popup) {
-        console.error('Form atau popup hapus tidak ditemukan!');
-        return;
+document.addEventListener("DOMContentLoaded", function () {
+  const popup = document.getElementById("popupHapusRiwayat");
+
+  if (!popup) {
+    return;
+  }
+
+  const tombolBatal = document.getElementById("hapusRiwayatBatal");
+  const tombolKonfirmasi = document.getElementById("hapusRiwayatKonfirmasi");
+
+  let formAktif = null;
+  let fokusSebelumnya = null;
+
+  // Membuka popup untuk baris pesanan yang dipilih.
+  function bukaPopup(button) {
+    formAktif = button.closest(".rw-delete-form");
+
+    if (!formAktif) {
+      console.error("Form hapus riwayat tidak ditemukan.");
+      return;
     }
 
-    popup.classList.add('active');
-}
+    fokusSebelumnya = button;
+    tombolKonfirmasi.disabled = false;
 
-function tutupPopupHapus() {
-    const popup = document.getElementById('popupHapusRiwayat');
+    popup.classList.add("active");
+    tombolBatal.focus();
+  }
 
-    if (popup) {
-        popup.classList.remove('active');
+  // Menutup popup tanpa menghapus.
+  function tutupPopup() {
+    popup.classList.remove("active");
+    formAktif = null;
+
+    if (fokusSebelumnya && fokusSebelumnya.isConnected) {
+      fokusSebelumnya.focus();
+    }
+  }
+
+  // Mengirim form hapus setelah dikonfirmasi.
+  function konfirmasiHapus() {
+    if (!formAktif) {
+      return;
     }
 
-    formHapusRiwayat = null;
-}
+    // Cegah klik ganda.
+    tombolKonfirmasi.disabled = true;
+    formAktif.submit();
+  }
 
-function konfirmasiHapusRiwayat() {
-    if (formHapusRiwayat) {
-        formHapusRiwayat.submit();
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    const popup = document.getElementById('popupHapusRiwayat');
-
-    if (!popup) return;
-
-    popup.addEventListener('click', function (event) {
-        if (event.target === popup) {
-            tutupPopupHapus();
-        }
+  // Tombol sampah pada tiap baris.
+  document.querySelectorAll(".rw-btn-delete").forEach(function (button) {
+    button.addEventListener("click", function () {
+      bukaPopup(button);
     });
+  });
+
+  tombolBatal.addEventListener("click", tutupPopup);
+  tombolKonfirmasi.addEventListener("click", konfirmasiHapus);
+
+  // Tutup ketika area luar popup diklik.
+  popup.addEventListener("click", function (event) {
+    if (event.target === popup) {
+      tutupPopup();
+    }
+  });
+
+  // Tutup menggunakan tombol Escape.
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && popup.classList.contains("active")) {
+      tutupPopup();
+    }
+  });
 });

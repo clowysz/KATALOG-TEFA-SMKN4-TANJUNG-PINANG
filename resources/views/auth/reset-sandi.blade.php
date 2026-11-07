@@ -96,7 +96,7 @@
 
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/password-toggle.js') }}"></script>
     <script src="{{ asset('js/reset-sandi-pembeli.js') }}"></script>
 @endpush

@@ -9,6 +9,7 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\KatalogTefaController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\KontakCsController;
 use App\Http\Controllers\AdminJurusanController;
 use App\Http\Controllers\ProdukJasaController;
 use App\Http\Controllers\PortfolioController;
@@ -175,6 +176,10 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
     Route::post('/katalog-gabungan/pdf', [KatalogTefaController::class, 'generatePdf'])
         ->name('admin.tefa.katalog_pdf');
 
+    // Nomor di footer PDF
+    Route::put('/katalog/nomor-pdf', [KatalogTefaController::class, 'updateNomorPdf'])
+        ->name('admin.tefa.katalog_nomor_pdf');
+
     // Akun
     Route::get('/akun', [AkunController::class, 'index'])->name('akun.index');
     Route::get('/akun/tambah', [AkunController::class, 'create'])->name('akun.create');
@@ -196,6 +201,13 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
     Route::get('/tefa/faq/{id}/edit', [FaqController::class, 'edit'])->name('tefa.faq.edit');
     Route::put('/tefa/faq/{id}', [FaqController::class, 'update'])->name('tefa.faq.update');
     Route::delete('/tefa/faq/{id}', [FaqController::class, 'destroy'])->name('tefa.faq.destroy');
+
+    // Customer Service (nomor WhatsApp)
+    Route::get('/tefa/customer-service', [KontakCsController::class, 'index'])
+        ->name('tefa.cs.index');
+
+    Route::put('/tefa/customer-service', [KontakCsController::class, 'update'])
+        ->name('tefa.cs.update');
 });
 
 

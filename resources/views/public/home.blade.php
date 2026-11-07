@@ -112,6 +112,6 @@
 @endsection
 
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/home-pembeli.js') }}"></script>
 @endpush

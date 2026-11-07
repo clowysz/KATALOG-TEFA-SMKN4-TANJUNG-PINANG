@@ -967,7 +967,7 @@
                 <div>
 
                     <strong>
-                        +62 812-3456-7890
+                        {{ $nomorKontak }}
                     </strong>
 
                     <br>

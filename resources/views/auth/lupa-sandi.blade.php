@@ -86,6 +86,6 @@
 
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/lupa-sandi-pembeli.js') }}"></script>
 @endpush

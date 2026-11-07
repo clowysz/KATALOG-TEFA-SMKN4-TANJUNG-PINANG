@@ -30,13 +30,18 @@
     </div>
 
     <div class="login-card">
+
         <!-- Ikon Avatar menonjol ke atas -->
         <div class="login-avatar">
             <i class="ph ph-user"></i>
         </div>
 
         <!-- Form Login -->
-        <form action="{{ route('login.proses') }}" method="POST">
+        <form
+            action="{{ route('login.proses') }}"
+            method="POST"
+            id="formLoginPembeli"
+        >
             @csrf
 
             @if($redirect)
@@ -47,7 +52,7 @@
                 <input type="hidden" name="back" value="{{ $back }}">
             @endif
 
-            <!-- Hanya Email dan Sandi -->
+            <!-- EMAIL -->
             <div class="login-form-group">
                 <label>Email</label>
                 <div class="login-input-box">
@@ -55,6 +60,7 @@
                     <input
                         type="email"
                         name="email"
+                        id="emailLoginPembeli"
                         placeholder="Masukkan email"
                         value="{{ old('email') }}"
                         required
@@ -62,6 +68,7 @@
                 </div>
             </div>
 
+            <!-- SANDI -->
             <div class="login-form-group">
                 <label>Sandi</label>
                 <div class="login-input-box">
@@ -115,6 +122,8 @@
 
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/password-toggle.js') }}"></script>
+    <script src="{{ asset('js/form-validasi.js') }}"></script>
+    <script src="{{ asset('js/login-pembeli.js') }}"></script>
 @endpush

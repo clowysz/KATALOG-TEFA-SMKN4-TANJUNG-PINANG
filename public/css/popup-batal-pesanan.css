@@ -1,0 +1,241 @@
+/* =========================================================
+   POPUP PEMBATALAN PESANAN (PEMBELI)
+
+   Dipakai oleh: resources/views/public/popup/batal-pesanan.blade.php
+   Dimuat otomatis dari partial tersebut lewat @push('css').
+========================================================= */
+
+/* Atribut hidden harus selalu menang atas display bawaan kelas */
+.cancel-modal[hidden],
+.cancel-modal-body[hidden],
+.cancel-modal-footer[hidden],
+.cancel-reason-other[hidden] {
+  display: none !important;
+}
+
+/* ---------- Latar & kotak popup ---------- */
+.cancel-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.cancel-modal-dialog {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  min-height: 0;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Header ---------- */
+.cancel-modal-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--rw-border);
+}
+
+.cancel-modal-header h2 {
+  margin: 0;
+  color: var(--rw-text);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.cancel-modal-close {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--rw-surface);
+  color: var(--rw-body);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* ---------- Form: isi bisa digulir, header & footer tetap ---------- */
+.cancel-modal-form {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cancel-modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 20px 24px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cancel-modal-description {
+  margin: 0 0 16px;
+  color: var(--rw-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ---------- Pilihan alasan ---------- */
+.cancel-reason-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cancel-reason-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid var(--rw-border);
+  border-radius: 10px;
+  color: var(--rw-text);
+  font-size: 13px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.cancel-reason-option:has(input:checked) {
+  border-color: var(--rw-blue-bright);
+  background: #eff6ff;
+}
+
+.cancel-reason-option input {
+  flex-shrink: 0;
+  margin-top: 3px;
+  accent-color: var(--rw-blue-bright);
+}
+
+.cancel-reason-other {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100px;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid var(--rw-border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  resize: vertical;
+}
+
+.cancel-reason-other:focus {
+  border-color: var(--rw-blue-bright);
+  outline: 2px solid rgba(37, 99, 235, 0.12);
+}
+
+/* ---------- Pesan berhasil / gagal ---------- */
+.cancel-modal-message {
+  flex: 0 0 auto;
+  margin: 0 24px 16px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.cancel-modal-message:empty {
+  display: none;
+}
+
+.cancel-modal-message.success {
+  background: #ecfdf3;
+  color: #166534;
+}
+
+.cancel-modal-message.error {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* ---------- Footer & tombol kirim ---------- */
+.cancel-modal-footer {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  padding: 16px 24px;
+  border-top: 1px solid var(--rw-border);
+}
+
+.cancel-modal-submit {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 9px;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancel-modal-submit:hover {
+  background: #b91c1c;
+}
+
+.cancel-modal-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Cincin fokus keyboard */
+.cancel-modal-close:focus-visible,
+.cancel-modal-submit:focus-visible {
+  outline: 3px solid var(--rw-focus);
+  outline-offset: 3px;
+}
+
+/* ---------- Responsif HP ---------- */
+@media (max-width: 576px) {
+  .cancel-modal {
+    padding: 10px;
+  }
+
+  .cancel-modal-header {
+    padding: 16px;
+  }
+
+  .cancel-modal-header h2 {
+    font-size: 17px;
+  }
+
+  .cancel-modal-footer {
+    padding: 14px 16px;
+  }
+
+  .cancel-modal-submit {
+    width: 100%;
+  }
+
+  .cancel-modal-message {
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+}

@@ -41,7 +41,6 @@
             action="{{ route('pembeli.register.proses') }}"
             method="POST"
             id="formDaftarPembeli"
-            novalidate
         >
 
             @csrf
@@ -128,7 +127,7 @@
             <!-- PASSWORD -->
             <div class="login-form-group">
 
-                <label>Password</label>
+                <label>Sandi</label>
 
                 <div class="login-input-box">
 
@@ -157,7 +156,7 @@
             <!-- KONFIRMASI PASSWORD -->
             <div class="login-form-group">
 
-                <label>Konfirmasi Password</label>
+                <label>Konfirmasi Sandi</label>
 
                 <div class="login-input-box">
 
@@ -213,7 +212,8 @@
 
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/password-toggle.js') }}"></script>
+    <script src="{{ asset('js/form-validasi.js') }}"></script>
     <script src="{{ asset('js/register-pembeli.js') }}"></script>
 @endpush

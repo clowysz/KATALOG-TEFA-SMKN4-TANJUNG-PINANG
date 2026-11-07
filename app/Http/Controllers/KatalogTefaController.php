@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\ProdukJasa;
 use App\Models\Jurusan;
+use App\Models\Pengaturan;
 use App\Services\ChromePdfGenerator;
 
 class KatalogTefaController extends Controller
@@ -75,6 +77,9 @@ class KatalogTefaController extends Controller
         $daftarJurusan = Jurusan::orderBy('nama_jurusan')
             ->get(['id_jurusan', 'nama_jurusan']);
 
+        // Nomor yang tampil di footer PDF (tampilan: 0896-5362-8650)
+        $nomorPdf = Pengaturan::formatNomor(Pengaturan::nomorPdf());
+
         return view(
             'admin.admin_tefa.katalog-gabungan',
             compact(
@@ -84,7 +89,8 @@ class KatalogTefaController extends Controller
                 'keyword',
                 'jenis',
                 'idJurusan',
-                'adaFilter'
+                'adaFilter',
+                'nomorPdf'
             )
         );
     }
@@ -102,6 +108,30 @@ class KatalogTefaController extends Controller
             'admin.admin_tefa.katalog-detail',
             compact('produk')
         );
+    }
+
+    /**
+     * Simpan nomor yang tampil di footer PDF.
+     * (Nomor Customer Service diatur di KontakCsController.)
+     */
+    public function updateNomorPdf(Request $request)
+    {
+        $nomor = Pengaturan::normalisasiNomor($request->input('nomor_pdf'));
+
+        Validator::make(
+            ['nomor_pdf' => $nomor],
+            ['nomor_pdf' => ['required', 'regex:' . Pengaturan::NOMOR_REGEX]],
+            [
+                'nomor_pdf.required' => 'Nomor untuk PDF wajib diisi.',
+                'nomor_pdf.regex' => Pengaturan::PESAN_NOMOR_TIDAK_VALID,
+            ]
+        )->validate();
+
+        Pengaturan::simpan(Pengaturan::KUNCI_NOMOR_PDF, $nomor);
+
+        return redirect()
+            ->back()
+            ->with('sukses', 'Nomor di PDF berhasil diperbarui.');
     }
 
     public function generatePdf(Request $request, ChromePdfGenerator $generator)
@@ -172,6 +202,7 @@ class KatalogTefaController extends Controller
             'admin.admin_tefa.pdf',
             [
                 'produkJasas' => $produkJasas,
+                'nomorKontak' => Pengaturan::formatNomor(Pengaturan::nomorPdf()),
             ],
             $fileName
         );

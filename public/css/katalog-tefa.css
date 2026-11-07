@@ -1,9 +1,3 @@
-/* =========================================================
-   KATALOG TEFA (admin_tefa/katalog-gabungan)
-   Desktop : 4 kolom x 4 baris = 16 item
-   Mobile  : 3 kolom x 5 baris = 15 item
-========================================================= */
-
 .katalog-container {
   padding: 8px 24px 24px 24px; /* Padding atas diperkecil agar lebih rapat dengan nav */
   font-family:

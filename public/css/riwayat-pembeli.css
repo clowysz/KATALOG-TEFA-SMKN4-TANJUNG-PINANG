@@ -1,4 +1,25 @@
-/*VARIABEL & ATURAN BERSAMA*/
+/* =========================================================
+   RIWAYAT PESANAN PEMBELI
+
+   Isi file ini:
+   1. Variabel & aturan bersama
+   2. Halaman daftar riwayat
+      2a. Kerangka halaman, filter, pencarian
+      2b. Tabel pesanan
+      2c. Lencana status
+      2d. Tombol aksi (detail, batalkan) dan tombol hapus
+      2e. Responsif daftar riwayat
+   3. Popup konfirmasi hapus riwayat
+   4. Halaman detail riwayat
+   5. Preferensi pengurangan animasi
+
+   Gaya popup pembatalan pesanan ada di
+   public/css/popup-batal-pesanan.css
+========================================================= */
+
+/* =========================================================
+   1. VARIABEL & ATURAN BERSAMA
+========================================================= */
 
 :root {
   --rw-blue: #1e3a8a;
@@ -11,6 +32,11 @@
   --rw-border: #e2e8f0;
   --rw-surface: #f8fafc;
   --rw-focus: #eab308;
+  --rw-danger: #dc2626;
+
+  /* Lebar lencana status & tombol aksi: dibuat tetap agar sejajar */
+  --rw-badge-width: 156px;
+  --rw-action-width: 150px;
 }
 
 /* Tanpa gap putih di atas footer */
@@ -26,14 +52,19 @@ main {
 /* Elemen yang bisa disentuh: tanpa kilatan abu-abu di HP */
 .rw-back-btn,
 .rw-tab,
-.rw-btn-detail {
+.rw-btn-detail,
+.rw-btn-cancel,
+.rw-btn-delete {
   -webkit-tap-highlight-color: transparent;
 }
 
 /* Cincin fokus keyboard */
 .rw-back-btn:focus-visible,
 .rw-tab:focus-visible,
-.rw-btn-detail:focus-visible {
+.rw-btn-detail:focus-visible,
+.rw-btn-cancel:focus-visible,
+.rw-btn-delete:focus-visible,
+.rw-modal-actions button:focus-visible {
   outline: 3px solid var(--rw-focus);
   outline-offset: 3px;
 }
@@ -82,9 +113,12 @@ main {
   }
 }
 
-/* HALAMAN DAFTAR RIWAYAT */
+/* =========================================================
+   2. HALAMAN DAFTAR RIWAYAT
+========================================================= */
 
-/* Pembungkus halaman- */
+/* ---------- 2a. Kerangka halaman, filter, pencarian ---------- */
+
 .rw-page {
   position: relative;
   display: flex;
@@ -94,6 +128,23 @@ main {
   padding: 40px 5% 100px;
   overflow: hidden;
   background: var(--rw-blue);
+}
+
+/* Gelembung dekorasi (ukuran & posisi per gelembung) */
+.rw-page .rw-bubble--1 {
+  top: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  animation-duration: 8s;
+}
+
+.rw-page .rw-bubble--2 {
+  top: 20%;
+  left: 5%;
+  width: 80px;
+  height: 80px;
+  animation-duration: 6s;
 }
 
 .rw-back-wrap {
@@ -205,14 +256,15 @@ main {
   font-size: 13px;
 }
 
-/* Tabel pesanan   */
+/* ---------- 2b. Tabel pesanan ---------- */
+
 .rw-table-wrapper {
   overflow-x: auto;
 }
 
 .rw-table {
   width: 100%;
-  min-width: 900px;
+  min-width: 1000px;
   border-collapse: collapse;
 }
 
@@ -221,14 +273,34 @@ main {
   color: var(--rw-faint);
   font-size: 12px;
   font-weight: 600;
-  text-align: left;
+  text-align: center;
   text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* Kolom pertama (nama pesanan) rata kiri */
+.rw-table th:first-child,
+.rw-table td:first-child {
+  text-align: left;
 }
 
 .rw-table td {
   padding: 16px;
   border-top: 1px solid #f1f5f9;
   vertical-align: middle;
+}
+
+/* Lebar kolom tetap untuk status, aksi, dan hapus */
+.rw-th-status {
+  width: calc(var(--rw-badge-width) + 32px);
+}
+
+.rw-th-action {
+  width: calc(var(--rw-action-width) + 32px);
+}
+
+.rw-th-delete {
+  width: 80px;
 }
 
 /* Isi sel */
@@ -285,56 +357,19 @@ main {
   color: var(--rw-text);
   font-size: 15px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
-/* Lencana status */
-.rw-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
+/* Desktop: isi kolom selain kolom pertama rata tengah, sejajar judulnya */
+@media (min-width: 769px) {
+  .rw-table td:not(:first-child) {
+    text-align: center;
+  }
 
-.rw-badge--progress {
-  background: #fff7ed;
-  color: #ea580c;
-}
-
-.rw-badge--done {
-  background: #f0fdf4;
-  color: #16a34a;
-}
-
-.rw-badge--cancel {
-  background: #fef2f2;
-  color: #dc2626;
-}
-
-/* Tombol detail */
-.rw-btn-detail {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border: 1px solid var(--rw-border);
-  border-radius: 20px;
-  color: var(--rw-muted);
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.rw-btn-detail:hover {
-  border-color: var(--rw-blue);
-  color: var(--rw-blue);
-}
-
-.rw-btn-detail:active {
-  transform: scale(0.97);
+  .rw-table td .rw-text-main,
+  .rw-table td .rw-text-sub {
+    justify-content: center;
+  }
 }
 
 /* Keadaan kosong */
@@ -363,17 +398,180 @@ main {
   font-size: 14px;
 }
 
-/*   Responsif daftar riwayat   */
+/* ---------- 2c. Lencana status ---------- */
+/* Semua lencana punya lebar & tinggi yang sama, apa pun teksnya */
+
+.rw-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-sizing: border-box;
+  width: var(--rw-badge-width);
+  max-width: 100%;
+  min-height: 32px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.rw-badge i {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.rw-badge--progress {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.rw-badge--done {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.rw-badge--cancel {
+  background: #fef2f2;
+  color: var(--rw-danger);
+}
+
+/* ---------- 2d. Tombol aksi & tombol hapus ---------- */
+
+/* Pembungkus tombol aksi: tersusun ke bawah, lebar sama, di tengah kolom */
+.rw-action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: var(--rw-action-width);
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Tombol detail & batalkan memakai ukuran yang sama */
+.rw-btn-detail,
+.rw-btn-cancel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-sizing: border-box;
+  min-height: 36px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+.rw-action-buttons .rw-btn-detail,
+.rw-action-buttons .rw-btn-cancel {
+  width: 100%;
+}
+
+/* Tombol detail */
+.rw-btn-detail {
+  border: 1px solid var(--rw-border);
+  background: #ffffff;
+  color: var(--rw-muted);
+}
+
+.rw-btn-detail:hover {
+  border-color: var(--rw-blue);
+  color: var(--rw-blue);
+}
+
+.rw-btn-detail:active {
+  transform: scale(0.97);
+}
+
+/* Tombol batalkan pesanan (juga dipakai di halaman detail) */
+.rw-btn-cancel {
+  width: 100%;
+  border: 1px solid var(--rw-danger);
+  background: #ffffff;
+  color: var(--rw-danger);
+  cursor: pointer;
+}
+
+.rw-btn-cancel:hover {
+  background: var(--rw-danger);
+  color: #ffffff;
+}
+
+.rw-btn-cancel:active {
+  transform: scale(0.97);
+}
+
+/* Kolom hapus */
+.rw-delete {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.rw-delete-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.rw-btn-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: var(--rw-danger);
+  font-size: 19px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.rw-btn-delete:hover {
+  background: var(--rw-danger);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.rw-btn-delete:active {
+  transform: scale(0.95);
+}
+
+.rw-delete-disabled {
+  color: var(--rw-faint);
+}
+
+/* ---------- 2e. Responsif daftar riwayat ---------- */
 
 /* Maks 992px: tabel lebih rapat */
 @media (max-width: 992px) {
   .rw-table {
-    min-width: 780px;
+    min-width: 940px;
   }
 
   .rw-table th,
   .rw-table td {
     padding: 12px;
+  }
+
+  .rw-th-status {
+    width: calc(var(--rw-badge-width) + 24px);
+  }
+
+  .rw-th-action {
+    width: calc(var(--rw-action-width) + 24px);
   }
 }
 
@@ -461,7 +659,7 @@ main {
     text-transform: uppercase;
   }
 
-  /* Sel pertama (nama pesanan), tombol aksi, dan keadaan kosong: tanpa label */
+  /* Sel pertama (nama pesanan): tanpa label */
   .rw-table td:first-child {
     display: block;
     padding-top: 0;
@@ -475,9 +673,37 @@ main {
     display: none;
   }
 
+  /* Tombol aksi: berjajar dua kolom sama lebar, memenuhi kartu */
   .rw-table td.rw-action {
     display: block;
-    padding-bottom: 0;
+    padding: 12px 0 4px;
+  }
+
+  .rw-action-buttons {
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    margin: 0;
+  }
+
+  .rw-action-buttons .rw-btn-detail,
+  .rw-action-buttons .rw-btn-cancel {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    padding: 9px 10px;
+    font-size: 12.5px;
+    white-space: normal;
+  }
+
+  /* Kolom hapus: label di kiri, tombol di kanan */
+  .rw-delete-form {
+    margin-left: auto;
+  }
+
+  .rw-btn-delete {
+    width: 40px;
+    height: 40px;
   }
 
   .rw-table td.rw-empty {
@@ -497,13 +723,6 @@ main {
     font-size: 13px;
   }
 
-  .rw-btn-detail {
-    justify-content: center;
-    width: 100%;
-    padding: 9px 12px;
-    font-size: 12.5px;
-  }
-
   .rw-empty i {
     margin-bottom: 10px;
     font-size: 38px;
@@ -521,6 +740,8 @@ main {
 /* Maks 576px: HP */
 @media (max-width: 576px) {
   .rw-page {
+    --rw-badge-width: 144px;
+
     padding: 16px 4% 40px;
   }
 
@@ -556,27 +777,30 @@ main {
     padding-bottom: 12px;
   }
 
-  /* Tab status: satu baris yang bisa digeser */
+  /* Tab status: dua kolom */
   .rw-tabs {
-    flex-wrap: nowrap;
-    gap: 6px;
-    padding-bottom: 4px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .rw-tabs::-webkit-scrollbar {
-    display: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
   }
 
   .rw-tab {
-    flex-shrink: 0;
-    padding: 6px 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 10px 8px;
     font-size: 12.5px;
-    white-space: nowrap;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .rw-search {
+    box-sizing: border-box;
     width: 100%;
     padding: 9px 12px;
     border-radius: 10px;
@@ -611,16 +835,138 @@ main {
   }
 
   .rw-badge {
-    padding: 4px 10px;
+    min-height: 30px;
+    padding: 4px 8px;
     font-size: 11px;
   }
 }
 
-/* 
-   3. HALAMAN DETAIL RIWAYAT
-    */
+/* =========================================================
+   3. POPUP KONFIRMASI HAPUS RIWAYAT
+========================================================= */
 
-/*   Pembungkus halaman   */
+.rw-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.rw-modal-overlay.active {
+  display: flex;
+}
+
+.rw-modal {
+  width: 100%;
+  max-width: 380px;
+  padding: 28px 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: rwModalShow 0.2s ease;
+}
+
+.rw-modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: var(--rw-danger);
+  font-size: 27px;
+}
+
+.rw-modal h3 {
+  margin: 0 0 9px;
+  color: #1e293b;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.rw-modal p {
+  margin: 0 0 24px;
+  color: var(--rw-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.rw-modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.rw-modal-actions button {
+  flex: 1;
+  min-height: 44px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.rw-modal-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.rw-modal-cancel {
+  background: #f1f5f9;
+  color: var(--rw-body);
+}
+
+.rw-modal-cancel:hover {
+  background: var(--rw-border);
+}
+
+.rw-modal-confirm {
+  background: var(--rw-danger);
+  color: #ffffff;
+}
+
+.rw-modal-confirm:hover {
+  background: #b91c1c;
+}
+
+@keyframes rwModalShow {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .rw-modal {
+    max-width: 340px;
+    padding: 24px 18px;
+  }
+
+  .rw-modal h3 {
+    font-size: 17px;
+  }
+}
+
+/* =========================================================
+   4. HALAMAN DETAIL RIWAYAT
+========================================================= */
+
+/* ---------- Pembungkus halaman ---------- */
 .rd-page {
   min-height: 100vh;
   padding-bottom: 60px;
@@ -633,7 +979,7 @@ main {
   padding: 0 20px;
 }
 
-/*   Header biru   */
+/* ---------- Header biru ---------- */
 .rd-header {
   position: relative;
   margin-bottom: -30px;
@@ -669,7 +1015,7 @@ main {
   font-size: 14px;
 }
 
-/*   Kartu   */
+/* ---------- Kartu ---------- */
 .rd-body {
   position: relative;
   z-index: 10;
@@ -694,7 +1040,7 @@ main {
   font-weight: 700;
 }
 
-/*   Ringkasan: nomor pesanan + status   */
+/* ---------- Ringkasan: nomor pesanan + status ---------- */
 .rd-summary {
   display: flex;
   justify-content: space-between;
@@ -744,7 +1090,7 @@ main {
   font-size: 12px;
 }
 
-/*   Produk / jasa   */
+/* ---------- Produk / jasa ---------- */
 .rd-product {
   display: flex;
   align-items: center;
@@ -810,7 +1156,7 @@ main {
   font-size: 13px;
 }
 
-/*   Timeline status   */
+/* ---------- Timeline status ---------- */
 .rd-timeline {
   display: flex;
   justify-content: space-between;
@@ -870,7 +1216,7 @@ main {
   background: var(--rw-blue-bright);
 }
 
-/*   Progress & tahapan pengerjaan   */
+/* ---------- Progress & tahapan pengerjaan ---------- */
 .rd-progress-block {
   margin-bottom: 20px;
 }
@@ -970,7 +1316,7 @@ main {
   font-size: 13px;
 }
 
-/*   Informasi pemesan & detail pesanan   */
+/* ---------- Informasi pemesan & detail pesanan ---------- */
 .rd-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -980,6 +1326,21 @@ main {
 
 .rd-grid .rd-card {
   margin-bottom: 0;
+}
+
+/* Kolom kanan: kartu detail pesanan + kartu pembatalan */
+.rd-detail-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.rd-cancel-card p {
+  margin-bottom: 16px;
+  color: var(--rw-muted);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .rd-info-row {
@@ -1026,7 +1387,7 @@ main {
   font-weight: 800;
 }
 
-/*   Catatan   */
+/* ---------- Catatan ---------- */
 .rd-notes {
   padding: 16px;
   border: 1px solid var(--rw-border);
@@ -1038,7 +1399,7 @@ main {
   overflow-wrap: anywhere;
 }
 
-/*   Responsif detail riwayat   */
+/* ---------- Responsif detail riwayat ---------- */
 
 /* Maks 768px: tablet */
 @media (max-width: 768px) {
@@ -1100,6 +1461,10 @@ main {
     grid-template-columns: 1fr;
     gap: 14px;
     margin-bottom: 14px;
+  }
+
+  .rd-detail-column {
+    gap: 14px;
   }
 
   .rd-info-row {
@@ -1360,6 +1725,10 @@ main {
     font-size: 16px;
   }
 
+  .rd-cancel-card p {
+    font-size: 12px;
+  }
+
   .rd-notes {
     padding: 12px;
     border-radius: 10px;
@@ -1367,608 +1736,19 @@ main {
   }
 }
 
-/* 
-   4. PREFERENSI PENGURANGAN ANIMASI
-    */
+/* =========================================================
+   5. PREFERENSI PENGURANGAN ANIMASI
+========================================================= */
 @media (prefers-reduced-motion: reduce) {
   .rw-back-btn,
   .rw-tab,
   .rw-search,
-  .rw-btn-detail {
+  .rw-btn-detail,
+  .rw-btn-cancel,
+  .rw-btn-delete,
+  .rw-modal,
+  .rw-modal-actions button {
     transition: none !important;
+    animation: none !important;
   }
 }
-
-
-/* =========================================
-   TOMBOL BATALKAN PESANAN
-========================================= */
-
-
-.rw-action-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    white-space: nowrap;
-}
-
-.rw-action-buttons .rw-btn-detail,
-.rw-action-buttons .rw-btn-cancel {
-    display: inline-flex;
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    min-width: 0;
-    white-space: nowrap;
-}
-
-.rw-action-buttons .rw-btn-detail {
-    padding: 9px 12px;
-}
-
-.rw-action-buttons .rw-btn-cancel {
-    padding: 9px 12px;
-}
-
-
-.rw-btn-cancel {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid #dc2626;
-    border-radius: 20px;
-    background: #fff;
-    color: #dc2626;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .2s ease;
-}
-
-.rw-btn-cancel:hover {
-    background: #dc2626;
-    color: #fff;
-}
-
-.rw-btn-cancel:focus-visible,
-.cancel-modal-close:focus-visible,
-.cancel-modal-submit:focus-visible {
-    outline: 3px solid var(--rw-focus);
-    outline-offset: 3px;
-}
-
-/* =========================================
-   POPUP PEMBATALAN PESANAN
-========================================= */
-
-.cancel-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    background: rgba(15, 23, 42, .55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-.cancel-modal[hidden] {
-    display: none !important;
-}
-
-.cancel-modal-dialog {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    max-height: 90dvh;
-    overflow: hidden;
-    border-radius: 18px;
-    background: #fff;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
-}
-
-.cancel-modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--rw-border);
-}
-
-.cancel-modal-header h2 {
-    margin: 0;
-    color: var(--rw-text);
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.cancel-modal-close {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 50%;
-    background: var(--rw-surface);
-    color: var(--rw-body);
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.cancel-modal-body {
-    padding: 20px 24px;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-}
-
-.cancel-modal-description {
-    margin: 0 0 16px;
-    color: var(--rw-muted);
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.cancel-reason-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.cancel-reason-option {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 13px;
-    border: 1px solid var(--rw-border);
-    border-radius: 10px;
-    color: var(--rw-text);
-    font-size: 13px;
-    line-height: 1.5;
-    cursor: pointer;
-}
-
-.cancel-reason-option:has(input:checked) {
-    border-color: var(--rw-blue-bright);
-    background: #eff6ff;
-}
-
-.cancel-reason-option input {
-    flex-shrink: 0;
-    margin-top: 3px;
-    accent-color: var(--rw-blue-bright);
-}
-
-.cancel-reason-other {
-    display: block;
-    width: 100%;
-    min-height: 100px;
-    margin-top: 12px;
-    padding: 12px;
-    box-sizing: border-box;
-    border: 1px solid var(--rw-border);
-    border-radius: 10px;
-    font: inherit;
-    font-size: 13px;
-    resize: vertical;
-}
-
-.cancel-reason-other:focus {
-    border-color: var(--rw-blue-bright);
-    outline: 2px solid rgba(37, 99, 235, .12);
-}
-
-.cancel-modal-message {
-    margin: 0 24px 16px;
-    padding: 12px 14px;
-    border-radius: 9px;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-.cancel-modal-message:empty {
-    display: none;
-}
-
-.cancel-modal-message.success {
-    background: #ecfdf3;
-    color: #166534;
-}
-
-.cancel-modal-message.error {
-    background: #fef2f2;
-    color: #991b1b;
-}
-
-.cancel-modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 16px 24px;
-    border-top: 1px solid var(--rw-border);
-}
-
-.cancel-modal-submit {
-    padding: 12px 18px;
-    border: none;
-    border-radius: 9px;
-    background: #dc2626;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.cancel-modal-submit:hover {
-    background: #b91c1c;
-}
-
-.cancel-modal-submit:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-}
-
-@media (max-width: 576px) {
-    .cancel-modal {
-        padding: 10px;
-    }
-
-   .cancel-modal-dialog {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    max-height: 90dvh;
-    overflow: hidden;
-    border-radius: 18px;
-    background: #fff;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
-}
-
-    .cancel-modal-header {
-        padding: 16px;
-    }
-
-    .cancel-modal-header h2 {
-        font-size: 17px;
-    }
-
-    .cancel-modal-body {
-    flex: 1 1 auto;
-    min-height: 0;
-    padding: 20px 24px;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-}
-
-    .cancel-modal-footer {
-        padding: 14px 16px;
-    }
-
-    .cancel-modal-submit {
-        width: 100%;
-    }
-
-    .cancel-modal-message {
-        margin-right: 16px;
-        margin-left: 16px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .rw-btn-cancel {
-        transition: none;
-    }
-}
-
-
-/* RESPONSIVE FILTER RIWAYAT PESANAN */
-@media (max-width: 576px) {
-    .rw-tools {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .rw-tabs {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        width: 100%;
-        gap: 8px;
-    }
-
-    .rw-tab {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        min-width: 0;
-        box-sizing: border-box;
-        padding: 10px 8px;
-        text-align: center;
-        white-space: normal;
-        overflow-wrap: anywhere;
-    }
-
-    .rw-search {
-        width: 100%;
-        box-sizing: border-box;
-    }
-}
-
-/* TOTAL HARGA TETAP SEJAJAR */
-.rw-price {
-    white-space: nowrap;
-    word-break: normal;
-    overflow-wrap: normal;
-    text-align: left;
-}
-
-
-/* JUDUL KOLOM AKSI DI TENGAH */
-.rw-table thead th:last-child {
-    text-align: center;
-}
-
-/* TOMBOL AKSI TETAP DI TENGAH KOLOM */
-.rw-table tbody td.rw-action {
-    text-align: center;
-    vertical-align: middle;
-}
-
-.rw-table tbody td.rw-action .rw-action-buttons {
-    justify-content: center;
-    align-items: center;
-}
-
-
-/* PERBAIKAN SCROLL ISI POPUP */
-#cancelModal {
-    align-items: center;
-    overflow: hidden;
-}
-
-#cancelModal .cancel-modal-dialog {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    max-height: 90vh;
-    max-height: 90dvh;
-    min-height: 0;
-    overflow: hidden;
-}
-
-#cancelModal form#cancelOrderForm {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: hidden;
-}
-
-#cancelModal .cancel-modal-header,
-#cancelModal .cancel-modal-footer {
-    flex: 0 0 auto;
-}
-
-#cancelModal .cancel-modal-body {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-}
-
-/* =====================================================
-   TOMBOL HAPUS RIWAYAT PESANAN
-===================================================== */
-
-.rw-delete {
-    text-align: center;
-    vertical-align: middle;
-}
-
-.rw-delete form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.rw-btn-delete {
-    width: 38px;
-    height: 38px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 10px;
-    background: #fee2e2;
-    color: #dc2626;
-    font-size: 19px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.rw-btn-delete:hover {
-    background: #dc2626;
-    color: #ffffff;
-    transform: translateY(-2px);
-}
-
-.rw-delete-disabled {
-    color: #94a3b8;
-}
-
-/* RESPONSIVE MOBILE */
-@media (max-width: 768px) {
-    .rw-delete {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        text-align: right;
-    }
-
-    .rw-delete::before {
-        content: attr(data-label);
-        font-weight: 600;
-        color: #64748b;
-    }
-
-    .rw-delete form {
-        margin-left: auto;
-    }
-
-    .rw-btn-delete {
-        width: 42px;
-        height: 42px;
-    }
-}
-
-/* Judul kolom tabel rata tengah */
-.rw-table thead th {
-    text-align: center;
-    vertical-align: middle;
-}
-
-/* Isi kolom Pesanan tetap rata kiri */
-.rw-table tbody td[data-label="Pesanan"] {
-    text-align: left;
-}
-
-/* =========================================
-   POPUP KONFIRMASI HAPUS RIWAYAT
-========================================= */
-
-.rw-modal-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    display: none;
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
-    background: rgba(15, 23, 42, 0.45);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-.rw-modal-overlay.active {
-    display: flex;
-}
-
-.rw-modal {
-    width: 100%;
-    max-width: 380px;
-    padding: 28px 24px;
-
-    background: #ffffff;
-    border-radius: 18px;
-    text-align: center;
-
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-
-    animation: rwModalShow 0.2s ease;
-}
-
-.rw-modal-icon {
-    width: 58px;
-    height: 58px;
-    margin: 0 auto 16px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    background: #fee2e2;
-    color: #dc2626;
-    font-size: 27px;
-}
-
-.rw-modal h3 {
-    margin: 0 0 9px;
-    color: #1e293b;
-    font-size: 19px;
-    font-weight: 700;
-}
-
-.rw-modal p {
-    margin: 0 0 24px;
-    color: #64748b;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.rw-modal-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.rw-modal-actions button {
-    flex: 1;
-    min-height: 44px;
-    border: none;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.rw-modal-cancel {
-    background: #f1f5f9;
-    color: #475569;
-}
-
-.rw-modal-cancel:hover {
-    background: #e2e8f0;
-}
-
-.rw-modal-confirm {
-    background: #dc2626;
-    color: #ffffff;
-}
-
-.rw-modal-confirm:hover {
-    background: #b91c1c;
-}
-
-@keyframes rwModalShow {
-    from {
-        opacity: 0;
-        transform: translateY(10px) scale(0.96);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Responsive HP */
-@media (max-width: 480px) {
-    .rw-modal {
-        max-width: 340px;
-        padding: 24px 18px;
-    }
-
-    .rw-modal h3 {
-        font-size: 17px;
-    }
-}
-
