@@ -1,10 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Accordion FAQ publik
-|--------------------------------------------------------------------------
-| Hanya satu item terbuka dalam satu waktu. Bisa dibuka dengan klik
-| atau keyboard (Enter / Spasi).
-*/
 (function () {
   function toggleFaq(header) {
     const item = header.closest(".faq-item");

@@ -9,9 +9,7 @@ class Pengaturan extends Model
     public const KUNCI_NOMOR_PDF = 'nomor_pdf';
     public const KUNCI_NOMOR_CS = 'nomor_cs';
 
-
     public const NOMOR_DEFAULT = '6289653628650';
-
 
     public const NOMOR_REGEX = '/^628\d{8,11}$/';
 
@@ -39,33 +37,21 @@ class Pengaturan extends Model
         );
     }
 
-    /**
-     * Nomor yang tampil di footer PDF katalog (contoh: 6289653628650).
-     */
     public static function nomorPdf(): string
     {
         return static::ambil(self::KUNCI_NOMOR_PDF, self::NOMOR_DEFAULT);
     }
 
-    /**
-     * Nomor WhatsApp Customer Service (contoh: 6289653628650).
-     */
     public static function nomorCs(): string
     {
         return static::ambil(self::KUNCI_NOMOR_CS, self::NOMOR_DEFAULT);
     }
 
-    /**
-     * Link WhatsApp untuk Customer Service.
-     */
     public static function urlWhatsapp(): string
     {
         return 'https://wa.me/' . static::nomorCs();
     }
 
-    /**
-     * Ubah input apa pun (0896-..., +62 896..., 896...) menjadi 62xxxxxxxxxx.
-     */
     public static function normalisasiNomor($input): string
     {
         $angka = preg_replace('/\D+/', '', is_scalar($input) ? (string) $input : '');
@@ -85,9 +71,6 @@ class Pengaturan extends Model
         return $angka;
     }
 
-    /**
-     * Tampilan untuk manusia: 6289653628650 -> 0896-5362-8650.
-     */
     public static function formatNomor(string $nomor): string
     {
         if (!str_starts_with($nomor, '62')) {

@@ -9,35 +9,22 @@ class Jurusan extends Model
 {
     use HasFactory;
 
-
     protected $table = 'jurusans';
-
-
 
      protected $primaryKey = 'id_jurusan';
 
-
     protected $guarded = [];
 
-    /**
-     * Relasi ke User (Admin Jurusan / Penanggung Jawab Jurusan)
-     */
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
     }
 
-    /**
-     * Relasi ke Produk & Jasa milik Jurusan ini
-     */
     public function produkJasas()
     {
         return $this->hasMany(ProdukJasa::class, 'id_jurusan');
     }
 
-    /**
-     * Relasi ke Portfolio milik Jurusan ini
-     */
     public function portfolios()
     {
         return $this->hasMany(
@@ -47,9 +34,6 @@ class Jurusan extends Model
         );
     }
 
-    /**
-     * Relasi ke Anggota / User yang berasal dari jurusan ini
-     */
     public function members()
     {
         return $this->hasMany(User::class, 'id_jurusan_asal');

@@ -1,12 +1,3 @@
-/* =========================================================
-   FORM KELOLA PORTOFOLIO - ADMIN JURUSAN
-
-   Urutan script di blade:
-   1. kelola-portofolio.js
-   2. form-helper-jurusan.js
-   3. kelola-portofolio-form-jurusan.js (file ini)
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("formPorto");
 

@@ -1,15 +1,3 @@
-/* =========================================================
-   FORM KELOLA PRODUK & KELOLA JASA - ADMIN JURUSAN
-
-   Jenis halaman dibaca dari data-jenis pada <form id="formLayanan">:
-   data-jenis="produk" atau data-jenis="jasa".
-
-   Urutan script di blade:
-   1. kelola-layanan.js
-   2. form-helper-jurusan.js
-   3. kelola-layanan-form-jurusan.js (file ini)
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("formLayanan");
 

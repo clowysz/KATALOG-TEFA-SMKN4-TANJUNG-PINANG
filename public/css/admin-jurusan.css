@@ -1,21 +1,6 @@
-/* 
-   ADMIN JURUSAN - STYLE BERSAMA
- */
-
-/* 
-   1. VARIABEL
-    */
-
 :root {
   --accent-rpl: #d8893d;
 }
-
-/* 
-   2. TOMBOL UMUM JURUSAN
-   Dipakai di Kelola Produk/Jasa/Portofolio, Deskripsi,
-   Daftar Akun, Tambah/Edit/Detail Akun.
-   Bisa dipasang di <button> maupun <a>.
-    */
 
 .btn-jurusan-primary,
 .btn-jurusan-outline,
@@ -92,10 +77,6 @@
   color: #ffffff;
 }
 
-/* 
-   3. HEADER HALAMAN & PENCARIAN
-    */
-
 .header-action {
   display: flex;
   justify-content: space-between;
@@ -153,12 +134,6 @@
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
 }
-
-/* 
-   4. PORTOFOLIO (KARTU)
-   Kolom menyesuaikan lebar layar. Memakai auto-fill (bukan auto-fit)
-   supaya satu kartu tidak melebar memenuhi seluruh baris.
-    */
 
 .portfolio-grid {
   display: grid;
@@ -230,13 +205,6 @@
   font-weight: 600;
   display: inline-block;
 }
-
-/* 
-   5. KATALOG PRODUK / JASA (KARTU)
-   Dipakai halaman Kelola Produk & Kelola Jasa.
-   Kolom menyesuaikan lebar layar. Memakai auto-fill (bukan auto-fit)
-   supaya satu kartu tidak melebar memenuhi seluruh baris.
-    */
 
 .catalog-grid {
   display: grid;
@@ -338,13 +306,7 @@
   font-size: 13px;
 }
 
-/* 
-   6. RESPONSIVE
-    */
-
-/* ---------- MOBILE & TABLET KECIL ---------- */
 @media (max-width: 768px) {
-  /* Header halaman: judul di atas, pencarian + tombol di bawah */
   .header-action {
     gap: 12px;
     margin-bottom: 18px;
@@ -362,10 +324,9 @@
     flex: 1;
     width: auto;
     min-width: 0;
-    font-size: 16px; /* mencegah auto-zoom iOS */
+    font-size: 16px;
   }
 
-  /* Kartu produk / jasa / portofolio */
   .catalog-grid,
   .portfolio-grid {
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
@@ -383,7 +344,6 @@
   }
 }
 
-/* ---------- HP (<= 600px): kartu selalu 3 kolom ---------- */
 @media (max-width: 600px) {
   .catalog-grid,
   .portfolio-grid {
@@ -392,9 +352,7 @@
   }
 }
 
-/* ---------- HP KECIL ---------- */
 @media (max-width: 480px) {
-  /* Pencarian & tombol tumpuk ke bawah */
   .header-action > div:last-child {
     flex-direction: column;
     align-items: stretch;
@@ -409,7 +367,6 @@
     width: 100%;
   }
 
-  /* Kartu: 3 kolom, tampilan ringkas */
   .catalog-grid,
   .portfolio-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -487,7 +444,6 @@
   }
 }
 
-/* Hormati pengaturan "kurangi gerakan" milik perangkat */
 @media (prefers-reduced-motion: reduce) {
   .catalog-card,
   .portfolio-card {

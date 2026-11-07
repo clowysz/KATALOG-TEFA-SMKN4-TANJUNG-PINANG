@@ -1,6 +1,3 @@
-/* ==========================================================================
-   1. HEADER & NAVIGASI JURUSAN (Figma Layout)
-   ========================================================================== */
 .jurusan-hero-section {
   background: white;
   color: #1e3a8a;
@@ -9,7 +6,6 @@
   overflow: hidden;
 }
 
-/* Hero halaman jurusan (deskripsi, produk, jasa, portofolio) */
 .jurusan-hero-section.hero-page {
   padding-top: 80px;
 }
@@ -136,15 +132,11 @@
   z-index: 1;
 }
 
-/* ==========================================================================
-   2. KONTEN DESKRIPSI
-   ========================================================================== */
 .deskripsi-content {
   background: white;
   padding: 30px 5% 100px 5%;
 }
 
-/* Halaman deskripsi jurusan: latar abu muda, tepat di bawah gelombang hero */
 .deskripsi-content.deskripsi-page {
   position: relative;
   z-index: 2;
@@ -164,9 +156,6 @@
   text-align: justify;
 }
 
-/* ==========================================================================
-   3. GRID KATALOG (PRODUK, JASA & PORTOFOLIO)
-   ========================================================================== */
 .katalog-section {
   padding: 60px 5% 100px 5%;
   background: #f8fafc;
@@ -340,7 +329,6 @@
   outline-offset: 2px;
 }
 
-/* Keadaan kosong (belum ada produk / jasa / portofolio) */
 .katalog-empty {
   grid-column: 1 / -1;
   text-align: center;
@@ -371,9 +359,6 @@
   line-height: 1.6;
 }
 
-/* ==========================================================================
-   4. DETAIL HALAMAN & IMAGE CAROUSEL
-   ========================================================================== */
 .detail-page-wrapper {
   background: #f4f8fc;
   padding: 40px 5% 50px 5%;
@@ -410,7 +395,6 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
 }
 
-/* Galeri Slider */
 .detail-gallery {
   flex: 1;
   width: 100%;
@@ -512,7 +496,6 @@
   border-radius: 5px;
 }
 
-/* Info Detail */
 .detail-info {
   flex: 1;
   width: 100%;
@@ -586,7 +569,6 @@
   color: #ffffff;
 }
 
-/* Kotak Meta Info */
 .detail-meta-cards {
   max-width: 1200px;
   margin: 30px auto 0 auto;
@@ -635,7 +617,6 @@
   color: #0f172a;
 }
 
-/* Bagian Card Bawah */
 .detail-card {
   background: white;
   border-radius: 24px;
@@ -719,9 +700,6 @@ footer,
   margin-top: 0 !important;
 }
 
-/* ==========================================================================
-   5. THUMBNAIL PREVIEW GAMBAR
-   ========================================================================== */
 .carousel-thumbnails {
   display: flex;
   gap: 12px;
@@ -769,9 +747,6 @@ footer,
   transform: translateY(-2px);
 }
 
-/* ==========================================================================
-   6. LIGHTBOX / IMAGE ZOOM POPUP
-   ========================================================================== */
 .image-lightbox-modal {
   position: fixed;
   top: 0;
@@ -834,7 +809,6 @@ footer,
   transform: rotate(90deg);
 }
 
-/* Responsif halaman detail: lihat bagian 9 di akhir file. */
 @media (max-width: 600px) {
   .jurusan-sub-nav {
     flex-wrap: wrap;
@@ -850,7 +824,6 @@ footer,
   border-radius: 2px;
   margin-bottom: 24px;
 }
-/* ===== KUNCI UKURAN GAMBAR DETAIL ===== */
 .detail-page-wrapper img {
   max-width: 100%;
 }
@@ -897,7 +870,6 @@ footer,
   display: block;
 }
 
-/* Portofolio */
 .detail-gallery .main-image {
   width: 100% !important;
   height: var(--gallery-h) !important;
@@ -924,15 +896,7 @@ footer,
   cursor: pointer;
 }
 
-/* ==========================================================================
-   8. RESPONSIF HALAMAN JURUSAN
-      (hero, deskripsi, katalog produk / jasa / portofolio)
-   Prinsip: susunan desktop tetap (gambar kiri, teks kanan), hanya dikecilkan.
-   ========================================================================== */
-
-/* ---------- Maks 992px ---------- */
 @media (max-width: 992px) {
-  /* Hero */
   .jurusan-hero-section.hero-page {
     padding: 32px 4% 0;
   }
@@ -989,7 +953,6 @@ footer,
   }
 }
 
-/* ---------- Maks 900px ---------- */
 @media (max-width: 900px) {
   .deskripsi-content {
     padding: 24px 5% 64px;
@@ -1022,7 +985,6 @@ footer,
   }
 }
 
-/* ---------- Tablet (701px – 900px): 4 kartu per baris ---------- */
 @media (min-width: 701px) and (max-width: 900px) {
   .katalog-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1089,8 +1051,6 @@ footer,
   }
 }
 
-/* ---------- HP & tablet kecil (maks 700px): 3 kartu per baris ---------- */
-/* Ukuran memakai clamp() supaya halus: makin sempit layar, makin kecil kartu. */
 @media (max-width: 700px) {
   .katalog-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1103,7 +1063,7 @@ footer,
   }
 
   .k-card:hover {
-    transform: none; /* tidak "loncat" saat disentuh */
+    transform: none;
   }
 
   .k-card-img {
@@ -1167,9 +1127,7 @@ footer,
   }
 }
 
-/* ---------- HP (maks 600px): hero, deskripsi, header katalog ---------- */
 @media (max-width: 600px) {
-  /* Hero */
   .jurusan-hero-section.hero-page {
     padding: 20px 4% 0;
   }
@@ -1222,7 +1180,6 @@ footer,
     flex-shrink: 0;
   }
 
-  /* Deskripsi */
   .deskripsi-content {
     padding: 18px 4% 44px;
   }
@@ -1234,7 +1191,6 @@ footer,
     text-align: left;
   }
 
-  /* Katalog */
   .katalog-section {
     padding: 24px 4% 44px;
   }
@@ -1269,7 +1225,6 @@ footer,
   }
 }
 
-/* ---------- HP kecil (maks 380px) ---------- */
 @media (max-width: 380px) {
   .jurusan-hero-image {
     flex: 0 0 36%;
@@ -1292,11 +1247,6 @@ footer,
     transition: none !important;
   }
 }
-
-/* ==========================================================================
-   9. HALAMAN DETAIL (produk / jasa / portofolio) — poles & responsif
-   Susunan desktop tetap; di layar sempit galeri di atas, info di bawah.
-   ========================================================================== */
 
 .detail-back-wrap {
   max-width: 1200px;
@@ -1332,7 +1282,6 @@ footer,
   margin-left: auto;
 }
 
-/* Badge & tahun pembuatan (portofolio) */
 .detail-badge.badge-karya {
   background: #16a34a;
   color: #ffffff;
@@ -1368,7 +1317,6 @@ footer,
   color: #1e2d3d;
 }
 
-/* ---------- Maks 992px: dua kolom, lebih rapat ---------- */
 @media (max-width: 992px) {
   .detail-page-wrapper {
     padding: 28px 4% 44px;
@@ -1455,7 +1403,6 @@ footer,
   }
 }
 
-/* ---------- Maks 760px: galeri di atas, info di bawah ---------- */
 @media (max-width: 760px) {
   .detail-page-wrapper {
     padding: 18px 4% 36px;
@@ -1587,7 +1534,6 @@ footer,
     font-size: 14px;
   }
 
-  /* Tiga kotak info tetap sejajar, versi ringkas */
   .detail-meta-cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
@@ -1679,7 +1625,6 @@ footer,
   }
 }
 
-/* ---------- Maks 600px: lightbox ---------- */
 @media (max-width: 600px) {
   .lightbox-content {
     max-width: 94%;
@@ -1695,7 +1640,6 @@ footer,
   }
 }
 
-/* ---------- HP kecil (maks 380px) ---------- */
 @media (max-width: 380px) {
   .detail-title {
     font-size: 20px;

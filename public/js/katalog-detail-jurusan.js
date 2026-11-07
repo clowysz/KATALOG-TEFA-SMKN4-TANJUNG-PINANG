@@ -1,10 +1,3 @@
-/* =========================================================
-   DETAIL PRODUK / JASA - ADMIN JURUSAN
-
-   1. Galeri (slider, dots, thumbnail, swipe, lightbox)
-   2. Ambil data & tampilkan halaman
-========================================================= */
-
 (function () {
   "use strict";
 

@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\Storage;
 
 class PortfolioController extends Controller
 {
-    /**
-     * Ambil semua portofolio milik jurusan Admin Jurusan yang login
-     */
     public function index()
     {
         $user = Auth::user();
@@ -34,9 +31,6 @@ class PortfolioController extends Controller
         ]);
     }
 
-    /**
-     * Tambah Portofolio
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -78,9 +72,6 @@ class PortfolioController extends Controller
         ]);
     }
 
-    /**
-     * Edit Portofolio
-     */
     public function update(Request $request, int $id)
     {
         $request->validate([
@@ -133,9 +124,6 @@ class PortfolioController extends Controller
         ]);
     }
 
-    /**
-     * Hapus Portofolio
-     */
     public function destroy(int $id)
     {
         $user = Auth::user();
@@ -173,9 +161,6 @@ class PortfolioController extends Controller
         ]);
     }
 
-    /**
-     * Hapus satu gambar Portofolio
-     */
     public function destroyGambar(int $id_gambar_portfolio)
     {
         $user = Auth::user();

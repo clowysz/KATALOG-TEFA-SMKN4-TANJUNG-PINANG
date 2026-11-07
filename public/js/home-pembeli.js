@@ -1,8 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Slider jurusan unggulan (halaman beranda)
-|--------------------------------------------------------------------------
-*/
 document.addEventListener("DOMContentLoaded", function () {
   const track = document.getElementById("jurusanTrack");
   const prevBtn = document.getElementById("prevBtn");

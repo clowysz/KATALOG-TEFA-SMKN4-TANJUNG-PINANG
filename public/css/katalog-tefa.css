@@ -24,10 +24,6 @@
   margin: 0;
 }
 
-/* =========================
-   TOOLBAR PDF
-========================= */
-
 .katalog-toolbar {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -125,10 +121,6 @@
   transform: none;
 }
 
-/* =========================
-   ALERT
-========================= */
-
 .katalog-alert {
   background: #fef2f2;
   color: #b91c1c;
@@ -143,10 +135,6 @@
   font-size: 14px;
   font-weight: 600;
 }
-
-/* =========================
-   FILTER & PENCARIAN
-========================= */
 
 .katalog-filter {
   background: #ffffff;
@@ -260,11 +248,6 @@
   outline-offset: 2px;
 }
 
-/* =========================
-   GRID KATALOG
-   Desktop: 4 kolom (16 item = 4 baris penuh)
-========================= */
-
 .katalog-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -273,10 +256,6 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
-/* =========================
-   CARD
-========================= */
 
 .katalog-card {
   background: #ffffff;
@@ -307,10 +286,6 @@
   box-shadow: 0 10px 25px rgba(30, 58, 138, 0.1);
 }
 
-/* =========================
-   CARD TERPILIH
-========================= */
-
 .katalog-card.selected {
   border-color: #1e40af;
 
@@ -320,10 +295,6 @@
     0 0 0 3px rgba(30, 64, 175, 0.1),
     0 10px 25px rgba(30, 58, 138, 0.12);
 }
-
-/* =========================
-   CHECK INDICATOR
-========================= */
 
 .card-check {
   position: absolute;
@@ -364,10 +335,6 @@
   color: #ffffff;
 }
 
-/* =========================
-   IMAGE
-========================= */
-
 .card-img-wrapper {
   position: relative;
 
@@ -406,10 +373,6 @@
   font-size: 48px;
 }
 
-/* =========================
-   BADGE
-========================= */
-
 .badge-jenis {
   position: absolute;
 
@@ -433,10 +396,6 @@
 
   z-index: 3;
 }
-
-/* =========================
-   CARD BODY
-========================= */
 
 .card-body-content {
   padding: 20px;
@@ -495,10 +454,6 @@
   word-break: break-word;
 }
 
-/* =========================
-   DETAIL BUTTON
-========================= */
-
 .btn-detail {
   display: block;
 
@@ -534,10 +489,6 @@
   display: none;
 }
 
-/* =========================
-   EMPTY STATE
-========================= */
-
 .empty-state {
   grid-column: 1 / -1;
 
@@ -567,10 +518,6 @@
   font-weight: 600;
   margin: 0;
 }
-
-/* =========================
-   PAGINATION
-========================= */
 
 .pagination-wrapper {
   margin-top: 40px;
@@ -676,10 +623,6 @@
 
   cursor: not-allowed;
 }
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
 
 @media (max-width: 1024px) {
   .katalog-grid {
@@ -946,13 +889,6 @@
   }
 }
 
-/* =========================================================
-   KATALOG DETAIL TEFA (admin_tefa/katalog-detail)
-   Desktop : galeri kiri, info kanan
-   Tablet  : galeri atas, info bawah
-   Mobile  : versi ringkas
-========================================================= */
-
 .detail-page-wrapper {
   background-color: #f8fafc;
   min-height: 100vh;
@@ -963,11 +899,6 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
-/* =========================
-   TOMBOL KEMBALI
-   (disamakan dengan tombol kembali halaman FAQ)
-========================= */
 
 .back-link-wrapper {
   margin-bottom: 2px;
@@ -1005,10 +936,6 @@
   outline-offset: 3px;
 }
 
-/* =========================
-   CONTAINER UTAMA (GALERI + INFO)
-========================= */
-
 .detail-top-card {
   background: #ffffff;
   border-radius: 20px;
@@ -1023,10 +950,6 @@
   border: 1px solid #f1f5f9;
   margin-bottom: 30px;
 }
-
-/* =========================
-   GALERI & SLIDER
-========================= */
 
 .detail-gallery {
   width: 100%;
@@ -1183,10 +1106,6 @@
   object-fit: cover;
 }
 
-/* =========================
-   INFORMASI PRODUK / JASA
-========================= */
-
 .detail-info {
   display: flex;
   flex-direction: column;
@@ -1243,10 +1162,6 @@
   overflow-wrap: anywhere;
 }
 
-/* =========================
-   META CARDS (JENIS, JURUSAN, PESANAN)
-========================= */
-
 .detail-meta-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1302,10 +1217,6 @@
   overflow-wrap: anywhere;
 }
 
-/* =========================
-   CARD DESKRIPSI
-========================= */
-
 .detail-card {
   background: #ffffff;
   border-radius: 20px;
@@ -1336,10 +1247,6 @@
   text-align: justify;
   overflow-wrap: anywhere;
 }
-
-/* =========================
-   LIGHTBOX
-========================= */
 
 .admin-gallery-lightbox {
   position: fixed;
@@ -1387,10 +1294,6 @@
 .admin-lightbox-close:hover {
   background: rgba(255, 255, 255, 0.4);
 }
-
-/* =========================
-   RESPONSIVE DETAIL
-========================= */
 
 @media (max-width: 992px) {
   .detail-top-card {

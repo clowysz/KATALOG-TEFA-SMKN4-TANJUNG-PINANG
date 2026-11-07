@@ -1,10 +1,3 @@
-/* =========================================================
-   DESKRIPSI JURUSAN - ADMIN JURUSAN
-
-   Textarea berstatus readonly di luar mode edit, jadi
-   validasi hanya berjalan saat mode edit aktif.
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const formDeskripsi = document.getElementById("formDeskripsi");
   const descText = document.getElementById("descText");

@@ -27,7 +27,6 @@ class LoginController extends Controller
 
             $user = Auth::user();
 
-
         if ($user->role === 'pembeli') {
         $redirect = $request->input('redirect');
 
@@ -42,16 +41,13 @@ class LoginController extends Controller
                 return redirect('/dashboard');
             }
 
-
             if ($user->role === 'admin_jurusan') {
                 return redirect('/jurusan-admin/dashboard');
             }
 
-
             if ($user->role === 'admin_produser') {
                 return redirect('/produser/dashboard');
             }
-
 
             Auth::logout();
 

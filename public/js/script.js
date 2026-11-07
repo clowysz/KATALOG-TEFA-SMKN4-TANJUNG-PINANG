@@ -1,16 +1,3 @@
-/* =========================================================
-   SCRIPT GLOBAL
-
-   1. Navigation drawer (hamburger)
-   2. Tampilkan / sembunyikan password di halaman login
-========================================================= */
-
-// ==========================================================
-// 1. NAVIGATION DRAWER
-// ==========================================================
-
-// Tetap global: masih dipakai layout role lain lewat onclick="toggleDrawer()".
-// Layout yang sudah dirapikan memakai atribut data-drawer-toggle (lihat bawah).
 function toggleDrawer() {
   const navDrawer = document.getElementById("navDrawer");
   const overlay = document.getElementById("overlay");
@@ -28,14 +15,12 @@ function toggleDrawer() {
   );
 }
 
-// Elemen dengan atribut data-drawer-toggle membuka / menutup laci
 document.addEventListener("click", function (event) {
   if (event.target.closest("[data-drawer-toggle]")) {
     toggleDrawer();
   }
 });
 
-// Tombol Esc menutup laci
 document.addEventListener("keydown", function (event) {
   if (event.key !== "Escape") {
     return;
@@ -47,10 +32,6 @@ document.addEventListener("keydown", function (event) {
     toggleDrawer();
   }
 });
-
-// ==========================================================
-// 2. PERLIHATKAN PASSWORD DI HALAMAN LOGIN
-// ==========================================================
 
 document.addEventListener("DOMContentLoaded", function () {
   const togglePassword = document.getElementById("togglePassword");

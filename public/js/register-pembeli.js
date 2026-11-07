@@ -1,10 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Validasi form daftar pembeli
-|--------------------------------------------------------------------------
-| Membutuhkan form-validasi.js
-| Toggle password ditangani oleh password-toggle.js
-*/
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("formDaftarPembeli");
   const nama = document.getElementById("namaPembeli");

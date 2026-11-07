@@ -1,12 +1,3 @@
-/* =========================================================
-   GALERI DETAIL KATALOG (admin_tefa/katalog-detail)
-
-   Pemicu di blade (tanpa onclick inline):
-   - data-gallery-nav="prev|next" : gambar sebelumnya / berikutnya
-   - data-gallery-go="N"          : lompat ke gambar ke-N (dot, thumbnail)
-   - data-gallery-close           : tutup lightbox
-========================================================= */
-
 (function () {
   "use strict";
 

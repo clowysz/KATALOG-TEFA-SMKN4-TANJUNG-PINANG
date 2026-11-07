@@ -1,7 +1,3 @@
-/* =========================================================
-   DASHBOARD - ADMIN JURUSAN
-   ========================================================= */
-
 .dashboard-header {
   margin-bottom: 24px;
 }
@@ -29,11 +25,6 @@
   color: var(--text-muted);
   margin: 0;
 }
-
-/* =========================================================
-   RINGKASAN (4 KARTU ATAS)
-   Warna tiap kartu diatur lewat variabel --tone
-   ========================================================= */
 
 .summary-grid {
   display: grid;
@@ -101,10 +92,6 @@
   line-height: 1;
 }
 
-/* =========================================================
-   KARTU DAFTAR
-   ========================================================= */
-
 .dashboard-list-card {
   background: #fff;
   border-radius: 12px;
@@ -162,10 +149,6 @@
 .dashboard-empty-box p {
   margin: 0;
 }
-
-/* =========================================================
-   PRODUK / JASA DENGAN PESANAN TERBANYAK
-   ========================================================= */
 
 .rank-item {
   display: flex;
@@ -256,10 +239,6 @@
   font-weight: 600;
   white-space: nowrap;
 }
-
-/* =========================================================
-   PERFORMA PESANAN
-   ========================================================= */
 
 .performa-grid {
   display: grid;
@@ -362,10 +341,6 @@
   background: #573911;
 }
 
-/* =========================================================
-   RINGKASAN PRODUK & JASA
-   ========================================================= */
-
 .ringkasan-item {
   display: flex;
   align-items: center;
@@ -397,10 +372,6 @@
   color: #1e3a8a;
   white-space: nowrap;
 }
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
 
 @media (max-width: 1024px) {
   .summary-grid {

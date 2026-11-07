@@ -1,15 +1,14 @@
-/*  VARIABLES & FONTS  */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-  --primary-blue: #1a4981; /* Biru Utama SMKN 4 */
+  --primary-blue: #1a4981;
   --secondary-blue: #2545a7;
   --bg-light: #f8fafc;
   --text-dark: #1e293b;
   --text-gray: #64748b;
   --white: #ffffff;
   --accent: #eab308;
-  --card-gap: 24px; /* jarak antar kartu jurusan (dipakai CSS & JS slider) */
+  --card-gap: 24px;
 }
 
 * {
@@ -24,7 +23,6 @@ body {
   color: var(--text-dark);
   overflow-x: hidden;
 
-  /* Footer selalu menempel di dasar layar walau isi halaman pendek */
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
@@ -36,10 +34,6 @@ main {
   min-width: 0;
 }
 
-/*  NAVBAR (CADANGAN) 
-   Navbar sebenarnya diatur di navbar.css (dimuat setelah file ini).
-   Blok ini dibiarkan agar layout lain yang hanya memuat front.css
-   tampilannya tidak berubah. */
 .jurusan-sticky-container {
   position: sticky;
   top: 0;
@@ -156,12 +150,10 @@ main {
   box-shadow: 0 5px 12px rgba(26, 73, 129, 0.25);
 }
 
-/* Fallback untuk class .navbar lama agar tidak error */
 .navbar {
   display: none;
 }
 
-/*  HERO SECTION & WAVE  */
 .hero-section {
   margin-top: 0;
   background: var(--primary-blue);
@@ -175,7 +167,6 @@ main {
   overflow: hidden;
 }
 
-/* Animasi Gelembung (Bubbles) */
 .bubble {
   position: absolute;
   background: rgba(255, 255, 255, 0.1);
@@ -250,7 +241,6 @@ main {
   z-index: 1;
 }
 
-/*  JURUSAN UNGGULAN (SLIDER)  */
 .jurusan-section {
   position: relative;
   padding: 60px 5% 80px 5%;
@@ -284,7 +274,6 @@ main {
   margin-top: 6px;
 }
 
-/* Warna judul khusus beranda (latar terang) */
 .jurusan-section .section-subtitle-tag {
   color: #1e3a8a;
   font-weight: 700;
@@ -300,7 +289,6 @@ main {
   color: #64748b;
 }
 
-/* Wrapper Slider dengan Panah */
 .slider-outer-wrapper {
   position: relative;
   display: flex;
@@ -323,7 +311,6 @@ main {
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Kartu Jurusan — selalu 3 kartu terlihat */
 .jurusan-card {
   background: white;
   border-radius: 24px;
@@ -364,7 +351,6 @@ main {
   object-fit: contain;
 }
 
-/* Warna Latar Kotak Logo */
 .bg-animasi {
   background: #fff4cb !important;
 }
@@ -407,7 +393,6 @@ main {
   flex-grow: 1;
 }
 
-/* Tombol Lihat Selengkapnya (Pill) */
 .btn-lihat-jurusan {
   display: inline-block;
   background-color: var(--primary-blue);
@@ -432,7 +417,6 @@ main {
   transform: scale(0.97);
 }
 
-/* Tombol Panah Kiri & Kanan */
 .slider-arrow {
   position: absolute;
   width: 44px;
@@ -485,7 +469,6 @@ main {
   outline-offset: 3px;
 }
 
-/*  FOOTER  */
 .footer {
   background: #162e67 !important;
   color: white;
@@ -595,7 +578,6 @@ main {
   opacity: 0.8;
 }
 
-/* Floating WhatsApp Button */
 .fab-wa {
   position: fixed;
   bottom: 30px;
@@ -619,18 +601,11 @@ main {
   transform: scale(1.1);
 }
 
-/* =
-   RESPONSIF
-   Prinsip: susunan desktop dipertahankan, hanya dikecilkan.
-   = */
-
-/*  TABLET (maks 900px)  */
 @media (max-width: 900px) {
   :root {
     --card-gap: 14px;
   }
 
-  /* Hero: tetap kiri teks / kanan gambar, ukuran mengecil */
   .hero-section {
     min-height: 0;
     padding: 28px 4% clamp(48px, 10vw, 80px) 4%;
@@ -673,7 +648,6 @@ main {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
   }
 
-  /* Jurusan unggulan: tetap 3 kartu, lebih kecil */
   .jurusan-section {
     padding: 36px 4% 48px;
   }
@@ -738,7 +712,6 @@ main {
     font-size: 17px;
   }
 
-  /* Footer: tetap 4 kolom, lebih kecil dari desktop tapi tetap terbaca */
   .footer {
     padding: 32px 5% 14px;
     margin-top: 24px;
@@ -814,13 +787,11 @@ main {
   }
 }
 
-/*  HP (maks 600px)  */
 @media (max-width: 600px) {
   :root {
     --card-gap: 8px;
   }
 
-  /* Hero */
   .hero-section {
     padding: 20px 4% clamp(40px, 12vw, 56px) 4%;
   }
@@ -848,7 +819,6 @@ main {
     max-height: 48px;
   }
 
-  /* Jurusan unggulan */
   .jurusan-section {
     padding: 26px 3% 24px;
   }
@@ -863,7 +833,7 @@ main {
   }
 
   .slider-outer-wrapper {
-    margin-bottom: 40px; /* ruang untuk panah di bawah kartu */
+    margin-bottom: 40px;
   }
 
   .slider-track-container {
@@ -909,7 +879,6 @@ main {
     box-shadow: none;
   }
 
-  /* Panah dipindah ke bawah kartu, di tengah */
   .slider-arrow {
     top: auto;
     bottom: -38px;
@@ -928,7 +897,6 @@ main {
     right: auto;
   }
 
-  /* Footer: identitas satu baris penuh, 3 kolom di bawahnya */
   .footer {
     padding: 20px 16px 12px;
     margin-top: 12px;
@@ -1018,7 +986,6 @@ main {
   }
 }
 
-/*  HP kecil (maks 400px)  */
 @media (max-width: 400px) {
   .jurusan-icon-box {
     height: 52px;
@@ -1044,14 +1011,12 @@ main {
   }
 }
 
-/* Link footer tidak "bergeser" di layar sentuh */
 @media (hover: none) {
   .footer-links a:hover {
     margin-left: 0;
   }
 }
 
-/* Hormati pengaturan pengurangan animasi */
 @media (prefers-reduced-motion: reduce) {
   .jurusan-card,
   .btn-lihat-jurusan,

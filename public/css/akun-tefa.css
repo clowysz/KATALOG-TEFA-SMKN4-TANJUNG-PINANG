@@ -1,23 +1,3 @@
-/* =========================================================
-   AKUN TEFA
-   - Daftar Akun   (admin_tefa/akun/index)
-   - Tambah Akun   (admin_tefa/akun/create)
-   - Edit Akun     (admin_tefa/akun/edit)
-   - Detail Akun   (admin_tefa/akun/show)
-
-   Gaya form umum & tombol kembali ada di admin-tefa.css.
-
-   Desktop : tabel biasa, form & detail di tengah
-   Mobile  : (<= 768px) tabel berubah jadi kartu, form & detail
-             selebar layar
-========================================================= */
-
-/* =========================================================
-   1. KOMPONEN BERSAMA
-========================================================= */
-
-/* ---------- Alert ---------- */
-
 .alert-custom {
   padding: 14px 20px;
   border-radius: 8px;
@@ -42,10 +22,6 @@
   padding-left: 20px;
 }
 
-/* =========================================================
-   2. DAFTAR AKUN (INDEX)
-========================================================= */
-
 .akun-page-header {
   margin-top: 3px;
   margin-bottom: 24px;
@@ -62,8 +38,6 @@
   font-size: 14px;
   margin-top: 4px;
 }
-
-/* ---------- Tombol tambah akun ---------- */
 
 .btn-tambah-akun {
   background: #1e3a8ad9;
@@ -88,8 +62,6 @@
   outline-offset: 2px;
 }
 
-/* ---------- Keadaan kosong ---------- */
-
 .akun-table td.akun-empty {
   text-align: center;
   padding: 60px 20px;
@@ -111,18 +83,12 @@
   padding: 40px 20px;
 }
 
-/* =========================================================
-   3. FORM TAMBAH & EDIT AKUN
-   (gaya form umum ada di admin-tefa.css)
-========================================================= */
-
 .akun-form-intro {
   margin: 0 0 25px;
   color: #64748b;
   font-size: 14px;
 }
 
-/* Teks bantuan jurusan */
 .akun-help-text {
   display: block;
   color: #64748b;
@@ -130,14 +96,9 @@
   margin-bottom: 20px;
 }
 
-/* Versi halaman edit: menempel ke kolom jurusan di atasnya */
 .akun-help-text-tight {
   margin-top: -12px;
 }
-
-/* =========================================================
-   4. DETAIL AKUN
-========================================================= */
 
 .detail-wrapper {
   padding: 0 24px;
@@ -151,8 +112,6 @@
   color: #1e293b;
   margin: 0 0 24px 0;
 }
-
-/* ---------- Kartu detail ---------- */
 
 .detail-card {
   background: #fff;
@@ -195,8 +154,6 @@
   letter-spacing: 2px;
 }
 
-/* ---------- Badge ---------- */
-
 .badge-role {
   background: #e0e7ff;
   color: #3730a3;
@@ -225,8 +182,6 @@
   background: #fee2e2;
   color: #991b1b;
 }
-
-/* ---------- Tombol aksi ---------- */
 
 .action-buttons {
   display: flex;
@@ -293,8 +248,6 @@
   color: #ef4444;
 }
 
-/* ---------- Form reset password ---------- */
-
 .reset-form-box {
   background: #f8fafc;
   border-radius: 12px;
@@ -340,8 +293,6 @@
   gap: 12px;
   margin-top: 24px;
 }
-
-/* ---------- Modal konfirmasi akses ---------- */
 
 .modal-access-overlay {
   position: fixed;
@@ -438,7 +389,6 @@
   background: #b91c1c;
 }
 
-/* Varian biru: untuk "Aktifkan Akses" */
 .btn-modal-access-confirm.is-primary {
   background: #1e3a8a;
 }
@@ -447,14 +397,7 @@
   background: #172e6f;
 }
 
-/* =========================================================
-   5. RESPONSIVE
-========================================================= */
-
-/* ---------- MOBILE & TABLET KECIL (<= 768px) ---------- */
 @media (max-width: 768px) {
-  /* ----- Daftar akun: tabel menjadi kartu ----- */
-
   .akun-page-header {
     margin-bottom: 18px;
   }
@@ -476,7 +419,6 @@
     overflow: visible;
   }
 
-  /* Header kolom disembunyikan secara visual (tetap terbaca screen reader) */
   .akun-table thead {
     position: absolute;
     width: 1px;
@@ -492,7 +434,6 @@
     gap: 14px;
   }
 
-  /* Satu akun = satu kartu */
   .akun-table .akun-row {
     display: flex;
     flex-direction: column;
@@ -507,7 +448,6 @@
     background: #fff;
   }
 
-  /* Tiap sel = satu baris "label : isi" */
   .akun-table .akun-row td {
     display: flex;
     justify-content: space-between;
@@ -530,7 +470,6 @@
     text-align: left;
   }
 
-  /* Nama pengguna = judul kartu */
   .akun-table .akun-row td.col-nama {
     justify-content: flex-start;
     padding: 12px 0;
@@ -546,10 +485,9 @@
     display: none;
   }
 
-  /* Tombol detail selebar kartu */
   .akun-table .akun-row td.col-aksi {
     display: block;
-    margin-top: auto; /* tombol selalu menempel di dasar kartu */
+    margin-top: auto;
     padding: 12px 0 0;
     border-bottom: none;
   }
@@ -561,7 +499,6 @@
     text-align: center;
   }
 
-  /* Keadaan kosong: satu blok penuh, bukan kartu */
   .akun-table .akun-empty-row {
     display: block;
     grid-column: 1 / -1;
@@ -582,14 +519,10 @@
     padding: 28px 12px;
   }
 
-  /* ----- Form tambah & edit ----- */
-
   .akun-form-intro {
     margin-bottom: 20px;
     font-size: 13px;
   }
-
-  /* ----- Detail akun ----- */
 
   .detail-wrapper {
     padding: 0;
@@ -635,10 +568,8 @@
   }
 
   .form-control-custom {
-    font-size: 16px; /* mencegah auto-zoom di iOS */
+    font-size: 16px;
   }
-
-  /* ----- Modal ----- */
 
   .modal-access-box {
     padding: 24px 20px;
@@ -646,7 +577,6 @@
   }
 }
 
-/* ---------- KARTU 1 KOLOM & INFO DITUMPUK (<= 560px) ---------- */
 @media (max-width: 560px) {
   .akun-table tbody {
     grid-template-columns: minmax(0, 1fr);
@@ -665,7 +595,6 @@
   }
 }
 
-/* ---------- HP KECIL (<= 480px) ---------- */
 @media (max-width: 480px) {
   .action-buttons {
     grid-template-columns: minmax(0, 1fr);

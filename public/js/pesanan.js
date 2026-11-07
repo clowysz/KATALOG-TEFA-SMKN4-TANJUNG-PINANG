@@ -1,15 +1,3 @@
-/* =========================================================
-   KELOLA PESANAN ADMIN TEFA - TABEL UTAMA
-
-   Dipakai oleh: admin/admin_tefa/pesanan/index.blade.php
-
-   Fitur:
-   - Pencarian pesanan
-   - Filter status (termasuk "permintaan pembatalan")
-   - Filter jurusan
-   - Pesan jika hasil filter kosong
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.getElementById("searchInput");
   const filterStatus = document.getElementById("filterStatus");

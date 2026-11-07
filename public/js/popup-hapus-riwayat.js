@@ -1,12 +1,3 @@
-/* =========================================================
-   POPUP HAPUS RIWAYAT PESANAN (PEMBELI)
-
-   Dipakai oleh: resources/views/public/riwayat.blade.php
-
-   Tombol sampah (.rw-btn-delete) membuka popup konfirmasi.
-   Jika dikonfirmasi, form hapus di baris yang sama dikirim.
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const popup = document.getElementById("popupHapusRiwayat");
 

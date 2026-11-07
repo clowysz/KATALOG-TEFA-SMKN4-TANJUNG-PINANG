@@ -1,11 +1,3 @@
-/* =========================================================
-   MODAL LOGOUT (layout admin Tefa)
-
-   Pemicu di blade:
-   - data-logout-open  : membuka modal
-   - data-logout-close : menutup modal
-========================================================= */
-
 (function () {
   "use strict";
 

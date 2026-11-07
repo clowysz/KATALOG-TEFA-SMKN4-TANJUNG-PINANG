@@ -1,11 +1,3 @@
-/* =========================================================
-   DAFTAR AKUN - ADMIN JURUSAN
-   Pencarian (nama / email) + filter status + filter produk/jasa.
-
-   Data tiap baris dibaca dari atribut pada <tr class="akun-row">:
-   data-nama, data-email, data-status, data-layanan
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.getElementById("searchAkun");
   const filterStatus = document.getElementById("filterStatus");

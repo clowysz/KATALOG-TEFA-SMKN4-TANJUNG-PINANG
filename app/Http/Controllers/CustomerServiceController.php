@@ -18,8 +18,6 @@ class CustomerServiceController extends Controller
             ]);
         }
 
-
-
         $hasPesanan = Pesanan::where('id_user', Auth::id())->exists();
 
         if ($hasPesanan) {

@@ -1,9 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  /*
-   * HELPER UMUM
-   * (aman dipakai halaman lain, tidak bergantung pada elemen tertentu)
-   */
-
   function getCsrfToken() {
     const meta = document.querySelector('meta[name="csrf-token"]');
 
@@ -123,12 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     return "badge-soft-gray";
   }
-
-  /*
-   * KATALOG PRODUSER
-   *
-   * Data katalog diberikan langsung oleh Laravel.
-   */
 
   const katalogContainer = document.getElementById("katalogContainer");
 

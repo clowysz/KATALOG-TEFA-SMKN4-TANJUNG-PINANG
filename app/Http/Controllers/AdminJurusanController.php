@@ -16,9 +16,6 @@ use App\Models\PenugasanProduser;
 class AdminJurusanController extends Controller
 {
 
-
-
-
     public function dashboard()
     {
         $user = Auth::user();
@@ -86,10 +83,6 @@ class AdminJurusanController extends Controller
         );
     }
 
-
-
-
-
     public function deskripsi()
     {
         $user = Auth::user();
@@ -107,10 +100,6 @@ class AdminJurusanController extends Controller
             compact('jurusan')
         );
     }
-
-
-
-
 
     public function akun()
     {
@@ -147,10 +136,6 @@ class AdminJurusanController extends Controller
         );
     }
 
-
-
-
-
     public function createProduser()
     {
         $user = Auth::user();
@@ -175,10 +160,6 @@ class AdminJurusanController extends Controller
             )
         );
     }
-
-
-
-
 
     public function detailProduser(Request $request)
     {
@@ -215,10 +196,6 @@ class AdminJurusanController extends Controller
             )
         );
     }
-
-
-
-
 
     public function editProduser(Request $request)
     {
@@ -261,10 +238,6 @@ class AdminJurusanController extends Controller
             )
         );
     }
-
-
-
-
 
     public function updateProduser(Request $request)
     {
@@ -362,10 +335,6 @@ class AdminJurusanController extends Controller
         );
     }
 
-
-
-
-
     public function updateStatusProduser(Request $request)
     {
         $request->validate([
@@ -418,10 +387,6 @@ class AdminJurusanController extends Controller
         ]);
     }
 
-
-
-
-
     public function resetPasswordProduser(Request $request)
     {
         $request->validate([
@@ -468,10 +433,6 @@ class AdminJurusanController extends Controller
         ]);
     }
 
-
-
-
-
     public function updateDeskripsi(Request $request)
     {
         $request->validate([
@@ -496,10 +457,6 @@ class AdminJurusanController extends Controller
             'Deskripsi jurusan berhasil diperbarui!'
         );
     }
-
-
-
-
 
     public function storeProduser(Request $request)
     {

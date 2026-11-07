@@ -1,16 +1,3 @@
-/* =========================================================
-   DETAIL AKUN (admin_tefa/akun/show)
-
-   1. Menampilkan / menyembunyikan form reset password
-   2. Validasi password baru dan konfirmasinya
-   3. Modal konfirmasi akses akun
-
-   Pemicu modal di blade (tanpa onclick inline):
-   - data-access-open="aktifkan|nonaktifkan" : buka modal
-   - data-access-close                       : tutup modal
-   - data-access-submit                      : kirim form akses
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   initResetPasswordToggle();
   initPasswordValidation();

@@ -35,7 +35,6 @@ class User extends Authenticatable
         ];
     }
 
-
     public function jurusanDipegang()
     {
         return $this->hasOne(
@@ -45,7 +44,6 @@ class User extends Authenticatable
         );
     }
 
-
     public function jurusanAsal()
     {
         return $this->belongsTo(
@@ -54,7 +52,6 @@ class User extends Authenticatable
             'id_jurusan'
         );
     }
-
 
     public function penugasanProduser()
     {

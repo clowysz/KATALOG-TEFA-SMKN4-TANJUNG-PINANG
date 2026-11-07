@@ -17,7 +17,6 @@ class JurusanPublikController extends Controller
         return view('public.jurusan.detail-jurusan', compact('jurusan', 'slug'));
     }
 
-
     public function portofolio($slug)
     {
         [$jurusan, $jurusanDb] = $this->resolve($slug, true);
@@ -29,7 +28,6 @@ class JurusanPublikController extends Controller
 
         return view('public.portofolio.index', compact('jurusan', 'slug', 'portofolios'));
     }
-
 
     public function portofolioDetail($slug, $id)
     {
@@ -43,7 +41,6 @@ class JurusanPublikController extends Controller
         return view('public.portofolio.detail', compact('jurusan', 'slug', 'portofolio'));
     }
 
-
     public function produk($slug)
     {
         [$jurusan, $jurusanDb] = $this->resolve($slug, true);
@@ -56,7 +53,6 @@ class JurusanPublikController extends Controller
 
         return view('public.produk.index', compact('jurusan', 'slug', 'produks'));
     }
-
 
     public function produkDetail($slug, $id)
     {
@@ -73,7 +69,6 @@ class JurusanPublikController extends Controller
         return view('public.produk.detail', compact('jurusan', 'slug', 'produk'));
     }
 
-
     public function jasa($slug)
     {
         [$jurusan, $jurusanDb] = $this->resolve($slug, true);
@@ -86,7 +81,6 @@ class JurusanPublikController extends Controller
 
         return view('public.jasa.index', compact('jurusan', 'slug', 'jasas'));
     }
-
 
     public function jasaDetail($slug, $id)
     {
@@ -103,16 +97,6 @@ class JurusanPublikController extends Controller
         return view('public.jasa.detail', compact('jurusan', 'slug', 'jasa'));
     }
 
-
-
-
-
-    /**
-     * Ambil data statis jurusan (config/jurusan.php) + data database.
-     *
-     * @param  bool  $wajibDb  true = 404 jika jurusan tidak ada di database
-     * @return array{0: object, 1: ?Jurusan}
-     */
     private function resolve(string $slug, bool $wajibDb = false): array
     {
         $data = config('jurusan');
@@ -133,9 +117,6 @@ class JurusanPublikController extends Controller
         return [$jurusan, $jurusanDb];
     }
 
-    /**
-     * Statistik tampilan: guest dan pembeli dihitung, semua admin tidak.
-     */
     private function hitungTampilan(ProdukJasa $item): void
     {
         $isAdmin = Auth::check() && in_array(Auth::user()->role, [

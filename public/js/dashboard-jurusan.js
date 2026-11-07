@@ -1,14 +1,3 @@
-/* =========================================================
-   DASHBOARD - ADMIN JURUSAN
-   Grafik donat jumlah pesanan produk vs jasa.
-
-   Data dibaca dari atribut pada <canvas id="chartJenisPesanan">:
-   - data-produk : total pesanan produk
-   - data-jasa   : total pesanan jasa
-
-   Chart.js harus dimuat lebih dulu di blade.
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const chartElement = document.getElementById("chartJenisPesanan");
 

@@ -16,7 +16,6 @@ class AuthForgotPasswordController extends Controller
         return view('auth.lupa-sandi');
     }
 
-
     public function sendResetLink(Request $request)
     {
         $request->validate([
@@ -27,7 +26,6 @@ class AuthForgotPasswordController extends Controller
             ->where('role', 'pembeli')
             ->first();
 
-
         if (!$user) {
             return back()->with(
                 'status',
@@ -35,9 +33,7 @@ class AuthForgotPasswordController extends Controller
             );
         }
 
-
         $token = Str::random(64);
-
 
         DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $user->email],
@@ -47,10 +43,8 @@ class AuthForgotPasswordController extends Controller
             ]
         );
 
-
        return redirect()->route('password.reset', ['token' => $token]);
     }
-
 
    public function showResetForm(string $token)
 {
@@ -72,7 +66,6 @@ class AuthForgotPasswordController extends Controller
     ]);
 }
 
-
     public function resetPassword(Request $request)
     {
         $request->validate([
@@ -91,7 +84,6 @@ class AuthForgotPasswordController extends Controller
             ]);
         }
 
-
         if (!hash_equals(
             $resetData->token,
             hash('sha256', $request->token)
@@ -100,7 +92,6 @@ class AuthForgotPasswordController extends Controller
                 'email' => 'Token reset sandi tidak valid.'
             ]);
         }
-
 
         $user = User::where('email', $request->email)
             ->where('role', 'pembeli')
@@ -112,10 +103,8 @@ class AuthForgotPasswordController extends Controller
             ]);
         }
 
-
         $user->password = Hash::make($request->password);
         $user->save();
-
 
         DB::table('password_reset_tokens')
             ->where('email', $request->email)

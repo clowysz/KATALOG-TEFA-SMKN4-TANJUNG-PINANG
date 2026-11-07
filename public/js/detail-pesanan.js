@@ -1,22 +1,8 @@
-/* =========================================================
-   DETAIL PESANAN ADMIN TEFA
-
-   Dipakai oleh: admin/admin_tefa/pesanan/detail.blade.php
-
-   Fitur:
-   - Kolom alasan pembatalan muncul saat status "Dibatalkan" dipilih
-   - Validasi alasan pembatalan dengan pesan bahasa Indonesia
-   - Modal konfirmasi untuk Setujui / Tolak permintaan pembatalan
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   initAlasanPembatalan();
   initModalKonfirmasi();
 });
 
-/* ---------------------------------------------------------
-   KOLOM ALASAN PEMBATALAN + VALIDASI
---------------------------------------------------------- */
 function initAlasanPembatalan() {
   const statusSelect = document.getElementById("statusSelect");
   const alasanGroup = document.getElementById("alasanPembatalanGroup");
@@ -68,9 +54,6 @@ function initAlasanPembatalan() {
   toggleAlasan();
 }
 
-/* ---------------------------------------------------------
-   MODAL KONFIRMASI SETUJUI / TOLAK
---------------------------------------------------------- */
 function initModalKonfirmasi() {
   const modal = document.getElementById("cancellationConfirmModal");
 

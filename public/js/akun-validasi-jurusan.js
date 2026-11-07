@@ -1,15 +1,3 @@
-/* =========================================================
-   VALIDASI FORM AKUN - ADMIN JURUSAN
-
-   Dipakai oleh halaman Tambah Akun & Edit Akun.
-   Pesan validasi berbahasa Indonesia.
-
-   - AkunValidasi.nama(input)
-   - AkunValidasi.email(input)
-   - AkunValidasi.password(input)
-   - AkunValidasi.layananMinimal(form)
-========================================================= */
-
 window.AkunValidasi = (function () {
   "use strict";
 

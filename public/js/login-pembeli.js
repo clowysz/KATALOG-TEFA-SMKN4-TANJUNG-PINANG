@@ -1,10 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Validasi form login pembeli
-|--------------------------------------------------------------------------
-| Membutuhkan form-validasi.js
-| Toggle password ditangani oleh password-toggle.js
-*/
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("formLoginPembeli");
   const email = document.getElementById("emailLoginPembeli");

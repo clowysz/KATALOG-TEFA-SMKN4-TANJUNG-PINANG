@@ -1,12 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Data statis jurusan (halaman publik)
-|--------------------------------------------------------------------------
-| Key = slug jurusan. Dibaca oleh JurusanPublikController.
-*/
-
 return [
 
     'rpl' => [

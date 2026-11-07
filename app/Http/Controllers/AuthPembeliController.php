@@ -9,9 +9,6 @@ use App\Models\User;
 
 class AuthPembeliController extends Controller
 {
-    /**
-     * Menampilkan halaman daftar akun pembeli.
-     */
     public function showRegister(Request $request)
     {
         $redirect = $request->query('redirect');
@@ -20,9 +17,6 @@ class AuthPembeliController extends Controller
         return view('public.daftar', compact('redirect', 'back'));
     }
 
-    /**
-     * Memproses pendaftaran akun pembeli.
-     */
     public function register(Request $request)
     {
         $request->validate([
@@ -40,17 +34,13 @@ class AuthPembeliController extends Controller
             'role' => 'pembeli',
         ]);
 
-
         Auth::login($user);
 
-
         $redirect = $request->input('redirect');
-
 
         if ($redirect && str_starts_with($redirect, '/')) {
             return redirect($redirect);
         }
-
 
         return redirect('/');
     }

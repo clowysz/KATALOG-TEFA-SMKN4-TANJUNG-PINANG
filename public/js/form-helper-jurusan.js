@@ -1,17 +1,3 @@
-/* =========================================================
-   HELPER FORM - ADMIN JURUSAN
-
-   Dipakai oleh Kelola Produk, Kelola Jasa & Kelola Portofolio.
-
-   - JurusanForm.requiredMessage(el, pesan)
-       Pesan "wajib diisi" berbahasa Indonesia.
-   - JurusanForm.initImageUploader({...})
-       Upload banyak gambar + preview + tombol hapus gambar.
-
-   Harus dimuat SETELAH kelola-layanan.js / kelola-portofolio.js,
-   karena membungkus fungsi tutup modal milik file tersebut.
-========================================================= */
-
 window.uploadedFiles = [];
 
 window.JurusanForm = (function () {

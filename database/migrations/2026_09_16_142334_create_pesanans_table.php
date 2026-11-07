@@ -11,11 +11,9 @@ return new class extends Migration
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id('id_pesanan');
 
-
             $table->foreignId('id_user')
                 ->constrained('users')
                 ->onDelete('cascade');
-
 
             $table->foreignId('id_produk_jasa')
                 ->constrained('produk_jasa', 'id_produk_jasa')

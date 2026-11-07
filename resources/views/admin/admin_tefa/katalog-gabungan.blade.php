@@ -9,7 +9,7 @@
 
 @section('content')
 
-{{-- Menyesuaikan jumlah item per halaman (16 desktop / 15 mobile) dan logika pilih item untuk PDF.
+
      Dimuat di awal konten agar penyesuaian per halaman berjalan cepat.
      data-all-ids = ID seluruh item hasil query (semua halaman) untuk tombol "Pilih Semua". --}}
 <script

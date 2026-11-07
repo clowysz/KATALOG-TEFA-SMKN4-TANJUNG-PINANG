@@ -21,7 +21,6 @@
         'dibatalkan'          => 'Dibatalkan',
     ];
 
-
     $statusIcons = [
         'menunggu konfirmasi' => 'clock',
         'selesai'             => 'check-circle',

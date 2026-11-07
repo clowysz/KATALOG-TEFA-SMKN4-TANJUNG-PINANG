@@ -20,18 +20,15 @@ class Portfolio extends Model
         'id_user',
     ];
 
-
     public function jurusan()
     {
         return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan');
     }
 
-
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
-
 
     public function gambars()
     {

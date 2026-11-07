@@ -36,7 +36,6 @@
         ? $progressTerakhir->persentase_progress
         : ($pesanan->status === 'selesai' ? 100 : 0);
 
-
     $riwayatBatal = $pesanan->riwayatStatus
         ->where('status', 'dibatalkan')
         ->sortByDesc('tanggal_update')

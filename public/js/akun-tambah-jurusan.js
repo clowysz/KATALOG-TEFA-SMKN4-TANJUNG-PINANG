@@ -1,11 +1,3 @@
-/* =========================================================
-   TAMBAH AKUN - ADMIN JURUSAN
-
-   Urutan script di blade:
-   1. akun-validasi-jurusan.js
-   2. akun-tambah-jurusan.js (file ini)
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("formTambahAkun");
   const passwordInput = document.getElementById("password");

@@ -1,13 +1,3 @@
-/* =========================================================
-   DETAIL AKUN - ADMIN JURUSAN
-   Nonaktifkan (dengan konfirmasi) & aktifkan akun.
-
-   Data dibaca dari atribut pada #akunDetail di blade:
-   - data-akun-id     : id akun
-   - data-status-url  : alamat route perubahan status
-   Token CSRF diambil dari <meta name="csrf-token"> di layout.
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const root = document.getElementById("akunDetail");
 

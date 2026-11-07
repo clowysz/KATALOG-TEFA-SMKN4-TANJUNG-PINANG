@@ -20,10 +20,6 @@ use App\Http\Controllers\KatalogPublikController;
 use App\Http\Controllers\CustomerServiceController;
 use App\Http\Controllers\JurusanPublikController;
 
-// 
-// PUBLIK
-// 
-
 Route::view('/', 'public.home');
 
 Route::get('/faq', [FaqController::class, 'publik'])
@@ -38,25 +34,18 @@ Route::get('/pencarian', [PencarianController::class, 'index'])
 Route::get('/katalog', [KatalogPublikController::class, 'index'])
     ->name('public.katalog');
 
-// 
-// AUTH (LOGIN SATU DOMAIN)
-// 
-
 Route::get('/login', [LoginController::class, 'showLogin'])
     ->name('login');
 
 Route::post('/login', [LoginController::class, 'login'])
     ->name('login.proses');
 
-// Logout semua role
 Route::post('/logout', [LoginController::class, 'logout'])
     ->name('logout');
 
-// Alias logout admin lama (supaya route yang masih memakai admin.logout tidak error)
 Route::post('/admin/logout', [LoginController::class, 'logout'])
     ->name('admin.logout');
 
-// Lupa sandi
 Route::get('/lupa-sandi', [AuthForgotPasswordController::class, 'showForgotForm'])
     ->name('password.request');
 
@@ -69,16 +58,11 @@ Route::get('/reset-sandi/{token}', [AuthForgotPasswordController::class, 'showRe
 Route::post('/reset-sandi', [AuthForgotPasswordController::class, 'resetPassword'])
     ->name('password.update');
 
-// Register pembeli
 Route::get('/daftar-pembeli', [AuthPembeliController::class, 'showRegister'])
     ->name('pembeli.register');
 
 Route::post('/daftar-pembeli', [AuthPembeliController::class, 'register'])
     ->name('pembeli.register.proses');
-
-// 
-// JURUSAN PUBLIK
-// 
 
 Route::prefix('jurusan/{slug}')
     ->controller(JurusanPublikController::class)
@@ -98,10 +82,6 @@ Route::prefix('jurusan/{slug}')
         Route::get('/jasa/detail/{id}', 'jasaDetail')
             ->name('jasa.detail');
     });
-
-// 
-// PEMBELI
-// 
 
 Route::middleware(['auth', 'role:pembeli'])->group(function () {
 
@@ -123,15 +103,10 @@ Route::middleware(['auth', 'role:pembeli'])->group(function () {
     Route::delete('/riwayat-pesanan/{id_pesanan}/hapus',[PesananPembeliController::class, 'hapusRiwayat'])->name('pembeli.riwayat.hapus');
 });
 
-// 
-// ADMIN TEFA
-// 
-
 Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('admin.tefa.dashboard');
-
 
     Route::get('/pesanan', [PesananController::class, 'index'])
         ->name('pesanan.index');
@@ -161,7 +136,6 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
         [PesananController::class, 'tolakPembatalan']
     )->name('pesanan.permintaan-pembatalan.tolak');
 
-
     Route::get('/katalog-gabungan', [KatalogTefaController::class, 'index'])
         ->name('admin.tefa.katalog_gabungan');
 
@@ -171,10 +145,8 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
     Route::post('/katalog-gabungan/pdf', [KatalogTefaController::class, 'generatePdf'])
         ->name('admin.tefa.katalog_pdf');
 
-
     Route::put('/katalog/nomor-pdf', [KatalogTefaController::class, 'updateNomorPdf'])
         ->name('admin.tefa.katalog_nomor_pdf');
-
 
     Route::get('/akun', [AkunController::class, 'index'])->name('akun.index');
     Route::get('/akun/tambah', [AkunController::class, 'create'])->name('akun.create');
@@ -185,10 +157,8 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
     Route::put('/akun/{id}/status', [AkunController::class, 'updateStatus'])->name('akun.updateStatus');
     Route::put('/akun/{id}/reset-password', [AkunController::class, 'resetPassword'])->name('akun.resetPassword');
 
-
     Route::view('/profil', 'admin.admin_tefa.profil.index')
         ->name('admin.tefa.profil');
-
 
     Route::get('/tefa/faq', [FaqController::class, 'index'])->name('tefa.faq.index');
     Route::get('/tefa/faq/create', [FaqController::class, 'create'])->name('tefa.faq.create');
@@ -197,7 +167,6 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
     Route::put('/tefa/faq/{id}', [FaqController::class, 'update'])->name('tefa.faq.update');
     Route::delete('/tefa/faq/{id}', [FaqController::class, 'destroy'])->name('tefa.faq.destroy');
 
-
     Route::get('/tefa/customer-service', [KontakCsController::class, 'index'])
         ->name('tefa.cs.index');
 
@@ -205,15 +174,10 @@ Route::middleware(['auth', 'role:admin_tefa'])->group(function () {
         ->name('tefa.cs.update');
 });
 
-// 
-// ADMIN JURUSAN
-// 
-
 Route::middleware(['auth', 'role:admin_jurusan'])->group(function () {
 
     Route::get('/jurusan-admin/dashboard', [AdminJurusanController::class, 'dashboard'])
         ->name('admin.jurusan.dashboard');
-
 
     Route::view('/jurusan-admin/katalog', 'admin.admin_jurusan.katalog');
     Route::view('/jurusan-admin/katalog/detail', 'admin.admin_jurusan.katalog-detail');
@@ -221,13 +185,11 @@ Route::middleware(['auth', 'role:admin_jurusan'])->group(function () {
     Route::view('/jurusan-admin/kelola-jasa', 'admin.admin_jurusan.kelola-jasa');
     Route::view('/jurusan-admin/kelola-portofolio', 'admin.admin_jurusan.kelola-portofolio');
 
-
     Route::get('/jurusan-admin/kelola-deskripsi', [AdminJurusanController::class, 'deskripsi'])
         ->name('jurusan.deskripsi.index');
 
     Route::post('/jurusan-admin/kelola-deskripsi', [AdminJurusanController::class, 'updateDeskripsi'])
         ->name('jurusan.updateDeskripsi');
-
 
     Route::get('/jurusan-admin/akun', [AdminJurusanController::class, 'akun'])
         ->name('jurusan.akun.index');
@@ -256,7 +218,6 @@ Route::middleware(['auth', 'role:admin_jurusan'])->group(function () {
     Route::view('/jurusan-admin/profil', 'admin.admin_jurusan.profil')
         ->name('jurusan.profil');
 
-
     Route::get('/jurusan-admin/produk', [ProdukJasaController::class, 'index'])->name('produk.index');
     Route::post('/jurusan-admin/produk', [ProdukJasaController::class, 'store'])->name('produk.store');
     Route::put('/jurusan-admin/produk/{id}', [ProdukJasaController::class, 'update'])->name('produk.update');
@@ -264,16 +225,11 @@ Route::middleware(['auth', 'role:admin_jurusan'])->group(function () {
     Route::delete('/jurusan-admin/produk/gambar/{id_gambar}', [ProdukJasaController::class, 'destroyGambar'])
         ->name('produk.destroyGambar');
 
-
     Route::get('/jurusan-admin/portofolio', [PortfolioController::class, 'index'])->name('portofolio.index');
     Route::post('/jurusan-admin/portofolio', [PortfolioController::class, 'store'])->name('portofolio.store');
     Route::put('/jurusan-admin/portofolio/{id}', [PortfolioController::class, 'update'])->name('portofolio.update');
     Route::delete('/jurusan-admin/portofolio/{id}', [PortfolioController::class, 'destroy'])->name('portofolio.destroy');
 });
-
-// 
-// ADMIN PRODUSER
-// 
 
 Route::middleware(['auth', 'role:admin_produser'])->group(function () {
 
@@ -289,7 +245,6 @@ Route::middleware(['auth', 'role:admin_produser'])->group(function () {
     Route::post('/produser/pesanan/{id_pesanan}/update-progress', [AdminProduserController::class, 'updateProgress'])
         ->name('produser.updateProgress');
 
-
     Route::post('/produser/pesanan/{id_pesanan}/tahapan', [AdminProduserController::class, 'storeTahapan'])
         ->name('produser.tahapan.store');
 
@@ -302,13 +257,11 @@ Route::middleware(['auth', 'role:admin_produser'])->group(function () {
     Route::post('/produser/pesanan/{id_pesanan}/tahapan/reorder', [AdminProduserController::class, 'reorderTahapan'])
         ->name('produser.tahapan.reorder');
 
-
     Route::get('/produser/katalog', [AdminProduserController::class, 'katalog'])
         ->name('admin.produser.katalog');
 
     Route::get('/produser/katalog/detail/{id_produk_jasa}', [AdminProduserController::class, 'showKatalog'])
         ->name('admin.produser.katalog.detail');
-
 
     Route::get('/produser/profil', [AdminProduserController::class, 'profil'])
         ->name('admin.produser.profil');

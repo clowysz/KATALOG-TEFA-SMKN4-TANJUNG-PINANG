@@ -13,17 +13,6 @@ use App\Models\Jurusan;
 class AkunController extends Controller
 {
 
-
-
-
-    /**
-     * Daftar jurusan yang boleh dipilih pada form.
-     *
-     * Sebuah jurusan boleh dipilih jika:
-     *  - belum memiliki Admin Jurusan, atau
-     *  - Admin Jurusan-nya berstatus tidak aktif, atau
-     *  - jurusan itu milik akun yang sedang diedit ($akun).
-     */
     private function jurusanTersedia(?User $akun = null)
     {
         return Jurusan::with('user:id,nama,status')
@@ -43,10 +32,6 @@ class AkunController extends Controller
             ->get();
     }
 
-    /**
-     * Pemeriksaan di sisi server (dropdown saja tidak cukup).
-     * Aturannya sama dengan jurusanTersedia().
-     */
     private function jurusanBisaDipakai(Jurusan $jurusan, ?int $akunId = null): bool
     {
 
@@ -54,24 +39,17 @@ class AkunController extends Controller
             return true;
         }
 
-
         if ($akunId && (int) $jurusan->id_user === $akunId) {
             return true;
         }
-
 
         $pemegang = $jurusan->user;
 
         return !$pemegang || $pemegang->status === 'tidak_aktif';
     }
 
-
-
-
-
     public function index()
     {
-
 
         $akuns = User::whereIn('role', [
             'admin_tefa',
@@ -86,10 +64,6 @@ class AkunController extends Controller
         );
     }
 
-
-
-
-
     public function create()
     {
 
@@ -100,10 +74,6 @@ class AkunController extends Controller
             compact('jurusanKosong')
         );
     }
-
-
-
-
 
     public function store(Request $request)
     {
@@ -145,17 +115,11 @@ class AkunController extends Controller
             ],
         ]);
 
-
-
-
-
         if ($request->role === 'admin_jurusan') {
 
             $jurusan = Jurusan::with('user')->findOrFail(
                 $request->id_jurusan
             );
-
-
 
             if (!$this->jurusanBisaDipakai($jurusan)) {
                 return redirect()
@@ -167,11 +131,9 @@ class AkunController extends Controller
                     ]);
             }
 
-
             $adminLama = $jurusan->user;
 
             DB::transaction(function () use ($request, $jurusan) {
-
 
                 $akun = User::create([
                     'nama' => $request->nama,
@@ -180,9 +142,6 @@ class AkunController extends Controller
                     'role' => 'admin_jurusan',
                     'status' => $request->status,
                 ]);
-
-
-
 
                 $jurusan->update([
                     'id_user' => $akun->id,
@@ -201,11 +160,6 @@ class AkunController extends Controller
                 ->with('success', $pesan);
         }
 
-
-
-
-
-
         User::create([
             'nama' => $request->nama,
             'email' => $request->email,
@@ -222,10 +176,6 @@ class AkunController extends Controller
             );
     }
 
-
-
-
-
     public function show($id)
     {
         $akun = User::whereIn('role', [
@@ -241,10 +191,6 @@ class AkunController extends Controller
         );
     }
 
-
-
-
-
     public function edit($id)
     {
         $akun = User::whereIn('role', [
@@ -253,8 +199,6 @@ class AkunController extends Controller
         ])
         ->with('jurusanDipegang')
         ->findOrFail($id);
-
-
 
         $jurusanKosong = $this->jurusanTersedia($akun);
 
@@ -266,10 +210,6 @@ class AkunController extends Controller
             )
         );
     }
-
-
-
-
 
     public function update(Request $request, $id)
     {
@@ -314,17 +254,11 @@ class AkunController extends Controller
         $jurusanLama = $akun->jurusanDipegang;
         $jurusanBaru = null;
 
-
-
-
-
         if ($request->role === 'admin_jurusan') {
 
             $jurusanBaru = Jurusan::with('user')->findOrFail(
                 $request->id_jurusan
             );
-
-
 
             if (!$this->jurusanBisaDipakai($jurusanBaru, $akun->id)) {
                 return redirect()
@@ -339,8 +273,6 @@ class AkunController extends Controller
 
         DB::transaction(function () use ($request, $akun, $jurusanLama, $jurusanBaru) {
 
-
-
             if (
                 $jurusanLama &&
                 (
@@ -353,14 +285,12 @@ class AkunController extends Controller
                 ]);
             }
 
-
             $akun->update([
                 'nama' => $request->nama,
                 'email' => $request->email,
                 'role' => $request->role,
                 'status' => $request->status,
             ]);
-
 
             if ($jurusanBaru) {
                 $jurusanBaru->update([
@@ -376,10 +306,6 @@ class AkunController extends Controller
                 'Data akun berhasil diperbarui.'
             );
     }
-
-
-
-
 
     public function updateStatus(Request $request, $id)
     {
@@ -397,8 +323,6 @@ class AkunController extends Controller
                 ]),
             ],
         ]);
-
-
 
         if (
             $request->status === 'aktif' &&
@@ -425,10 +349,6 @@ class AkunController extends Controller
                 'Status akun berhasil diperbarui.'
             );
     }
-
-
-
-
 
     public function resetPassword(Request $request, $id)
     {

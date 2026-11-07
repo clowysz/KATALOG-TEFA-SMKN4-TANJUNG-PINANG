@@ -1,10 +1,3 @@
-/* =
-   KELOLA PRODUK / JASA / PORTOFOLIO - ADMIN JURUSAN
-   Tombol umum (.btn-jurusan-primary, .btn-jurusan-danger)
-   ada di admin-jurusan.css
-   = */
-
-/* Modal form */
 .modal-box.modal-box-form {
   max-width: 500px;
 }
@@ -13,16 +6,11 @@
   color: #94a3b8;
 }
 
-/* Input file */
 .form-file-input {
   padding: 10px;
   cursor: pointer;
   background: #f8fafc;
 }
-
-/* =
-   PREVIEW GAMBAR UPLOAD
-   = */
 
 .upload-preview {
   display: flex;
@@ -82,17 +70,12 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* =
-   KARTU (dibuat oleh kelola-layanan.js & kelola-portofolio.js)
-   = */
-
 .catalog-card .catalog-meta {
   margin-bottom: 0;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-/* Harga + satuan yang panjang turun baris, tidak mendorong badge pesanan */
 .catalog-card .catalog-price {
   min-width: 0;
   overflow-wrap: anywhere;
@@ -109,7 +92,6 @@
   align-items: center;
 }
 
-/* Tombol Hapus di kartu: merah */
 .catalog-actions .btn-delete,
 .catalog-actions .btn-delete-porto {
   background: transparent;
@@ -124,10 +106,6 @@
   color: #ffffff;
   border-color: #dc3545;
 }
-
-/* =
-   KOSONG / ERROR DI DALAM GRID
-   = */
 
 .grid-state {
   grid-column: 1 / -1;
@@ -149,17 +127,9 @@
   color: var(--text-muted);
 }
 
-/* =
-   TOAST ERROR
-   = */
-
 .toast-notification.is-error {
   background-color: #dc3545;
 }
-
-/* =
-   RESPONSIVE
-   = */
 
 @media (max-width: 768px) {
   .grid-state {
@@ -170,10 +140,6 @@
     font-size: 44px;
   }
 }
-
-/* =
-   TEXTAREA DI MODAL: tidak bisa di-resize
-   = */
 
 .modal-box textarea.form-control {
   resize: none;

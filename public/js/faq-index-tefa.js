@@ -1,14 +1,3 @@
-/* =========================================================
-   KELOLA FAQ (admin_tefa/faq/index)
-
-   Modal konfirmasi hapus FAQ.
-
-   Pemicu di blade (tanpa onclick inline):
-   - data-faq-delete         : tombol Hapus pada kartu FAQ (buka modal)
-   - data-faq-delete-close   : tombol Batal di modal
-   - data-faq-delete-submit  : tombol Hapus di modal (kirim form)
-========================================================= */
-
 (function () {
   "use strict";
 

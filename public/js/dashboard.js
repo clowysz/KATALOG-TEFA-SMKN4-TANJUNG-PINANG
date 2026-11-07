@@ -1,13 +1,3 @@
-/* =========================================================
-   DASHBOARD TEFA (admin_tefa/dashboard)
-
-   Grafik "Pesanan Berdasarkan Jurusan".
-   Data dikirim dari blade lewat atribut pada <canvas>:
-        data-labels = daftar nama jurusan  (JSON)
-        data-values = jumlah pesanan       (JSON)
-   Tinggi grafik diatur oleh CSS (.chart-wrap).
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("jurusanChart");
 

@@ -21,7 +21,6 @@ class PesananController extends Controller
             'permintaanPembatalan',
         ])->latest()->get();
 
-
         $permintaanPembatalan = PermintaanPembatalan::with([
             'pesanan.pembeli',
             'pesanan.produkJasa.jurusan',
@@ -29,7 +28,6 @@ class PesananController extends Controller
         ->where('status_permintaan', 'menunggu')
         ->latest()
         ->get();
-
 
         $jumlahPermintaanPembatalan = $permintaanPembatalan->count();
 
@@ -67,13 +65,11 @@ class PesananController extends Controller
 
         $pesanan = Pesanan::with('permintaanPembatalan')->findOrFail($id);
 
-
         if ($pesanan->status === 'dibatalkan') {
             return redirect()->back()->withErrors([
                 'error' => 'Pesanan sudah dibatalkan dan statusnya tidak dapat diubah lagi.',
             ]);
         }
-
 
         if (
             $pesanan->permintaanPembatalan &&
@@ -83,7 +79,6 @@ class PesananController extends Controller
                 'error' => 'Status pesanan terkunci karena permintaan pembatalan sedang menunggu keputusan Admin TEFA.',
             ]);
         }
-
 
         if ($request->status === 'dibatalkan') {
 
@@ -114,7 +109,6 @@ class PesananController extends Controller
                 'Pesanan berhasil dibatalkan.'
             );
         }
-
 
         if ($request->status === 'diproses') {
             $adaProduser = PenugasanProduser::where(

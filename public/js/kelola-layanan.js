@@ -1,19 +1,3 @@
-/* =========================================================
-   KELOLA PRODUK & KELOLA JASA - ADMIN JURUSAN
-
-   Satu file untuk dua halaman. Jenis halaman dideteksi dari
-   container: #kelolaProdukContainer (produk) atau
-   #kelolaJasaContainer (jasa).
-
-   Atribut di blade:
-   - data-open-tambah        : membuka modal tambah
-   - data-close-modal="id"   : menutup modal
-========================================================= */
-
-// =========================================================
-// MODAL (global: dibungkus oleh form-helper-jurusan.js)
-// =========================================================
-
 function openLayananModal(id) {
   const modal = document.getElementById(id);
 
@@ -29,10 +13,6 @@ function closeLayananModal(id) {
     modal.classList.remove("active");
   }
 }
-
-// =========================================================
-// UTILITAS HALAMAN
-// =========================================================
 
 function getCsrfToken() {
   const meta = document.querySelector('meta[name="csrf-token"]');
@@ -103,10 +83,6 @@ function shortDescription(text, length = 60) {
   return text.length <= length ? text : text.substring(0, length) + "...";
 }
 
-// =========================================================
-// MODAL TAMBAH
-// =========================================================
-
 function openTambahModal() {
   const form = document.getElementById("formLayanan");
 
@@ -143,10 +119,6 @@ function openTambahModal() {
 
   openLayananModal("modalAdd");
 }
-
-// =========================================================
-// HALAMAN SIAP
-// =========================================================
 
 document.addEventListener("DOMContentLoaded", function () {
   const tipeLayanan = getTipeLayanan();

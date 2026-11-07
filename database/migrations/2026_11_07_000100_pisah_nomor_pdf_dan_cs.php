@@ -16,7 +16,6 @@ return new class extends Migration
             ->where('kunci', 'nomor_pdf')
             ->value('nilai') ?? '6289653628650';
 
-
         DB::table('pengaturan')->updateOrInsert(
             ['kunci' => 'nomor_pdf'],
             ['nilai' => $nomorPdf, 'updated_at' => now(), 'created_at' => now()]

@@ -1,20 +1,3 @@
-/* =========================================================
-   DETAIL PESANAN PRODUSER
-   Tugas file ini:
-   - Modal kelola tahapan & modal tambah/edit tahapan
-   - Modal konfirmasi hapus tahapan (pengganti confirm browser)
-   - Urutan tahapan (drag & drop, disimpan sekali)
-   - Tampilan nilai slider
-   - Validasi bahasa Indonesia
-
-   Data dari Blade dikirim lewat atribut di #produserOrderPage:
-     data-store-url        -> URL simpan tahapan baru
-     data-update-base-url  -> URL dasar update tahapan (ditambah /{id})
-
-   Form hapus memakai atribut:
-     data-confirm-delete   -> penanda form yang butuh konfirmasi
-     data-confirm-name     -> nama tahapan yang ditampilkan di modal
-========================================================= */
 (function () {
   "use strict";
 
@@ -43,10 +26,6 @@
     var outputProgress = document.getElementById("tahapProgressValue");
 
     var pendingDeleteForm = null;
-
-    /* =====================================================
-           MODAL
-        ===================================================== */
 
     function openModal(modal) {
       if (!modal) {
@@ -128,10 +107,6 @@
       openModal(modalForm);
     }
 
-    /* =====================================================
-           KONFIRMASI HAPUS (modal kustom)
-        ===================================================== */
-
     function openHapus(form) {
       if (!modalHapus) {
         return;
@@ -172,10 +147,6 @@
 
       form.submit();
     }
-
-    /* =====================================================
-           URUTAN TAHAPAN (drag & drop, disimpan sekali)
-        ===================================================== */
 
     function getStageRows() {
       return Array.prototype.slice.call(
@@ -322,10 +293,6 @@
       form.submit();
     }
 
-    /* =====================================================
-           VALIDASI BAHASA INDONESIA
-        ===================================================== */
-
     function setIndonesianValidation(element, message) {
       if (!element) {
         return;
@@ -371,10 +338,6 @@
       inputKeterangan,
       "Keterangan progress wajib diisi.",
     );
-
-    /* =====================================================
-           EVENT
-        ===================================================== */
 
     document.addEventListener("click", function (event) {
       var trigger = event.target.closest("[data-action]");

@@ -13,7 +13,6 @@
         ? route('jurusan.akun.index')
         : route('jurusan.akun.detail', ['id' => $akun->id]);
 
-
     $layananTerpilih = old(
         'layanan',
         $akun->penugasanProduser->pluck('id_produk_jasa')->toArray()

@@ -9,11 +9,6 @@
 @section('content')
 
 @php
-    /*
-    |--------------------------------------------------------------------------
-    | Data tampilan halaman
-    |--------------------------------------------------------------------------
-    */
     $formatTanggal = function ($tanggal) {
         if (!$tanggal) {
             return '-';
@@ -28,14 +23,11 @@
     $pembatalanMenunggu = $permintaan && $permintaan->status_permintaan === 'menunggu';
     $pesananDibatalkan  = $pesanan->status === 'dibatalkan';
 
-
     $dibatalkanPembeli = $pesananDibatalkan
         && $permintaan
         && $permintaan->status_permintaan === 'disetujui';
 
-
     $dibatalkanAdmin = $pesananDibatalkan && !$dibatalkanPembeli;
-
 
     $riwayatBatal = $pesananDibatalkan
         ? $pesanan->riwayatStatus
@@ -44,18 +36,13 @@
             ->first()
         : null;
 
-
-
-
     $alasanAdmin = ($dibatalkanAdmin && filled($riwayatBatal?->keterangan))
         ? \Illuminate\Support\Str::after($riwayatBatal->keterangan, 'Alasan: ')
         : null;
 
-
     $namaAdmin = $dibatalkanPembeli
         ? $permintaan->admin?->nama
         : $riwayatBatal?->pelaksana?->nama;
-
 
     $tanggalDibatalkan = $dibatalkanPembeli
         ? ($permintaan->tanggal_keputusan ?? $riwayatBatal?->tanggal_update)
@@ -66,7 +53,7 @@
 
 <div class="detail-pesanan-container">
 
-    {{-- =========================
+    
          HEADER
          ========================= --}}
 
@@ -111,7 +98,7 @@
         </div>
     @endif
 
-    {{-- =========================
+    
          INFORMASI PESANAN
          ========================= --}}
 
@@ -170,14 +157,14 @@
 
         </div>
 
-        {{-- =========================
-             INFORMASI PEMBELI
+        
+            
              ========================= --}}
 
         <div class="detail-pesanan-card">
 
             <h3 class="detail-card-title">
-                Informasi Pembeli
+               
             </h3>
 
             <div class="detail-info-grid">
@@ -221,10 +208,6 @@
             </div>
 
         </div>
-
-        {{-- =========================
-             INFORMASI PRODUK / JASA
-             ========================= --}}
 
         <div class="detail-pesanan-card detail-pesanan-grid-full">
 
@@ -338,7 +321,7 @@
     
     <div class="detail-pesanan-bottom">
 
-        {{-- =========================
+        
              KOTAK UPDATE STATUS
              ========================= --}}
 
@@ -491,7 +474,7 @@
 
         </div>
 
-        {{-- =========================
+        
              KOTAK PEMBATALAN PESANAN
              ========================= --}}
 
@@ -536,7 +519,7 @@
                         <p class="cancellation-text">{{ $formatTanggal($tanggalDibatalkan) }}</p>
                     </div>
 
-                    {{-- Alasan admin hanya tampil jika admin yang membatalkan.
+                    
                          Alasan pembeli ada di bagian permintaan di bawah. --}}
                     @if($dibatalkanAdmin)
                         <div class="cancellation-summary-item full">

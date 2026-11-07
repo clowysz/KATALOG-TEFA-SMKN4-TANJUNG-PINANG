@@ -1,11 +1,3 @@
-/* 
-   NAVBAR PUBLIK — dipakai semua layout publik
-   Desktop (di atas 850px)  tampilan asli.
-   HP/tablet (850px ke bawah)  brand kecil + pencarian kecil +
-   hamburger. Menu & tombol Profil ada di dalam hamburger.
-   Taruh di: public/css/navbar.css (muat SETELAH front.css)
-    */
-
 .jurusan-sticky-container {
   position: sticky;
   top: 0;
@@ -31,7 +23,6 @@
   box-sizing: border-box;
 }
 
-/*  Brand  */
 .jurusan-nav-brand {
   display: flex;
   align-items: center;
@@ -65,7 +56,6 @@
   color: #64748b;
 }
 
-/*  Menu  */
 .jurusan-nav-menu {
   display: flex;
   gap: 12px;
@@ -97,12 +87,10 @@
   color: #ffffff;
 }
 
-/* Link "Profil" di dalam menu: hanya muncul di HP/tablet */
 .jurusan-nav-menu a.nav-profile-link {
   display: none;
 }
 
-/*  Pencarian + profil (desktop)  */
 .jurusan-nav-actions {
   display: flex;
   align-items: center;
@@ -185,7 +173,6 @@
   box-shadow: 0 5px 12px rgba(30, 58, 138, 0.25);
 }
 
-/*  Tombol hamburger (disembunyikan di desktop)  */
 .jurusan-nav-toggle {
   display: none;
   width: 42px;
@@ -213,7 +200,6 @@
   transform: scale(0.94);
 }
 
-/*  Fokus keyboard  */
 .jurusan-nav-brand:focus-visible,
 .jurusan-nav-menu a:focus-visible,
 .jurusan-nav-profile:focus-visible,
@@ -222,9 +208,6 @@
   outline-offset: 3px;
 }
 
-/* 
-   LAPTOP KECIL / TABLET LANDSCAPE (851px – 1100px): dirapatkan sedikit
-    */
 @media (min-width: 851px) and (max-width: 1100px) {
   .jurusan-nav-pill {
     gap: 12px;
@@ -244,11 +227,6 @@
   }
 }
 
-/* 
-   TABLET & HP (maks 850px)
-   Baris atas:  [logo + judul kecil]  [cari kecil]  [hamburger]
-   Di dalam hamburger: menu + Profil
-    */
 @media (max-width: 850px) {
   .jurusan-sticky-container {
     padding: 6px 8px;
@@ -265,7 +243,6 @@
     max-width: 100%;
   }
 
-  /* Brand: dikecilkan */
   .jurusan-nav-brand {
     order: 1;
     flex: 1 1 auto;
@@ -287,7 +264,6 @@
     font-size: 8.5px;
   }
 
-  /* Pembungkus dilepas supaya pencarian bisa sejajar dengan hamburger */
   .jurusan-nav-actions {
     display: contents;
   }
@@ -308,7 +284,6 @@
     font-size: 11px;
   }
 
-  /* Tombol profil bulat disembunyikan, pindah ke dalam hamburger */
   .jurusan-nav-profile {
     display: none;
   }
@@ -322,7 +297,6 @@
     border-radius: 10px;
   }
 
-  /* Menu terlipat: melayang di bawah navbar (tidak mendorong halaman) */
   .jurusan-nav-menu {
     display: none;
     position: absolute;
@@ -363,7 +337,6 @@
   }
 }
 
-/* HP kecil */
 @media (max-width: 380px) {
   .jurusan-nav-pill {
     gap: 6px;

@@ -1,12 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Halaman katalog publik
-|--------------------------------------------------------------------------
-| - Submit otomatis saat dropdown jurusan diganti
-| - Mengingat posisi scroll saat pindah halaman pagination
-*/
-
-// Matikan autoscroll otomatis dari browser saat reload
 if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }

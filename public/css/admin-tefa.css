@@ -272,11 +272,6 @@
   display: block;
 }
 
-/* =========================================================
-   RESPONSIVE ADMIN TEFA
-   Desktop (> 1024px) tidak berubah.
-========================================================= */
-
 @media (max-width: 1024px) {
   .summary-grid {
     gap: 16px;
@@ -386,10 +381,6 @@
     height: 260px;
   }
 }
-
-/* =========================================================
-   MODAL LOGOUT (layout admin Tefa)
-========================================================= */
 
 .modal-logout-overlay {
   position: fixed;
@@ -503,11 +494,6 @@
     width: 100%;
   }
 }
-
-/* =========================================================
-   KOMPONEN BERSAMA: TOMBOL KEMBALI & FORM
-   Dipakai halaman Tambah / Edit pada FAQ dan Akun.
-========================================================= */
 
 .btn-back {
   display: inline-block;

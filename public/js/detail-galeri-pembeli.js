@@ -1,13 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Galeri gambar halaman detail produk & jasa (publik)
-|--------------------------------------------------------------------------
-| Markup yang dibutuhkan:
-| - #carouselTrack                    : track slide
-| - [data-slide-dir="1|-1"]           : tombol prev/next
-| - [data-slide-index="N"]            : dot & thumbnail
-| - .detail-gallery[data-lightbox]    : aktifkan preview gambar besar
-*/
 (function () {
   let currentIndex = 0;
 

@@ -16,9 +16,7 @@ return new class extends Migration
 
             $table->string('role')->default('pembeli');
 
-
             $table->string('nomor_hp')->nullable();
-
 
             $table->unsignedBigInteger('id_jurusan_asal')->nullable();
 

@@ -1,13 +1,3 @@
-/* =========================================================
-   FORM AKUN (dipakai halaman Tambah Akun dan Edit Akun)
-
-   - Menampilkan / menyembunyikan pilihan jurusan sesuai role
-   - Pesan validasi: nama, email, password, role, jurusan, status
-
-   Elemen yang tidak ada di salah satu halaman (misalnya password
-   di halaman edit) otomatis dilewati.
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const namaInput = document.getElementById("nama");
   const emailInput = document.getElementById("email");

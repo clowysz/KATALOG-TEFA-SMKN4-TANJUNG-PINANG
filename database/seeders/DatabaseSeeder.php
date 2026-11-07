@@ -11,12 +11,6 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        /*
-        |--------------------------------------------------------------------------
-        | 1. Buat Admin TEFA
-        |--------------------------------------------------------------------------
-        */
-
         User::updateOrCreate(
             ['email' => 'admin.tefa@gmail.com'],
             [
@@ -26,12 +20,6 @@ class DatabaseSeeder extends Seeder
                 'id_jurusan_asal' => null,
             ]
         );
-
-        /*
-        |--------------------------------------------------------------------------
-        | 2. Buat Akun Admin Jurusan DULU (belum terhubung ke jurusan manapun)
-        |--------------------------------------------------------------------------
-        */
 
         $adminRpl = User::updateOrCreate(
             ['email' => 'admin.rpl@gmail.com'],
@@ -62,12 +50,6 @@ class DatabaseSeeder extends Seeder
             ['email' => 'admin.animasi@gmail.com'],
             ['nama' => 'Admin Jurusan Animasi', 'password' => Hash::make('password'), 'role' => 'admin_jurusan']
         );
-
-        /*
-        |--------------------------------------------------------------------------
-        | 3. Baru buat 6 Jurusan, id_user diisi dari admin jurusan yang sudah dibuat
-        |--------------------------------------------------------------------------
-        */
 
         Jurusan::updateOrCreate(
             ['slug' => 'rpl'],

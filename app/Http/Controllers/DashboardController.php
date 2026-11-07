@@ -9,17 +9,8 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | DASHBOARD ADMIN TEFA
-    |--------------------------------------------------------------------------
-    */
-
     public function index()
     {
-
-
-
 
         $totalPesanan = Pesanan::count();
 
@@ -43,10 +34,6 @@ class DashboardController extends Controller
             'selesai'
         )->count();
 
-
-
-
-
         $totalProduk = ProdukJasa::where(
             'jenis',
             'produk'
@@ -56,19 +43,10 @@ class DashboardController extends Controller
 
         $totalUser = User::count();
 
-
-
-
-
-
         $produkTerlaris = ProdukJasa::withCount('pesanans')
             ->orderBy('pesanans_count', 'desc')
             ->take(5)
             ->get();
-
-
-
-
 
         $pesananTerbaru = Pesanan::with([
             'pembeli',
@@ -78,10 +56,6 @@ class DashboardController extends Controller
             ->latest('tanggal_pesan')
             ->take(5)
             ->get();
-
-
-
-
 
         $jurusans = Jurusan::orderBy('nama_jurusan')->get();
 
@@ -101,10 +75,6 @@ class DashboardController extends Controller
                 'id_jurusan'
             );
 
-
-
-
-
         $chartLabels = [];
         $chartData = [];
 
@@ -117,10 +87,6 @@ class DashboardController extends Controller
                 $jurusan->id_jurusan
             ] ?? 0;
         }
-
-
-
-
 
         return view(
             'admin.admin_tefa.dashboard',
@@ -141,17 +107,8 @@ class DashboardController extends Controller
         );
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | HALAMAN JURUSAN ADMIN TEFA
-    |--------------------------------------------------------------------------
-    */
-
     public function jurusan()
     {
-
-
-
 
         $jurusans = Jurusan::withCount([
 
@@ -166,24 +123,6 @@ class DashboardController extends Controller
             'portfolios as total_portofolio',
 
         ])->get();
-
-
-
-
-
-        /*
-         * Pesanan tidak mempunyai id_jurusan secara langsung.
-         *
-         * Alurnya:
-         *
-         * pesanan
-         *     ↓
-         * id_produk_jasa
-         *     ↓
-         * produk_jasa
-         *     ↓
-         * id_jurusan
-         */
 
         $pesananPerJurusan = Pesanan::query()
             ->join(
@@ -201,10 +140,6 @@ class DashboardController extends Controller
                 'id_jurusan'
             );
 
-
-
-
-
         foreach ($jurusans as $jurusan) {
 
             $jurusan->total_pesanan =
@@ -212,10 +147,6 @@ class DashboardController extends Controller
                     $jurusan->id_jurusan
                 ] ?? 0;
         }
-
-
-
-
 
         return view(
             'admin.admin_tefa.jurusan.index',

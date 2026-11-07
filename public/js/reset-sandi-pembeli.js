@@ -1,9 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Validasi form buat sandi baru
-|--------------------------------------------------------------------------
-| Toggle mata password ditangani oleh password-toggle.js
-*/
 document.addEventListener("DOMContentLoaded", function () {
   const passwordInput = document.getElementById("password");
   const confirmInput = document.getElementById("password_confirmation");

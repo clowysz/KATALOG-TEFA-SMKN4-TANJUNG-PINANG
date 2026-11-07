@@ -20,7 +20,6 @@ class PesananPembeliController extends Controller
         'dibatalkan',
     ];
 
-
     public function riwayat(Request $request)
     {
        $query = Pesanan::with([
@@ -53,7 +52,6 @@ class PesananPembeliController extends Controller
         return view('public.riwayat', compact('riwayats', 'status', 'keyword'));
     }
 
-
     public function detail($id_pesanan)
     {
         $pesanan = Pesanan::with([
@@ -71,7 +69,6 @@ class PesananPembeliController extends Controller
         return view('public.riwayat-detail', compact('pesanan'));
     }
 
-
     public function checkout(Request $request)
     {
         $request->validate([
@@ -83,7 +80,6 @@ class PesananPembeliController extends Controller
 
         return view('public.checkout', compact('produkJasa'));
     }
-
 
     public function store(Request $request)
     {
@@ -144,7 +140,6 @@ public function batalkan(Request $request, $id_pesanan)
             ->lockForUpdate()
             ->firstOrFail();
 
-
         if ($pesanan->status === 'menunggu konfirmasi') {
             $pesanan->status = 'dibatalkan';
             $pesanan->save();
@@ -164,7 +159,6 @@ public function batalkan(Request $request, $id_pesanan)
             ];
         }
 
-
         if ($pesanan->status === 'konfirmasi') {
             $permintaan = PermintaanPembatalan::firstOrCreate(
                 ['id_pesanan' => $pesanan->id_pesanan],
@@ -181,7 +175,6 @@ public function batalkan(Request $request, $id_pesanan)
                         'message' => 'Permintaan pembatalan masih menunggu keputusan admin.',
                     ];
                 }
-
 
                 if ($permintaan->status_permintaan === 'ditolak') {
                     $permintaan->update([
@@ -212,14 +205,12 @@ public function batalkan(Request $request, $id_pesanan)
         ];
     });
 
-
     if ($request->expectsJson()) {
         return response()->json(
             $hasil,
             $hasil['success'] ? 200 : 422
         );
     }
-
 
     if ($hasil['success']) {
         return redirect('/riwayat-pesanan')
@@ -230,7 +221,6 @@ public function batalkan(Request $request, $id_pesanan)
         ->withErrors(['error' => $hasil['message']]);
 }
 
-// Hapus pesanan dari riwayat pembeli
 public function hapusRiwayat($id_pesanan)
 {
     if (Auth::user()->role !== 'pembeli') {
@@ -240,7 +230,6 @@ public function hapusRiwayat($id_pesanan)
     $pesanan = Pesanan::where('id_pesanan', $id_pesanan)
         ->where('id_user', Auth::id())
         ->firstOrFail();
-
 
     if (!in_array($pesanan->status, ['selesai', 'dibatalkan'])) {
         return redirect()

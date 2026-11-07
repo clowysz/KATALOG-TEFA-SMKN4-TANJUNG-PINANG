@@ -1,13 +1,3 @@
-/* =========================================================
-   KELOLA PESANAN ADMIN TEFA - DAFTAR PERMINTAAN PEMBATALAN
-
-   Dipakai oleh: admin/admin_tefa/pesanan/index.blade.php
-
-   Fitur:
-   - Tombol Tampilkan / Sembunyikan daftar permintaan pembatalan
-   - Pencarian dan filter jurusan pada daftar tersebut
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const toggleButton = document.getElementById("toggleCancellationList");
   const cancellationList = document.getElementById("cancellationList");

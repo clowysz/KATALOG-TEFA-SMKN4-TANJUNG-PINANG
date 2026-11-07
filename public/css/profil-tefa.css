@@ -1,7 +1,3 @@
-/* 
-   PROFIL TEFA (admin_tefa/profil)
- */
-
 .profile-container {
   display: flex;
   flex-direction: column;
@@ -10,8 +6,6 @@
   margin: 40px auto;
   padding: 32px;
 }
-
-/*  Identitas  */
 
 .profile-avatar {
   width: 120px;
@@ -42,8 +36,6 @@
   border-radius: 20px;
 }
 
-/*  Detail  */
-
 .profile-details {
   width: 100%;
   min-width: 0;
@@ -63,8 +55,6 @@
   margin-bottom: 0;
 }
 
-/*  Tombol logout  */
-
 .btn-logout {
   color: #dc3545;
   border-color: #dc3545;
@@ -83,11 +73,6 @@
   outline-offset: 2px;
 }
 
-/* 
-   RESPONSIVE
- */
-
-/*  MOBILE (<= 768px)  */
 @media (max-width: 768px) {
   .profile-container {
     margin: 16px auto;
@@ -108,7 +93,6 @@
   }
 }
 
-/*  HP KECIL (<= 480px)  */
 @media (max-width: 480px) {
   .profile-container {
     margin: 8px auto;

@@ -1,11 +1,3 @@
-/* =========================================================
-   NOMOR KONTAK (admin Tefa)
-   - Katalog Gabungan : baris ringkas + pop-up ubah nomor PDF
-   - Customer Service : kartu form nomor WhatsApp
-   Desktop : isian + tombol sejajar
-   Mobile  : ditumpuk, tombol penuh
-========================================================= */
-
 .kontak-halaman {
   max-width: 800px;
   margin: 0 auto;
@@ -14,10 +6,6 @@
 body.kontak-modal-terbuka {
   overflow: hidden;
 }
-
-/* =========================
-   IKON & TEKS (dipakai kartu dan baris ringkas)
-========================= */
 
 .kontak-icon {
   width: 42px;
@@ -51,10 +39,6 @@ body.kontak-modal-terbuka {
   font-size: 13px;
   line-height: 1.5;
 }
-
-/* =========================
-   BARIS RINGKAS (Katalog Gabungan)
-========================= */
 
 .kontak-ringkas {
   background: #ffffff;
@@ -120,10 +104,6 @@ body.kontak-modal-terbuka {
   background: #1e3a8a;
   color: #ffffff;
 }
-
-/* =========================
-   KARTU FORM (Customer Service)
-========================= */
 
 .kontak-card {
   background: #ffffff;
@@ -198,10 +178,6 @@ body.kontak-modal-terbuka {
   color: #ffffff;
 }
 
-/* =========================
-   ISIAN & PESAN ERROR (dipakai kartu dan pop-up)
-========================= */
-
 .kontak-group {
   display: flex;
   flex-direction: column;
@@ -250,10 +226,6 @@ body.kontak-modal-terbuka {
 .kontak-error:empty {
   display: none;
 }
-
-/* =========================
-   TOMBOL
-========================= */
 
 .btn-kontak-simpan {
   margin-top: 25px;
@@ -304,10 +276,6 @@ body.kontak-modal-terbuka {
   outline: 3px solid #eab308;
   outline-offset: 2px;
 }
-
-/* =========================
-   POP-UP UBAH NOMOR
-========================= */
 
 .kontak-modal {
   position: fixed;
@@ -409,10 +377,6 @@ body.kontak-modal-terbuka {
   margin-top: 0;
 }
 
-/* =========================
-   PESAN BERHASIL
-========================= */
-
 .katalog-sukses {
   background: #f0fdf4;
   color: #166534;
@@ -427,10 +391,6 @@ body.kontak-modal-terbuka {
   font-size: 14px;
   font-weight: 600;
 }
-
-/* =========================
-   RESPONSIVE
-========================= */
 
 @media (max-width: 768px) {
   .kontak-icon {

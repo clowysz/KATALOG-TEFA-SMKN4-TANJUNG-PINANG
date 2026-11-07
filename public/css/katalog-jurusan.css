@@ -1,15 +1,3 @@
-/* =========================================================
-   KATALOG PRODUK & JASA - ADMIN JURUSAN
-
-   Semua selector kartu diberi awalan .katalog-page supaya
-   tidak bentrok dengan kartu di halaman Kelola Produk / Jasa
-   (class .catalog-* yang sama ada di admin-jurusan.css).
-   ========================================================= */
-
-/* =========================
-   JUDUL
-========================= */
-
 .katalog-page-title {
   font-size: 20px;
   color: #1e293b;
@@ -21,10 +9,6 @@
   font-size: 14px;
   margin: 0;
 }
-
-/* =========================
-   SEARCH + FILTER
-========================= */
 
 .katalog-filter-bar {
   display: flex;
@@ -102,10 +86,6 @@
   color: #ffffff;
 }
 
-/* =========================
-   LOADING / EMPTY / ERROR
-========================= */
-
 .katalog-state {
   background: white;
   border-radius: 16px;
@@ -160,10 +140,6 @@
   margin-bottom: 24px;
 }
 
-/* =========================
-   SECTION
-========================= */
-
 .katalog-section-title {
   margin-bottom: 16px;
   color: #1e293b;
@@ -186,11 +162,6 @@
   color: #573911;
 }
 
-/* =========================
-   GRID KARTU
-   Kolom menyesuaikan lebar layar, tanpa slot kosong
-========================= */
-
 .katalog-page .catalog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
@@ -205,10 +176,6 @@
 #produkContainer {
   margin-bottom: 32px;
 }
-
-/* =========================
-   KARTU
-========================= */
 
 .katalog-page .catalog-card {
   background: #ffffff;
@@ -232,8 +199,6 @@
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(30, 58, 138, 0.1);
 }
-
-/* Gambar */
 
 .katalog-page .catalog-img-wrapper {
   position: relative;
@@ -265,8 +230,6 @@
   font-size: 48px;
 }
 
-/* Jumlah pesanan (kiri atas) */
-
 .katalog-page .catalog-stats {
   position: absolute;
   top: 12px;
@@ -286,8 +249,6 @@
   margin-right: 3px;
 }
 
-/* Badge jenis (kanan atas) */
-
 .katalog-page .catalog-badge {
   position: absolute;
   top: 12px;
@@ -302,8 +263,6 @@
   letter-spacing: 1px;
   z-index: 3;
 }
-
-/* Isi kartu */
 
 .katalog-page .catalog-content {
   padding: 20px;
@@ -366,11 +325,6 @@
   border-color: #1e3a8a;
 }
 
-/* =========================
-   KOSONG PER SEKSI
-   (dibuat oleh katalog-jurusan.js)
-========================= */
-
 .katalog-page .katalog-empty-box {
   grid-column: 1 / -1;
   text-align: center;
@@ -405,10 +359,6 @@
   margin: 0;
 }
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
 @media (max-width: 768px) {
   .katalog-filter-bar {
     align-items: stretch;
@@ -421,7 +371,7 @@
   }
 
   .katalog-search input {
-    font-size: 16px; /* mencegah auto-zoom iOS */
+    font-size: 16px;
   }
 
   .katalog-filter-buttons {
@@ -455,8 +405,6 @@
     padding: 16px;
   }
 
-  /* Kartu sempit: jumlah pesanan di kiri atas, badge jenis dipindah
-       ke kanan bawah gambar supaya keduanya tidak saling menempel */
   .katalog-page .catalog-stats {
     top: 8px;
     left: 8px;
@@ -475,7 +423,6 @@
   }
 }
 
-/* ---------- HP (<= 600px): kartu selalu 3 kolom ---------- */
 @media (max-width: 600px) {
   .katalog-page .catalog-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -483,7 +430,6 @@
   }
 }
 
-/* ---------- HP KECIL: 3 kartu per baris, ringkas ---------- */
 @media (max-width: 480px) {
   .katalog-page .catalog-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -507,7 +453,6 @@
     font-size: 28px;
   }
 
-  /* Jenis sudah jelas dari judul seksi, jadi badge disembunyikan */
   .katalog-page .catalog-badge {
     display: none;
   }

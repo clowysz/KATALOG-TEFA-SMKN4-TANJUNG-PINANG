@@ -16,7 +16,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-
         DB::table('pengaturan')->insert([
             [
                 'kunci' => 'nomor_pdf',

@@ -12,12 +12,9 @@ return new class extends Migration
         Schema::create('permintaan_pembatalan', function (Blueprint $table) {
             $table->id('id_permintaan');
 
-
             $table->unsignedBigInteger('id_pesanan');
 
-
             $table->text('alasan');
-
 
             $table->enum('status_permintaan', [
                 'menunggu',
@@ -25,23 +22,18 @@ return new class extends Migration
                 'ditolak',
             ])->default('menunggu');
 
-
             $table->text('catatan_admin')->nullable();
 
-
             $table->timestamp('tanggal_keputusan')->nullable();
-
 
             $table->unsignedBigInteger('id_admin')->nullable();
 
             $table->timestamps();
 
-
             $table->foreign('id_pesanan')
                 ->references('id_pesanan')
                 ->on('pesanan')
                 ->cascadeOnDelete();
-
 
             $table->unique('id_pesanan');
         });

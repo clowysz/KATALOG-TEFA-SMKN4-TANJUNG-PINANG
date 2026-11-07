@@ -38,7 +38,6 @@ class AdminProduserController extends Controller
         ));
     }
 
-
     public function pesanan()
     {
         $user=Auth::user();
@@ -56,7 +55,6 @@ class AdminProduserController extends Controller
         return view('admin.admin_produser.pesanan',compact('pesanans'));
     }
 
-
     public function showPesanan($id_pesanan)
     {
         $user=Auth::user();
@@ -73,7 +71,6 @@ class AdminProduserController extends Controller
 
         return view('admin.admin_produser.pesanan-detail',compact('pesanan'));
     }
-
 
     public function updateProgress(Request $request,$id_pesanan)
     {
@@ -101,7 +98,6 @@ class AdminProduserController extends Controller
         return redirect()->back()->with('success','Progress pengerjaan berhasil diperbarui!');
     }
 
-
     public function katalog()
     {
         $user=Auth::user();
@@ -117,7 +113,6 @@ class AdminProduserController extends Controller
 
         return view('admin.admin_produser.katalog',compact('produkJasas'));
     }
-
 
     public function showKatalog($id_produk_jasa)
     {
@@ -136,7 +131,6 @@ class AdminProduserController extends Controller
         return view('admin.admin_produser.katalog-detail',compact('produkJasa'));
     }
 
-
     public function profil()
     {
         $user=Auth::user();
@@ -151,7 +145,6 @@ class AdminProduserController extends Controller
 
         return view('admin.admin_produser.profil',compact('user','penugasan'));
     }
-
 
     public function storeTahapan(Request $request,$id_pesanan)
     {
@@ -180,7 +173,6 @@ class AdminProduserController extends Controller
         return redirect()->back()->with('success','Tahapan pengerjaan berhasil ditambahkan!');
     }
 
-
     public function updateTahapan(Request $request,$id_pesanan,$id_tahapan)
     {
         $request->validate([
@@ -204,7 +196,6 @@ class AdminProduserController extends Controller
         return redirect()->back()->with('success','Tahapan pengerjaan berhasil diperbarui!');
     }
 
-
     public function destroyTahapan($id_pesanan,$id_tahapan)
     {
         $pesanan=$this->pesananProduser($id_pesanan);
@@ -217,7 +208,6 @@ class AdminProduserController extends Controller
 
         return redirect()->back()->with('success','Tahapan pengerjaan berhasil dihapus!');
     }
-
 
     public function reorderTahapan(Request $request,$id_pesanan)
     {
@@ -238,7 +228,6 @@ class AdminProduserController extends Controller
 
         return redirect()->back()->with('success','Urutan tahapan berhasil diperbarui!');
     }
-
 
     private function pesananProduser($id_pesanan)
     {

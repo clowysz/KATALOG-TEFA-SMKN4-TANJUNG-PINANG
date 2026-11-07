@@ -39,7 +39,6 @@ class ProdukJasaController extends Controller
         ]);
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -83,7 +82,6 @@ class ProdukJasaController extends Controller
             'message' => 'Produk/Jasa berhasil ditambahkan!'
         ]);
     }
-
 
     public function update(Request $request,int $id)
     {
@@ -139,7 +137,6 @@ class ProdukJasaController extends Controller
         ]);
     }
 
-
     public function destroy(int $id)
     {
         $user = Auth::user();
@@ -167,7 +164,6 @@ class ProdukJasaController extends Controller
             'message' => 'Produk/Jasa berhasil dihapus dari katalog!'
         ]);
     }
-
 
     public function destroyGambar(int $id_gambar)
     {
@@ -203,7 +199,6 @@ class ProdukJasaController extends Controller
         ]);
     }
 
-
     public function tambahTampilan(int $id)
     {
         $produkJasa = ProdukJasa::findOrFail($id);
@@ -215,7 +210,6 @@ class ProdukJasaController extends Controller
             'jumlah_tampilan' => $produkJasa->jumlah_tampilan,
         ]);
     }
-
 
     public function tambahPencarian(int $id)
     {

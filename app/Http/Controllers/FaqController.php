@@ -9,19 +9,12 @@ use Illuminate\Support\Facades\Auth;
 class FaqController extends Controller
 {
 
-
-
-
     public function publik()
     {
         $faqs = Faq::latest('id_faq')->get();
 
         return view('public.faq', compact('faqs'));
     }
-
-
-
-
 
     public function index()
     {

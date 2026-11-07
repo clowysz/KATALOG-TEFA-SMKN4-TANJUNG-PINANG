@@ -1,12 +1,3 @@
-/* =========================================================
-   KATALOG PRODUK & JASA - ADMIN JURUSAN
-
-   Catatan statistik:
-   Pencarian, filter, dan tombol "Lihat Detail" di sisi admin
-   TIDAK menambah jumlah_pencarian / jumlah_tampilan.
-   Statistik itu hanya dihitung dari halaman publik.
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const produkContainer = document.getElementById("produkContainer");
   const jasaContainer = document.getElementById("jasaContainer");

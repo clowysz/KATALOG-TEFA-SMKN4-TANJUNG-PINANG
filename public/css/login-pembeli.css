@@ -1,585 +1,536 @@
-/* 
-   HALAMAN LOGIN / DAFTAR / LUPA SANDI / RESET SANDI (pembeli)
-   Taruh di: public/css/login-pembeli.css
-   Desktop = tampilan asli. Tablet/HP = kartu dan teks dirapikan.
-    */
-
-/*  Tanpa gap putih di bawah / di atas footer  */
 main {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .footer,
 footer {
-    margin-top: 0 !important;
+  margin-top: 0 !important;
 }
 
-/* 
-   PEMBUNGKUS HALAMAN
-    */
 .login-page-wrapper {
-    background: #1e3a8a;
-    min-height: 100vh;
+  background: #1e3a8a;
+  min-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 
-    padding: 100px 20px 80px 20px;
-    margin: 0;
-    width: 100%;
+  padding: 100px 20px 80px 20px;
+  margin: 0;
+  width: 100%;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-/* 
-   TOMBOL KEMBALI
-    */
 .login-back-button {
-    position: absolute;
-    top: 32px;
-    left: 32px;
+  position: absolute;
+  top: 32px;
+  left: 32px;
 
-    z-index: 10;
+  z-index: 10;
 }
 
 .login-back-button a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-    padding: 10px 16px;
+  padding: 10px 16px;
 
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 
-    font-size: 14px;
-    font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
-    transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-    -webkit-tap-highlight-color: transparent;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .login-back-button a i {
-    font-size: 18px;
-    line-height: 1;
+  font-size: 18px;
+  line-height: 1;
 }
 
 .login-back-button a:hover {
-    color: white;
+  color: white;
 
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
 
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .login-back-button a:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .login-back-button a:focus-visible,
 .btn-login-submit:focus-visible,
 .login-options a:focus-visible,
 .login-footer-text a:focus-visible {
-    outline: 3px solid #eab308;
-    outline-offset: 3px;
+  outline: 3px solid #eab308;
+  outline-offset: 3px;
 }
 
-/* 
-   HEADER
-    */
 .login-header-text {
-    text-align: center;
-    color: white;
+  text-align: center;
+  color: white;
 
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 
-    z-index: 2;
+  z-index: 2;
 }
 
 .login-header-text h2 {
-    font-size: 32px;
-    font-weight: 700;
+  font-size: 32px;
+  font-weight: 700;
 
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .login-header-text p {
-    font-size: 14px;
-    opacity: 0.9;
+  font-size: 14px;
+  opacity: 0.9;
 
-    margin: 0;
+  margin: 0;
 }
 
-/* 
-   KARTU
-    */
 .login-card {
-    background: white;
+  background: white;
 
-    border-radius: 24px;
+  border-radius: 24px;
 
-    padding: 40px;
+  padding: 40px;
 
-    width: 100%;
-    max-width: 450px;
+  width: 100%;
+  max-width: 450px;
 
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 
-    z-index: 2;
+  z-index: 2;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-/* 
-   AVATAR
-    */
 .login-avatar {
-    width: 80px;
-    height: 80px;
+  width: 80px;
+  height: 80px;
 
-    background: #1e3a8a;
+  background: #1e3a8a;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    color: white;
-    font-size: 40px;
+  color: white;
+  font-size: 40px;
 
-    margin: -80px auto 24px auto;
+  margin: -80px auto 24px auto;
 
-    border: 5px solid white;
+  border: 5px solid white;
 
-    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.25);
+  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.25);
 }
 
-/* 
-   PESAN (sukses / error)
-    */
 .login-alert {
-    padding: 12px 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    font-size: 13px;
-    line-height: 1.5;
-    text-align: left;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
 }
 
 .login-alert-success {
-    background: #dcfce7;
-    color: #166534;
+  background: #dcfce7;
+  color: #166534;
 }
 
 .login-alert-error {
-    background: #fee2e2;
-    color: #991b1b;
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .login-alert a {
-    display: block;
-    margin-top: 8px;
-    color: #1e3a8a;
-    font-weight: 600;
-    text-decoration: underline;
+  display: block;
+  margin-top: 8px;
+  color: #1e3a8a;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
-/* 
-   FORM
-    */
 .login-form-group {
-    margin-bottom: 20px;
-    text-align: left;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
 .login-form-group label {
-    display: block;
+  display: block;
 
-    font-size: 13px;
-    color: #1e2d3d;
+  font-size: 13px;
+  color: #1e2d3d;
 
-    font-weight: 600;
+  font-weight: 600;
 
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .login-input-box {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    background: #f8fafc;
+  background: #f8fafc;
 
-    border: 1px solid #e2e8f0;
+  border: 1px solid #e2e8f0;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    padding: 12px 16px;
+  padding: 12px 16px;
 
-    transition:
-        border-color 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .login-input-box:focus-within {
-    border-color: #1e3a8a;
-    background: white;
+  border-color: #1e3a8a;
+  background: white;
 
-    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.08);
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.08);
 }
 
 .login-input-box i {
-    color: #64748b;
+  color: #64748b;
 
-    font-size: 18px;
+  font-size: 18px;
 
-    margin-right: 12px;
-    flex-shrink: 0;
+  margin-right: 12px;
+  flex-shrink: 0;
 }
 
-/* Ikon mata (tampilkan / sembunyikan sandi) */
 .login-input-box i.toggle-eye {
-    cursor: pointer;
-    margin-right: 0;
-    margin-left: 12px;
+  cursor: pointer;
+  margin-right: 0;
+  margin-left: 12px;
 }
 
 .login-input-box input {
-    border: none;
-    background: transparent;
-    outline: none;
+  border: none;
+  background: transparent;
+  outline: none;
 
-    width: 100%;
-    min-width: 0;
+  width: 100%;
+  min-width: 0;
 
-    font-size: 14px;
+  font-size: 14px;
 
-    color: #1e2d3d;
+  color: #1e2d3d;
 }
 
 .login-input-box input::placeholder {
-    color: #94a3b8;
+  color: #94a3b8;
 }
 
-/* 
-   OPSI (Ingat saya / Lupa sandi)
-    */
 .login-options {
-    display: flex;
+  display: flex;
 
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 
-    font-size: 13px;
+  font-size: 13px;
 
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .login-options label {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 8px;
+  gap: 8px;
 
-    color: #64748b;
+  color: #64748b;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .login-options a {
-    color: #1e3a8a;
+  color: #1e3a8a;
 
-    text-decoration: none;
+  text-decoration: none;
 
-    font-weight: 600;
+  font-weight: 600;
 
-    transition: color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .login-options a:hover {
-    color: #172554;
+  color: #172554;
 }
 
-/* 
-   TOMBOL MASUK / DAFTAR / KIRIM
-    */
 .btn-login-submit {
-    width: 100%;
+  width: 100%;
 
-    background: #1e3a8a;
-    color: white;
+  background: #1e3a8a;
+  color: white;
 
-    border: none;
+  border: none;
 
-    padding: 14px;
+  padding: 14px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    font-size: 15px;
-    font-weight: 600;
+  font-size: 15px;
+  font-weight: 600;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition:
-        background 0.25s ease,
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-    -webkit-tap-highlight-color: transparent;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-login-submit.btn-spaced {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .btn-login-submit:hover {
-    background: #172554;
+  background: #172554;
 
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 
-    box-shadow: 0 8px 18px rgba(30, 58, 138, 0.25);
+  box-shadow: 0 8px 18px rgba(30, 58, 138, 0.25);
 }
 
 .btn-login-submit:active {
-    transform: scale(0.98);
+  transform: scale(0.98);
 }
 
-/* 
-   TEKS BAWAH
-    */
 .login-footer-text {
-    text-align: center;
+  text-align: center;
 
-    color: white;
+  color: white;
 
-    font-size: 13px;
+  font-size: 13px;
 
-    margin-top: 32px;
+  margin-top: 32px;
 
-    z-index: 2;
+  z-index: 2;
 
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .login-footer-text a {
-    color: white;
+  color: white;
 
-    font-weight: 600;
+  font-weight: 600;
 
-    text-decoration: underline;
+  text-decoration: underline;
 
-    text-underline-offset: 3px;
+  text-underline-offset: 3px;
 }
 
 .login-footer-text a:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
-/* 
-   ANIMASI GELEMBUNG
-    */
 .bubble {
-    position: absolute;
+  position: absolute;
 
-    background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    animation: float infinite ease-in-out;
+  animation: float infinite ease-in-out;
 
-    pointer-events: none;
+  pointer-events: none;
 }
 
 @keyframes float {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
 
-    50% {
-        transform: translateY(-20px);
-    }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
-/* 
-   RESPONSIF
-   Avatar menonjol ke atas kartu; jarak judul sengaja disisakan.
-    */
-
-/*  TABLET (maks 768px)  */
 @media (max-width: 768px) {
-    .login-page-wrapper {
-        padding: 84px 16px 56px;
-        min-height: calc(100vh - 70px);
-    }
+  .login-page-wrapper {
+    padding: 84px 16px 56px;
+    min-height: calc(100vh - 70px);
+  }
 
-    .login-back-button {
-        top: 20px;
-        left: 20px;
-    }
+  .login-back-button {
+    top: 20px;
+    left: 20px;
+  }
 
-    .login-header-text {
-        margin-bottom: 40px;
-    }
+  .login-header-text {
+    margin-bottom: 40px;
+  }
 
-    .login-header-text h2 {
-        font-size: 28px;
-    }
+  .login-header-text h2 {
+    font-size: 28px;
+  }
 
-    .login-card {
-        max-width: 420px;
-        padding: 32px 28px;
-    }
+  .login-card {
+    max-width: 420px;
+    padding: 32px 28px;
+  }
 }
 
-/*  HP (maks 576px)  */
 @media (max-width: 576px) {
-    .login-page-wrapper {
-        padding: 66px 14px 40px;
-    }
+  .login-page-wrapper {
+    padding: 66px 14px 40px;
+  }
 
-    .login-page-wrapper .bubble {
-        max-width: 60px;
-        max-height: 60px;
-    }
+  .login-page-wrapper .bubble {
+    max-width: 60px;
+    max-height: 60px;
+  }
 
-    .login-back-button {
-        top: 14px;
-        left: 14px;
-    }
+  .login-back-button {
+    top: 14px;
+    left: 14px;
+  }
 
-    .login-back-button a {
-        padding: 7px 12px;
-        font-size: 12.5px;
-        gap: 6px;
-        border-radius: 9px;
-    }
+  .login-back-button a {
+    padding: 7px 12px;
+    font-size: 12.5px;
+    gap: 6px;
+    border-radius: 9px;
+  }
 
-    .login-back-button a i {
-        font-size: 15px;
-    }
+  .login-back-button a i {
+    font-size: 15px;
+  }
 
-    .login-header-text {
-        margin-bottom: 38px;
-    }
+  .login-header-text {
+    margin-bottom: 38px;
+  }
 
-    .login-header-text h2 {
-        font-size: 22px;
-        margin-bottom: 4px;
-    }
+  .login-header-text h2 {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
 
-    .login-header-text p {
-        font-size: 12.5px;
-        line-height: 1.5;
-        padding: 0 8px;
-    }
+  .login-header-text p {
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding: 0 8px;
+  }
 
-    .login-card {
-        padding: 24px 18px 22px;
-        border-radius: 16px;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
-    }
+  .login-card {
+    padding: 24px 18px 22px;
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  }
 
-    .login-avatar {
-        width: 56px;
-        height: 56px;
-        font-size: 28px;
-        border-width: 4px;
-        margin: -52px auto 16px auto;
-    }
+  .login-avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+    border-width: 4px;
+    margin: -52px auto 16px auto;
+  }
 
-    .login-alert {
-        padding: 10px 12px;
-        font-size: 12px;
-        margin-bottom: 14px;
-    }
+  .login-alert {
+    padding: 10px 12px;
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
 
-    .login-form-group {
-        margin-bottom: 14px;
-    }
+  .login-form-group {
+    margin-bottom: 14px;
+  }
 
-    .login-form-group label {
-        font-size: 12px;
-        margin-bottom: 6px;
-    }
+  .login-form-group label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
 
-    .login-input-box {
-        padding: 10px 12px;
-        border-radius: 10px;
-    }
+  .login-input-box {
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
 
-    .login-input-box i {
-        font-size: 16px;
-        margin-right: 10px;
-    }
+  .login-input-box i {
+    font-size: 16px;
+    margin-right: 10px;
+  }
 
-    .login-input-box i.toggle-eye {
-        margin-left: 10px;
-    }
+  .login-input-box i.toggle-eye {
+    margin-left: 10px;
+  }
 
-    .login-input-box input {
-        font-size: 14px;
-    }
+  .login-input-box input {
+    font-size: 14px;
+  }
 
-    .login-options {
-        font-size: 12px;
-        margin-bottom: 18px;
-    }
+  .login-options {
+    font-size: 12px;
+    margin-bottom: 18px;
+  }
 
-    .btn-login-submit {
-        padding: 12px;
-        font-size: 14px;
-        border-radius: 10px;
-    }
+  .btn-login-submit {
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
 
-    .login-footer-text {
-        font-size: 12px;
-        margin-top: 20px;
-    }
+  .login-footer-text {
+    font-size: 12px;
+    margin-top: 20px;
+  }
 }
 
-/*  HP kecil (maks 380px)  */
 @media (max-width: 380px) {
-    .login-card {
-        padding: 22px 15px 20px;
-    }
+  .login-card {
+    padding: 22px 15px 20px;
+  }
 
-    .login-header-text h2 {
-        font-size: 20px;
-    }
+  .login-header-text h2 {
+    font-size: 20px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .bubble {
-        animation: none;
-    }
+  .bubble {
+    animation: none;
+  }
 
-    .login-back-button a,
-    .btn-login-submit,
-    .login-input-box {
-        transition: none !important;
-    }
+  .login-back-button a,
+  .btn-login-submit,
+  .login-input-box {
+    transition: none !important;
+  }
 }

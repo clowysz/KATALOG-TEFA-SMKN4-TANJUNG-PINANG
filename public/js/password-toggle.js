@@ -1,9 +1,3 @@
-/*
-|--------------------------------------------------------------------------
-| Toggle tampil/sembunyi password
-|--------------------------------------------------------------------------
-| Pakai: <i class="ph ph-eye toggle-eye" data-toggle-password="#idInput"></i>
-*/
 document.addEventListener("DOMContentLoaded", function () {
   document
     .querySelectorAll("[data-toggle-password]")

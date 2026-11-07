@@ -11,20 +11,15 @@ return new class extends Migration
         Schema::create('tahapan_pengerjaans', function (Blueprint $table) {
             $table->id();
 
-
             $table->foreignId('id_pesanan')
                 ->constrained('pesanan', 'id_pesanan')
                 ->onDelete('cascade');
 
-
             $table->string('nama_tahapan');
-
 
             $table->integer('urutan');
 
-
             $table->string('status')->default('belum');
-
 
             $table->integer('persentase_progress')->default(0);
 

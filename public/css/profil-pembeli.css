@@ -1,8 +1,3 @@
-/* 
-   PROFIL PEMBELI
-    */
-
-/*  Tanpa gap putih di atas footer  */
 main {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
@@ -13,7 +8,6 @@ footer {
   margin-top: 0 !important;
 }
 
-/*  PEMBUNGKUS HALAMAN  */
 .page-wrapper-blue {
   background: #1e3a8a;
   min-height: 100vh;
@@ -73,7 +67,6 @@ footer {
   outline-offset: 3px;
 }
 
-/*  1. HALAMAN PROFIL  */
 .glass-card {
   background: rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(14px);
@@ -192,7 +185,6 @@ footer {
   box-sizing: border-box;
 }
 
-/* Area tombol di bawah kartu profil */
 .profil-actions {
   display: flex;
   flex-direction: column;
@@ -304,11 +296,6 @@ footer {
   transform: scale(0.97);
 }
 
-/* 
-   RESPONSIF
-    */
-
-/*  TABLET (maks 768px)  */
 @media (max-width: 768px) {
   .page-wrapper-blue {
     padding: 24px 4% 56px;
@@ -340,7 +327,6 @@ footer {
   }
 }
 
-/*  HP (maks 576px)  */
 @media (max-width: 576px) {
   .page-wrapper-blue {
     padding: 16px 4% 40px;
@@ -418,7 +404,6 @@ footer {
   }
 }
 
-/*  HP kecil (maks 360px): isian profil bertumpuk  */
 @media (max-width: 360px) {
   .profil-row {
     flex-direction: column;

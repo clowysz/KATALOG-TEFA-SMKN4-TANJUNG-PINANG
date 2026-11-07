@@ -126,7 +126,6 @@
             $halamanAktif = $katalog->currentPage();
             $halamanAkhir = $katalog->lastPage();
 
-
             $daftarHalaman = collect(range(1, $halamanAkhir))
                 ->filter(fn ($p) => $p === 1 || $p === $halamanAkhir || abs($p - $halamanAktif) <= 1)
                 ->values();

@@ -1,9 +1,3 @@
-/* =========================================================
-   FORM FAQ (admin_tefa/faq/create & edit)
-
-   Pesan validasi bahasa Indonesia untuk kolom pertanyaan & jawaban.
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const REQUIRED_MESSAGES = {
     pertanyaan: "Silakan isi pertanyaan.",

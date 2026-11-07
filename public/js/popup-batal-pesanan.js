@@ -1,16 +1,3 @@
-/* =========================================================
-   POPUP PEMBATALAN PESANAN (PEMBELI)
-
-   Dipakai oleh: resources/views/public/popup/batal-pesanan.blade.php
-   Dimuat otomatis dari partial tersebut lewat @push('js').
-
-   Fitur:
-   - Membuka popup dari tombol .rw-btn-cancel
-   - Memilih alasan (atau menulis alasan lainnya)
-   - Mengirim permintaan pembatalan tanpa refresh halaman
-   - Memperbarui baris pesanan di tabel riwayat jika langsung dibatalkan
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("cancelModal");
 

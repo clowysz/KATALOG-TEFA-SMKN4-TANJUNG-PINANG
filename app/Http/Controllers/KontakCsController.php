@@ -6,16 +6,12 @@ use App\Models\Pengaturan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-/**
- * Pengaturan nomor WhatsApp Customer Service (admin Tefa).
- */
 class KontakCsController extends Controller
 {
     public function index()
     {
 
         $nomorCs = Pengaturan::formatNomor(Pengaturan::nomorCs());
-
 
         $urlWhatsapp = Pengaturan::urlWhatsapp();
 

@@ -1,22 +1,3 @@
-/* =========================================================
-   PESANAN TEFA
-   Kelola pesanan dan detail pesanan.
-   Desktop: tabel | Tablet: kartu 2 kolom | HP: 1 kolom
-
-   Isi file ini:
-   1. Komponen bersama
-   2. Kelola pesanan (tabel utama, kolom status & aksi)
-   3. Notifikasi & daftar permintaan pembatalan
-   4. Detail pesanan
-   5. Pembatalan di halaman detail (kartu & modal)
-   6. Responsif
-   7. Preferensi pengurangan animasi
-========================================================= */
-
-/* =========================================================
-   1. KOMPONEN BERSAMA
-========================================================= */
-
 .page-header {
   margin-top: 3px;
   margin-bottom: 24px;
@@ -63,10 +44,6 @@
   background: #fef2f2;
   border: 1px solid #fecaca;
 }
-
-/* =========================================================
-   2. KELOLA PESANAN
-========================================================= */
 
 .pesanan-table th,
 .pesanan-table td {
@@ -131,8 +108,6 @@
   vertical-align: middle;
 }
 
-/* Lebar & tinggi tetap: form status, "Pembatalan diajukan", dan
-   "Dibatalkan" semuanya sama ukuran sehingga tabel rapi. */
 .status-cell-content {
   box-sizing: border-box;
   width: 250px;
@@ -228,10 +203,6 @@
   text-align: center;
 }
 
-/* =========================================================
-   3. NOTIFIKASI & DAFTAR PERMINTAAN PEMBATALAN
-========================================================= */
-
 .cancellation-notification {
   display: flex;
   align-items: center;
@@ -304,8 +275,6 @@
   font-size: 12px;
 }
 
-/* Filter dan tabel daftar permintaan pembatalan memakai gaya yang sama
-   dengan halaman utama (.filter-bar dan .pesanan-table). */
 #cancellationList .table-responsive {
   margin-top: 8px;
 }
@@ -313,10 +282,6 @@
 #cancellationList .cancellation-pesanan-table tr.cancellation-row[hidden] {
   display: none !important;
 }
-
-/* =========================================================
-   4. DETAIL PESANAN
-========================================================= */
 
 .detail-pesanan-container {
   max-width: 1100px;
@@ -562,10 +527,6 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-
-/* =========================================================
-   5. PEMBATALAN DI HALAMAN DETAIL
-========================================================= */
 
 .detail-pesanan-bottom {
   display: grid;
@@ -847,10 +808,6 @@
   background: #b91c1c;
 }
 
-/* =========================================================
-   6. RESPONSIF
-========================================================= */
-
 @media (max-width: 1024px) {
   .table-responsive {
     overflow: visible;
@@ -1125,9 +1082,6 @@
   }
 }
 
-/* =========================================================
-   7. PREFERENSI PENGURANGAN ANIMASI
-========================================================= */
 @media (prefers-reduced-motion: reduce) {
   .btn-update-pesanan,
   .btn-detail-pesanan,
@@ -1140,12 +1094,6 @@
     transition: none;
   }
 }
-
-/* =========================================================
-   TAMBAHAN: ringkasan pembatalan pesanan
-   Tempel di BAGIAN PALING BAWAH public/css/pesanan-tefa.css
-   (lalu naikkan ?v= di Blade agar cache browser diperbarui)
-========================================================= */
 
 .cancellation-summary {
   display: grid;

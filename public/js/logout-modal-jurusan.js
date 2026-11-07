@@ -1,12 +1,3 @@
-/* =========================================================
-   MODAL LOGOUT - ADMIN JURUSAN
-
-   Pemakaian di blade:
-   - data-logout-open  -> membuka modal
-   - data-logout-close -> menutup modal
-   Klik area gelap di luar kotak & tombol Esc juga menutup modal.
-========================================================= */
-
 (function () {
   "use strict";
 

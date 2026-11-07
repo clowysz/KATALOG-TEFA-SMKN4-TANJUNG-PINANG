@@ -2,12 +2,6 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Baris Bahasa Validasi
-    |--------------------------------------------------------------------------
-    */
-
     'accepted' => 'Kolom :attribute harus disetujui.',
     'accepted_if' => 'Kolom :attribute harus disetujui ketika :other bernilai :value.',
     'active_url' => 'Kolom :attribute harus berupa URL yang valid.',
@@ -180,23 +174,11 @@ return [
     'ulid' => 'Kolom :attribute harus berupa ULID yang valid.',
     'uuid' => 'Kolom :attribute harus berupa UUID yang valid.',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Pesan Validasi Khusus
-    |--------------------------------------------------------------------------
-    */
-
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'Pesan validasi khusus.',
         ],
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Nama Attribute Validasi
-    |--------------------------------------------------------------------------
-    */
 
     'attributes' => [
         'nama' => 'nama',

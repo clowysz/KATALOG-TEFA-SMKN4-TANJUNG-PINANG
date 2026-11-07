@@ -1,15 +1,3 @@
-/* =========================================================
-   KELOLA PORTOFOLIO - ADMIN JURUSAN
-
-   Atribut di blade:
-   - data-open-tambah        : membuka modal tambah
-   - data-close-modal="id"   : menutup modal
-========================================================= */
-
-// =========================================================
-// MODAL (global: dibungkus oleh form-helper-jurusan.js)
-// =========================================================
-
 function openPortoModal(id) {
   const modal = document.getElementById(id);
 
@@ -42,10 +30,6 @@ function openTambahPortoModal() {
 
   openPortoModal("modalAddPorto");
 }
-
-// =========================================================
-// HALAMAN SIAP
-// =========================================================
 
 document.addEventListener("DOMContentLoaded", function () {
   const container = document.getElementById("portoContainer");

@@ -11,11 +11,6 @@ use App\Services\ChromePdfGenerator;
 
 class KatalogTefaController extends Controller
 {
-    /**
-     * Jumlah item per halaman yang diizinkan.
-     * 16 = desktop/tablet (4 kolom x 4 baris)
-     * 15 = mobile (3 kolom x 5 baris)
-     */
     private const PER_PAGE_OPTIONS = [15, 16];
     private const PER_PAGE_DEFAULT = 16;
 
@@ -26,8 +21,6 @@ class KatalogTefaController extends Controller
         if (!in_array($perPage, self::PER_PAGE_OPTIONS, true)) {
             $perPage = self::PER_PAGE_DEFAULT;
         }
-
-
 
         $rawKeyword = $request->query('keyword', '');
         $keyword = is_scalar($rawKeyword) ? trim((string) $rawKeyword) : '';
@@ -41,8 +34,6 @@ class KatalogTefaController extends Controller
             : 'semua';
 
         $adaFilter = $keyword !== '' || $jenis !== 'semua' || $idJurusan !== 'semua';
-
-
 
         $query = ProdukJasa::query();
 
@@ -61,7 +52,6 @@ class KatalogTefaController extends Controller
             $query->where('id_jurusan', $idJurusan);
         }
 
-
         $semuaId = (clone $query)->pluck('id_produk_jasa');
 
         $katalog = $query
@@ -73,10 +63,8 @@ class KatalogTefaController extends Controller
             ->paginate($perPage)
             ->withQueryString();
 
-
         $daftarJurusan = Jurusan::orderBy('nama_jurusan')
             ->get(['id_jurusan', 'nama_jurusan']);
-
 
         $nomorPdf = Pengaturan::formatNomor(Pengaturan::nomorPdf());
 
@@ -110,10 +98,6 @@ class KatalogTefaController extends Controller
         );
     }
 
-    /**
-     * Simpan nomor yang tampil di footer PDF.
-     * (Nomor Customer Service diatur di KontakCsController.)
-     */
     public function updateNomorPdf(Request $request)
     {
         $nomor = Pengaturan::normalisasiNomor($request->input('nomor_pdf'));
@@ -207,7 +191,6 @@ class KatalogTefaController extends Controller
             $fileName
         );
     }
-
 
     public function showDetail(int $id)
     {
