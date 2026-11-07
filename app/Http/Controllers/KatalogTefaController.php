@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\ProdukJasa;
 use App\Models\Jurusan;
 use App\Models\Pengaturan;
-use App\Services\ChromePdfGenerator;
+use Spatie\LaravelPdf\Facades\Pdf;
 
 class KatalogTefaController extends Controller
 {
@@ -118,7 +118,7 @@ class KatalogTefaController extends Controller
             ->with('sukses', 'Nomor di PDF berhasil diperbarui.');
     }
 
-    public function generatePdf(Request $request, ChromePdfGenerator $generator)
+   public function generatePdf(Request $request)
     {
         $validated = $request->validate([
             'produk_jasa_ids' => [
@@ -182,14 +182,14 @@ class KatalogTefaController extends Controller
             now()->format('Y-m-d') .
             '.pdf';
 
-        return $generator->fromView(
-            'admin.admin_tefa.pdf',
-            [
-                'produkJasas' => $produkJasas,
-                'nomorKontak' => Pengaturan::formatNomor(Pengaturan::nomorPdf()),
-            ],
-            $fileName
-        );
+       return Pdf::view('admin.admin_tefa.pdf', [
+        'produkJasas' => $produkJasas,
+        'nomorKontak' => Pengaturan::formatNomor(Pengaturan::nomorPdf()),
+    ])
+    ->driver('dompdf')
+    ->format('a4')
+    ->name($fileName)
+    ->download();
     }
 
     public function showDetail(int $id)

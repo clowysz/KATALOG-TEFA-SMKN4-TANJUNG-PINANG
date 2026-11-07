@@ -2,916 +2,411 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-
     <title>Katalog Produk dan Jasa TEFA</title>
 
     <style>
         @page {
-            size: A4 portrait;
             margin: 0;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
+        html, body {
             margin: 0;
             padding: 0;
-
-            font-family: Arial, Helvetica, sans-serif;
-
+            background: #EAF5FF;
+            font-family: Helvetica, Arial, sans-serif;
             color: #123D78;
-
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
         }
 
-        body {
-            background: #ffffff;
+        table {
+            border-collapse: separate;
         }
 
         .pdf-page {
             width: 210mm;
-            height: 297mm;
-
-            padding: 7mm 8mm 0;
-
-            background: #EAF5FF;
-
-            overflow: hidden;
-
-            page-break-after: always;
         }
 
-        .pdf-page:last-child {
-            page-break-after: auto;
+        .pdf-page-next {
+            page-break-before: always;
+        }
+
+        .wrap {
+            margin: 4mm 8mm 0 8mm;
+        }
+
+        /* HEADER */
+        .header-box {
+            position: relative;
+            width: 194mm;
+            height: 44mm;
+            background: #06449B;
+            overflow: hidden;
+        }
+
+        .header-bubble {
+            position: absolute;
+            right: -20mm;
+            bottom: -22mm;
+            width: 55mm;
+            height: 55mm;
+            background: #5788C8;
+            border-radius: 50%;
+            z-index: 1;
         }
 
         .header {
-            width: 100%;
-            height: 47mm;
-
             position: relative;
-
-            background: #06449B;
-
+            z-index: 2;
+            width: 194mm;
+            height: 44mm;
             color: #ffffff;
-
-            overflow: hidden;
-
-            margin-bottom: 3mm;
+            border-collapse: collapse;
         }
 
         .header-top {
-            width: 100%;
             height: 9mm;
-
             background: #07377D;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: flex-end;
-
+            text-align: right;
             padding: 0 5mm;
-
-            gap: 4mm;
-
             font-size: 9pt;
-
             font-weight: bold;
-
-            letter-spacing: 0.4px;
-
-            position: relative;
-
-            z-index: 5;
+            color: #ffffff;
         }
 
         .header-top .dot {
             color: #B9D8FF;
         }
 
-        .header-content {
-            width: 100%;
-
-            height: 38m;
-
-            display: flex;
-
-            align-items: center;
-
-            padding: 3mm 5mm;
-
-            gap: 5mm;
-
-            position: relative;
-
-            z-index: 5;
+        .header-logo {
+            width: 30mm;
+            padding: 0 0 0 5mm;
+            vertical-align: middle;
         }
 
-        .logo {
+        .header-logo img {
             width: 25mm;
-
             height: 25mm;
-
-            min-width: 25mm;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            overflow: hidden;
-
-            background: transparent;
-
-            border: none;
-        }
-
-        .logo img {
-            width: 100%;
-
-            height: 100%;
-
-            display: block;
-
-            object-fit: contain;
         }
 
         .logo-fallback {
-            color: #ffffff;
-
             font-size: 7pt;
-
             font-weight: bold;
-
-            line-height: 1.2;
-
             text-align: center;
         }
 
         .header-text {
-            flex: 1;
-
-            min-width: 0;
+            vertical-align: middle;
+            padding-left: 3mm;
         }
 
         .school-name {
             font-size: 12pt;
-
             font-weight: bold;
-
-            letter-spacing: 0.8px;
-
             margin-bottom: 1mm;
         }
 
         .header-title {
             margin: 0;
-
             font-size: 30pt;
-
-            font-weight: 900;
-
-            line-height: 0.95;
-
-            letter-spacing: -0.8px;
-
+            font-weight: bold;
+            line-height: 1;
             text-transform: uppercase;
         }
 
         .header-title span {
             display: block;
-
             font-size: 23pt;
-
             margin-top: 1mm;
         }
 
-       .header-decoration {
-    position: absolute;
-
-    right: -20mm;
-    bottom: -20mm;
-
-    width: 55mm;
-    height: 55mm;
-
-    background: #bbdbff;
-
-    border-radius: 50%;
-
-    opacity: 0.45;
-
-    z-index: 1;
-}
-
+        /* GRID */
         .catalog-grid {
-            width: 100%;
+            width: 194mm;
+            margin-top: 3mm;
+            border-spacing: 3mm;
+            margin-left: -3mm;
+            margin-right: -3mm;
+        }
 
-            height: 222mm;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, minmax(0, 1fr));
-
-            grid-template-rows:
-                repeat(4, minmax(0, 1fr));
-
-            gap: 3mm;
+        .catalog-grid td {
+            width: 60.6mm;
+            height: 51mm;
+            vertical-align: top;
+            padding: 0;
         }
 
         .catalog-card {
-            width: 100%;
-
-            height: 100%;
-
-            min-width: 0;
-
-            min-height: 0;
-
+            width: 55.6mm;
+            height: 45mm;
             background: #ffffff;
-
             border: 1px solid #D7E8F8;
-
             border-radius: 3mm;
-
             padding: 2.5mm;
-
             overflow: hidden;
-
-            position: relative;
-
-            page-break-inside: avoid;
-
-            break-inside: avoid;
         }
 
         .card-badges {
             width: 100%;
+            height: 5mm;
+        }
 
-            height: 6mm;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 2mm;
-
-            overflow: hidden;
+        .card-badges td {
+            height: 5mm;
+            padding: 0;
         }
 
         .badge {
-            display: block;
-
-            height: 5mm;
-
+            display: inline-block;
             padding: 0.8mm 2mm;
-
-            border-radius: 5mm;
-
+            border-radius: 3mm;
             color: #ffffff;
-
             font-size: 7pt;
-
             font-weight: bold;
-
-            line-height: 3.4mm;
-
-            text-align: center;
-
             text-transform: uppercase;
-
             white-space: nowrap;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
         }
 
-        .badge-jurusan {
-            background: #06449B;
-
-            max-width: 25mm;
-        }
-
-        .badge-jenis {
-            background: #B30D35;
-
-            max-width: 25mm;
-        }
+        .badge-jurusan { background: #06449B; }
+        .badge-jenis   { background: #B30D35; }
 
         .card-image {
-            width: 100%;
-
-            height: 22mm;
-
+            width: 55mm;
+            height: 19mm;
             margin-top: 1.5mm;
-
-            border-radius: 2mm;
-
             overflow: hidden;
-
             background: #E9EEF5;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-        }
-
-        .card-image img {
-            width: 100%;
-
-            height: 100%;
-
-            display: block;
-
-            object-fit: cover;
+            text-align: center;
         }
 
         .no-image {
-            width: 100%;
-
-            height: 100%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 2mm;
-
+            padding-top: 8mm;
             color: #94A3B8;
-
             font-size: 7pt;
-
             font-weight: bold;
-
-            text-align: center;
         }
 
         .card-title {
-    width: 100%;
-
-    height: 4.4mm;
-
-    margin: 1.5mm 0 0;
-
-    padding: 0;
-
-    color: #06449B;
-
-    font-size: 9pt;
-
-    font-weight: 800;
-
-    line-height: 3.5mm;
-
-    overflow: hidden;
-
-    word-break: normal;
-
-    overflow-wrap: break-word;
-}
-
-.card-description {
-    width: 100%;
-
-    height: 9mm;
-
-    margin: -0.5mm 0 0;
-    padding: 0 0 1mm;
-
-    color: #475569;
-
-    font-size: 7pt;
-
-    line-height: 3.2mm;
-
-    overflow: hidden;
-
-    word-break: normal;
-
-    overflow-wrap: break-word;
-}
-        .card-price {
-            position: absolute;
-
-            left: 2.5mm;
-
-            right: 2.5mm;
-
-            bottom: 2.5mm;
-
-            height: 5.5mm;
-
-            padding-top: 1mm;
-
-            border-top: 0.3mm solid #E2EDF7;
-
+            width: 55mm;
+            height: 4.5mm;
+            margin-top: 1mm;
             color: #06449B;
-
             font-size: 9pt;
-
-            font-weight: 900;
-
-            line-height: 4mm;
-
-            overflow: hidden;
-
-            white-space: nowrap;
-
-            text-overflow: ellipsis;
-
-            background: #ffffff;
-        }
-
-        .footer {
-            width: calc(100% + 16mm);
-
-            height: 14mm;
-
-            margin: 3mm -8mm 0;
-
-            padding: 2mm 8mm;
-
-            background: #07377D;
-
-            color: #ffffff;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 4mm;
-
-            overflow: hidden;
-        }
-
-        .footer-item {
-            display: flex;
-
-            align-items: center;
-
-            gap: 2mm;
-
-            min-width: 0;
-
-            font-size: 7.5pt;
-
-            line-height: 1.4;
-        }
-
-        .footer-icon {
-            width: 8mm;
-
-            height: 8mm;
-
-            min-width: 8mm;
-
-            background: #ffffff;
-
-            color: #06449B;
-
-            border-radius: 50%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 11pt;
-
             font-weight: bold;
+            line-height: 4.5mm;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .card-description {
+            width: 55mm;
+            height: 7.5mm;
+            color: #475569;
+            font-size: 7pt;
+            line-height: 3.3mm;
+            overflow: hidden;
+        }
+
+        .card-price {
+            width: 55mm;
+            height: 5mm;
+            border-top: 0.3mm solid #E2EDF7;
+            padding-top: 1mm;
+            color: #06449B;
+            font-size: 9pt;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        /* FOOTER */
+        .footer {
+            width: 210mm;
+            height: 16mm;
+            margin-top: 4mm;
+            background: #07377D;
+            color: #ffffff;
+            border-collapse: collapse;
+        }
+
+        .footer td {
+            padding: 4mm 8mm;
+            vertical-align: middle;
+            font-size: 8pt;
         }
 
         .footer-label {
             font-size: 7pt;
-
             color: #C9E0FF;
-        }
-
-        .empty-card {
-            background: transparent;
-
-            border: none;
         }
     </style>
 </head>
-
 <body>
 
 @php
-
     $logoPath = public_path('images/logo-smk4.png');
-
     $logoBase64 = null;
 
     if (file_exists($logoPath)) {
-
-        $logoMime = mime_content_type($logoPath);
-
-        $logoBase64 =
-            'data:' .
-            $logoMime .
-            ';base64,' .
-            base64_encode(
-                file_get_contents(
-                    $logoPath
-                )
-            );
+        $logoBase64 = 'data:' . mime_content_type($logoPath) . ';base64,' . base64_encode(file_get_contents($logoPath));
     }
 
-    function singkatanJurusan($nama)
-    {
-        $nama = strtoupper(
-            trim($nama ?? '')
-        );
+    if (!function_exists('singkatanJurusan')) {
+        function singkatanJurusan($nama)
+        {
+            $nama = strtoupper(trim($nama ?? ''));
 
-        return match ($nama) {
-
-            'REKAYASA PERANGKAT LUNAK',
-            'RPL'
-                => 'RPL',
-
-            'TEKNIK KOMPUTER DAN JARINGAN',
-            'TKJ'
-                => 'TKJ',
-
-            'DESAIN KOMUNIKASI VISUAL',
-            'DKV'
-                => 'DKV',
-
-            'PRODUKSI DAN SIARAN PROGRAM TELEVISI',
-            'PSPT'
-                => 'PSPT',
-
-            'ANIMASI'
-                => 'ANIMASI',
-
-            'GAME INTERACTIVE MEDIA',
-            'GAME INTERACTIVE',
-            'PENGEMBANGAN GIM',
-            'GIM'
-                => 'GIM',
-
-            default
-                => $nama ?: 'TEFA',
-        };
+            return match ($nama) {
+                'REKAYASA PERANGKAT LUNAK', 'RPL' => 'RPL',
+                'TEKNIK KOMPUTER DAN JARINGAN', 'TKJ' => 'TKJ',
+                'DESAIN KOMUNIKASI VISUAL', 'DKV' => 'DKV',
+                'PRODUKSI DAN SIARAN PROGRAM TELEVISI', 'PSPT' => 'PSPT',
+                'ANIMASI' => 'ANIMASI',
+                'GAME INTERACTIVE MEDIA', 'GAME INTERACTIVE', 'PENGEMBANGAN GIM', 'GIM' => 'GIM',
+                default => $nama ?: 'TEFA',
+            };
+        }
     }
 
+    $halamanList = $produkJasas->chunk(12);
+    $totalHalaman = $halamanList->count();
 @endphp
 
-@foreach($produkJasas->chunk(12) as $halaman)
+@foreach($halamanList as $indexHalaman => $halaman)
 
-    <div class="pdf-page">
+    <div class="pdf-page {{ $loop->first ? '' : 'pdf-page-next' }}">
 
-        <!-- =================================================
-             HEADER
-        ================================================== -->
+        <div class="wrap">
 
-        <div class="header">
-
-            <div class="header-top">
-
-                <span>TEFA</span>
-
-                <span class="dot">●</span>
-
-                <span>SMK N 4</span>
-
-                <span class="dot">●</span>
-
-                <span>TANJUNG PINANG</span>
-
-            </div>
-
-            <div class="header-content">
-
-                
-
-                <div class="logo">
-
-                    @if($logoBase64)
-
-                        <img
-                            src="{{ $logoBase64 }}"
-                            alt="Logo SMK Negeri 4 Tanjungpinang"
-                        >
-
-                    @else
-
-                        <span class="logo-fallback">
-                            SMK NEGERI 4
-                        </span>
-
-                    @endif
-
-                </div>
-
-                <div class="header-text">
-
-                    <div class="school-name">
-                        TEFA SMK N 4 TANJUNG PINANG
-                    </div>
-
-                    <h1 class="header-title">
-
-                        KATALOG
-
-                        <span>
-                            PRODUK DAN JASA
-                        </span>
-
-                    </h1>
-
-                </div>
-
-            </div>
-
-            <div class="header-decoration"></div>
-
-        </div>
-
-        <!-- =================================================
-             GRID 3 x 4
-        ================================================== -->
-
-        <div class="catalog-grid">
-
-            @foreach($halaman as $item)
-
-                <div class="catalog-card">
-
-                    <!-- =================================================
-                         BADGE
-                    ================================================== -->
-
-                    <div class="card-badges">
-
-                        <span class="badge badge-jurusan">
-
-                            {{ singkatanJurusan(
-                                $item->jurusan->nama_jurusan ?? null
-                            ) }}
-
-                        </span>
-
-                        <span class="badge badge-jenis">
-
-                            {{ strtoupper(
-                                $item->jenis ?? 'PRODUK'
-                            ) }}
-
-                        </span>
-
-                    </div>
-
-                    <!-- =================================================
-                         GAMBAR
-                    ================================================== -->
-
-                    <div class="card-image">
-
-                        @if(
-                            $item->gambars &&
-                            $item->gambars->first()
-                        )
-
-                            @php
-
-                                $gambarPath = storage_path(
-                                    'app/public/' .
-                                    $item->gambars
-                                        ->first()
-                                        ->path_gambar
-                                );
-
-                                $gambarBase64 = null;
-
-                                if (
-                                    file_exists(
-                                        $gambarPath
-                                    )
-                                ) {
-
-                                    $gambarMime =
-                                        mime_content_type(
-                                            $gambarPath
-                                        );
-
-                                    $gambarBase64 =
-                                        'data:' .
-                                        $gambarMime .
-                                        ';base64,' .
-                                        base64_encode(
-                                            file_get_contents(
-                                                $gambarPath
-                                            )
-                                        );
-                                }
-
-                            @endphp
-
-                            @if($gambarBase64)
-
-                                <img
-                                    src="{{ $gambarBase64 }}"
-                                    alt="{{ $item->nama_produk_jasa }}"
-                                >
-
-                            @else
-
-                                <div class="no-image">
-                                    Gambar tidak ditemukan
-                                </div>
-
-                            @endif
-
+            <div class="header-box">
+            <div class="header-bubble"></div>
+            <table class="header">
+                <tr>
+                    <td colspan="2" class="header-top">
+                        TEFA &nbsp;<span class="dot">&bull;</span>&nbsp; SMK N 4 &nbsp;<span class="dot">&bull;</span>&nbsp; TANJUNG PINANG
+                    </td>
+                </tr>
+                <tr>
+                    <td class="header-logo">
+                        @if($logoBase64)
+                            <img src="{{ $logoBase64 }}" alt="Logo">
                         @else
-
-                            <div class="no-image">
-                                Tidak ada gambar
-                            </div>
-
+                            <div class="logo-fallback">SMK NEGERI 4</div>
                         @endif
+                    </td>
+                    <td class="header-text">
+                        <div class="school-name">TEFA SMK N 4 TANJUNG PINANG</div>
+                        <h1 class="header-title">
+                            KATALOG
+                            <span>PRODUK DAN JASA</span>
+                        </h1>
+                    </td>
+                </tr>
+            </table>
+            </div>
 
-                    </div>
+            <table class="catalog-grid">
+                @foreach($halaman->values()->pad(12, null)->chunk(3) as $baris)
+                    <tr>
+                        @foreach($baris as $item)
+                            <td>
+                                @if($item)
+                                    <div class="catalog-card">
 
-                    <!-- =================================================
-                         NAMA
-                    ================================================== -->
+                                        <table class="card-badges">
+                                            <tr>
+                                                <td align="left">
+                                                    <span class="badge badge-jurusan">{{ singkatanJurusan($item->jurusan->nama_jurusan ?? null) }}</span>
+                                                </td>
+                                                <td align="right">
+                                                    <span class="badge badge-jenis">{{ strtoupper($item->jenis ?? 'PRODUK') }}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
 
-                    <div class="card-title">
+                                        <div class="card-image">
+                                            @php
+                                                $gambarBase64 = null;
+                                                $iw = 55;
+                                                $ih = 19;
+                                                $ml = 0;
+                                                $mt = 0;
+                                                $pertama = $item->gambars ? $item->gambars->first() : null;
 
-                        {{ $item->nama_produk_jasa }}
+                                                if ($pertama) {
+                                                    $gambarPath = storage_path('app/public/' . $pertama->path_gambar);
 
-                    </div>
+                                                    if (file_exists($gambarPath)) {
+                                                        $gambarBase64 = 'data:' . mime_content_type($gambarPath) . ';base64,' . base64_encode(file_get_contents($gambarPath));
 
-                    <!-- =================================================
-                         DESKRIPSI
-                    ================================================== -->
+                                                        $ukuran = @getimagesize($gambarPath);
 
-                    @php
+                                                        if ($ukuran && $ukuran[0] > 0 && $ukuran[1] > 0) {
+                                                            $skala = max(55 / $ukuran[0], 19 / $ukuran[1]);
+                                                            $iw = round($ukuran[0] * $skala, 2);
+                                                            $ih = round($ukuran[1] * $skala, 2);
+                                                            $ml = -round(($iw - 55) / 2, 2);
+                                                            $mt = -round(($ih - 19) / 2, 2);
+                                                        }
+                                                    }
+                                                }
+                                            @endphp
 
-                        $deskripsi = trim(
-                            $item->deskripsi
-                                ?? 'Informasi produk atau jasa TEFA.'
-                        );
+                                            @if($gambarBase64)
+                                                <img src="{{ $gambarBase64 }}" style="width: {{ $iw }}mm; height: {{ $ih }}mm; margin-left: {{ $ml }}mm; margin-top: {{ $mt }}mm;">
+                                            @else
+                                                <div class="no-image">{{ $pertama ? 'Gambar tidak ditemukan' : 'Tidak ada gambar' }}</div>
+                                            @endif
+                                        </div>
 
-                        $batasKarakter = 71;
+                                        <div class="card-title">{{ \Illuminate\Support\Str::limit($item->nama_produk_jasa, 32) }}</div>
 
-                        if (
-                            mb_strlen($deskripsi) >
-                            $batasKarakter
-                        ) {
+                                        @php
+                                            $deskripsi = trim($item->deskripsi ?? 'Informasi produk atau jasa TEFA.');
+                                            $batasKarakter = 71;
 
-                            $potongan = mb_substr(
-                                $deskripsi,
-                                0,
-                                $batasKarakter
-                            );
+                                            if (mb_strlen($deskripsi) > $batasKarakter) {
+                                                $potongan = mb_substr($deskripsi, 0, $batasKarakter);
+                                                $posisiSpasi = mb_strrpos($potongan, ' ');
 
-                            $posisiSpasi = mb_strrpos(
-                                $potongan,
-                                ' '
-                            );
+                                                if ($posisiSpasi !== false) {
+                                                    $potongan = mb_substr($potongan, 0, $posisiSpasi);
+                                                }
 
-                            if (
-                                $posisiSpasi !== false
-                            ) {
+                                                $deskripsi = rtrim($potongan) . '...';
+                                            }
+                                        @endphp
 
-                                $potongan = mb_substr(
-                                    $potongan,
-                                    0,
-                                    $posisiSpasi
-                                );
-                            }
+                                        <div class="card-description">{{ $deskripsi }}</div>
 
-                            $deskripsi =
-                                rtrim(
-                                    $potongan
-                                ) . '...';
-                        }
+                                        <div class="card-price">
+                                            @if($item->harga !== null)
+                                                Rp{{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
+                                            @else
+                                                Hubungi untuk informasi harga
+                                            @endif
+                                        </div>
 
-                    @endphp
-
-                    <div class="card-description">
-
-                        {{ $deskripsi }}
-
-                    </div>
-
-                    <!-- =================================================
-                         HARGA
-                    ================================================== -->
-
-                    <div class="card-price">
-
-                        @if($item->harga !== null)
-
-                            Rp{{ number_format(
-                                $item->harga,
-                                0,
-                                ',',
-                                '.'
-                            ) }}{{ $item->satuan_harga
-                                ? '/' . $item->satuan_harga
-                                : ''
-                            }}
-
-                        @else
-
-                            Hubungi untuk informasi harga
-
-                        @endif
-
-                    </div>
-
-                </div>
-
-            @endforeach
-
-            <!-- =================================================
-                 KARTU KOSONG
-            ================================================== -->
-
-            @for(
-                $i = $halaman->count();
-                $i < 12;
-                $i++
-            )
-
-                <div class="catalog-card empty-card"></div>
-
-            @endfor
+                                    </div>
+                                @endif
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </table>
 
         </div>
 
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <div class="footer">
-
-            <div class="footer-item">
-
-                <div class="footer-icon">
-                    ☎
-                </div>
-
-                <div>
-
-                    <strong>
-                        {{ $nomorKontak }}
-                    </strong>
-
-                    <br>
-
-                    <span class="footer-label">
-                        Hubungi kami untuk informasi lebih lanjut
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div class="footer-item">
-
-                <div class="footer-icon">
-                    ⌖
-                </div>
-
-                <div>
-
-                    <strong>
-                        Jl. Nusantara No.KM.14
-                    </strong>
-
-                    <br>
-
-                    <span class="footer-label">
-                        Tanjung Pinang, Kepulauan Riau
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
+        <table class="footer">
+            <tr>
+                <td>
+                    <strong>{{ $nomorKontak }}</strong><br>
+                    <span class="footer-label">Hubungi kami untuk informasi lebih lanjut</span>
+                </td>
+                <td align="right">
+                    <strong>Jl. Nusantara No.KM.14</strong><br>
+                    <span class="footer-label">Tanjung Pinang, Kepulauan Riau</span>
+                </td>
+            </tr>
+        </table>
 
     </div>
 
