@@ -53,9 +53,6 @@
 
 <div class="detail-pesanan-container">
 
-    
-         HEADER
-         ========================= --}}
 
     <div class="detail-pesanan-header">
 
@@ -98,9 +95,6 @@
         </div>
     @endif
 
-    
-         INFORMASI PESANAN
-         ========================= --}}
 
     <div class="detail-pesanan-grid">
 
@@ -158,8 +152,7 @@
         </div>
 
         
-            
-             ========================= --}}
+        
 
         <div class="detail-pesanan-card">
 
@@ -322,8 +315,7 @@
     <div class="detail-pesanan-bottom">
 
         
-             KOTAK UPDATE STATUS
-             ========================= --}}
+        
 
         <div class="detail-pesanan-card status-card">
 
@@ -475,8 +467,7 @@
         </div>
 
         
-             KOTAK PEMBATALAN PESANAN
-             ========================= --}}
+        
 
         <div class="detail-pesanan-card cancellation-card">
 
@@ -520,7 +511,7 @@
                     </div>
 
                     
-                         Alasan pembeli ada di bagian permintaan di bawah. --}}
+                    
                     @if($dibatalkanAdmin)
                         <div class="cancellation-summary-item full">
                             <span class="cancellation-label">Alasan Admin</span>

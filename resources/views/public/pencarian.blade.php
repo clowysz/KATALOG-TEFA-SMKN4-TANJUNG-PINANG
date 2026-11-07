@@ -1,10 +1,11 @@
+
 @extends('public.layouts')
 
 @section('title', 'Hasil Pencarian')
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/jurusan-detail.css') }}">
-<link rel="stylesheet" href="{{ asset('css/katalog=pembeli.css') }}">
+<link rel="stylesheet" href="{{ asset('css/katalog-pembeli.css') }}">
 @endpush
 
 @section('content')

@@ -9,9 +9,6 @@
 
 @section('content')
 
-
-     Dimuat di awal konten agar penyesuaian per halaman berjalan cepat.
-     data-all-ids = ID seluruh item hasil query (semua halaman) untuk tombol "Pilih Semua". --}}
 <script
     src="{{ asset('js/katalog-tefa.js') }}?v=4"
     data-per-page="{{ (int) $katalog->perPage() }}"
@@ -295,10 +292,6 @@
     @endif
 </div>
 
-<!-- =========================================================
-     POP-UP UBAH NOMOR PDF
-     Terbuka otomatis bila server menolak nomor (agar pesan error terlihat).
-========================================================== -->
 <div
     class="kontak-modal {{ $errors->has('nomor_pdf') ? 'active' : '' }}"
     id="kontak-modal"
