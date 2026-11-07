@@ -17,11 +17,9 @@
         &larr; Kembali ke Daftar Akun
     </a>
 
-
     <h2 class="page-title">
         Detail Akun
     </h2>
-
 
     @if(session('success'))
 
@@ -30,7 +28,6 @@
         </div>
 
     @endif
-
 
     @if($errors->any())
 
@@ -52,7 +49,6 @@
 
     @endif
 
-
     <div class="detail-card">
 
         <div class="info-row">
@@ -67,7 +63,6 @@
 
         </div>
 
-
         <div class="info-row">
 
             <span class="info-label">
@@ -79,7 +74,6 @@
             </span>
 
         </div>
-
 
         <div class="info-row">
 
@@ -97,7 +91,6 @@
 
         </div>
 
-
         <div class="info-row">
 
             <span class="info-label">
@@ -109,7 +102,6 @@
             </span>
 
         </div>
-
 
         <div class="info-row">
 
@@ -137,7 +129,6 @@
 
         </div>
 
-
         <div class="info-row">
 
             <span class="info-label">
@@ -152,8 +143,7 @@
 
     </div>
 
-
-    <!-- Tombol Aksi -->
+    
     <div class="action-buttons">
 
         <a
@@ -163,7 +153,6 @@
             Edit Akun
         </a>
 
-
         <button
             type="button"
             id="btnResetPassword"
@@ -171,7 +160,6 @@
         >
             Reset Password
         </button>
-
 
         @if($akun->status === 'aktif')
 
@@ -235,8 +223,7 @@
 
     </div>
 
-
-    <!-- Form Reset Password (ditampilkan / disembunyikan oleh akun-detail.js) -->
+    
     <div
         id="resetPasswordForm"
         class="reset-form-box"
@@ -247,7 +234,6 @@
             Reset Password
         </h3>
 
-
         <form
             action="{{ route('akun.resetPassword',$akun->id) }}"
             method="POST"
@@ -256,7 +242,6 @@
             @csrf
 
             @method('PUT')
-
 
             <div class="form-group-custom">
 
@@ -275,7 +260,6 @@
 
             </div>
 
-
             <div class="form-group-custom">
 
                 <label for="password_confirmation">
@@ -293,7 +277,6 @@
 
             </div>
 
-
             <div class="reset-form-actions">
 
                 <button
@@ -303,7 +286,6 @@
                 >
                     Batal
                 </button>
-
 
                 <button
                     type="submit"
@@ -319,7 +301,6 @@
     </div>
 
 </div>
-
 
 {{-- =========================
      MODAL KONFIRMASI AKSES
@@ -341,14 +322,12 @@
             Hapus Akses?
         </h3>
 
-
         <p
             id="accessModalDesc"
             class="modal-access-desc"
         >
             Apakah Anda yakin ingin menonaktifkan akses akun ini?
         </p>
-
 
         <div class="modal-access-actions">
 
@@ -359,7 +338,6 @@
             >
                 Batal
             </button>
-
 
             <button
                 type="button"
@@ -375,9 +353,7 @@
 
 </div>
 
-
 @endsection
-
 
 @section('scripts')
 

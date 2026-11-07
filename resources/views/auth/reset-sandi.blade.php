@@ -8,7 +8,7 @@
 
 <div class="login-page-wrapper">
 
-    {{-- Tombol Kembali --}}
+    
     <div class="login-back-button">
         <a href="{{ route('login') }}">
             <i class="ph ph-arrow-left"></i>
@@ -16,7 +16,7 @@
         </a>
     </div>
 
-    <!-- Animasi Gelembung -->
+    
     <div class="bubble" style="width: 80px; height: 80px; top: 15%; left: 15%; animation-duration: 5s;"></div>
     <div class="bubble" style="width: 120px; height: 120px; top: 40%; right: 15%; animation-duration: 7s;"></div>
     <div class="bubble" style="width: 50px; height: 50px; bottom: 25%; left: 25%; animation-duration: 6s;"></div>

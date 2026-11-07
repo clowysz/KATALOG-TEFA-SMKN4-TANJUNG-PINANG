@@ -10,7 +10,7 @@
 
 <div class="jurusan-akun-create-container">
 
-    {{-- Tombol kembali --}}
+    
     <a href="/jurusan-admin/akun" class="jurusan-akun-back">
         &larr; Kembali ke Daftar Akun
     </a>
@@ -21,7 +21,7 @@
 
     <div class="jurusan-akun-form-card">
 
-        {{-- Pesan error validasi --}}
+        
         @if($errors->any())
 
             <div class="jurusan-akun-error">
@@ -34,7 +34,6 @@
 
         @endif
 
-
         <form
             id="formTambahAkun"
             action="{{ route('jurusan.akun.store') }}"
@@ -43,7 +42,7 @@
 
             @csrf
 
-            {{-- NAMA PENGGUNA --}}
+            
             <div class="jurusan-akun-form-group">
 
                 <label for="nama" class="jurusan-akun-form-label">
@@ -62,8 +61,7 @@
 
             </div>
 
-
-            {{-- EMAIL --}}
+            
             <div class="jurusan-akun-form-group">
 
                 <label for="email" class="jurusan-akun-form-label">
@@ -82,8 +80,7 @@
 
             </div>
 
-
-            {{-- KATA SANDI --}}
+            
             <div class="jurusan-akun-form-group">
 
                 <label for="password" class="jurusan-akun-form-label">
@@ -109,7 +106,7 @@
                         title="Lihat Kata Sandi"
                     >
 
-                        {{-- Mata terbuka --}}
+                        
                         <svg
                             class="icon-on"
                             xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +123,7 @@
                             <circle cx="12" cy="12" r="3"></circle>
                         </svg>
 
-                        {{-- Mata tertutup --}}
+                        
                         <svg
                             class="icon-off"
                             xmlns="http://www.w3.org/2000/svg"
@@ -149,8 +146,7 @@
 
             </div>
 
-
-            {{-- ROLE --}}
+            
             <div class="jurusan-akun-form-group">
 
                 <label for="role" class="jurusan-akun-form-label">
@@ -167,8 +163,7 @@
 
             </div>
 
-
-            {{-- PRODUK / JASA TANGGUNG JAWAB --}}
+            
             <div class="jurusan-akun-form-group">
 
                 <label class="jurusan-akun-form-label">
@@ -210,8 +205,7 @@
 
             </div>
 
-
-            {{-- TOMBOL --}}
+            
             <div class="jurusan-akun-form-actions">
 
                 <button type="submit" class="jurusan-akun-btn-primary">
@@ -231,7 +225,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 <script src="{{ asset('js/akun-validasi-jurusan.js') }}"></script>

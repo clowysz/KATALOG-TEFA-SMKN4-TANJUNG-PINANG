@@ -11,12 +11,12 @@ return new class extends Migration
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id('id_pesanan');
 
-            // Pembeli
+
             $table->foreignId('id_user')
                 ->constrained('users')
                 ->onDelete('cascade');
 
-            // Produk / Jasa yang dipesan
+
             $table->foreignId('id_produk_jasa')
                 ->constrained('produk_jasa', 'id_produk_jasa')
                 ->onDelete('restrict');

@@ -9,128 +9,124 @@
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
-    const canvas = document.getElementById("jurusanChart");
+  const canvas = document.getElementById("jurusanChart");
 
-    if (!canvas) {
-        return;
+  if (!canvas) {
+    return;
+  }
+
+  const BAR_COLORS = [
+    "#D8893D",
+    "#A85C5C",
+    "#5F9275",
+    "#315B7A",
+    "#6FA6C8",
+    "#D6AD4B",
+  ];
+
+  function readData(attribute) {
+    try {
+      const parsed = JSON.parse(canvas.dataset[attribute] || "[]");
+
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      return [];
     }
+  }
 
-    const BAR_COLORS = [
-        "#D8893D",
-        "#A85C5C",
-        "#5F9275",
-        "#315B7A",
-        "#6FA6C8",
-        "#D6AD4B",
-    ];
+  const labels = readData("labels");
+  const data = readData("values");
 
-    // Baca data JSON dari atribut; kembalikan [] jika rusak / kosong
-    function readData(attribute) {
-        try {
-            const parsed = JSON.parse(canvas.dataset[attribute] || "[]");
+  if (labels.length === 0) {
+    return;
+  }
 
-            return Array.isArray(parsed) ? parsed : [];
-        } catch (error) {
-            return [];
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const maxCharsPerLine = isMobile ? 10 : 16;
+
+  function wrapLabel(label) {
+    const lines = [];
+    let currentLine = "";
+
+    String(label)
+      .split(" ")
+      .forEach(function (word) {
+        const testLine = currentLine ? currentLine + " " + word : word;
+
+        if (testLine.length > maxCharsPerLine && currentLine) {
+          lines.push(currentLine);
+          currentLine = word;
+        } else {
+          currentLine = testLine;
         }
+      });
+
+    if (currentLine) {
+      lines.push(currentLine);
     }
 
-    const labels = readData("labels");
-    const data = readData("values");
+    return lines;
+  }
 
-    if (labels.length === 0) {
-        return;
-    }
+  new Chart(canvas, {
+    type: "bar",
 
-    // Nama jurusan panjang dipecah ke beberapa baris
-    // supaya label tidak miring / saling bertumpuk di layar kecil
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const maxCharsPerLine = isMobile ? 10 : 16;
+    data: {
+      labels: labels,
 
-    function wrapLabel(label) {
-        const lines = [];
-        let currentLine = "";
+      datasets: [
+        {
+          label: "Jumlah Pesanan",
 
-        String(label)
-            .split(" ")
-            .forEach(function (word) {
-                const testLine = currentLine ? currentLine + " " + word : word;
+          data: data,
 
-                if (testLine.length > maxCharsPerLine && currentLine) {
-                    lines.push(currentLine);
-                    currentLine = word;
-                } else {
-                    currentLine = testLine;
-                }
-            });
+          backgroundColor: BAR_COLORS,
 
-        if (currentLine) {
-            lines.push(currentLine);
-        }
+          borderRadius: 6,
+          borderWidth: 0,
+        },
+      ],
+    },
 
-        return lines;
-    }
+    options: {
+      responsive: true,
 
-    new Chart(canvas, {
-        type: "bar",
+      maintainAspectRatio: false,
 
-        data: {
-            labels: labels,
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
 
-            datasets: [
-                {
-                    label: "Jumlah Pesanan",
+      scales: {
+        y: {
+          beginAtZero: true,
 
-                    data: data,
+          ticks: {
+            precision: 0,
+          },
 
-                    backgroundColor: BAR_COLORS,
-
-                    borderRadius: 6,
-                    borderWidth: 0,
-                },
-            ],
+          grid: {
+            color: "rgba(0,0,0,0.05)",
+          },
         },
 
-        options: {
-            responsive: true,
+        x: {
+          grid: {
+            display: false,
+          },
 
-            // Tinggi mengikuti kotak pembungkus (.chart-wrap), bukan rasio lebar
-            maintainAspectRatio: false,
+          ticks: {
+            autoSkip: false,
+            maxRotation: 0,
 
-            plugins: {
-                legend: {
-                    display: false,
-                },
+            callback: function (value) {
+              return wrapLabel(this.getLabelForValue(value));
             },
-
-            scales: {
-                y: {
-                    beginAtZero: true,
-
-                    ticks: {
-                        precision: 0,
-                    },
-
-                    grid: {
-                        color: "rgba(0,0,0,0.05)",
-                    },
-                },
-
-                x: {
-                    grid: {
-                        display: false,
-                    },
-
-                    ticks: {
-                        autoSkip: false,
-                        maxRotation: 0,
-
-                        callback: function (value) {
-                            return wrapLabel(this.getLabelForValue(value));
-                        },
-                    },
-                },
-            },
+          },
         },
-    });
+      },
+    },
+  });
 });

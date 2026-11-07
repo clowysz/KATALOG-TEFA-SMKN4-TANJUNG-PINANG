@@ -10,14 +10,14 @@
 
 <div class="faq-container">
 
-    {{-- Pesan berhasil --}}
+    
     @if(session('success'))
         <div class="faq-alert faq-alert-success">
             {{ session('success') }}
         </div>
     @endif
 
-    {{-- Pesan error --}}
+    
     @if($errors->any())
         <div class="faq-alert faq-alert-error">
             {{ $errors->first() }}
@@ -41,12 +41,12 @@
 
             <div class="faq-card">
 
-                {{-- Nomor FAQ --}}
+                
                 <div class="faq-number">
                     {{ $index + 1 }}
                 </div>
 
-                {{-- Isi FAQ --}}
+                
                 <div class="faq-content">
                     <h4>
                         {{ $faq->pertanyaan }}
@@ -57,10 +57,10 @@
                     </p>
                 </div>
 
-                {{-- Tombol Aksi --}}
+                
                 <div class="faq-actions">
 
-                    {{-- Edit --}}
+                    
                     <a
                         href="{{ route('tefa.faq.edit', $faq->id_faq) }}"
                         class="btn-edit-faq"
@@ -68,7 +68,7 @@
                         Edit
                     </a>
 
-                    {{-- Hapus --}}
+                    
                     <form
                         action="{{ route('tefa.faq.destroy', $faq->id_faq) }}"
                         method="POST"
@@ -113,7 +113,6 @@
     </div>
 
 </div>
-
 
 {{-- =========================
      MODAL KONFIRMASI HAPUS FAQ
@@ -161,7 +160,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 

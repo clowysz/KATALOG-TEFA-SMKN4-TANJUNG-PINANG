@@ -11,10 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordInput = document.getElementById("password");
   const toggleButton = document.getElementById("togglePassBtn");
 
-  // ------------------------------------------------------
-  // Tampilkan / sembunyikan kata sandi
-  // Ikon diatur lewat class .is-visible (lihat akun-tambah-jurusan.css)
-  // ------------------------------------------------------
   if (toggleButton && passwordInput) {
     toggleButton.addEventListener("click", function () {
       const isHidden = passwordInput.type === "password";
@@ -24,9 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ------------------------------------------------------
-  // Validasi
-  // ------------------------------------------------------
   AkunValidasi.nama(document.getElementById("nama"));
   AkunValidasi.email(document.getElementById("email"));
   AkunValidasi.password(passwordInput);

@@ -35,7 +35,7 @@ class User extends Authenticatable
         ];
     }
 
-    // Relasi: User (Admin Jurusan) memegang satu Jurusan
+
     public function jurusanDipegang()
     {
         return $this->hasOne(
@@ -45,7 +45,7 @@ class User extends Authenticatable
         );
     }
 
-    // Relasi: User (Admin Produser) berasal dari satu Jurusan
+
     public function jurusanAsal()
     {
         return $this->belongsTo(
@@ -55,7 +55,7 @@ class User extends Authenticatable
         );
     }
 
-    // Relasi: User (Admin Produser) memiliki penugasan produk/jasa
+
     public function penugasanProduser()
     {
         return $this->hasMany(

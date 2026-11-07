@@ -20,7 +20,6 @@
 
     </div>
 
-
     <div class="detail-top-container">
 
         <div class="detail-gallery">
@@ -68,18 +67,15 @@
 
         </div>
 
-
         <div class="detail-info">
 
             <div class="detail-badge badge-karya">
                 KARYA DAN PROYEK
             </div>
 
-
             <h1 class="detail-title">
                 {{ $portofolio->judul }}
             </h1>
-
 
             @if($portofolio->tahun)
 
@@ -108,7 +104,6 @@
         </div>
 
     </div>
-
 
     <div class="detail-card">
 

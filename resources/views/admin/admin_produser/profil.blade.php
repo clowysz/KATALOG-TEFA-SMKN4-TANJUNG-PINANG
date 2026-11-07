@@ -9,7 +9,7 @@
 @section('content')
 <div class="profile-page">
 
-    {{-- ================= INFORMASI AKUN ================= --}}
+    
     <div class="tefa-card profile-card">
 
         <div class="profile-hero">
@@ -51,7 +51,7 @@
 
     </div>
 
-    {{-- ================= TANGGUNG JAWAB PRODUK/JASA ================= --}}
+    
     <div class="tefa-card profile-products">
 
         <div class="profile-products-header">

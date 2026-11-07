@@ -9,14 +9,14 @@ class Jurusan extends Model
 {
     use HasFactory;
 
-    // Menentukan nama tabel fisik di database
+
     protected $table = 'jurusans';
 
-    // Sesuaikan primary key (default Laravel adalah 'id')
-    // Jika di migration kamu memakai $table->id('id_jurusan'), aktifkan baris di bawah ini:
+
+
      protected $primaryKey = 'id_jurusan';
 
-    // Mengizinkan semua kolom diisi secara mass-assignment
+
     protected $guarded = [];
 
     /**

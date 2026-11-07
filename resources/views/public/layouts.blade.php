@@ -48,7 +48,6 @@
 
 </head>
 
-
 <body>
 @php
     $isFromKatalog   = request()->query('from') === 'katalog';
@@ -69,8 +68,7 @@
 
         <div class="jurusan-nav-pill">
 
-
-            {{-- ================= BRAND ================= --}}
+            
 
             @if($pakaiNavJurusan)
 
@@ -106,8 +104,7 @@
 
             @endif
 
-
-            {{-- ================= MENU (terlipat di HP) ================= --}}
+            
 
             <div class="jurusan-nav-menu" id="jurusanNavMenu">
 
@@ -170,7 +167,7 @@
 
                 @endif
 
-                {{-- Profil: hanya tampil di dalam hamburger (HP/tablet) --}}
+                
                 <a href="{{ $profilUrl }}" class="nav-profile-link">
                     <i class="ph ph-user"></i>
                     <span>{{ $profilLabel }}</span>
@@ -178,8 +175,7 @@
 
             </div>
 
-
-            {{-- ================= TOMBOL HAMBURGER ================= --}}
+            
 
             <button
                 type="button"
@@ -192,8 +188,7 @@
                 <i class="ph ph-list"></i>
             </button>
 
-
-            {{-- ================= PENCARIAN + PROFIL (desktop) ================= --}}
+            
 
             <div class="jurusan-nav-actions">
 
@@ -231,13 +226,11 @@
 
     </div>
 
-
     <main>
 
         @yield('content')
 
     </main>
-
 
     <!-- =====================================================
          FOOTER
@@ -247,8 +240,7 @@
 
         <div class="footer-grid">
 
-
-            <!-- IDENTITAS SMKN 4 -->
+            
 
             <div class="footer-col">
 
@@ -274,8 +266,7 @@
 
             </div>
 
-
-            <!-- LINK CEPAT -->
+            
 
             <div class="footer-col">
 
@@ -315,8 +306,7 @@
 
             </div>
 
-
-            <!-- INFORMASI -->
+            
 
             <div class="footer-col">
 
@@ -334,8 +324,7 @@
 
             </div>
 
-
-            <!-- MENGAPA TEFA -->
+            
 
             <div class="footer-col">
 
@@ -369,8 +358,7 @@
 
         </div>
 
-
-        <!-- COPYRIGHT -->
+        
 
         <div class="footer-bottom">
             &copy; 2026 SMKN 4 Tanjungpinang.
@@ -378,7 +366,6 @@
         </div>
 
     </footer>
-
 
     @stack('js')
     

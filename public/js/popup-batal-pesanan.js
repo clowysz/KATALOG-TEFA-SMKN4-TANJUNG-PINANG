@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let previousFocus = null;
 
-  // Menampilkan pesan di popup.
   function showMessage(text, type) {
     message.textContent = text;
     message.className = "cancel-modal-message";
@@ -41,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Mengembalikan popup ke kondisi awal.
   function resetModal() {
     form.reset();
 
@@ -60,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
     submitBtn.textContent = "Oke, Ajukan Pembatalan";
   }
 
-  // Membuka popup sesuai pesanan yang dipilih.
   function openModal(button) {
     resetModal();
 
@@ -73,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
     closeBtn.focus();
   }
 
-  // Menutup popup.
   function closeModal() {
     modal.hidden = true;
     document.body.style.overflow = "";
@@ -85,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Memperbarui baris pesanan di tabel setelah pesanan langsung dibatalkan.
   function updateBarisPesanan(pesananId) {
     const barisPesanan = pesananId
       ? document.getElementById("pesanan-" + pesananId)
@@ -121,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Tombol Batalkan Pesanan.
   document.querySelectorAll(".rw-btn-cancel").forEach(function (button) {
     button.addEventListener("click", function (event) {
       event.preventDefault();
@@ -129,24 +123,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Tombol silang.
   closeBtn.addEventListener("click", closeModal);
 
-  // Tutup ketika area luar popup diklik.
   modal.addEventListener("click", function (event) {
     if (event.target === modal) {
       closeModal();
     }
   });
 
-  // Tutup menggunakan tombol Escape.
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && !modal.hidden) {
       closeModal();
     }
   });
 
-  // Menampilkan kolom tulis jika memilih "Alasan lainnya".
   form
     .querySelectorAll('input[name="alasan_pilihan"]')
     .forEach(function (radio) {
@@ -168,7 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-  // Mengirim permintaan pembatalan tanpa refresh halaman.
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -216,7 +205,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const result = await response.json();
 
-      // Menangani pembatalan yang gagal.
       if (!response.ok || !result.success) {
         const errorText =
           result.message ||
@@ -231,7 +219,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Memperbarui tabel jika pesanan langsung dibatalkan.
       if (result.message === "Pesanan berhasil dibatalkan.") {
         const pesananId = form.action.match(
           /riwayat-pesanan\/(\d+)\/batalkan/,
@@ -240,7 +227,6 @@ document.addEventListener("DOMContentLoaded", function () {
         updateBarisPesanan(pesananId);
       }
 
-      // Menyembunyikan formulir dan menampilkan hasilnya.
       body.hidden = true;
       footer.hidden = true;
 

@@ -40,18 +40,18 @@ class AuthPembeliController extends Controller
             'role' => 'pembeli',
         ]);
 
-        // Langsung login setelah berhasil daftar
+
         Auth::login($user);
 
-        // Ambil tujuan setelah berhasil daftar
+
         $redirect = $request->input('redirect');
 
-        // Hanya izinkan redirect ke URL internal aplikasi
+
         if ($redirect && str_starts_with($redirect, '/')) {
             return redirect($redirect);
         }
 
-        // Jika tidak ada tujuan khusus, kembali ke halaman utama
+
         return redirect('/');
     }
 }

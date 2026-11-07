@@ -19,27 +19,27 @@
 ></script>
 
 <div class="katalog-container">
-    <!-- HEADER -->
+    
     <div class="katalog-header">
         <h3>Katalog TEFA</h3>
         <p>Seluruh produk dan jasa dari semua jurusan.</p>
     </div>
 
-    <!-- PESAN BERHASIL -->
+    
     @if(session('sukses'))
         <div class="katalog-sukses">
             {{ session('sukses') }}
         </div>
     @endif
 
-    <!-- PESAN ERROR -->
+    
     @if($errors->has('produk_jasa_ids'))
         <div class="katalog-alert">
             {{ $errors->first('produk_jasa_ids') }}
         </div>
     @endif
 
-    <!-- FILTER & PENCARIAN -->
+    
     <form
         action="{{ route('admin.tefa.katalog_gabungan') }}"
         method="GET"
@@ -113,7 +113,7 @@
         @endif
     </form>
 
-    <!-- NOMOR DI PDF (ringkas, diubah lewat pop-up) -->
+    
     <div class="kontak-ringkas">
         <div class="kontak-ringkas-info">
             <div class="kontak-icon">
@@ -132,7 +132,7 @@
         </button>
     </div>
 
-    <!-- TOOLBAR PDF -->
+    
     <div class="katalog-toolbar">
         <div class="toolbar-left">
             <div class="selected-info">
@@ -158,16 +158,16 @@
         </form>
     </div>
 
-    <!-- GRID KATALOG -->
+    
     <div class="katalog-grid">
         @forelse($katalog as $item)
             <div class="katalog-card" data-id="{{ $item->id_produk_jasa }}">
-                <!-- CHECK INDICATOR -->
+                
                 <div class="card-check">
                     <i class="ph ph-check"></i>
                 </div>
 
-                <!-- IMAGE -->
+                
                 <div class="card-img-wrapper">
                     @if($item->gambars && $item->gambars->first())
                         <img src="{{ asset('storage/' . $item->gambars->first()->path_gambar) }}" alt="{{ $item->nama_produk_jasa }}" loading="lazy">
@@ -177,13 +177,13 @@
                         </div>
                     @endif
 
-                    <!-- JENIS -->
+                    
                     <span class="badge-jenis">
                         {{ strtoupper($item->jenis) }}
                     </span>
                 </div>
 
-                <!-- CARD BODY -->
+                
                 <div class="card-body-content">
                     <h4 class="card-title">
                         {{ $item->nama_produk_jasa }}
@@ -201,7 +201,7 @@
                         Rp{{ number_format($item->harga, 0, ',', '.') }}{{ $item->satuan_harga ? '/' . $item->satuan_harga : '' }}
                     </div>
 
-                    <!-- DETAIL -->
+                    
                     <a href="{{ route('admin.tefa.katalog_detail', $item->id_produk_jasa) }}" class="btn-detail">
                         <span class="d-full">Lihat Detail</span>
                         <span class="d-short">Detail</span>
@@ -220,7 +220,7 @@
         @endforelse
     </div>
 
-    <!-- PAGINATION -->
+    
     @if($katalog->hasPages())
         <div class="pagination-wrapper">
             <p class="pagination-info">
@@ -228,7 +228,7 @@
             </p>
 
             <ul class="custom-pagination">
-                {{-- PALING AWAL --}}
+                
                 @if($katalog->onFirstPage())
                     <li class="page-item disabled">
                         <span class="page-link">&laquo;&laquo;</span>
@@ -239,7 +239,7 @@
                     </li>
                 @endif
 
-                {{-- SEBELUMNYA --}}
+                
                 @if($katalog->onFirstPage())
                     <li class="page-item disabled">
                         <span class="page-link">&lsaquo;</span>
@@ -250,7 +250,7 @@
                     </li>
                 @endif
 
-                {{-- NOMOR HALAMAN (di mobile hanya yang dekat halaman aktif) --}}
+                
                 @foreach(range(1, $katalog->lastPage()) as $page)
                     @php
                         $far = abs($page - $katalog->currentPage()) > 1
@@ -269,7 +269,7 @@
                     @endif
                 @endforeach
 
-                {{-- BERIKUTNYA --}}
+                
                 @if($katalog->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="{{ $katalog->nextPageUrl() }}" title="Halaman Selanjutnya">&rsaquo;</a>
@@ -280,7 +280,7 @@
                     </li>
                 @endif
 
-                {{-- PALING AKHIR --}}
+                
                 @if($katalog->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="{{ $katalog->url($katalog->lastPage()) }}" title="Halaman Terakhir">&raquo;&raquo;</a>
@@ -294,7 +294,6 @@
         </div>
     @endif
 </div>
-
 
 <!-- =========================================================
      POP-UP UBAH NOMOR PDF
@@ -366,7 +365,6 @@
     </div>
 </div>
 
-{{-- Logika nomor kontak (pop-up, validasi sendiri) --}}
 <script src="{{ asset('js/kontak-tefa.js') }}?v=3" defer></script>
 
 @endsection

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/global-admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin-produser.css') }}">
 
-    {{-- CSS khusus halaman (dimuat setelah CSS dasar agar bisa menimpa) --}}
+    
     @stack('styles')
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -19,7 +19,7 @@
 
 <body class="produser-mode">
 
-    {{-- ================= HEADER ================= --}}
+    
     <header class="header">
         <span class="hamburger" onclick="toggleDrawer()">
             <i class="ph ph-list"></i>
@@ -28,7 +28,7 @@
         <h2 class="header-title">@yield('title')</h2>
     </header>
 
-    {{-- ================= DRAWER / MENU ================= --}}
+    
     <nav class="drawer" id="navDrawer" aria-label="Menu admin produser">
 
         <div class="drawer-top-header">
@@ -90,12 +90,12 @@
 
     <div class="overlay" id="overlay" onclick="toggleDrawer()"></div>
 
-    {{-- ================= KONTEN ================= --}}
+    
     <main class="main-content">
         @yield('content')
     </main>
 
-    {{-- ================= MODAL LOGOUT ================= --}}
+    
     <div id="modalLogoutProduser" class="modal-overlay">
         <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="logoutTitle">
 
@@ -115,7 +115,7 @@
                     Batal
                 </button>
 
-                {{-- Logout memakai POST agar Auth::logout() benar-benar dipanggil --}}
+                
                 <form action="{{ url('/admin/logout') }}" method="POST">
                     @csrf
 

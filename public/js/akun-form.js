@@ -20,10 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const statusSelect = document.getElementById("status");
 
-  // ==========================================================
-  // JURUSAN: TAMPIL / SEMBUNYI SESUAI ROLE
-  // ==========================================================
-
   function updateJurusan() {
     if (!roleSelect || !jurusanSelect) {
       return;
@@ -63,10 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ==========================================================
-  // ROLE
-  // ==========================================================
-
   if (roleSelect) {
     roleSelect.addEventListener("invalid", function () {
       this.setCustomValidity(
@@ -82,10 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateJurusan();
   }
-
-  // ==========================================================
-  // JURUSAN
-  // ==========================================================
 
   if (jurusanSelect) {
     jurusanSelect.addEventListener("invalid", function () {
@@ -104,10 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ==========================================================
-  // NAMA
-  // ==========================================================
-
   if (namaInput) {
     namaInput.addEventListener("invalid", function () {
       this.setCustomValidity(
@@ -119,10 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
       this.setCustomValidity("");
     });
   }
-
-  // ==========================================================
-  // EMAIL
-  // ==========================================================
 
   if (emailInput) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -151,10 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
     emailInput.addEventListener("input", validateEmail);
   }
 
-  // ==========================================================
-  // PASSWORD (hanya ada di halaman Tambah Akun)
-  // ==========================================================
-
   if (passwordInput) {
     passwordInput.addEventListener("invalid", function () {
       if (this.validity.valueMissing) {
@@ -176,10 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
-  // ==========================================================
-  // STATUS
-  // ==========================================================
 
   if (statusSelect) {
     statusSelect.addEventListener("invalid", function () {

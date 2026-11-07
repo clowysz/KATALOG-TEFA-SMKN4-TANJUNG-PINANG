@@ -48,7 +48,6 @@
       return;
     }
 
-    // Tombol Batal, atau klik di area gelap di luar kotak modal
     if (
       event.target.closest("[data-faq-delete-close]") ||
       event.target === modal
@@ -57,7 +56,6 @@
     }
   });
 
-  // Tutup modal dengan tombol Esc
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
       closeModal();

@@ -20,19 +20,19 @@ class Portfolio extends Model
         'id_user',
     ];
 
-    // Relasi ke Jurusan
+
     public function jurusan()
     {
         return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan');
     }
 
-    // Relasi ke User (pembuat portofolio)
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
-    // Relasi ke gambar-gambar portofolio (multiple images)
+
     public function gambars()
     {
         return $this->hasMany(GambarPortfolio::class, 'id_portfolio', 'id_portfolio');

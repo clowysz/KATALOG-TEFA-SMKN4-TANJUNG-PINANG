@@ -17,9 +17,9 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // =====================================================
-        // 1. STATISTIK PESANAN
-        // =====================================================
+
+
+
 
         $totalPesanan = Pesanan::count();
 
@@ -44,9 +44,8 @@ class DashboardController extends Controller
         )->count();
 
 
-        // =====================================================
-        // 2. DATA TAMBAHAN
-        // =====================================================
+
+
 
         $totalProduk = ProdukJasa::where(
             'jenis',
@@ -58,10 +57,9 @@ class DashboardController extends Controller
         $totalUser = User::count();
 
 
-        // =====================================================
-        // 3. PRODUK / JASA TERLARIS
-        // Berdasarkan jumlah pesanan
-        // =====================================================
+
+
+
 
         $produkTerlaris = ProdukJasa::withCount('pesanans')
             ->orderBy('pesanans_count', 'desc')
@@ -69,9 +67,8 @@ class DashboardController extends Controller
             ->get();
 
 
-        // =====================================================
-        // 4. PESANAN TERBARU
-        // =====================================================
+
+
 
         $pesananTerbaru = Pesanan::with([
             'pembeli',
@@ -83,12 +80,10 @@ class DashboardController extends Controller
             ->get();
 
 
-        // =====================================================
-        // 5. PESANAN BERDASARKAN JURUSAN
-        // =====================================================
+
+
 
         $jurusans = Jurusan::orderBy('nama_jurusan')->get();
-
 
         $pesananPerJurusan = Pesanan::query()
             ->join(
@@ -107,13 +102,11 @@ class DashboardController extends Controller
             );
 
 
-        // =====================================================
-        // 6. DATA UNTUK CHART
-        // =====================================================
+
+
 
         $chartLabels = [];
         $chartData = [];
-
 
         foreach ($jurusans as $jurusan) {
 
@@ -126,9 +119,8 @@ class DashboardController extends Controller
         }
 
 
-        // =====================================================
-        // 7. KIRIM DATA KE DASHBOARD
-        // =====================================================
+
+
 
         return view(
             'admin.admin_tefa.dashboard',
@@ -149,7 +141,6 @@ class DashboardController extends Controller
         );
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | HALAMAN JURUSAN ADMIN TEFA
@@ -158,9 +149,9 @@ class DashboardController extends Controller
 
     public function jurusan()
     {
-        // =====================================================
-        // 1. AMBIL SEMUA JURUSAN
-        // =====================================================
+
+
+
 
         $jurusans = Jurusan::withCount([
 
@@ -177,9 +168,8 @@ class DashboardController extends Controller
         ])->get();
 
 
-        // =====================================================
-        // 2. HITUNG PESANAN PER JURUSAN
-        // =====================================================
+
+
 
         /*
          * Pesanan tidak mempunyai id_jurusan secara langsung.
@@ -212,9 +202,8 @@ class DashboardController extends Controller
             );
 
 
-        // =====================================================
-        // 3. MASUKKAN JUMLAH PESANAN KE SETIAP JURUSAN
-        // =====================================================
+
+
 
         foreach ($jurusans as $jurusan) {
 
@@ -225,9 +214,8 @@ class DashboardController extends Controller
         }
 
 
-        // =====================================================
-        // 4. KIRIM KE HALAMAN JURUSAN
-        // =====================================================
+
+
 
         return view(
             'admin.admin_tefa.jurusan.index',

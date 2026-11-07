@@ -83,7 +83,7 @@
         </div>
     @endforelse
 
-    {{-- Ditampilkan oleh JS saat pencarian tidak menemukan hasil --}}
+    
     <div id="katalogNoResult" class="katalog-empty prod-empty" hidden>
         <i class="ph ph-magnifying-glass prod-empty-icon"></i>
         <h3 class="katalog-empty-title">Tidak Ditemukan</h3>

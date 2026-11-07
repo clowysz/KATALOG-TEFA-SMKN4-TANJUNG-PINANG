@@ -5,7 +5,6 @@
    Dimuat otomatis dari partial tersebut lewat @push('css').
 ========================================================= */
 
-/* Atribut hidden harus selalu menang atas display bawaan kelas */
 .cancel-modal[hidden],
 .cancel-modal-body[hidden],
 .cancel-modal-footer[hidden],
@@ -13,7 +12,6 @@
   display: none !important;
 }
 
-/* ---------- Latar & kotak popup ---------- */
 .cancel-modal {
   position: fixed;
   inset: 0;
@@ -43,7 +41,6 @@
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
 }
 
-/* ---------- Header ---------- */
 .cancel-modal-header {
   display: flex;
   flex: 0 0 auto;
@@ -76,7 +73,6 @@
   cursor: pointer;
 }
 
-/* ---------- Form: isi bisa digulir, header & footer tetap ---------- */
 .cancel-modal-form {
   display: flex;
   flex: 1 1 auto;
@@ -102,7 +98,6 @@
   line-height: 1.6;
 }
 
-/* ---------- Pilihan alasan ---------- */
 .cancel-reason-list {
   display: flex;
   flex-direction: column;
@@ -152,7 +147,6 @@
   outline: 2px solid rgba(37, 99, 235, 0.12);
 }
 
-/* ---------- Pesan berhasil / gagal ---------- */
 .cancel-modal-message {
   flex: 0 0 auto;
   margin: 0 24px 16px;
@@ -176,7 +170,6 @@
   color: #991b1b;
 }
 
-/* ---------- Footer & tombol kirim ---------- */
 .cancel-modal-footer {
   display: flex;
   flex: 0 0 auto;
@@ -205,14 +198,12 @@
   cursor: not-allowed;
 }
 
-/* Cincin fokus keyboard */
 .cancel-modal-close:focus-visible,
 .cancel-modal-submit:focus-visible {
   outline: 3px solid var(--rw-focus);
   outline-offset: 3px;
 }
 
-/* ---------- Responsif HP ---------- */
 @media (max-width: 576px) {
   .cancel-modal {
     padding: 10px;

@@ -11,7 +11,7 @@
 <div class="pencarian-page">
     <div class="katalog-page-inner">
 
-        <!-- HEADER PENCARIAN -->
+        
         <div class="pencarian-head">
             <h2 class="pencarian-title">
                 Hasil Pencarian
@@ -27,7 +27,7 @@
             </p>
         </div>
 
-        <!-- HASIL PENCARIAN -->
+        
         <div class="katalog-grid">
             @forelse($results as $item)
                 @php
@@ -77,7 +77,7 @@
                 </div>
 
             @empty
-                <!-- EMPTY STATE -->
+                
                 <div class="katalog-empty">
                     <i class="ph ph-magnifying-glass"></i>
 

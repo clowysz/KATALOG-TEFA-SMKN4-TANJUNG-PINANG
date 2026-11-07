@@ -26,13 +26,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const polaEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Nomor HP: hanya boleh angka (dipasang sebelum validasi)
   nomorHp.addEventListener("input", function () {
     nomorHp.value = nomorHp.value.replace(/[^0-9]/g, "");
   });
 
   FormValidasi.pasang(form, [
-    // NAMA
     {
       input: nama,
       cek: function () {
@@ -44,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     },
 
-    // NOMOR HP
     {
       input: nomorHp,
       cek: function () {
@@ -56,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     },
 
-    // EMAIL
     {
       input: email,
       cek: function () {
@@ -74,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     },
 
-    // PASSWORD (saat berubah, konfirmasi ikut dicek ulang)
     {
       input: password,
       ulangi: [konfirmasi],
@@ -91,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     },
 
-    // KONFIRMASI PASSWORD
     {
       input: konfirmasi,
       cek: function () {

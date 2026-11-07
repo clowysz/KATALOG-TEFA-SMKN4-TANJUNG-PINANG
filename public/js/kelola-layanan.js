@@ -163,11 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let dataItems = [];
 
-  // ------------------------------------------------------
-  // Tombol buka / tutup modal (lewat atribut data-*)
-  // closeLayananModal dipanggil lewat nama global supaya
-  // versi yang dibungkus form-helper-jurusan.js ikut berjalan.
-  // ------------------------------------------------------
   document.addEventListener("click", function (event) {
     if (event.target.closest("[data-open-tambah]")) {
       openTambahModal();
@@ -181,9 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // ------------------------------------------------------
-  // Tampilan kosong / error di dalam grid
-  // ------------------------------------------------------
   function stateHtml(icon, title, text) {
     return `
             <div class="grid-state">
@@ -196,9 +188,6 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
   }
 
-  // ------------------------------------------------------
-  // Gambar
-  // ------------------------------------------------------
   function getImageUrl(item) {
     if (item.gambars && item.gambars.length > 0) {
       return "/storage/" + item.gambars[0].path_gambar;
@@ -210,9 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
-  // ------------------------------------------------------
-  // Ambil data
-  // ------------------------------------------------------
   async function loadData() {
     if (!container) {
       return;
@@ -247,9 +233,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ------------------------------------------------------
-  // Render kartu
-  // ------------------------------------------------------
   function renderCards(filterText = "") {
     if (!container) {
       return;
@@ -326,9 +309,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ------------------------------------------------------
-  // Edit & hapus (event delegation pada container)
-  // ------------------------------------------------------
   function renderOldImages(item) {
     if (!previewContainer) {
       return;
@@ -409,18 +389,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ------------------------------------------------------
-  // Pencarian
-  // ------------------------------------------------------
   if (searchInput) {
     searchInput.addEventListener("keyup", function () {
       renderCards(this.value);
     });
   }
 
-  // ------------------------------------------------------
-  // Simpan (tambah / edit)
-  // ------------------------------------------------------
   if (form) {
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
@@ -493,9 +467,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ------------------------------------------------------
-  // Konfirmasi hapus
-  // ------------------------------------------------------
   const btnConfirmDelete = document.getElementById("btnConfirmDelete");
 
   if (btnConfirmDelete) {

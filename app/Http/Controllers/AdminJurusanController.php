@@ -15,9 +15,9 @@ use App\Models\PenugasanProduser;
 
 class AdminJurusanController extends Controller
 {
-    // =========================================================
-    // DASHBOARD ADMIN JURUSAN
-    // =========================================================
+
+
+
 
     public function dashboard()
     {
@@ -87,9 +87,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // HALAMAN KELOLA DESKRIPSI JURUSAN
-    // =========================================================
+
+
 
     public function deskripsi()
     {
@@ -110,9 +109,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // DAFTAR AKUN ADMIN PRODUSER
-    // =========================================================
+
+
 
     public function akun()
     {
@@ -150,9 +148,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // TAMBAH AKUN ADMIN PRODUSER
-    // =========================================================
+
+
 
     public function createProduser()
     {
@@ -180,9 +177,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // DETAIL AKUN ADMIN PRODUSER
-    // =========================================================
+
+
 
     public function detailProduser(Request $request)
     {
@@ -221,9 +217,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // EDIT AKUN ADMIN PRODUSER
-    // =========================================================
+
+
 
     public function editProduser(Request $request)
     {
@@ -268,9 +263,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // UPDATE AKUN ADMIN PRODUSER
-    // =========================================================
+
+
 
     public function updateProduser(Request $request)
     {
@@ -369,9 +363,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // HAPUS AKSES / NONAKTIFKAN AKUN
-    // =========================================================
+
+
 
     public function updateStatusProduser(Request $request)
     {
@@ -426,9 +419,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // RESET PASSWORD ADMIN PRODUSER
-    // =========================================================
+
+
 
     public function resetPasswordProduser(Request $request)
     {
@@ -477,9 +469,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // UPDATE DESKRIPSI JURUSAN
-    // =========================================================
+
+
 
     public function updateDeskripsi(Request $request)
     {
@@ -507,9 +498,8 @@ class AdminJurusanController extends Controller
     }
 
 
-    // =========================================================
-    // MEMBUAT ADMIN PRODUSER BARU
-    // =========================================================
+
+
 
     public function storeProduser(Request $request)
     {

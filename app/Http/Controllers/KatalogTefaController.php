@@ -27,7 +27,7 @@ class KatalogTefaController extends Controller
             $perPage = self::PER_PAGE_DEFAULT;
         }
 
-        // ----- Filter dari URL (?keyword=...&jenis=...&jurusan=...) -----
+
 
         $rawKeyword = $request->query('keyword', '');
         $keyword = is_scalar($rawKeyword) ? trim((string) $rawKeyword) : '';
@@ -42,8 +42,8 @@ class KatalogTefaController extends Controller
 
         $adaFilter = $keyword !== '' || $jenis !== 'semua' || $idJurusan !== 'semua';
 
-        // Query dasar. Filter diterapkan di sini, sehingga daftar card
-        // dan tombol "Pilih Semua" selalu memakai hasil query yang sama.
+
+
         $query = ProdukJasa::query();
 
         if ($keyword !== '') {
@@ -61,7 +61,7 @@ class KatalogTefaController extends Controller
             $query->where('id_jurusan', $idJurusan);
         }
 
-        // ID seluruh item hasil query (SEMUA halaman), dipakai tombol "Pilih Semua"
+
         $semuaId = (clone $query)->pluck('id_produk_jasa');
 
         $katalog = $query
@@ -73,11 +73,11 @@ class KatalogTefaController extends Controller
             ->paginate($perPage)
             ->withQueryString();
 
-        // Pilihan pada dropdown filter jurusan
+
         $daftarJurusan = Jurusan::orderBy('nama_jurusan')
             ->get(['id_jurusan', 'nama_jurusan']);
 
-        // Nomor yang tampil di footer PDF (tampilan: 0896-5362-8650)
+
         $nomorPdf = Pengaturan::formatNomor(Pengaturan::nomorPdf());
 
         return view(
@@ -208,10 +208,10 @@ class KatalogTefaController extends Controller
         );
     }
 
-    // Fungsi untuk menampilkan halaman detail
+
     public function showDetail(int $id)
     {
-        // Ambil data produk/jasa beserta relasi jurusan dan gambarnya
+
         $item = ProdukJasa::with(['jurusan', 'gambars'])
             ->where('id_produk_jasa', $id)
             ->firstOrFail();

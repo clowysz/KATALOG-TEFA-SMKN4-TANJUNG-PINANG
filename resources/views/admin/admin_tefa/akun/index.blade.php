@@ -20,7 +20,6 @@
         </p>
     </div>
 
-
     <a
         href="{{ route('akun.create') }}"
         class="btn-primary btn-tambah-akun"
@@ -30,7 +29,6 @@
 
 </div>
 
-
 @if(session('success'))
 
 <div class="alert-custom alert-success">
@@ -39,10 +37,9 @@
 
 @endif
 
-
 <div class="tefa-card">
 
-    <!-- Area Filter & Search -->
+    
     <div class="filter-bar">
 
         <input
@@ -51,7 +48,6 @@
             class="search-input"
             placeholder="Cari nama, email..."
         >
-
 
         <select
             id="filterRole"
@@ -69,7 +65,6 @@
                 Admin Jurusan
             </option>
         </select>
-
 
         <select
             id="filterStatusAkun"
@@ -90,8 +85,7 @@
 
     </div>
 
-
-    <!-- Tabel Akun (di layar kecil tampil sebagai kartu) -->
+    
     <div class="table-responsive">
 
         <table
@@ -112,7 +106,6 @@
 
             </thead>
 
-
             <tbody>
 
                 @forelse($akuns as $akun)
@@ -123,11 +116,9 @@
                         {{ $akun->nama }}
                     </td>
 
-
                     <td class="col-email" data-label="Email">
                         {{ $akun->email }}
                     </td>
-
 
                     <td
                         class="col-role"
@@ -147,13 +138,11 @@
 
                     </td>
 
-
                     <td class="col-jurusan" data-label="Jurusan">
 
                         {{ $akun->jurusanDipegang->nama_jurusan ?? '-' }}
 
                     </td>
-
 
                     <td
                         class="col-status"
@@ -176,7 +165,6 @@
                         @endif
 
                     </td>
-
 
                     <td class="col-aksi" data-label="Aksi">
 
@@ -221,8 +209,7 @@
 
     </div>
 
-
-    <!-- Pesan ketika hasil filter/pencarian kosong (ditampilkan oleh akun.js) -->
+    
     <div
         id="emptyAkun"
         class="akun-empty-filter"
@@ -242,7 +229,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 

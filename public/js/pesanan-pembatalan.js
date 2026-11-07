@@ -13,14 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const cancellationList = document.getElementById("cancellationList");
   const mainPesananContent = document.getElementById("mainPesananContent");
 
-  // Daftar permintaan pembatalan hanya ada jika ada permintaan.
   if (!cancellationList) {
     return;
   }
 
-  // ==========================================
-  // TOMBOL TAMPILKAN / SEMBUNYIKAN
-  // ==========================================
   if (toggleButton && mainPesananContent) {
     toggleButton.addEventListener("click", function () {
       const sedangTerbuka = !cancellationList.hidden;
@@ -37,15 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ==========================================
-  // FILTER PERMINTAAN PEMBATALAN
-  // ==========================================
   const searchInput = document.getElementById("searchCancellation");
   const filterJurusan = document.getElementById("filterCancellationJurusan");
   const emptyMessage = document.getElementById("emptyCancellation");
   const rows = cancellationList.querySelectorAll("tr.cancellation-row");
 
-  // Menyamakan teks: tanpa aksen, huruf kecil, spasi tunggal.
   function normalisasi(teks) {
     return (teks || "")
       .normalize("NFD")
@@ -88,8 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const tampilkan = cocokPencarian && cocokJurusan;
 
-      // Disembunyikan lewat atribut hidden (diatur di CSS),
-      // sehingga tampilan tabel/kartu tidak rusak.
       row.hidden = !tampilkan;
 
       if (tampilkan) {

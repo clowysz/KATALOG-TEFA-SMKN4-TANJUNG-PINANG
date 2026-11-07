@@ -36,7 +36,7 @@
         ? $progressTerakhir->persentase_progress
         : ($pesanan->status === 'selesai' ? 100 : 0);
 
-    // Riwayat pembatalan terbaru (berisi alasan pembatalan).
+
     $riwayatBatal = $pesanan->riwayatStatus
         ->where('status', 'dibatalkan')
         ->sortByDesc('tanggal_update')
@@ -45,7 +45,7 @@
 
 <div class="rd-page">
 
-    <!-- HEADER -->
+    
     <div class="rd-header">
 
         <div class="rd-container">
@@ -73,14 +73,12 @@
 
     </div>
 
-
-    <!-- BODY -->
+    
     <div class="rd-body">
 
         <div class="rd-container">
 
-
-            <!-- RINGKASAN: NOMOR PESANAN + STATUS -->
+            
             <div class="rd-card rd-summary">
 
                 <div>
@@ -110,8 +108,7 @@
 
             </div>
 
-
-            <!-- PRODUK / JASA -->
+            
             <div class="rd-card rd-product">
 
                 @if($gambar)
@@ -128,7 +125,6 @@
                     </div>
 
                 @endif
-
 
                 <div class="rd-product-info">
 
@@ -152,8 +148,7 @@
 
             </div>
 
-
-            <!-- STATUS PESANAN -->
+            
             <div class="rd-card">
 
                 <h3 class="rd-card-title">Status Pesanan</h3>
@@ -221,8 +216,7 @@
 
             </div>
 
-
-            <!-- ALASAN PEMBATALAN -->
+            
             @if($pesanan->status === 'dibatalkan' && $riwayatBatal?->keterangan)
 
                 <div class="rd-card">
@@ -240,8 +234,7 @@
 
             @endif
 
-
-            <!-- PROGRESS PENGERJAAN -->
+            
             <div class="rd-card">
 
                 <h3 class="rd-card-title">Progress Pengerjaan</h3>
@@ -261,7 +254,6 @@
                     </div>
 
                 </div>
-
 
                 @forelse($pesanan->progressPengerjaan->sortByDesc('tanggal_update') as $progress)
 
@@ -295,8 +287,7 @@
 
             </div>
 
-
-            <!-- TAHAPAN PENGERJAAN -->
+            
             @if($pesanan->tahapanPengerjaan->count())
 
                 <div class="rd-card">
@@ -323,7 +314,6 @@
 
                             </div>
 
-
                             <div class="rd-stage-body">
 
                                 <div class="rd-stage-meta">
@@ -348,12 +338,10 @@
 
             @endif
 
-
-            <!-- INFORMASI PEMESAN & DETAIL PESANAN -->
+            
             <div class="rd-grid">
 
-
-                <!-- PEMESAN -->
+                
                 <div class="rd-card">
 
                     <h3 class="rd-card-title">Informasi Pemesan</h3>
@@ -378,12 +366,9 @@
 
                 </div>
 
-
-
-<!-- KOLOM DETAIL PESANAN DAN PEMBATALAN -->
 <div class="rd-detail-column">
 
-    <!-- DETAIL PESANAN -->
+    
     <div class="rd-card">
         <h3 class="rd-card-title">Detail Pesanan</h3>
 
@@ -417,7 +402,7 @@
         </div>
     </div>
 
-    <!-- PEMBATALAN PESANAN -->
+    
     @if(in_array($pesanan->status, ['menunggu konfirmasi', 'konfirmasi']))
         <div class="rd-card rd-cancel-card">
             <h3 class="rd-card-title">Pembatalan Pesanan</h3>
@@ -441,9 +426,7 @@
   </div>
 </div>
 
-
-
-            <!-- CATATAN -->
+            
             @if($pesanan->catatan)
 
                 <div class="rd-card">
@@ -460,7 +443,6 @@
                 </div>
 
             @endif
-
 
         </div>
 

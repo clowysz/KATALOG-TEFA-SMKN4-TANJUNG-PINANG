@@ -13,10 +13,10 @@ class KontakCsController extends Controller
 {
     public function index()
     {
-        // Tampilan: 0896-5362-8650
+
         $nomorCs = Pengaturan::formatNomor(Pengaturan::nomorCs());
 
-        // Link untuk menguji nomor yang sedang tersimpan
+
         $urlWhatsapp = Pengaturan::urlWhatsapp();
 
         return view(

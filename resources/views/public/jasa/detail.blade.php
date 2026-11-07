@@ -30,7 +30,7 @@
 
     <div class="detail-top-container">
 
-        <!-- Slider Galeri Gambar Utama & Thumbnail Kecil -->
+        
         <div class="detail-gallery">
             @php
                 $gambars = $jasa->gambars;
@@ -64,7 +64,7 @@
                     @endif
                 </div>
 
-                <!-- PREVIEW GAMBAR KECIL DI BAWAH -->
+                
                 @if($gambars->count() > 1)
                     <div class="carousel-thumbnails">
                         @foreach($gambars as $index => $gambar)
@@ -87,7 +87,7 @@
             @endif
         </div>
 
-        <!-- Info Jasa -->
+        
         <div class="detail-info">
             <h1 class="detail-title">
                 {{ $jasa->nama_produk_jasa }}
@@ -121,7 +121,7 @@
 
     </div>
 
-    <!-- Kotak Meta Info (Jenis, Jurusan, Jumlah Pesanan) -->
+    
     <div class="detail-meta-cards">
         <div class="meta-card-item">
             <div class="meta-icon"><i class="ph ph-tag"></i></div>
@@ -148,7 +148,7 @@
         </div>
     </div>
 
-    <!-- Bagian Bawah: Deskripsi -->
+    
     <div class="detail-card">
         <h2 class="detail-section-title">
             DESKRIPSI

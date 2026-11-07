@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @push('styles')
-    {{-- pesanan-produser.css dipakai ulang untuk tabel pesanan --}}
+    
     <link rel="stylesheet" href="{{ asset('css/pesanan-produser.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard-produser.css') }}">
 @endpush
@@ -14,7 +14,6 @@
     <p class="page-intro-desc">Pantau pesanan yang berkaitan dengan produk atau jasa yang menjadi tanggung jawab Anda.</p>
 </div>
 
-{{-- ================= STATISTIK ================= --}}
 <div class="stat-grid">
 
     <div class="tefa-card stat-card">
@@ -39,7 +38,6 @@
 
 </div>
 
-{{-- ================= PESANAN TERKAIT ================= --}}
 <div class="tefa-card order-card dashboard-card">
 
     <div class="dashboard-card-header">
@@ -108,7 +106,7 @@
                                 </div>
 
                                 <div class="progress-track">
-                                    {{-- Style inline hanya untuk lebar bar (nilai dari data) --}}
+                                    
                                     <div class="progress-fill" style="width: {{ $persentase }}%;"></div>
                                 </div>
                             </div>

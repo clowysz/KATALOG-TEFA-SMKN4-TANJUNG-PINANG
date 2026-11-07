@@ -1,4 +1,4 @@
-{{-- POPUP PEMBATALAN PESANAN (PEMBELI) --}}
+
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/popup-batal-pesanan.css') }}?v=1">
@@ -15,7 +15,7 @@
         aria-modal="true"
         aria-labelledby="cancelModalTitle"
     >
-        <!-- Header Popup -->
+        
         <div class="cancel-modal-header">
             <h2 id="cancelModalTitle">Batalkan Pesanan</h2>
 
@@ -29,7 +29,7 @@
             </button>
         </div>
 
-        <!-- Form Pembatalan -->
+        
         <form id="cancelOrderForm" class="cancel-modal-form" method="POST">
             @csrf
 
@@ -104,7 +104,7 @@
                 ></textarea>
             </div>
 
-            <!-- Pesan Berhasil atau Gagal -->
+            
             <p
                 class="cancel-modal-message"
                 id="cancelModalMessage"
@@ -112,7 +112,7 @@
                 aria-live="polite"
             ></p>
 
-            <!-- Tombol Kirim -->
+            
             <div class="cancel-modal-footer" id="cancelModalFooter">
                 <button
                     type="submit"

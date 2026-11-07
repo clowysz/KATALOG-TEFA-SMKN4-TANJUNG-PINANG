@@ -36,8 +36,6 @@
 
 <div id="kelolaProdukContainer" class="catalog-grid"></div>
 
-
-<!-- Modal Tambah/Edit -->
 <div id="modalAdd" class="modal-overlay">
     <div class="modal-box modal-box-form">
 
@@ -130,8 +128,6 @@
     </div>
 </div>
 
-
-<!-- Modal Hapus -->
 <div id="modalDelete" class="modal-overlay">
     <div class="modal-box">
 
@@ -168,11 +164,9 @@
     </div>
 </div>
 
-
 <div id="toastNotif" class="toast-notification"></div>
 
 @endsection
-
 
 @section('scripts')
 <script src="{{ asset('js/kelola-layanan.js') }}"></script>

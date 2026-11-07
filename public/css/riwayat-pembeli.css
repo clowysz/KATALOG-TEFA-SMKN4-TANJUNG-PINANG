@@ -34,12 +34,10 @@
   --rw-focus: #eab308;
   --rw-danger: #dc2626;
 
-  /* Lebar lencana status & tombol aksi: dibuat tetap agar sejajar */
   --rw-badge-width: 156px;
   --rw-action-width: 150px;
 }
 
-/* Tanpa gap putih di atas footer */
 main {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
@@ -49,7 +47,6 @@ main {
   margin-top: 0 !important;
 }
 
-/* Elemen yang bisa disentuh: tanpa kilatan abu-abu di HP */
 .rw-back-btn,
 .rw-tab,
 .rw-btn-detail,
@@ -58,7 +55,6 @@ main {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Cincin fokus keyboard */
 .rw-back-btn:focus-visible,
 .rw-tab:focus-visible,
 .rw-btn-detail:focus-visible,
@@ -69,7 +65,6 @@ main {
   outline-offset: 3px;
 }
 
-/* Tombol kembali (dipakai di kedua halaman) */
 .rw-back-btn {
   display: inline-flex;
   align-items: center;
@@ -117,8 +112,6 @@ main {
    2. HALAMAN DAFTAR RIWAYAT
 ========================================================= */
 
-/* ---------- 2a. Kerangka halaman, filter, pencarian ---------- */
-
 .rw-page {
   position: relative;
   display: flex;
@@ -130,7 +123,6 @@ main {
   background: var(--rw-blue);
 }
 
-/* Gelembung dekorasi (ukuran & posisi per gelembung) */
 .rw-page .rw-bubble--1 {
   top: -50px;
   right: -50px;
@@ -175,7 +167,6 @@ main {
   font-size: 14px;
 }
 
-/* Kartu putih */
 .rw-card {
   width: 100%;
   max-width: 1200px;
@@ -186,7 +177,6 @@ main {
   z-index: 2;
 }
 
-/* Filter: tab status + pencarian */
 .rw-tools {
   display: flex;
   flex-wrap: wrap;
@@ -256,8 +246,6 @@ main {
   font-size: 13px;
 }
 
-/* ---------- 2b. Tabel pesanan ---------- */
-
 .rw-table-wrapper {
   overflow-x: auto;
 }
@@ -278,7 +266,6 @@ main {
   vertical-align: middle;
 }
 
-/* Kolom pertama (nama pesanan) rata kiri */
 .rw-table th:first-child,
 .rw-table td:first-child {
   text-align: left;
@@ -290,7 +277,6 @@ main {
   vertical-align: middle;
 }
 
-/* Lebar kolom tetap untuk status, aksi, dan hapus */
 .rw-th-status {
   width: calc(var(--rw-badge-width) + 32px);
 }
@@ -303,7 +289,6 @@ main {
   width: 80px;
 }
 
-/* Isi sel */
 .rw-item {
   display: flex;
   align-items: center;
@@ -360,7 +345,6 @@ main {
   white-space: nowrap;
 }
 
-/* Desktop: isi kolom selain kolom pertama rata tengah, sejajar judulnya */
 @media (min-width: 769px) {
   .rw-table td:not(:first-child) {
     text-align: center;
@@ -372,7 +356,6 @@ main {
   }
 }
 
-/* Keadaan kosong */
 .rw-table td.rw-empty {
   padding: 60px 20px;
   background: #ffffff;
@@ -397,9 +380,6 @@ main {
   color: var(--rw-muted);
   font-size: 14px;
 }
-
-/* ---------- 2c. Lencana status ---------- */
-/* Semua lencana punya lebar & tinggi yang sama, apa pun teksnya */
 
 .rw-badge {
   display: inline-flex;
@@ -438,9 +418,6 @@ main {
   color: var(--rw-danger);
 }
 
-/* ---------- 2d. Tombol aksi & tombol hapus ---------- */
-
-/* Pembungkus tombol aksi: tersusun ke bawah, lebar sama, di tengah kolom */
 .rw-action-buttons {
   display: flex;
   flex-direction: column;
@@ -451,7 +428,6 @@ main {
   margin: 0 auto;
 }
 
-/* Tombol detail & batalkan memakai ukuran yang sama */
 .rw-btn-detail,
 .rw-btn-cancel {
   display: inline-flex;
@@ -476,7 +452,6 @@ main {
   width: 100%;
 }
 
-/* Tombol detail */
 .rw-btn-detail {
   border: 1px solid var(--rw-border);
   background: #ffffff;
@@ -492,7 +467,6 @@ main {
   transform: scale(0.97);
 }
 
-/* Tombol batalkan pesanan (juga dipakai di halaman detail) */
 .rw-btn-cancel {
   width: 100%;
   border: 1px solid var(--rw-danger);
@@ -510,7 +484,6 @@ main {
   transform: scale(0.97);
 }
 
-/* Kolom hapus */
 .rw-delete {
   text-align: center;
   vertical-align: middle;
@@ -553,9 +526,6 @@ main {
   color: var(--rw-faint);
 }
 
-/* ---------- 2e. Responsif daftar riwayat ---------- */
-
-/* Maks 992px: tabel lebih rapat */
 @media (max-width: 992px) {
   .rw-table {
     min-width: 940px;
@@ -575,7 +545,6 @@ main {
   }
 }
 
-/* Maks 768px: tabel berubah jadi kartu per pesanan */
 @media (max-width: 768px) {
   .rw-page {
     padding: 24px 4% 56px;
@@ -637,7 +606,6 @@ main {
     border: none;
   }
 
-  /* Tiap sel: label di kiri, nilai di kanan (label dari atribut data-label) */
   .rw-table td {
     display: flex;
     justify-content: space-between;
@@ -659,7 +627,6 @@ main {
     text-transform: uppercase;
   }
 
-  /* Sel pertama (nama pesanan): tanpa label */
   .rw-table td:first-child {
     display: block;
     padding-top: 0;
@@ -673,7 +640,6 @@ main {
     display: none;
   }
 
-  /* Tombol aksi: berjajar dua kolom sama lebar, memenuhi kartu */
   .rw-table td.rw-action {
     display: block;
     padding: 12px 0 4px;
@@ -696,7 +662,6 @@ main {
     white-space: normal;
   }
 
-  /* Kolom hapus: label di kiri, tombol di kanan */
   .rw-delete-form {
     margin-left: auto;
   }
@@ -737,7 +702,6 @@ main {
   }
 }
 
-/* Maks 576px: HP */
 @media (max-width: 576px) {
   .rw-page {
     --rw-badge-width: 144px;
@@ -777,7 +741,6 @@ main {
     padding-bottom: 12px;
   }
 
-  /* Tab status: dua kolom */
   .rw-tabs {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -966,7 +929,6 @@ main {
    4. HALAMAN DETAIL RIWAYAT
 ========================================================= */
 
-/* ---------- Pembungkus halaman ---------- */
 .rd-page {
   min-height: 100vh;
   padding-bottom: 60px;
@@ -979,7 +941,6 @@ main {
   padding: 0 20px;
 }
 
-/* ---------- Header biru ---------- */
 .rd-header {
   position: relative;
   margin-bottom: -30px;
@@ -1015,7 +976,6 @@ main {
   font-size: 14px;
 }
 
-/* ---------- Kartu ---------- */
 .rd-body {
   position: relative;
   z-index: 10;
@@ -1040,7 +1000,6 @@ main {
   font-weight: 700;
 }
 
-/* ---------- Ringkasan: nomor pesanan + status ---------- */
 .rd-summary {
   display: flex;
   justify-content: space-between;
@@ -1090,7 +1049,6 @@ main {
   font-size: 12px;
 }
 
-/* ---------- Produk / jasa ---------- */
 .rd-product {
   display: flex;
   align-items: center;
@@ -1156,7 +1114,6 @@ main {
   font-size: 13px;
 }
 
-/* ---------- Timeline status ---------- */
 .rd-timeline {
   display: flex;
   justify-content: space-between;
@@ -1216,7 +1173,6 @@ main {
   background: var(--rw-blue-bright);
 }
 
-/* ---------- Progress & tahapan pengerjaan ---------- */
 .rd-progress-block {
   margin-bottom: 20px;
 }
@@ -1316,7 +1272,6 @@ main {
   font-size: 13px;
 }
 
-/* ---------- Informasi pemesan & detail pesanan ---------- */
 .rd-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1328,7 +1283,6 @@ main {
   margin-bottom: 0;
 }
 
-/* Kolom kanan: kartu detail pesanan + kartu pembatalan */
 .rd-detail-column {
   display: flex;
   flex-direction: column;
@@ -1387,7 +1341,6 @@ main {
   font-weight: 800;
 }
 
-/* ---------- Catatan ---------- */
 .rd-notes {
   padding: 16px;
   border: 1px solid var(--rw-border);
@@ -1399,9 +1352,6 @@ main {
   overflow-wrap: anywhere;
 }
 
-/* ---------- Responsif detail riwayat ---------- */
-
-/* Maks 768px: tablet */
 @media (max-width: 768px) {
   .rd-container {
     padding: 0 16px;
@@ -1479,7 +1429,6 @@ main {
     font-size: 18px;
   }
 
-  /* Timeline jadi vertikal */
   .rd-timeline {
     flex-direction: column;
     align-items: flex-start;
@@ -1510,7 +1459,6 @@ main {
   }
 }
 
-/* Maks 576px: HP */
 @media (max-width: 576px) {
   .rd-container {
     padding: 0 12px;
@@ -1582,7 +1530,6 @@ main {
     font-size: 11.5px;
   }
 
-  /* Produk: gambar kecil di kiri, info di kanan */
   .rd-product {
     align-items: flex-start;
     gap: 12px;

@@ -13,7 +13,7 @@ return new class extends Migration
             $table->text('pertanyaan');
             $table->text('jawaban');
             
-            // Menggunakan foreignId agar aman dan terhubung ke tabel users
+
             $table->foreignId('id_user')
                   ->constrained('users')
                   ->onDelete('cascade');

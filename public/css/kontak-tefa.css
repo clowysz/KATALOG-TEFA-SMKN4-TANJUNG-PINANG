@@ -6,13 +6,11 @@
    Mobile  : ditumpuk, tombol penuh
 ========================================================= */
 
-/* Pembungkus halaman Customer Service */
 .kontak-halaman {
   max-width: 800px;
   margin: 0 auto;
 }
 
-/* Kunci scroll halaman saat pop-up terbuka */
 body.kontak-modal-terbuka {
   overflow: hidden;
 }
@@ -241,7 +239,6 @@ body.kontak-modal-terbuka {
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
-/* Pesan error buatan sendiri (bukan bawaan browser) */
 .kontak-error {
   margin: 0;
   color: #b91c1c;
@@ -259,7 +256,6 @@ body.kontak-modal-terbuka {
 ========================= */
 
 .btn-kontak-simpan {
-  /* sejajar dengan kotak input (tinggi label + jarak) */
   margin-top: 25px;
   padding: 10px 22px;
 
@@ -409,7 +405,6 @@ body.kontak-modal-terbuka {
   margin-top: 20px;
 }
 
-/* Tombol Simpan di pop-up tidak memakai jarak atas milik form sejajar */
 .kontak-modal .btn-kontak-simpan {
   margin-top: 0;
 }
@@ -437,7 +432,6 @@ body.kontak-modal-terbuka {
    RESPONSIVE
 ========================= */
 
-/* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
   .kontak-icon {
     width: 38px;
@@ -449,7 +443,6 @@ body.kontak-modal-terbuka {
     font-size: 12px;
   }
 
-  /* Baris ringkas */
   .kontak-ringkas {
     padding: 10px 12px;
     border-radius: 14px;
@@ -464,7 +457,6 @@ body.kontak-modal-terbuka {
     padding: 8px 14px;
   }
 
-  /* Kartu form Customer Service */
   .kontak-card {
     padding: 12px;
     gap: 12px;
@@ -478,7 +470,7 @@ body.kontak-modal-terbuka {
   }
 
   .kontak-group input {
-    font-size: 16px; /* mencegah auto-zoom di iOS */
+    font-size: 16px;
   }
 
   .btn-kontak-simpan {
@@ -497,7 +489,6 @@ body.kontak-modal-terbuka {
     padding: 10px 14px;
   }
 
-  /* Pop-up */
   .kontak-modal-box {
     padding: 20px 16px;
     border-radius: 14px;
@@ -508,7 +499,6 @@ body.kontak-modal-terbuka {
   }
 }
 
-/* ---------- HP KECIL ---------- */
 @media (max-width: 480px) {
   .kontak-modal-aksi {
     flex-direction: column-reverse;

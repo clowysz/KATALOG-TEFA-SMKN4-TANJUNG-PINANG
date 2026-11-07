@@ -12,7 +12,6 @@
   box-sizing: border-box;
 }
 
-/* ================= Header halaman ================= */
 .detail-page-header {
   display: flex;
   flex-direction: column;
@@ -34,7 +33,6 @@
   font-size: 14px;
 }
 
-/* ================= Hero ================= */
 .order-hero-card {
   border-radius: 14px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
@@ -122,7 +120,6 @@
   word-break: break-word;
 }
 
-/* ================= Informasi pesanan ================= */
 .detail-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -154,7 +151,6 @@
   font-size: 13px;
 }
 
-/* ================= Layout 2 kolom ================= */
 .two-column {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
@@ -162,7 +158,6 @@
   margin-bottom: 24px;
 }
 
-/* ================= Stepper tahapan ================= */
 #produserOrderPage .stepper-container {
   margin-top: 10px;
 }
@@ -231,7 +226,6 @@
   transition: width 0.3s ease;
 }
 
-/* ================= Form progress ================= */
 .progress-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -242,7 +236,6 @@
   margin-top: 20px;
 }
 
-/* ================= Riwayat progress ================= */
 .history-list {
   position: relative;
 }
@@ -322,7 +315,6 @@
   white-space: nowrap;
 }
 
-/* ================= Modal ================= */
 .prod-modal-overlay {
   position: fixed;
   top: 0;
@@ -434,7 +426,6 @@
   border-top: 1px solid var(--prod-border);
 }
 
-/* ================= Toolbar kelola tahapan ================= */
 .stage-toolbar {
   display: flex;
   justify-content: space-between;
@@ -460,7 +451,6 @@
   margin-left: auto;
 }
 
-/* ================= Tabel tahapan ================= */
 .table-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -563,8 +553,6 @@ body.is-dragging * {
   font-size: 13px;
 }
 
-/* ================= Modal konfirmasi hapus ================= */
-
 /* Harus lebih tinggi dari .prod-modal-overlay (99999) agar muncul
    di atas modal kelola tahapan */
 .confirm-overlay {
@@ -619,7 +607,6 @@ body.is-dragging * {
   justify-content: center;
 }
 
-/* Tombol bahaya (hapus duplikat ini jika sudah ada di admin-produser.css) */
 .prod-btn-danger {
   background: #dc2626;
   color: #ffffff;
@@ -636,9 +623,6 @@ body.is-dragging * {
   cursor: not-allowed;
 }
 
-/* ================= RESPONSIF ================= */
-
-/* Tablet */
 @media (max-width: 900px) {
   #produserOrderPage {
     padding: 20px;
@@ -658,7 +642,6 @@ body.is-dragging * {
   }
 }
 
-/* Mobile */
 @media (max-width: 650px) {
   #produserOrderPage {
     padding: 14px;
@@ -721,7 +704,6 @@ body.is-dragging * {
     text-align: left;
   }
 
-  /* Modal */
   .prod-modal-overlay {
     padding: 10px;
   }
@@ -755,7 +737,6 @@ body.is-dragging * {
     width: 100%;
   }
 
-  /* Modal konfirmasi: tombol bertumpuk */
   .confirm-modal {
     padding: 24px 18px 18px;
   }
@@ -764,7 +745,6 @@ body.is-dragging * {
     flex-direction: column-reverse;
   }
 
-  /* Tabel tahapan -> kartu */
   .stage-table,
   .stage-table tbody {
     display: block;

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProdukJasaController extends Controller
 {
-    // Ambil data Produk/Jasa
+
     public function index(Request $request)
     {
         $user = Auth::user();
@@ -39,7 +39,7 @@ class ProdukJasaController extends Controller
         ]);
     }
 
-    // Tambah Produk/Jasa
+
     public function store(Request $request)
     {
         $request->validate([
@@ -84,7 +84,7 @@ class ProdukJasaController extends Controller
         ]);
     }
 
-    // Edit Produk/Jasa
+
     public function update(Request $request,int $id)
     {
         $request->validate([
@@ -139,7 +139,7 @@ class ProdukJasaController extends Controller
         ]);
     }
 
-    // Soft delete Produk/Jasa
+
     public function destroy(int $id)
     {
         $user = Auth::user();
@@ -168,7 +168,7 @@ class ProdukJasaController extends Controller
         ]);
     }
 
-    // Hapus satu gambar
+
     public function destroyGambar(int $id_gambar)
     {
         $user = Auth::user();
@@ -203,7 +203,7 @@ class ProdukJasaController extends Controller
         ]);
     }
 
-    // Tambah jumlah tampilan Produk/Jasa
+
     public function tambahTampilan(int $id)
     {
         $produkJasa = ProdukJasa::findOrFail($id);
@@ -216,7 +216,7 @@ class ProdukJasaController extends Controller
         ]);
     }
 
-    // Tambah jumlah pencarian Produk/Jasa
+
     public function tambahPencarian(int $id)
     {
         $produkJasa = ProdukJasa::findOrFail($id);

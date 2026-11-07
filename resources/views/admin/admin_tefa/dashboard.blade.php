@@ -9,7 +9,6 @@
     <p>Ringkasan Performa TEFA</p>
 </div>
 
-<!-- 5 Summary Cards -->
 <div class="summary-grid">
 
     <div class="tefa-card summary-card summary-total">
@@ -26,7 +25,6 @@
         </div>
     </div>
 
-
     <div class="tefa-card summary-card summary-menunggu">
         <div class="summary-icon">
             <i class="ph ph-hourglass"></i>
@@ -40,7 +38,6 @@
             </h3>
         </div>
     </div>
-
 
     <div class="tefa-card summary-card summary-konfirmasi">
         <div class="summary-icon">
@@ -56,7 +53,6 @@
         </div>
     </div>
 
-
     <div class="tefa-card summary-card summary-proses">
         <div class="summary-icon">
             <i class="ph ph-gear"></i>
@@ -70,7 +66,6 @@
             </h3>
         </div>
     </div>
-
 
     <div class="tefa-card summary-card summary-selesai">
         <div class="summary-icon">
@@ -88,8 +83,6 @@
 
 </div>
 
-
-<!-- Produk Terlaris -->
 <div class="performance-grid">
 
     <div class="tefa-card">
@@ -101,7 +94,6 @@
 
             <h3>Produk Terlaris</h3>
         </div>
-
 
         @if($produkTerlaris->count() > 0)
 
@@ -137,17 +129,14 @@
 
 </div>
 
-
-<!-- Bottom Section -->
 <div class="bottom-grid">
 
-    <!-- Pesanan Terbaru -->
+    
     <div class="tefa-card">
 
         <h3 class="card-title">
             Pesanan Terbaru
         </h3>
-
 
         @if($pesananTerbaru->count() > 0)
 
@@ -158,7 +147,6 @@
                     @php
                         $gambar = $pesanan->produkJasa?->gambars?->first();
                     @endphp
-
 
                     @if($gambar)
 
@@ -178,13 +166,11 @@
 
                     @endif
 
-
                     <div class="recent-info">
 
                         <h4>
                             {{ $pesanan->produkJasa?->nama_produk_jasa ?? 'Produk/Jasa' }}
                         </h4>
-
 
                         <p>
 
@@ -214,14 +200,12 @@
 
     </div>
 
-
-    <!-- Grafik Pesanan Berdasarkan Jurusan -->
+    
     <div class="tefa-card">
 
         <h3 class="card-title">
             Pesanan Berdasarkan Jurusan
         </h3>
-
 
         @if(count($chartLabels) > 0)
 
@@ -247,14 +231,10 @@
 
 @endsection
 
-
 @section('scripts')
 
-<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
-<!-- Dashboard JavaScript -->
 <script src="{{ asset('js/dashboard.js') }}"></script>
 
 @endsection

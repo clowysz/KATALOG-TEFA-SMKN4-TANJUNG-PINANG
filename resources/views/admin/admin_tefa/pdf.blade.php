@@ -605,7 +605,6 @@
             );
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | FUNGSI SINGKATAN JURUSAN
@@ -652,7 +651,6 @@
 
 @endphp
 
-
 @foreach($produkJasas->chunk(12) as $halaman)
 
     <div class="pdf-page">
@@ -677,10 +675,9 @@
 
             </div>
 
-
             <div class="header-content">
 
-                <!-- LOGO TANPA LINGKARAN -->
+                
 
                 <div class="logo">
 
@@ -700,7 +697,6 @@
                     @endif
 
                 </div>
-
 
                 <div class="header-text">
 
@@ -722,11 +718,9 @@
 
             </div>
 
-
             <div class="header-decoration"></div>
 
         </div>
-
 
         <!-- =================================================
              GRID 3 x 4
@@ -752,7 +746,6 @@
 
                         </span>
 
-
                         <span class="badge badge-jenis">
 
                             {{ strtoupper(
@@ -762,7 +755,6 @@
                         </span>
 
                     </div>
-
 
                     <!-- =================================================
                          GAMBAR
@@ -810,7 +802,6 @@
 
                             @endphp
 
-
                             @if($gambarBase64)
 
                                 <img
@@ -836,7 +827,6 @@
 
                     </div>
 
-
                     <!-- =================================================
                          NAMA
                     ================================================== -->
@@ -846,7 +836,6 @@
                         {{ $item->nama_produk_jasa }}
 
                     </div>
-
 
                     <!-- =================================================
                          DESKRIPSI
@@ -896,13 +885,11 @@
 
                     @endphp
 
-
                     <div class="card-description">
 
                         {{ $deskripsi }}
 
                     </div>
-
 
                     <!-- =================================================
                          HARGA
@@ -934,7 +921,6 @@
 
             @endforeach
 
-
             <!-- =================================================
                  KARTU KOSONG
             ================================================== -->
@@ -950,7 +936,6 @@
             @endfor
 
         </div>
-
 
         <!-- =================================================
              FOOTER
@@ -979,7 +964,6 @@
                 </div>
 
             </div>
-
 
             <div class="footer-item">
 

@@ -10,7 +10,7 @@
 
 <div class="detail-page-wrapper">
 
-    {{-- TOMBOL KEMBALI --}}
+    
     <div class="back-link-wrapper">
         <a href="/jurusan-admin/katalog" class="back-link">
             <i class="ph ph-arrow-left"></i>
@@ -18,7 +18,7 @@
         </a>
     </div>
 
-    {{-- LOADING --}}
+    
     <div id="detailLoading" class="detail-state-box">
         <div class="detail-state-icon">
             <i class="ph ph-spinner-gap"></i>
@@ -27,7 +27,7 @@
         <p>Mohon tunggu sebentar, sedang mengambil data produk/jasa.</p>
     </div>
 
-    {{-- ERROR --}}
+    
     <div id="detailError" class="detail-state-box is-error" style="display: none;">
         <div class="detail-state-icon is-error">
             <i class="ph ph-warning"></i>
@@ -36,10 +36,10 @@
         <p>Produk atau jasa yang dipilih tidak tersedia atau telah dihapus.</p>
     </div>
 
-    {{-- KONTEN --}}
+    
     <div id="detailContent" style="display: none;">
 
-        {{-- CONTAINER ATAS: GALERI & INFO --}}
+        
         <div class="detail-top-card">
 
             <div class="detail-gallery">
@@ -62,7 +62,7 @@
 
         </div>
 
-        {{-- META CARDS --}}
+        
         <div class="detail-meta-cards">
 
             <div class="meta-card-item">
@@ -99,7 +99,7 @@
 
         </div>
 
-        {{-- DESKRIPSI --}}
+        
         <div class="detail-card">
             <h2 class="detail-section-title">DESKRIPSI</h2>
             <div class="detail-text" id="detailDesc">Memuat deskripsi...</div>
@@ -108,7 +108,6 @@
     </div>
 </div>
 
-{{-- LIGHTBOX --}}
 <div class="admin-gallery-lightbox" id="adminGalleryLightbox">
     <button type="button" class="admin-lightbox-close" id="adminLightboxClose" aria-label="Tutup">
         &times;
@@ -117,7 +116,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 <script src="{{ asset('js/katalog-detail-jurusan.js') }}"></script>

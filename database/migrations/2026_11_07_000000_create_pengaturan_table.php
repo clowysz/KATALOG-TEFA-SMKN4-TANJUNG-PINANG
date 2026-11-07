@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Nomor awal untuk PDF dan Customer Service (bisa diubah dari halaman admin)
+
         DB::table('pengaturan')->insert([
             [
                 'kunci' => 'nomor_pdf',

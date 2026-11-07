@@ -55,7 +55,7 @@ class ChromePdfGenerator
             try {
                 File::deleteDirectory($workDir);
             } catch (\Throwable $e) {
-                // folder temp akan dibersihkan di request berikutnya
+
             }
         }
 

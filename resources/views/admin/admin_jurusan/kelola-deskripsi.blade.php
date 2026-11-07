@@ -37,14 +37,14 @@
 
     </div>
 
-    {{-- Pesan berhasil --}}
+    
     @if(session('success'))
         <div class="alert-jurusan alert-jurusan-success">
             {{ session('success') }}
         </div>
     @endif
 
-    {{-- Pesan error --}}
+    
     @if($errors->any())
         <div class="alert-jurusan alert-jurusan-error">
             <ul>
@@ -76,7 +76,7 @@
             required
         >{{ old('deskripsi', $jurusan->deskripsi) }}</textarea>
 
-        {{-- Tombol awal --}}
+        
         <div class="deskripsi-actions" id="actionButtons">
             <button
                 type="button"
@@ -87,7 +87,7 @@
             </button>
         </div>
 
-        {{-- Tombol saat mode edit --}}
+        
         <div class="deskripsi-actions" id="saveButtons" hidden>
             <button
                 type="button"
@@ -107,7 +107,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 <script src="{{ asset('js/deskripsi-jurusan.js') }}"></script>

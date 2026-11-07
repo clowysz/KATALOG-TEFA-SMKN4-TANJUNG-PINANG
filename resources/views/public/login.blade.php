@@ -8,7 +8,7 @@
 
 <div class="login-page-wrapper">
 
-    {{-- Tombol Kembali --}}
+    
     @if($back)
         <div class="login-back-button">
             <a href="{{ $back }}">
@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <!-- Animasi Gelembung -->
+    
     <div class="bubble" style="width: 80px; height: 80px; top: 15%; left: 15%; animation-duration: 5s;"></div>
     <div class="bubble" style="width: 120px; height: 120px; top: 40%; right: 15%; animation-duration: 7s;"></div>
     <div class="bubble" style="width: 50px; height: 50px; bottom: 25%; left: 25%; animation-duration: 6s;"></div>
@@ -31,12 +31,12 @@
 
     <div class="login-card">
 
-        <!-- Ikon Avatar menonjol ke atas -->
+        
         <div class="login-avatar">
             <i class="ph ph-user"></i>
         </div>
 
-        <!-- Form Login -->
+        
         <form
             action="{{ route('login.proses') }}"
             method="POST"
@@ -52,7 +52,7 @@
                 <input type="hidden" name="back" value="{{ $back }}">
             @endif
 
-            <!-- EMAIL -->
+            
             <div class="login-form-group">
                 <label>Email</label>
                 <div class="login-input-box">
@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <!-- SANDI -->
+            
             <div class="login-form-group">
                 <label>Sandi</label>
                 <div class="login-input-box">
@@ -105,7 +105,7 @@
         </form>
     </div>
 
-    <!-- Teks Bawah dengan Link Daftar Akun -->
+    
     <p class="login-footer-text">
         Belum punya akun?
         <a

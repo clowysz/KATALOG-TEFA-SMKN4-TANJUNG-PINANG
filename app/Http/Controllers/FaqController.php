@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class FaqController extends Controller
 {
-    // =====================================================================
-    // PUBLIK
-    // =====================================================================
+
+
+
 
     public function publik()
     {
@@ -19,9 +19,9 @@ class FaqController extends Controller
         return view('public.faq', compact('faqs'));
     }
 
-    // =====================================================================
-    // ADMIN TEFA
-    // =====================================================================
+
+
+
 
     public function index()
     {

@@ -35,11 +35,9 @@
 </div>
 
 <div id="portoContainer" class="portfolio-grid">
-    <!-- Card portofolio akan dimuat oleh JavaScript -->
+    
 </div>
 
-
-<!-- MODAL TAMBAH / EDIT PORTOFOLIO -->
 <div id="modalAddPorto" class="modal-overlay">
     <div class="modal-box modal-box-form">
 
@@ -127,8 +125,6 @@
     </div>
 </div>
 
-
-<!-- MODAL HAPUS PORTOFOLIO -->
 <div id="modalDeletePorto" class="modal-overlay">
     <div class="modal-box">
 
@@ -165,11 +161,9 @@
     </div>
 </div>
 
-
 <div id="toastPorto" class="toast-notification"></div>
 
 @endsection
-
 
 @section('scripts')
 <script src="{{ asset('js/kelola-portofolio.js') }}"></script>

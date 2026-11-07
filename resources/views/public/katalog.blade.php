@@ -11,16 +11,16 @@
 <div id="katalog-section" class="katalog-page">
     <div class="katalog-page-inner">
 
-        <!-- HEADER TEXT -->
+        
         <div class="katalog-page-head">
             <h3 class="katalog-page-title">Katalog Produk &amp; Jasa TEFA</h3>
             <p class="katalog-page-sub">Temukan karya dan layanan profesional dari seluruh jurusan SMKN 4 Tanjungpinang.</p>
         </div>
 
-        <!-- AREA FILTER & DROPDOWN -->
+        
         <div class="filter-area">
 
-            <!-- Filter Jenis (Produk/Jasa) -->
+            
             <div class="filter-btn-group">
                 <a href="{{ route('public.katalog', ['jenis' => 'semua', 'jurusan' => $id_jurusan, 'keyword' => $keyword]) }}"
                    class="filter-btn {{ $jenis == 'semua' ? 'active' : '' }}">Semua</a>
@@ -32,7 +32,7 @@
                    class="filter-btn {{ $jenis == 'jasa' ? 'active' : '' }}">Jasa</a>
             </div>
 
-            <!-- Dropdown Filter Jurusan -->
+            
             <div class="jurusan-select-wrapper">
                 <form action="{{ route('public.katalog') }}" method="GET" id="form-filter-jurusan">
                     <input type="hidden" name="jenis" value="{{ $jenis }}">
@@ -52,7 +52,7 @@
 
         </div>
 
-        <!-- GRID KATALOG -->
+        
         <div class="katalog-grid" id="katalog-grid">
             @forelse($katalog as $item)
 @php
@@ -109,7 +109,7 @@
                 </div>
 
             @empty
-                <!-- EMPTY STATE -->
+                
                 <div class="katalog-empty">
                     <i class="ph ph-magnifying-glass"></i>
 
@@ -120,13 +120,13 @@
             @endforelse
         </div>
 
-        <!-- PAGINATION PUBLIK -->
+        
         @if($katalog->hasPages() || $katalog->total() > 0)
         @php
             $halamanAktif = $katalog->currentPage();
             $halamanAkhir = $katalog->lastPage();
 
-            // Tampilkan: halaman 1, halaman terakhir, dan 1 halaman di kiri/kanan halaman aktif
+
             $daftarHalaman = collect(range(1, $halamanAkhir))
                 ->filter(fn ($p) => $p === 1 || $p === $halamanAkhir || abs($p - $halamanAktif) <= 1)
                 ->values();
@@ -139,21 +139,21 @@
             </p>
 
             <ul class="custom-pagination">
-                {{-- 1. TOMBOL PALING AWAL (<<) --}}
+                
                 @if($katalog->onFirstPage())
                     <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
                 @else
                     <li class="page-item"><a class="page-link" href="{{ $katalog->url(1) }}#katalog-grid" title="Halaman Pertama">&laquo;&laquo;</a></li>
                 @endif
 
-                {{-- 2. TOMBOL MUNDUR 1 HALAMAN (<) --}}
+                
                 @if($katalog->onFirstPage())
                     <li class="page-item disabled"><span class="page-link">&lsaquo;</span></li>
                 @else
                     <li class="page-item"><a class="page-link" href="{{ $katalog->previousPageUrl() }}#katalog-grid" title="Halaman Sebelumnya">&lsaquo;</a></li>
                 @endif
 
-                {{-- 3. NOMOR HALAMAN (dengan titik-titik jika ada yang dilewati) --}}
+                
                 @foreach($daftarHalaman as $page)
                     @if($halamanSebelumnya !== null && $page - $halamanSebelumnya > 1)
                         <li class="page-item disabled"><span class="page-link page-dots">&hellip;</span></li>
@@ -168,14 +168,14 @@
                     @php $halamanSebelumnya = $page; @endphp
                 @endforeach
 
-                {{-- 4. TOMBOL MAJU 1 HALAMAN (>) --}}
+                
                 @if($katalog->hasMorePages())
                     <li class="page-item"><a class="page-link" href="{{ $katalog->nextPageUrl() }}#katalog-grid" title="Halaman Selanjutnya">&rsaquo;</a></li>
                 @else
                     <li class="page-item disabled"><span class="page-link">&rsaquo;</span></li>
                 @endif
 
-                {{-- 5. TOMBOL PALING AKHIR (>>) --}}
+                
                 @if($katalog->hasMorePages())
                     <li class="page-item"><a class="page-link" href="{{ $katalog->url($katalog->lastPage()) }}#katalog-grid" title="Halaman Terakhir">&raquo;&raquo;</a></li>
                 @else

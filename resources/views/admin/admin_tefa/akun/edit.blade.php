@@ -10,7 +10,7 @@
 
 <div class="form-container">
 
-    {{-- Tombol kembali --}}
+    
     <a href="{{ route('akun.show', $akun->id) }}" class="btn-back">
         &larr; Kembali ke Detail Akun
     </a>
@@ -19,7 +19,7 @@
         Edit Akun
     </h2>
 
-    {{-- Pesan error validasi --}}
+    
     @if($errors->any())
         <div class="error-message">
             <ul>
@@ -37,7 +37,7 @@
             @csrf
             @method('PUT')
 
-            {{-- Nama --}}
+            
             <div class="form-group">
                 <label for="nama" class="form-label">
                     Nama Pengguna
@@ -53,7 +53,7 @@
                 >
             </div>
 
-            {{-- Email --}}
+            
             <div class="form-group">
                 <label for="email" class="form-label">
                     Email
@@ -69,7 +69,7 @@
                 >
             </div>
 
-            {{-- Role --}}
+            
             <div class="form-group">
                 <label for="role" class="form-label">
                     Role
@@ -91,7 +91,7 @@
                 </select>
             </div>
 
-            {{-- Jurusan (ditampilkan / disembunyikan oleh script di bawah) --}}
+            
             <div class="form-group" id="jurusanContainer">
                 <label for="id_jurusan" class="form-label">
                     Jurusan
@@ -125,7 +125,7 @@
 
             <p id="helpTextJurusan" class="akun-help-text akun-help-text-tight"></p>
 
-            {{-- Status --}}
+            
             <div class="form-group">
                 <label for="status" class="form-label">
                     Status Akun
@@ -147,7 +147,7 @@
                 </select>
             </div>
 
-            {{-- Tombol --}}
+            
             <div class="form-actions">
 
                 <button

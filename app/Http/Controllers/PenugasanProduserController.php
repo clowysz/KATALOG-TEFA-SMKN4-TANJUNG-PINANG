@@ -18,7 +18,7 @@ class PenugasanProduserController extends Controller
     {
         $user = Auth::user();
 
-        // Ambil jurusan yang dipegang Admin Jurusan
+
         $jurusan = $user->jurusanDipegang;
 
         if (!$jurusan) {
@@ -29,15 +29,15 @@ class PenugasanProduserController extends Controller
 
         $jurusanId = $jurusan->id_jurusan;
 
-        // Ambil semua Admin Produksi yang berasal
-        // dari jurusan yang sedang dikelola
+
+
         $produsers = User::where('role', 'admin_produser')
             ->where('id_jurusan_asal', $jurusanId)
             ->orderBy('nama')
             ->get();
 
-        // Ambil semua produk/jasa milik jurusan ini
-        // beserta Admin Produksi yang ditugaskan
+
+
         $produkJasas = ProdukJasa::where(
             'id_jurusan',
             $jurusanId
@@ -46,8 +46,8 @@ class PenugasanProduserController extends Controller
         ->orderBy('nama_produk_jasa')
         ->get();
 
-        // Ambil semua penugasan yang produknya
-        // berada di jurusan Admin Jurusan yang login
+
+
         $penugasans = PenugasanProduser::whereHas(
             'produkJasa',
             function ($query) use ($jurusanId) {
@@ -88,7 +88,7 @@ class PenugasanProduserController extends Controller
 
         $user = Auth::user();
 
-        // Ambil jurusan Admin Jurusan yang sedang login
+
         $jurusan = $user->jurusanDipegang;
 
         if (!$jurusan) {
@@ -99,8 +99,8 @@ class PenugasanProduserController extends Controller
 
         $jurusanId = $jurusan->id_jurusan;
 
-        // Pastikan user yang dipilih adalah Admin Produksi
-        // dan berasal dari jurusan yang sama
+
+
         $produser = User::where(
             'id',
             $request->id_user_produser
@@ -121,8 +121,8 @@ class PenugasanProduserController extends Controller
             ]);
         }
 
-        // Pastikan produk/jasa memang milik
-        // jurusan Admin Jurusan yang sedang login
+
+
         $produkJasa = ProdukJasa::where(
             'id_produk_jasa',
             $request->id_produk_jasa
@@ -139,7 +139,7 @@ class PenugasanProduserController extends Controller
             ]);
         }
 
-        // Cek apakah penugasan yang sama sudah ada
+
         $sudahAda = PenugasanProduser::where(
             'id_user_produser',
             $produser->id
@@ -156,7 +156,7 @@ class PenugasanProduserController extends Controller
             ]);
         }
 
-        // Simpan penugasan
+
         PenugasanProduser::create([
             'id_user_produser' => $produser->id,
             'id_produk_jasa' => $produkJasa->id_produk_jasa,
@@ -175,7 +175,7 @@ class PenugasanProduserController extends Controller
     {
         $user = Auth::user();
 
-        // Ambil jurusan Admin Jurusan yang sedang login
+
         $jurusan = $user->jurusanDipegang;
 
         if (!$jurusan) {
@@ -184,8 +184,8 @@ class PenugasanProduserController extends Controller
             ]);
         }
 
-        // Hanya boleh menghapus penugasan
-        // yang produknya berada di jurusan sendiri
+
+
         $penugasan = PenugasanProduser::where(
             'id_penugasan',
             $id

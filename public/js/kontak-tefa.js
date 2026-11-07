@@ -1,7 +1,6 @@
 (function () {
   "use strict";
 
-  // Aturan sama dengan di server (Pengaturan::NOMOR_REGEX)
   const REGEX_NOMOR = /^628\d{8,11}$/;
 
   const PESAN = {
@@ -11,20 +10,14 @@
     belumBerubah: "Nomor belum diubah.",
   };
 
-  // ==========================================================
-  // BANTUAN
-  // ==========================================================
-
   function ambilAngka(teks) {
     return teks.replace(/\D+/g, "");
   }
 
-  // Hanya angka, +, -, dan spasi yang boleh diketik
   function bersihkan(teks) {
     return teks.replace(/[^\d+\-\s]/g, "");
   }
 
-  // 0896... / +62 896... / 896...  ->  62896...
   function normalisasi(teks) {
     const angka = ambilAngka(teks);
 
@@ -59,10 +52,6 @@
 
     const nomorAwal = input.dataset.awal || "";
 
-    // ==========================================================
-    // 1. VALIDASI (pesan buatan sendiri, bukan bawaan browser)
-    // ==========================================================
-
     function tampilkanError(teks) {
       pesanError.textContent = teks;
       input.classList.add("is-invalid");
@@ -75,7 +64,6 @@
       input.removeAttribute("aria-invalid");
     }
 
-    // Kembalikan teks pesan error, atau "" bila nomor valid dan berubah
     function periksaNomor() {
       const nilai = input.value.trim();
 
@@ -111,10 +99,6 @@
       }
     });
 
-    // ==========================================================
-    // 2. POP-UP (hanya ada di halaman Katalog Gabungan)
-    // ==========================================================
-
     const modal = document.getElementById("kontak-modal");
 
     if (!modal) {
@@ -128,7 +112,6 @@
     function bukaModal(elemenPemicu) {
       pemicu = elemenPemicu || null;
 
-      // Selalu mulai dari nomor yang sedang tersimpan
       input.value = nomorAwal;
       hapusError();
 
@@ -158,7 +141,6 @@
       tombol.addEventListener("click", tutupModal);
     });
 
-    // Klik di area gelap (di luar kotak) menutup pop-up
     modal.addEventListener("click", function (event) {
       if (event.target === modal) {
         tutupModal();
@@ -171,7 +153,6 @@
       }
     });
 
-    // Server menolak nomor: pop-up sudah terbuka dari blade, tampilkan fokusnya
     if (modal.classList.contains("active")) {
       pemicu = tombolBuka[0] || null;
       document.body.classList.add("kontak-modal-terbuka");

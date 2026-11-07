@@ -8,7 +8,7 @@
 
 <div class="login-page-wrapper">
 
-    {{-- Tombol Kembali --}}
+    
     @if($back)
         <div class="login-back-button">
             <a href="{{ $back }}">
@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <!-- Animasi Gelembung -->
+    
     <div class="bubble" style="width: 80px; height: 80px; top: 15%; left: 15%; animation-duration: 5s;"></div>
     <div class="bubble" style="width: 120px; height: 120px; top: 40%; right: 15%; animation-duration: 7s;"></div>
     <div class="bubble" style="width: 50px; height: 50px; bottom: 25%; left: 25%; animation-duration: 6s;"></div>
@@ -31,12 +31,12 @@
 
     <div class="login-card">
 
-        <!-- Ikon Avatar Tambah -->
+        
         <div class="login-avatar">
             <i class="ph ph-user-plus"></i>
         </div>
 
-        <!-- Form Registrasi -->
+        
         <form
             action="{{ route('pembeli.register.proses') }}"
             method="POST"
@@ -53,8 +53,7 @@
                 <input type="hidden" name="back" value="{{ $back }}">
             @endif
 
-
-            <!-- NAMA LENGKAP -->
+            
             <div class="login-form-group">
 
                 <label>Nama Lengkap</label>
@@ -76,8 +75,7 @@
 
             </div>
 
-
-            <!-- NO. TELEPON -->
+            
             <div class="login-form-group">
 
                 <label>No. Telepon</label>
@@ -100,8 +98,7 @@
 
             </div>
 
-
-            <!-- EMAIL -->
+            
             <div class="login-form-group">
 
                 <label>Email</label>
@@ -123,8 +120,7 @@
 
             </div>
 
-
-            <!-- PASSWORD -->
+            
             <div class="login-form-group">
 
                 <label>Sandi</label>
@@ -152,8 +148,7 @@
 
             </div>
 
-
-            <!-- KONFIRMASI PASSWORD -->
+            
             <div class="login-form-group">
 
                 <label>Konfirmasi Sandi</label>
@@ -181,8 +176,7 @@
 
             </div>
 
-
-            <!-- TOMBOL DAFTAR -->
+            
             <button type="submit" class="btn-login-submit btn-spaced">
                 Daftar
             </button>
@@ -191,8 +185,7 @@
 
     </div>
 
-
-    <!-- Teks Bawah Kembali ke Login -->
+    
     <p class="login-footer-text">
 
         Sudah punya akun?

@@ -59,13 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const produk = getText(row, ".col-produk");
       const jurusan = getText(row, ".col-jurusan");
 
-      // Status dibaca dari atribut data-status pada <tr>,
-      // karena pesanan yang sudah dibatalkan tidak punya
-      // dropdown status lagi.
       const statusPesanan = (row.dataset.status || "").toLowerCase().trim();
 
-      // Pesanan yang memiliki permintaan pembatalan
-      // yang masih menunggu keputusan.
       const adaPermintaanPembatalan = Boolean(
         row.querySelector(".status-pill--pending"),
       );

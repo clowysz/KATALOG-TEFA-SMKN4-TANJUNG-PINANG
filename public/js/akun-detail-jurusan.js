@@ -27,9 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnCloseStatusModal = document.getElementById("btnCloseStatusModal");
   const btnConfirmStatus = document.getElementById("btnConfirmStatus");
 
-  // ------------------------------------------------------
-  // Modal konfirmasi
-  // ------------------------------------------------------
   function openModal() {
     if (statusModal) {
       statusModal.classList.add("active");
@@ -42,9 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ------------------------------------------------------
-  // Kirim perubahan status
-  // ------------------------------------------------------
   async function ubahStatus(status, pesanGagal, pesanError) {
     try {
       const response = await fetch(statusUrl, {
@@ -75,9 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ------------------------------------------------------
-  // Tombol
-  // ------------------------------------------------------
   if (btnNonaktifkan) {
     btnNonaktifkan.addEventListener("click", openModal);
   }
@@ -106,7 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Klik area gelap menutup modal
   if (statusModal) {
     statusModal.addEventListener("click", function (event) {
       if (event.target === statusModal) {

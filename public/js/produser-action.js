@@ -1,157 +1,154 @@
 document.addEventListener("DOMContentLoaded", function () {
-    /*
-     * HELPER UMUM
-     * (aman dipakai halaman lain, tidak bergantung pada elemen tertentu)
-     */
+  /*
+   * HELPER UMUM
+   * (aman dipakai halaman lain, tidak bergantung pada elemen tertentu)
+   */
 
-    function getCsrfToken() {
-        const meta = document.querySelector('meta[name="csrf-token"]');
+  function getCsrfToken() {
+    const meta = document.querySelector('meta[name="csrf-token"]');
 
-        if (meta) {
-            return meta.getAttribute("content");
-        }
-
-        return null;
+    if (meta) {
+      return meta.getAttribute("content");
     }
 
-    function submitForm(action, method, fields = {}) {
-        const form = document.createElement("form");
+    return null;
+  }
 
-        form.method = "POST";
-        form.action = action;
-        form.style.display = "none";
+  function submitForm(action, method, fields = {}) {
+    const form = document.createElement("form");
 
-        const token = getCsrfToken();
+    form.method = "POST";
+    form.action = action;
+    form.style.display = "none";
 
-        if (token) {
-            const csrf = document.createElement("input");
-            csrf.type = "hidden";
-            csrf.name = "_token";
-            csrf.value = token;
-            form.appendChild(csrf);
-        }
+    const token = getCsrfToken();
 
-        if (method !== "POST") {
-            const methodInput = document.createElement("input");
-            methodInput.type = "hidden";
-            methodInput.name = "_method";
-            methodInput.value = method;
-            form.appendChild(methodInput);
-        }
+    if (token) {
+      const csrf = document.createElement("input");
+      csrf.type = "hidden";
+      csrf.name = "_token";
+      csrf.value = token;
+      form.appendChild(csrf);
+    }
 
-        Object.keys(fields).forEach(function (key) {
-            const value = fields[key];
+    if (method !== "POST") {
+      const methodInput = document.createElement("input");
+      methodInput.type = "hidden";
+      methodInput.name = "_method";
+      methodInput.value = method;
+      form.appendChild(methodInput);
+    }
 
-            // Dukung array, misalnya urutan[]
-            if (Array.isArray(value)) {
-                value.forEach(function (item) {
-                    const input = document.createElement("input");
-                    input.type = "hidden";
-                    input.name = key + "[]";
-                    input.value = item ?? "";
-                    form.appendChild(input);
-                });
+    Object.keys(fields).forEach(function (key) {
+      const value = fields[key];
 
-                return;
-            }
-
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = key;
-            input.value = value ?? "";
-            form.appendChild(input);
+      if (Array.isArray(value)) {
+        value.forEach(function (item) {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key + "[]";
+          input.value = item ?? "";
+          form.appendChild(input);
         });
 
-        document.body.appendChild(form);
-        form.submit();
+        return;
+      }
+
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = value ?? "";
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  function showToast(message, success = true) {
+    const toast = document.getElementById("toastUpdate");
+
+    if (!toast) {
+      return;
     }
 
-    function showToast(message, success = true) {
-        const toast = document.getElementById("toastUpdate");
+    toast.textContent = message;
+    toast.style.backgroundColor = success ? "#16A34A" : "#DC2626";
 
-        if (!toast) {
-            return;
-        }
+    toast.classList.add("show");
 
-        toast.textContent = message;
-        toast.style.backgroundColor = success ? "#16A34A" : "#DC2626";
+    setTimeout(function () {
+      toast.classList.remove("show");
+    }, 3000);
+  }
 
-        toast.classList.add("show");
+  function formatRupiah(number) {
+    return "Rp" + new Intl.NumberFormat("id-ID").format(number);
+  }
 
-        setTimeout(function () {
-            toast.classList.remove("show");
-        }, 3000);
+  function formatTanggal(tanggal) {
+    if (!tanggal) {
+      return "-";
     }
 
-    function formatRupiah(number) {
-        return "Rp" + new Intl.NumberFormat("id-ID").format(number);
+    const date = new Date(tanggal);
+
+    if (Number.isNaN(date.getTime())) {
+      return tanggal;
     }
 
-    function formatTanggal(tanggal) {
-        if (!tanggal) {
-            return "-";
-        }
+    return date.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  }
 
-        const date = new Date(tanggal);
-
-        if (Number.isNaN(date.getTime())) {
-            return tanggal;
-        }
-
-        return date.toLocaleDateString("id-ID", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-        });
+  function getStatusClass(status) {
+    if (status === "Selesai") {
+      return "badge-soft-green";
     }
 
-    function getStatusClass(status) {
-        if (status === "Selesai") {
-            return "badge-soft-green";
-        }
-
-        if (
-            status === "Sedang Dikerjakan" ||
-            status === "Diproses" ||
-            status === "konfirmasi"
-        ) {
-            return "badge-soft-blue";
-        }
-
-        if (status === "Dalam Revisi" || status === "Revisi") {
-            return "badge-soft-yellow";
-        }
-
-        return "badge-soft-gray";
+    if (
+      status === "Sedang Dikerjakan" ||
+      status === "Diproses" ||
+      status === "konfirmasi"
+    ) {
+      return "badge-soft-blue";
     }
 
-    /*
-     * KATALOG PRODUSER
-     *
-     * Data katalog diberikan langsung oleh Laravel.
-     */
-
-    const katalogContainer = document.getElementById("katalogContainer");
-
-    if (katalogContainer) {
-        const searchInput = document.getElementById("searchKatalogProduser");
-
-        const cards = katalogContainer.querySelectorAll("[data-katalog-name]");
-
-        function filterKatalog() {
-            const keyword = searchInput
-                ? searchInput.value.toLowerCase().trim()
-                : "";
-
-            cards.forEach(function (card) {
-                const name = (card.dataset.katalogName || "").toLowerCase();
-
-                card.style.display = name.includes(keyword) ? "" : "none";
-            });
-        }
-
-        if (searchInput) {
-            searchInput.addEventListener("input", filterKatalog);
-        }
+    if (status === "Dalam Revisi" || status === "Revisi") {
+      return "badge-soft-yellow";
     }
+
+    return "badge-soft-gray";
+  }
+
+  /*
+   * KATALOG PRODUSER
+   *
+   * Data katalog diberikan langsung oleh Laravel.
+   */
+
+  const katalogContainer = document.getElementById("katalogContainer");
+
+  if (katalogContainer) {
+    const searchInput = document.getElementById("searchKatalogProduser");
+
+    const cards = katalogContainer.querySelectorAll("[data-katalog-name]");
+
+    function filterKatalog() {
+      const keyword = searchInput ? searchInput.value.toLowerCase().trim() : "";
+
+      cards.forEach(function (card) {
+        const name = (card.dataset.katalogName || "").toLowerCase();
+
+        card.style.display = name.includes(keyword) ? "" : "none";
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", filterKatalog);
+    }
+  }
 });

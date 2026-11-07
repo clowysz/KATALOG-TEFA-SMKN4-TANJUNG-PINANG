@@ -15,9 +15,6 @@ window.AkunValidasi = (function () {
 
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // ------------------------------------------------------
-  // Nama
-  // ------------------------------------------------------
   function nama(input) {
     if (!input) {
       return;
@@ -34,9 +31,6 @@ window.AkunValidasi = (function () {
     });
   }
 
-  // ------------------------------------------------------
-  // Email
-  // ------------------------------------------------------
   function email(input) {
     if (!input) {
       return;
@@ -64,9 +58,6 @@ window.AkunValidasi = (function () {
     input.addEventListener("input", validate);
   }
 
-  // ------------------------------------------------------
-  // Password (minimal 6 karakter)
-  // ------------------------------------------------------
   function password(input) {
     if (!input) {
       return;
@@ -93,9 +84,6 @@ window.AkunValidasi = (function () {
     });
   }
 
-  // ------------------------------------------------------
-  // Produk / jasa: minimal satu harus dipilih
-  // ------------------------------------------------------
   function layananMinimal(form) {
     if (!form) {
       return;

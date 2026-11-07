@@ -15,7 +15,7 @@
     data-status-url="{{ route('jurusan.akun.status') }}"
 >
 
-    {{-- HEADER --}}
+    
     <div class="akun-detail-header">
 
         <a href="{{ route('jurusan.akun.index') }}" class="btn-jurusan-outline">
@@ -34,8 +34,7 @@
 
     </div>
 
-
-    {{-- INFORMASI AKUN --}}
+    
     <div class="akun-detail-card">
 
         <div class="akun-detail-card-title">
@@ -88,8 +87,7 @@
 
     </div>
 
-
-    {{-- PRODUK / JASA YANG DITUGASKAN --}}
+    
     <div class="akun-detail-card">
 
         <div class="akun-detail-card-title">
@@ -121,8 +119,7 @@
 
     </div>
 
-
-    {{-- AKSI --}}
+    
     <div class="akun-detail-card">
 
         <div class="akun-detail-card-title">
@@ -166,8 +163,6 @@
 
 </div>
 
-
-{{-- MODAL KONFIRMASI STATUS --}}
 <div id="statusModal" class="modal-overlay">
 
     <div class="modal-box">
@@ -205,7 +200,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 <script src="{{ asset('js/akun-detail-jurusan.js') }}"></script>

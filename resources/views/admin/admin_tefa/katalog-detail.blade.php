@@ -6,12 +6,11 @@
     <link rel="stylesheet" href="{{ asset('css/katalog-tefa.css') }}?v=2">
 @endpush
 
-
 @section('content')
 <div class="detail-page-wrapper">
     <div class="detail-container-inner">
 
-        {{-- BACK BUTTON --}}
+        
         <div class="back-link-wrapper">
             <a href="{{ route('admin.tefa.katalog_gabungan') }}" class="back-link">
                 <i class="ph ph-arrow-left"></i>
@@ -19,10 +18,10 @@
             </a>
         </div>
 
-        {{-- CONTAINER ATAS: GALERI & DETAIL --}}
+        
         <div class="detail-top-card">
 
-            {{-- GALERI --}}
+            
             <div class="detail-gallery">
                 @php
                     $gambars = $produk->gambars;
@@ -71,7 +70,7 @@
                 </div>
             </div>
 
-            {{-- INFORMASI PRODUK / JASA --}}
+            
             <div class="detail-info">
                 <div class="detail-badge">
                     {{ strtoupper($produk->jenis) }}
@@ -91,9 +90,9 @@
 
         </div>
 
-        {{-- META CARDS --}}
+        
         <div class="detail-meta-cards">
-            {{-- JENIS --}}
+            
             <div class="meta-card-item">
                 <div class="meta-icon">
                     <i class="ph ph-tag"></i>
@@ -104,7 +103,7 @@
                 </div>
             </div>
 
-            {{-- JURUSAN --}}
+            
             <div class="meta-card-item">
                 <div class="meta-icon">
                     <i class="ph ph-graduation-cap"></i>
@@ -115,7 +114,7 @@
                 </div>
             </div>
 
-            {{-- JUMLAH PESANAN --}}
+            
             <div class="meta-card-item">
                 <div class="meta-icon">
                     <i class="ph ph-shopping-cart"></i>
@@ -127,7 +126,7 @@
             </div>
         </div>
 
-        {{-- DESKRIPSI --}}
+        
         <div class="detail-card">
             <h2 class="detail-section-title">DESKRIPSI</h2>
             <div class="detail-text">
@@ -138,14 +137,12 @@
     </div>
 </div>
 
-{{-- LIGHTBOX --}}
 <div class="admin-gallery-lightbox" id="adminGalleryLightbox">
     <button type="button" class="admin-lightbox-close" data-gallery-close>&times;</button>
     <img src="" class="admin-lightbox-image" id="adminLightboxImage" alt="Preview gambar">
 </div>
 
 @endsection
-
 
 @section('scripts')
 

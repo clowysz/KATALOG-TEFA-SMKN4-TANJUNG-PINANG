@@ -15,27 +15,27 @@
 
 <div class="tefa-card profile-container">
 
-    <!-- Avatar -->
+    
     <img
         src="https://api.dicebear.com/7.x/micah/svg?seed={{ urlencode($user->nama) }}&backgroundColor=EBF3F9"
         alt="Avatar Profil"
         class="profile-avatar"
     >
 
-    <!-- Nama -->
+    
     <div class="profile-name">
         {{ $user->nama }}
     </div>
 
-    <!-- Role -->
+    
     <div class="profile-role">
         Admin Jurusan
     </div>
 
-    <!-- Detail Profil -->
+    
     <div class="profile-details">
 
-        <!-- Nama Lengkap -->
+        
         <div class="detail-section">
             <div class="detail-label">
                 Nama Lengkap
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <!-- Email -->
+        
         <div class="detail-section">
             <div class="detail-label">
                 Email
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <!-- Role Akses -->
+        
         <div class="detail-section">
             <div class="detail-label">
                 Role Akses
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <!-- Penugasan Jurusan -->
+        
         <div class="detail-section">
 
             <div class="detail-label">
@@ -97,7 +97,7 @@
 
     </div>
 
-    <!-- Logout -->
+    
     <button
         type="button"
         class="btn-outline btn-profile-logout"

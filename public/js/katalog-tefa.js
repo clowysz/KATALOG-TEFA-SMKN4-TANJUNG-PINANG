@@ -5,17 +5,11 @@
   const PER_PAGE_MOBILE = 15;
   const STORAGE_KEY = "katalogTefaSelected";
 
-  // Harus dibaca saat script dijalankan pertama kali
   const scriptTag = document.currentScript;
   const currentPerPage = parseInt(scriptTag.dataset.perPage, 10);
   const allIds = parseIdList(scriptTag.dataset.allIds);
   const mobileQuery = window.matchMedia("(max-width: 768px)");
 
-  // ==========================================================
-  // BANTUAN
-  // ==========================================================
-
-  // Ubah teks JSON "[1,2,3]" menjadi array string ["1","2","3"]
   function parseIdList(text) {
     try {
       const parsed = JSON.parse(text || "[]");
@@ -25,10 +19,6 @@
       return [];
     }
   }
-
-  // ==========================================================
-  // 1. JUMLAH ITEM PER HALAMAN
-  // ==========================================================
 
   function syncPerPage() {
     const desired = mobileQuery.matches ? PER_PAGE_MOBILE : PER_PAGE_DESKTOP;
@@ -46,7 +36,6 @@
     return true;
   }
 
-  // Jika halaman sedang dialihkan, tidak perlu menyiapkan fitur lain
   if (syncPerPage()) {
     return;
   }
@@ -57,12 +46,6 @@
     mobileQuery.addListener(syncPerPage);
   }
 
-  // ==========================================================
-  // 2. PILIH CARD UNTUK PDF
-  // ==========================================================
-
-  // Pilihan disimpan di sessionStorage (per tab) agar bertahan
-  // saat pindah halaman pagination.
   function loadSelected() {
     try {
       return new Set(parseIdList(sessionStorage.getItem(STORAGE_KEY)));
@@ -77,14 +60,8 @@
         STORAGE_KEY,
         JSON.stringify(Array.from(selectedItems)),
       );
-    } catch (error) {
-      // Penyimpanan tidak tersedia: pilihan hanya berlaku di halaman ini
-    }
+    } catch (error) {}
   }
-
-  // ==========================================================
-  // 3. FILTER
-  // ==========================================================
 
   function initFilter() {
     document.querySelectorAll("[data-auto-submit]").forEach(function (field) {
@@ -104,7 +81,6 @@
     const selectedInputs = document.getElementById("selected-inputs");
     const pdfForm = document.getElementById("pdf-form");
 
-    // Apakah SEMUA item hasil query (di semua halaman) sudah dipilih?
     function isAllSelected() {
       return (
         allIds.length > 0 &&
@@ -118,7 +94,6 @@
       selectedCount.textContent = selectedItems.size;
       generateButton.disabled = selectedItems.size === 0;
 
-      // Tandai card yang tampil di halaman ini
       cards.forEach(function (card) {
         card.classList.toggle("selected", selectedItems.has(card.dataset.id));
       });
@@ -127,7 +102,6 @@
         ? "Batalkan Semua"
         : "Pilih Semua";
 
-      // Input tersembunyi berisi SEMUA pilihan (bukan hanya halaman ini)
       selectedInputs.innerHTML = "";
 
       selectedItems.forEach(function (id) {
@@ -143,7 +117,6 @@
 
     cards.forEach(function (card) {
       card.addEventListener("click", function (event) {
-        // Klik pada tombol "Lihat Detail" tidak memilih card
         if (event.target.closest(".btn-detail")) {
           return;
         }
@@ -160,7 +133,6 @@
       });
     });
 
-    // Pilih / batalkan SEMUA item hasil query di semua halaman
     selectAllButton.addEventListener("click", function () {
       if (allIds.length === 0) {
         return;
@@ -179,8 +151,6 @@
       updateSelectedUI();
     });
 
-    // Tombol Generate PDF sudah nonaktif saat belum ada pilihan.
-    // Ini pengaman tambahan, tanpa dialog bawaan browser.
     pdfForm.addEventListener("submit", function (event) {
       if (selectedItems.size === 0) {
         event.preventDefault();

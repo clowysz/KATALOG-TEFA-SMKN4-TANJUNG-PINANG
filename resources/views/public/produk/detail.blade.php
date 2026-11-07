@@ -29,10 +29,9 @@
 
     </div>
 
-
     <div class="detail-top-container">
 
-        <!-- Slider Galeri Gambar Utama & Thumbnail Kecil -->
+        
         <div class="detail-gallery" data-lightbox="true">
 
             @php
@@ -64,7 +63,6 @@
 
                     </div>
 
-
                     @if($gambars->count() > 1)
 
                         <button
@@ -76,7 +74,6 @@
                             <i class="ph ph-caret-left"></i>
                         </button>
 
-
                         <button
                             type="button"
                             class="carousel-btn next-btn"
@@ -85,7 +82,6 @@
                         >
                             <i class="ph ph-caret-right"></i>
                         </button>
-
 
                         <div class="carousel-nav-dots">
 
@@ -106,8 +102,7 @@
 
                 </div>
 
-
-                <!-- PREVIEW GAMBAR KECIL DI BAWAH -->
+                
                 @if($gambars->count() > 1)
 
                     <div class="carousel-thumbnails">
@@ -131,7 +126,6 @@
                     </div>
 
                 @endif
-
 
             @else
 
@@ -160,8 +154,7 @@
 
         </div>
 
-
-        <!-- Info Produk -->
+        
 
         <div class="detail-info">
 
@@ -181,7 +174,6 @@
                 Rp{{ number_format($produk->harga, 0, ',', '.') }}{{ $produk->satuan_harga ? '/' . $produk->satuan_harga : '' }}
             </div>
 
-
             @php
                 $checkoutUrl = '/checkout?id_produk_jasa=' . $produk->id_produk_jasa;
 
@@ -190,7 +182,6 @@
                     'redirect' => $checkoutUrl,
                 ]);
             @endphp
-
 
             <a
                 href="{{ auth()->check() && auth()->user()->role === 'pembeli'
@@ -211,8 +202,7 @@
 
     </div>
 
-
-    <!-- Kotak Meta Info -->
+    
     <div class="detail-meta-cards">
 
         <div class="meta-card-item">
@@ -227,7 +217,6 @@
             </div>
 
         </div>
-
 
         <div class="meta-card-item">
 
@@ -244,7 +233,6 @@
 
         </div>
 
-
         <div class="meta-card-item">
 
             <div class="meta-icon">
@@ -260,8 +248,7 @@
 
     </div>
 
-
-    <!-- Bagian Deskripsi -->
+    
     <div class="detail-card">
 
         <h2 class="detail-section-title">

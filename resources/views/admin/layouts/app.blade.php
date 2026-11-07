@@ -7,19 +7,19 @@
 
     <title>@yield('title') - Admin TEFA</title>
 
-    <!-- FAVICON -->
+    
     @include('partials.favicon')
 
-    <!-- CSS GLOBAL -->
+    
     <link rel="stylesheet" href="{{ asset('css/global-admin.css') }}?v=3">
 
-    <!-- CSS ADMIN TEFA -->
+    
     <link rel="stylesheet" href="{{ asset('css/admin-tefa.css') }}?v=6">
 
-    <!-- CSS KHUSUS HALAMAN -->
+    
     @stack('css')
 
-    <!-- PHOSPHOR ICON -->
+    
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 
@@ -46,7 +46,6 @@
 
     </header>
 
-
     <!-- =========================
          NAVIGATION DRAWER
     ========================== -->
@@ -72,7 +71,6 @@
             </span>
 
         </div>
-
 
         <ul class="drawer-menu">
 
@@ -149,15 +147,13 @@
 
     </nav>
 
-
-    <!-- OVERLAY -->
+    
 
     <div
         class="overlay"
         id="overlay"
         data-drawer-toggle
     ></div>
-
 
     <!-- =========================
          KONTEN HALAMAN
@@ -168,7 +164,6 @@
         @yield('content')
 
     </main>
-
 
     <!-- =========================
          MODAL LOGOUT
@@ -223,21 +218,17 @@
 
     </div>
 
-
-
     <!-- =========================
          LOGOUT JAVASCRIPT
     ========================== -->
 
     <script src="{{ asset('js/logout-modal.js') }}"></script>
 
-
     <!-- =========================
          JAVASCRIPT GLOBAL
     ========================== -->
 
     <script src="{{ asset('js/script.js') }}"></script>
-
 
     <!-- =========================
          JAVASCRIPT KHUSUS HALAMAN

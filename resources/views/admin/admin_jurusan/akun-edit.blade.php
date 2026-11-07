@@ -13,7 +13,7 @@
         ? route('jurusan.akun.index')
         : route('jurusan.akun.detail', ['id' => $akun->id]);
 
-    // Produk/jasa yang tercentang: input lama (jika validasi gagal) atau penugasan saat ini
+
     $layananTerpilih = old(
         'layanan',
         $akun->penugasanProduser->pluck('id_produk_jasa')->toArray()
@@ -22,7 +22,7 @@
 
 <div class="akun-edit-wrapper">
 
-    {{-- HEADER --}}
+    
     <div class="akun-edit-header">
 
         <a href="{{ $kembaliUrl }}" class="btn-jurusan-outline">
@@ -42,8 +42,7 @@
 
     </div>
 
-
-    {{-- ERROR VALIDATION --}}
+    
     @if ($errors->any())
 
         <div class="akun-edit-error">
@@ -56,8 +55,7 @@
 
     @endif
 
-
-    {{-- FORM --}}
+    
     <form
         id="formEditAkun"
         action="{{ route('jurusan.akun.update') }}"
@@ -69,8 +67,7 @@
 
         <input type="hidden" name="id" value="{{ $akun->id }}">
 
-
-        {{-- INFORMASI AKUN --}}
+        
         <div class="akun-edit-card">
 
             <div class="akun-edit-card-title">
@@ -113,8 +110,7 @@
 
         </div>
 
-
-        {{-- PRODUK / JASA --}}
+        
         <div class="akun-edit-card">
 
             <div class="akun-edit-card-title">
@@ -162,8 +158,7 @@
 
         </div>
 
-
-        {{-- STATUS --}}
+        
         <div class="akun-edit-card">
 
             <div class="akun-edit-card-title">
@@ -208,8 +203,7 @@
 
         </div>
 
-
-        {{-- TOMBOL --}}
+        
         <div class="akun-edit-actions">
 
             <button type="submit" class="btn-jurusan-primary">
@@ -227,7 +221,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 <script src="{{ asset('js/akun-validasi-jurusan.js') }}"></script>

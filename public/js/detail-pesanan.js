@@ -28,8 +28,6 @@ function initAlasanPembatalan() {
 
   const form = alasanInput.form;
 
-  // Cek isi alasan, simpan pesan Indonesia ke browser.
-  // Jika kolom sedang disembunyikan (disabled), tidak ada yang dicek.
   function cekAlasan() {
     if (alasanInput.disabled) {
       alasanInput.setCustomValidity("");
@@ -45,7 +43,6 @@ function initAlasanPembatalan() {
     return true;
   }
 
-  // Tampilkan / sembunyikan kolom alasan sesuai status yang dipilih
   function toggleAlasan() {
     const batal = statusSelect.value === "dibatalkan";
 
@@ -59,7 +56,6 @@ function initAlasanPembatalan() {
   statusSelect.addEventListener("change", toggleAlasan);
   alasanInput.addEventListener("input", cekAlasan);
 
-  // Pengaman: tahan submit jika alasan belum valid
   if (form) {
     form.addEventListener("submit", function (event) {
       if (!cekAlasan()) {
@@ -69,8 +65,6 @@ function initAlasanPembatalan() {
     });
   }
 
-  // Jalankan sekali saat halaman dimuat, supaya pesan Indonesia
-  // sudah terpasang sebelum tombol Simpan diklik
   toggleAlasan();
 }
 
@@ -136,7 +130,6 @@ function initModalKonfirmasi() {
     const formToSubmit = selectedForm;
     closeModal();
 
-    // Kirim form ke Laravel setelah admin mengonfirmasi.
     HTMLFormElement.prototype.submit.call(formToSubmit);
   });
 

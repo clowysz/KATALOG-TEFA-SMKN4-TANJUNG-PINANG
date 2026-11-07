@@ -10,7 +10,7 @@ class CustomerServiceController extends Controller
 {
     public function index()
     {
-        // Belum login
+
         if (!Auth::check()) {
             return redirect()->route('login', [
                 'redirect' => '/customer-service',
@@ -18,8 +18,8 @@ class CustomerServiceController extends Controller
             ]);
         }
 
-        // Akun yang sudah punya pesanan langsung diarahkan ke WhatsApp
-        // (nomor CS diatur admin Tefa di halaman Katalog Gabungan)
+
+
         $hasPesanan = Pesanan::where('id_user', Auth::id())->exists();
 
         if ($hasPesanan) {

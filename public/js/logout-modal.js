@@ -7,41 +7,36 @@
 ========================================================= */
 
 (function () {
-    "use strict";
+  "use strict";
 
-    const modal = document.getElementById("logoutModal");
+  const modal = document.getElementById("logoutModal");
 
-    if (!modal) {
-        return;
+  if (!modal) {
+    return;
+  }
+
+  function openModal() {
+    modal.style.display = "flex";
+  }
+
+  function closeModal() {
+    modal.style.display = "none";
+  }
+
+  document.addEventListener("click", function (event) {
+    if (event.target.closest("[data-logout-open]")) {
+      openModal();
+      return;
     }
 
-    function openModal() {
-        modal.style.display = "flex";
+    if (event.target.closest("[data-logout-close]") || event.target === modal) {
+      closeModal();
     }
+  });
 
-    function closeModal() {
-        modal.style.display = "none";
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeModal();
     }
-
-    document.addEventListener("click", function (event) {
-        if (event.target.closest("[data-logout-open]")) {
-            openModal();
-            return;
-        }
-
-        // Tombol Batal, atau klik di area gelap di luar kotak modal
-        if (
-            event.target.closest("[data-logout-close]") ||
-            event.target === modal
-        ) {
-            closeModal();
-        }
-    });
-
-    // Tutup modal dengan tombol Esc
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-            closeModal();
-        }
-    });
+  });
 })();

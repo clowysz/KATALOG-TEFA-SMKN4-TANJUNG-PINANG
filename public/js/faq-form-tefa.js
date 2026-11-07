@@ -5,7 +5,6 @@
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
-  // id kolom -> pesan saat dikosongkan
   const REQUIRED_MESSAGES = {
     pertanyaan: "Silakan isi pertanyaan.",
     jawaban: "Silakan isi jawaban.",

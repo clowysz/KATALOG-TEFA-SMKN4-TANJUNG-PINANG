@@ -28,15 +28,15 @@
     $pembatalanMenunggu = $permintaan && $permintaan->status_permintaan === 'menunggu';
     $pesananDibatalkan  = $pesanan->status === 'dibatalkan';
 
-    // Dibatalkan lewat permintaan pembeli yang disetujui admin
+
     $dibatalkanPembeli = $pesananDibatalkan
         && $permintaan
         && $permintaan->status_permintaan === 'disetujui';
 
-    // Selain itu, pembatalan dilakukan langsung oleh admin
+
     $dibatalkanAdmin = $pesananDibatalkan && !$dibatalkanPembeli;
 
-    // Catatan pembatalan terbaru di riwayat status pesanan
+
     $riwayatBatal = $pesananDibatalkan
         ? $pesanan->riwayatStatus
             ->where('status', 'dibatalkan')
@@ -44,19 +44,19 @@
             ->first()
         : null;
 
-    // Keterangan dari controller berbentuk:
-    // "Pesanan dibatalkan oleh Admin TEFA. Alasan: <alasan>"
-    // Di sini diambil bagian alasannya saja.
+
+
+
     $alasanAdmin = ($dibatalkanAdmin && filled($riwayatBatal?->keterangan))
         ? \Illuminate\Support\Str::after($riwayatBatal->keterangan, 'Alasan: ')
         : null;
 
-    // Nama admin yang memutuskan / membatalkan
+
     $namaAdmin = $dibatalkanPembeli
         ? $permintaan->admin?->nama
         : $riwayatBatal?->pelaksana?->nama;
 
-    // Tanggal dibatalkan
+
     $tanggalDibatalkan = $dibatalkanPembeli
         ? ($permintaan->tanggal_keputusan ?? $riwayatBatal?->tanggal_update)
         : ($riwayatBatal?->tanggal_update ?? $pesanan->updated_at);
@@ -89,8 +89,7 @@
 
     </div>
 
-
-    {{-- PESAN HASIL UPDATE STATUS --}}
+    
     @if(session('success'))
         <div class="pesanan-alert pesanan-alert-success">
             <i class="ph ph-check-circle"></i>
@@ -111,7 +110,6 @@
             <span>{{ $errors->first() }}</span>
         </div>
     @endif
-
 
     {{-- =========================
          INFORMASI PESANAN
@@ -139,7 +137,6 @@
 
                 </div>
 
-
                 <div class="detail-info-item">
 
                     <span class="detail-label">
@@ -152,7 +149,6 @@
                     </div>
 
                 </div>
-
 
                 <div class="detail-info-item">
 
@@ -173,7 +169,6 @@
             </div>
 
         </div>
-
 
         {{-- =========================
              INFORMASI PEMBELI
@@ -199,7 +194,6 @@
 
                 </div>
 
-
                 <div class="detail-info-item">
 
                     <span class="detail-label">
@@ -211,7 +205,6 @@
                     </div>
 
                 </div>
-
 
                 <div class="detail-info-item">
 
@@ -228,7 +221,6 @@
             </div>
 
         </div>
-
 
         {{-- =========================
              INFORMASI PRODUK / JASA
@@ -254,7 +246,6 @@
 
                 </div>
 
-
                 <div class="detail-info-item">
 
                     <span class="detail-label">
@@ -266,7 +257,6 @@
                     </div>
 
                 </div>
-
 
                 <div class="detail-info-item">
 
@@ -280,7 +270,6 @@
 
                 </div>
 
-
                 <div class="detail-info-item">
 
                     <span class="detail-label">
@@ -293,7 +282,6 @@
 
                 </div>
 
-
                 <div class="detail-info-item">
 
                     <span class="detail-label">
@@ -305,7 +293,6 @@
                     </div>
 
                 </div>
-
 
                 <div class="detail-info-item">
 
@@ -321,8 +308,7 @@
 
             </div>
 
-
-            {{-- Catatan --}}
+            
             <div class="catatan-pesanan">
 
                 <span class="detail-label">
@@ -349,8 +335,7 @@
 
     </div>
 
-
-    {{-- PEMBUNGKUS KOTAK STATUS DAN PEMBATALAN --}}
+    
     <div class="detail-pesanan-bottom">
 
         {{-- =========================
@@ -462,7 +447,7 @@
                                 Selesai
                             </option>
 
-                            {{-- Pesanan yang sudah selesai tidak bisa dibatalkan --}}
+                            
                             @if($pesanan->status !== 'selesai')
                                 <option
                                     value="dibatalkan"
@@ -474,7 +459,7 @@
                         </select>
                     </div>
 
-                    {{-- Kolom alasan: muncul hanya saat memilih "Dibatalkan" --}}
+                    
                     <div class="status-form-group" id="alasanPembatalanGroup" hidden>
                         <label for="alasanPembatalan" class="status-form-label">
                             Alasan Pembatalan:
@@ -506,7 +491,6 @@
 
         </div>
 
-
         {{-- =========================
              KOTAK PEMBATALAN PESANAN
              ========================= --}}
@@ -515,7 +499,7 @@
 
             <h3 class="detail-card-title">Pembatalan Pesanan</h3>
 
-            {{-- Belum ada pembatalan sama sekali --}}
+            
             @if(!$permintaan && !$pesananDibatalkan)
 
                 <div class="cancellation-empty">
@@ -525,8 +509,7 @@
 
             @endif
 
-
-            {{-- Ringkasan: siapa yang membatalkan, kapan, dan alasannya --}}
+            
             @if($pesananDibatalkan)
 
                 <div class="cancellation-summary">
@@ -573,8 +556,7 @@
 
             @endif
 
-
-            {{-- Detail permintaan pembatalan dari pembeli --}}
+            
             @if($permintaan)
 
                 <div class="cancellation-info">
@@ -665,8 +647,6 @@
 
 </div>
 
-
-{{-- MODAL KONFIRMASI PEMBATALAN --}}
 <div
     id="cancellationConfirmModal"
     class="cancellation-modal"
@@ -716,7 +696,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
     <script src="{{ asset('js/detail-pesanan.js') }}?v=2"></script>

@@ -20,10 +20,9 @@
 
 </div>
 
-
 <div class="tefa-card">
 
-    {{-- PESAN HASIL UPDATE STATUS --}}
+    
     @if(session('success'))
         <div class="pesanan-alert pesanan-alert-success">
             <i class="ph ph-check-circle"></i>
@@ -45,8 +44,6 @@
         </div>
     @endif
 
-
-{{-- NOTIFIKASI PERMINTAAN PEMBATALAN --}}
 @if($jumlahPermintaanPembatalan > 0)
     <div class="cancellation-notification">
         <div class="cancellation-notification-message">
@@ -71,7 +68,7 @@
         </button>
     </div>
 
-    {{-- DAFTAR KHUSUS PERMINTAAN PEMBATALAN --}}
+    
     <div id="cancellationList" class="cancellation-list" hidden>
         <div class="cancellation-list-heading">
             <h3>Daftar Permintaan Pembatalan</h3>
@@ -80,7 +77,6 @@
                 {{ $jumlahPermintaanPembatalan }} permintaan menunggu
             </span>
         </div>
-
 
 <div class="filter-bar cancellation-filter-bar">
 
@@ -103,7 +99,6 @@
 
 </div>
 
-
         <div class="table-responsive">
            <table class="tefa-table pesanan-table cancellation-pesanan-table">
                 <thead>
@@ -119,7 +114,6 @@
                         <th class="th-aksi">Aksi</th>
                     </tr>
                 </thead>
-
 
 <tbody>
     @foreach($permintaanPembatalan as $permintaan)
@@ -194,10 +188,9 @@
     </div>
 @endif
 
-{{-- PEMBUNGKUS HALAMAN SEMUA PESANAN --}}
 <div id="mainPesananContent">
 
-    <!-- Area Filter & Search -->
+    
     <div class="filter-bar">
 
         <input
@@ -206,7 +199,6 @@
             class="search-input"
             placeholder="Cari pesanan, nama pembeli..."
         >
-
 
         <select
             id="filterStatus"
@@ -239,7 +231,6 @@
                 Dibatalkan
             </option>
         </select>
-
 
         <select
             id="filterJurusan"
@@ -276,8 +267,7 @@
 
     </div>
 
-
-    <!-- Tabel Pesanan (di layar kecil tampil sebagai kartu) -->
+    
     <div class="table-responsive">
 
         <table
@@ -301,7 +291,6 @@
 
             </thead>
 
-
             <tbody>
 
                 @forelse($pesanans ?? [] as $pesanan)
@@ -318,42 +307,35 @@
                             #ORD-{{ str_pad($pesanan->id_pesanan, 3, '0', STR_PAD_LEFT) }}
                         </td>
 
-
                         <td class="col-nama" data-label="Nama Pembeli">
                             {{ $pesanan->pembeli?->nama ?? 'Data belum tersedia' }}
                         </td>
-
 
                         <td class="col-produk" data-label="Produk/Jasa">
                             {{ $pesanan->produkJasa?->nama_produk_jasa ?? 'Data belum tersedia' }}
                         </td>
 
-
                         <td class="col-jurusan" data-label="Jurusan">
                             {{ $pesanan->produkJasa?->jurusan?->nama_jurusan ?? 'Data belum tersedia' }}
                         </td>
-
 
                         <td data-label="Jumlah">
                             {{ $pesanan->jumlah }}
                         </td>
 
-
                         <td data-label="Total Harga">
                             Rp{{ number_format($pesanan->total_harga, 0, ',', '.') }}
                         </td>
-
 
                         <td data-label="Tanggal">
                             {{ \Carbon\Carbon::parse($pesanan->tanggal_pesan)->format('d M Y') }}
                         </td>
 
-
 <td class="col-status" data-label="Status">
     <div class="status-cell-content">
 
         @if($pesanan->status === 'dibatalkan')
-            {{-- Sudah dibatalkan: hanya label, tidak bisa diubah --}}
+            
             <span class="status-pill status-pill--cancelled">
                 Dibatalkan
             </span>
@@ -412,7 +394,6 @@
     </div>
 </td>
 
-
                         <td class="col-aksi" data-label="Aksi">
 
                             <a
@@ -425,7 +406,6 @@
                         </td>
 
                     </tr>
-
 
                 @empty
 
@@ -457,8 +437,7 @@
 
     </div>
 
-
-    <!-- Pesan ketika hasil filter/pencarian kosong (ditampilkan oleh pesanan.js) -->
+    
     <div
         id="emptyPesanan"
         class="pesanan-empty-filter"
@@ -474,15 +453,11 @@
         </p>
 
     </div>
-    {{-- AKHIR PEMBUNGKUS HALAMAN SEMUA PESANAN --}}
+    
 
 </div>
-{{-- AKHIR TEFA CARD --}}
 
 @endsection
-
-
-
 
 @section('scripts')
 

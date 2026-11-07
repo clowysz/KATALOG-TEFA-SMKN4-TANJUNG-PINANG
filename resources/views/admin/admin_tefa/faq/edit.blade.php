@@ -6,7 +6,7 @@
 
 <div class="form-container">
 
-    {{-- Tombol kembali --}}
+    
     <a href="{{ route('tefa.faq.index') }}" class="btn-back">
         &larr; Kembali ke Kelola FAQ
     </a>
@@ -15,7 +15,7 @@
         Edit FAQ
     </h2>
 
-    {{-- Pesan error validasi --}}
+    
     @if($errors->any())
         <div class="error-message">
             <ul>
@@ -36,7 +36,7 @@
             @csrf
             @method('PUT')
 
-            {{-- Pertanyaan --}}
+            
             <div class="form-group">
 
                 <label
@@ -58,7 +58,7 @@
 
             </div>
 
-            {{-- Jawaban --}}
+            
             <div class="form-group">
 
                 <label
@@ -79,7 +79,7 @@
 
             </div>
 
-            {{-- Tombol --}}
+            
             <div class="form-actions">
 
                 <button
@@ -105,7 +105,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 

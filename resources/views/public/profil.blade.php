@@ -12,7 +12,7 @@
 
 <div class="page-wrapper-blue">
 
-    <!-- Gelembung Dekorasi -->
+    
     <div
         class="bubble"
         style="width:100px;height:100px;top:15%;right:10%;animation-duration:8s;"
@@ -37,10 +37,10 @@
 
     </div>
 
-    <!-- Kartu Profil -->
+    
     <div class="glass-card">
 
-        <!-- Header Profil -->
+        
         <div class="profil-header-center">
 
             <div class="profil-avatar-icon">
@@ -53,7 +53,7 @@
 
         </div>
 
-        <!-- Nomor HP -->
+        
         <div class="profil-row">
 
             <div class="profil-label">
@@ -70,7 +70,7 @@
 
         </div>
 
-        <!-- Email -->
+        
         <div class="profil-row">
 
             <div class="profil-label">
@@ -87,7 +87,7 @@
 
         </div>
 
-        <!-- Sandi -->
+        
         <div class="profil-row">
 
             <div class="profil-label">
@@ -104,15 +104,15 @@
 
         </div>
 
-        <!-- Area Tombol -->
+        
         <div class="profil-actions">
 
-            <!-- Riwayat Pesanan -->
+            
             <a href="/riwayat-pesanan" class="btn-riwayat-pesanan">
                 Riwayat Pesanan
             </a>
 
-            <!-- Logout -->
+            
             <div class="profil-logout-row">
 
                 <form action="{{ route('logout') }}" method="POST">

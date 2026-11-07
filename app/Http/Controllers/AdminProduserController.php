@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminProduserController extends Controller
 {
-    // Dashboard Admin Produser
+
     public function dashboard()
     {
         $user=Auth::user();
@@ -38,7 +38,7 @@ class AdminProduserController extends Controller
         ));
     }
 
-    // Daftar pesanan Admin Produser
+
     public function pesanan()
     {
         $user=Auth::user();
@@ -56,7 +56,7 @@ class AdminProduserController extends Controller
         return view('admin.admin_produser.pesanan',compact('pesanans'));
     }
 
-    // Detail pesanan
+
     public function showPesanan($id_pesanan)
     {
         $user=Auth::user();
@@ -74,7 +74,7 @@ class AdminProduserController extends Controller
         return view('admin.admin_produser.pesanan-detail',compact('pesanan'));
     }
 
-    // Update progress pengerjaan
+
     public function updateProgress(Request $request,$id_pesanan)
     {
         $request->validate([
@@ -101,7 +101,7 @@ class AdminProduserController extends Controller
         return redirect()->back()->with('success','Progress pengerjaan berhasil diperbarui!');
     }
 
-    // Daftar produk/jasa yang ditugaskan kepada Admin Produser
+
     public function katalog()
     {
         $user=Auth::user();
@@ -118,7 +118,7 @@ class AdminProduserController extends Controller
         return view('admin.admin_produser.katalog',compact('produkJasas'));
     }
 
-    // Detail produk/jasa
+
     public function showKatalog($id_produk_jasa)
     {
         $user=Auth::user();
@@ -136,7 +136,7 @@ class AdminProduserController extends Controller
         return view('admin.admin_produser.katalog-detail',compact('produkJasa'));
     }
 
-    // Profil Admin Produser
+
     public function profil()
     {
         $user=Auth::user();
@@ -152,7 +152,7 @@ class AdminProduserController extends Controller
         return view('admin.admin_produser.profil',compact('user','penugasan'));
     }
 
-    // Tambah tahapan pengerjaan
+
     public function storeTahapan(Request $request,$id_pesanan)
     {
 
@@ -180,7 +180,7 @@ class AdminProduserController extends Controller
         return redirect()->back()->with('success','Tahapan pengerjaan berhasil ditambahkan!');
     }
 
-    // Edit tahapan pengerjaan
+
     public function updateTahapan(Request $request,$id_pesanan,$id_tahapan)
     {
         $request->validate([
@@ -204,7 +204,7 @@ class AdminProduserController extends Controller
         return redirect()->back()->with('success','Tahapan pengerjaan berhasil diperbarui!');
     }
 
-    // Hapus tahapan pengerjaan
+
     public function destroyTahapan($id_pesanan,$id_tahapan)
     {
         $pesanan=$this->pesananProduser($id_pesanan);
@@ -218,7 +218,7 @@ class AdminProduserController extends Controller
         return redirect()->back()->with('success','Tahapan pengerjaan berhasil dihapus!');
     }
 
-    // Mengubah urutan tahapan
+
     public function reorderTahapan(Request $request,$id_pesanan)
     {
         $request->validate([
@@ -239,7 +239,7 @@ class AdminProduserController extends Controller
         return redirect()->back()->with('success','Urutan tahapan berhasil diperbarui!');
     }
 
-    // Memastikan pesanan berasal dari produk/jasa yang ditugaskan kepada produser
+
     private function pesananProduser($id_pesanan)
     {
         $user=Auth::user();

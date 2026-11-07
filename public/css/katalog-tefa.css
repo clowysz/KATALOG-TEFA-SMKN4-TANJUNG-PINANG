@@ -1,5 +1,5 @@
 .katalog-container {
-  padding: 8px 24px 24px 24px; /* Padding atas diperkecil agar lebih rapat dengan nav */
+  padding: 8px 24px 24px 24px;
   font-family:
     "Inter",
     system-ui,
@@ -681,7 +681,6 @@
    RESPONSIVE
 ========================================================= */
 
-/* ---------- TABLET (4 kolom, lebih rapat) ---------- */
 @media (max-width: 1024px) {
   .katalog-grid {
     gap: 16px;
@@ -705,10 +704,9 @@
   }
 }
 
-/* ---------- MOBILE (3 kolom, 15 item per halaman) ---------- */
 @media (max-width: 768px) {
   .katalog-container {
-    padding: 4px 0 16px 0; /* padding samping sudah dari main-content */
+    padding: 4px 0 16px 0;
   }
 
   .katalog-header h3 {
@@ -719,7 +717,6 @@
     font-size: 13px;
   }
 
-  /* Filter & pencarian */
   .katalog-filter {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -736,7 +733,7 @@
 
   .katalog-filter-search input,
   .katalog-filter-select {
-    font-size: 16px; /* mencegah auto-zoom di iOS */
+    font-size: 16px;
   }
 
   .katalog-filter-select {
@@ -749,7 +746,6 @@
     padding: 11px 14px;
   }
 
-  /* Tombol Cari sendirian (tanpa Reset) memenuhi satu baris */
   .btn-filter-cari:last-child {
     grid-column: 1 / -1;
   }
@@ -759,7 +755,6 @@
     padding: 10px 14px;
   }
 
-  /* Toolbar */
   .katalog-toolbar {
     padding: 12px;
     border-radius: 14px;
@@ -798,7 +793,6 @@
     padding: 12px 16px;
   }
 
-  /* Grid 3 kolom */
   .katalog-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
@@ -866,7 +860,6 @@
     text-overflow: ellipsis;
   }
 
-  /* Deskripsi disembunyikan agar card ringkas */
   .card-desc {
     display: none;
   }
@@ -896,7 +889,6 @@
     padding: 40px 16px;
   }
 
-  /* Pagination */
   .pagination-wrapper {
     margin-top: 28px;
     padding-top: 18px;
@@ -918,13 +910,11 @@
     border-radius: 8px;
   }
 
-  /* Sembunyikan nomor halaman yang jauh dari halaman aktif */
   .custom-pagination .page-item.page-far {
     display: none;
   }
 }
 
-/* ---------- HP KECIL ---------- */
 @media (max-width: 480px) {
   .katalog-grid {
     gap: 8px;
@@ -1078,7 +1068,6 @@
   z-index: 1;
 }
 
-/* TOMBOL NAVIGASI GALERI */
 .admin-gallery-arrow {
   position: absolute;
   top: 50%;
@@ -1119,7 +1108,6 @@
   right: 14px;
 }
 
-/* DOTS */
 .admin-gallery-dots {
   position: absolute;
   bottom: 14px;
@@ -1149,7 +1137,6 @@
   background: #ffffff;
 }
 
-/* THUMBNAILS */
 .admin-gallery-thumbnails {
   display: flex;
   gap: 10px;
@@ -1405,7 +1392,6 @@
    RESPONSIVE DETAIL
 ========================= */
 
-/* ---------- TABLET: galeri di atas, info di bawah ---------- */
 @media (max-width: 992px) {
   .detail-top-card {
     grid-template-columns: minmax(0, 1fr);
@@ -1418,10 +1404,9 @@
   }
 }
 
-/* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
   .detail-page-wrapper {
-    padding: 0 0 24px; /* padding samping sudah dari main-content */
+    padding: 0 0 24px;
     min-height: auto;
   }
 
@@ -1438,7 +1423,6 @@
     margin-bottom: 14px;
   }
 
-  /* Galeri */
   .admin-main-image {
     height: clamp(210px, 64vw, 320px);
     border-radius: 12px;
@@ -1483,7 +1467,6 @@
     border-radius: 7px;
   }
 
-  /* Info */
   .detail-badge {
     font-size: 11px;
     padding: 5px 12px;
@@ -1509,7 +1492,6 @@
     margin-bottom: 0;
   }
 
-  /* Meta: 3 kotak sejajar versi ringkas */
   .detail-meta-cards {
     gap: 8px;
     margin-bottom: 14px;
@@ -1543,7 +1525,6 @@
     font-size: 12px;
   }
 
-  /* Deskripsi */
   .detail-card {
     padding: 18px;
     border-radius: 16px;
@@ -1561,7 +1542,6 @@
     text-align: left;
   }
 
-  /* Lightbox */
   .admin-gallery-lightbox {
     padding: 12px;
   }
@@ -1581,7 +1561,6 @@
   }
 }
 
-/* ---------- HP KECIL: kotak meta ditumpuk ---------- */
 @media (max-width: 480px) {
   .detail-meta-cards {
     grid-template-columns: minmax(0, 1fr);

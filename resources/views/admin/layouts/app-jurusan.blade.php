@@ -10,17 +10,17 @@
     <title>@yield('title') - Admin Jurusan TEFA</title>
     @include('partials.favicon')
 
-    <!-- CSS GLOBAL -->
+    
     <link rel="stylesheet" href="{{ asset('css/global-admin.css') }}?v=1">
 
-    <!-- CSS ADMIN JURUSAN -->
+    
     <link rel="stylesheet" href="{{ asset('css/admin-jurusan.css') }}?v=4">
     <link rel="stylesheet" href="{{ asset('css/logout-modal-jurusan.css') }}?v=1">
 
-    <!-- CSS KHUSUS HALAMAN -->
+    
     @yield('styles')
 
-    <!-- PHOSPHOR ICON -->
+    
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
 </head>
@@ -43,7 +43,6 @@
 
     </header>
 
-
     <!-- 
          NAVIGATION DRAWER
     = -->
@@ -62,7 +61,6 @@
 
         </div>
 
-
         <ul class="drawer-menu">
 
             <li>
@@ -75,7 +73,6 @@
                 </a>
             </li>
 
-
             <li>
                 <a
                     href="/jurusan-admin/katalog"
@@ -85,7 +82,6 @@
                     Produk dan Jasa
                 </a>
             </li>
-
 
             <li class="sub-menu">
                 <a
@@ -97,7 +93,6 @@
                 </a>
             </li>
 
-
             <li class="sub-menu">
                 <a
                     href="/jurusan-admin/kelola-jasa"
@@ -107,7 +102,6 @@
                     Kelola Jasa
                 </a>
             </li>
-
 
             <li class="sub-menu">
                 <a
@@ -119,9 +113,7 @@
                 </a>
             </li>
 
-
             <li class="menu-divider"></li>
-
 
             <li>
                 <a
@@ -133,7 +125,6 @@
                 </a>
             </li>
 
-
             <li>
                 <a
                     href="/jurusan-admin/akun/tambah"
@@ -143,7 +134,6 @@
                     Tambah Akun
                 </a>
             </li>
-
 
             <li>
                 <a
@@ -155,9 +145,7 @@
                 </a>
             </li>
 
-
             <li class="menu-divider"></li>
-
 
             <li>
                 <a
@@ -169,7 +157,6 @@
                 </a>
             </li>
 
-
             <li>
                 <a href="#" class="logout-link" data-logout-open>
                     <i class="ph ph-sign-out"></i>
@@ -179,20 +166,17 @@
 
         </ul>
 
-
         <div class="drawer-footer">
             SMKN 4 Tanjungpinang © 2026
         </div>
 
     </nav>
 
-
     <!-- 
          OVERLAY
     = -->
 
     <div class="overlay" id="overlay" data-drawer-toggle></div>
-
 
     <!-- 
          KONTEN
@@ -203,7 +187,6 @@
         @yield('content')
 
     </main>
-
 
     <!-- 
          MODAL LOGOUT
@@ -221,7 +204,6 @@
                 Anda akan diarahkan kembali ke halaman login.
             </p>
 
-
             <div class="modal-logout-actions">
 
                 <button
@@ -231,7 +213,6 @@
                 >
                     Batal
                 </button>
-
 
                 <form
                     action="{{ route('admin.logout') }}"
@@ -252,7 +233,6 @@
         </div>
 
     </div>
-
 
     <!-- 
          JAVASCRIPT

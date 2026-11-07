@@ -17,7 +17,6 @@
    1. KOMPONEN BERSAMA
 ========================================================= */
 
-/* Header halaman */
 .page-header {
   margin-top: 3px;
   margin-bottom: 24px;
@@ -36,7 +35,6 @@
   font-size: 14px;
 }
 
-/* Notifikasi berhasil dan gagal */
 .pesanan-alert {
   display: flex;
   align-items: flex-start;
@@ -70,13 +68,11 @@
    2. KELOLA PESANAN
 ========================================================= */
 
-/* Ukuran teks tabel */
 .pesanan-table th,
 .pesanan-table td {
   font-size: 15px;
 }
 
-/* Judul kolom Status di tengah, kolom Aksi rata kiri */
 .pesanan-table th.th-status {
   text-align: center;
 }
@@ -87,13 +83,11 @@
   text-align: left;
 }
 
-/* Isi kolom status dan aksi sejajar di tengah tinggi sel */
 .pesanan-table td.col-status,
 .pesanan-table td.col-aksi {
   vertical-align: middle;
 }
 
-/* ---------- Tombol Update dan Detail ---------- */
 .btn-update-pesanan,
 .btn-detail-pesanan {
   display: inline-block;
@@ -137,7 +131,6 @@
   vertical-align: middle;
 }
 
-/* ---------- Isi kolom status ---------- */
 /* Lebar & tinggi tetap: form status, "Pembatalan diajukan", dan
    "Dibatalkan" semuanya sama ukuran sehingga tabel rapi. */
 .status-cell-content {
@@ -147,7 +140,6 @@
   margin: 0 auto;
 }
 
-/* Form dan pilihan status */
 .status-update-form {
   display: flex;
   align-items: center;
@@ -189,7 +181,6 @@
   padding-bottom: 0;
 }
 
-/* Lencana status pengganti form (pembatalan diajukan, dibatalkan) */
 .status-pill {
   display: flex;
   align-items: center;
@@ -216,7 +207,6 @@
   background: #fde5e5;
 }
 
-/* ---------- Pesan ketika tidak ada pesanan ---------- */
 .pesanan-table td.pesanan-empty {
   padding: 60px 20px;
   text-align: center;
@@ -242,7 +232,6 @@
    3. NOTIFIKASI & DAFTAR PERMINTAAN PEMBATALAN
 ========================================================= */
 
-/* Notifikasi permintaan pembatalan */
 .cancellation-notification {
   display: flex;
   align-items: center;
@@ -285,7 +274,6 @@
   background: #f0dfaa;
 }
 
-/* Daftar permintaan pembatalan */
 .cancellation-list {
   margin-bottom: 24px;
   padding: 18px;
@@ -322,7 +310,6 @@
   margin-top: 8px;
 }
 
-/* Baris yang tersaring disembunyikan lewat atribut hidden */
 #cancellationList .cancellation-pesanan-table tr.cancellation-row[hidden] {
   display: none !important;
 }
@@ -331,14 +318,12 @@
    4. DETAIL PESANAN
 ========================================================= */
 
-/* Pembungkus halaman detail */
 .detail-pesanan-container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Header dan tombol kembali */
 .detail-pesanan-header {
   margin-bottom: 24px;
 }
@@ -380,7 +365,6 @@
   font-size: 14px;
 }
 
-/* Susunan kartu informasi */
 .detail-pesanan-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -392,7 +376,6 @@
   grid-column: 1 / -1;
 }
 
-/* Tampilan kartu */
 .detail-pesanan-card {
   min-width: 0;
   padding: 26px 30px;
@@ -411,7 +394,6 @@
   font-weight: 700;
 }
 
-/* Informasi pelanggan dan pesanan */
 .detail-info-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -444,7 +426,6 @@
   overflow-wrap: anywhere;
 }
 
-/* Badge status pesanan */
 .badge-status-pesanan {
   display: inline-flex;
   align-items: center;
@@ -456,7 +437,6 @@
   font-weight: 700;
 }
 
-/* Catatan tambahan pesanan */
 .catatan-pesanan {
   padding-top: 20px;
   margin-top: 20px;
@@ -475,7 +455,6 @@
   overflow-wrap: anywhere;
 }
 
-/* Informasi pesanan diteruskan ke produser */
 .detail-pesanan-alert {
   padding: 12px 16px;
   margin-bottom: 20px;
@@ -486,7 +465,6 @@
   font-size: 14px;
 }
 
-/* Form update status di halaman detail */
 .status-card {
   margin-top: 20px;
 }
@@ -528,7 +506,6 @@
   box-shadow: 0 0 0 3px rgba(59, 105, 143, 0.1);
 }
 
-/* Kolom alasan pembatalan (muncul saat memilih "Dibatalkan") */
 .status-reason-input {
   box-sizing: border-box;
   width: 100%;
@@ -590,7 +567,6 @@
    5. PEMBATALAN DI HALAMAN DETAIL
 ========================================================= */
 
-/* Kartu update status dan pembatalan berdampingan */
 .detail-pesanan-bottom {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -611,7 +587,6 @@
   margin: 0;
 }
 
-/* Pesan ketika belum ada permintaan pembatalan */
 .cancellation-empty {
   padding: 14px;
   border-radius: 8px;
@@ -628,7 +603,6 @@
   margin-bottom: 0;
 }
 
-/* Rincian permintaan pembatalan */
 .cancellation-info {
   display: flex;
   flex-direction: column;
@@ -656,7 +630,6 @@
   font-weight: 600;
 }
 
-/* Status permintaan pembatalan */
 .cancellation-badge {
   display: inline-block;
   width: fit-content;
@@ -681,7 +654,6 @@
   background: #fde5e5;
 }
 
-/* Tombol keputusan */
 .cancellation-actions {
   display: flex;
   flex-direction: column;
@@ -737,14 +709,12 @@
   background: #a52d22;
 }
 
-/* Pemberitahuan pembatalan */
 .cancellation-notice {
   margin-top: 16px;
   color: #805b00;
   line-height: 1.6;
 }
 
-/* ---------- Modal konfirmasi pembatalan ---------- */
 .cancellation-modal {
   position: fixed;
   inset: 0;
@@ -881,9 +851,7 @@
    6. RESPONSIF
 ========================================================= */
 
-/* ---------- Tablet (maks 1024px): tabel jadi kartu 2 kolom ---------- */
 @media (max-width: 1024px) {
-  /* Tabel utama */
   .table-responsive {
     overflow: visible;
   }
@@ -893,7 +861,6 @@
     overflow: visible;
   }
 
-  /* Sembunyikan header visual, tetap tersedia bagi pembaca layar */
   .pesanan-table thead {
     position: absolute;
     width: 1px;
@@ -909,7 +876,6 @@
     gap: 14px;
   }
 
-  /* Setiap pesanan menjadi kartu */
   .pesanan-table .pesanan-row {
     display: flex;
     flex-direction: column;
@@ -924,7 +890,6 @@
     background: #fff;
   }
 
-  /* Setiap sel: label di kiri, isi di kanan */
   .pesanan-table .pesanan-row td {
     display: flex;
     align-items: center;
@@ -947,7 +912,6 @@
     text-align: left;
   }
 
-  /* Nomor pesanan menjadi judul kartu */
   .pesanan-table .pesanan-row td.col-id {
     justify-content: flex-start;
     padding: 12px 0;
@@ -962,7 +926,6 @@
     display: none;
   }
 
-  /* Kolom status: label di atas, isi memenuhi lebar kartu */
   .pesanan-table .pesanan-row td.col-status {
     flex-direction: column;
     align-items: stretch;
@@ -984,7 +947,6 @@
     padding-left: 16px;
   }
 
-  /* Tombol detail memenuhi lebar bagian bawah kartu */
   .pesanan-table .pesanan-row td.col-aksi {
     display: block;
     padding: 12px 0 0;
@@ -1000,7 +962,6 @@
     text-align: center;
   }
 
-  /* Baris kosong memenuhi lebar tabel */
   .pesanan-table .pesanan-empty-row {
     display: block;
     grid-column: 1 / -1;
@@ -1018,7 +979,6 @@
   }
 }
 
-/* ---------- Tablet (maks 992px): detail jadi satu kolom ---------- */
 @media (max-width: 992px) {
   .detail-pesanan-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -1026,7 +986,6 @@
   }
 }
 
-/* ---------- HP (maks 768px) ---------- */
 @media (max-width: 768px) {
   .page-header h2 {
     font-size: 18px;
@@ -1046,7 +1005,6 @@
     padding: 28px 12px;
   }
 
-  /* Detail pesanan */
   .detail-pesanan-container {
     padding: 4px 0 16px;
   }
@@ -1095,13 +1053,11 @@
     padding: 12px 24px;
   }
 
-  /* Kartu update status dan pembatalan tersusun vertikal */
   .detail-pesanan-bottom {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-/* ---------- HP (maks 640px): satu kartu per baris ---------- */
 @media (max-width: 640px) {
   .pesanan-table tbody {
     grid-template-columns: minmax(0, 1fr);
@@ -1109,7 +1065,6 @@
   }
 }
 
-/* ---------- HP (maks 600px): notifikasi pembatalan ---------- */
 @media (max-width: 600px) {
   .cancellation-notification {
     align-items: flex-start;
@@ -1122,7 +1077,6 @@
   }
 }
 
-/* ---------- HP (maks 560px): informasi detail jadi label & isi ---------- */
 @media (max-width: 560px) {
   .detail-info-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -1146,7 +1100,6 @@
   }
 }
 
-/* ---------- HP (maks 480px): modal ---------- */
 @media (max-width: 480px) {
   .cancellation-modal-box {
     padding: 26px 20px;
@@ -1161,7 +1114,6 @@
   }
 }
 
-/* ---------- HP sangat kecil (maks 380px): form status vertikal ---------- */
 @media (max-width: 380px) {
   .pesanan-table .pesanan-row td.col-status .status-update-form {
     flex-direction: column;
@@ -1195,7 +1147,6 @@
    (lalu naikkan ?v= di Blade agar cache browser diperbarui)
 ========================================================= */
 
-/* Ringkasan: siapa yang membatalkan, kapan, dan alasannya */
 .cancellation-summary {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1213,7 +1164,6 @@
   grid-column: 1 / -1;
 }
 
-/* Teks alasan: panjang apa pun tidak merusak layout */
 .cancellation-text {
   margin: 6px 0 0;
   line-height: 1.6;
@@ -1226,7 +1176,6 @@
   font-style: italic;
 }
 
-/* Penanda siapa yang membatalkan */
 .cancellation-badge.by-admin {
   background: #dbeafe;
   color: #1e3a8a;

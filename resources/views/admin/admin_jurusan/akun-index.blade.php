@@ -21,10 +21,9 @@
 
 </div>
 
-
 <div class="tefa-card akun-card">
 
-    {{-- FILTER --}}
+    
     <div class="akun-filter-bar">
 
         <input
@@ -52,8 +51,7 @@
 
     </div>
 
-
-    {{-- TABEL --}}
+    
     <div class="table-responsive">
 
         <table class="akun-table">
@@ -192,8 +190,7 @@
 
     </div>
 
-
-    {{-- HASIL FILTER KOSONG --}}
+    
     <div id="emptyAkun" class="akun-filter-empty">
 
         <h3>Akun Tidak Ditemukan</h3>
@@ -207,7 +204,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 <script src="{{ asset('js/akun-index-jurusan.js') }}"></script>

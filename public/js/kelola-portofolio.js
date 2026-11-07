@@ -55,9 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let dataPorto = [];
 
-  // ------------------------------------------------------
-  // Utilitas
-  // ------------------------------------------------------
   function showToast(message, type = "success") {
     if (!toast) {
       return;
@@ -98,11 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
   }
 
-  // ------------------------------------------------------
-  // Tombol buka / tutup modal (lewat atribut data-*)
-  // closePortoModal dipanggil lewat nama global supaya versi
-  // yang dibungkus form-helper-jurusan.js ikut berjalan.
-  // ------------------------------------------------------
   document.addEventListener("click", function (event) {
     if (event.target.closest("[data-open-tambah]")) {
       openTambahPortoModal();
@@ -116,9 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // ------------------------------------------------------
-  // Ambil data (sekali), pencarian memfilter data di browser
-  // ------------------------------------------------------
   async function loadPortofolio() {
     try {
       const response = await fetch("/jurusan-admin/portofolio");
@@ -143,9 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ------------------------------------------------------
-  // Render kartu
-  // ------------------------------------------------------
   function renderPorto(filterText = "") {
     container.innerHTML = "";
 
@@ -226,9 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ------------------------------------------------------
-  // Edit & hapus (event delegation pada container)
-  // ------------------------------------------------------
   function renderOldImages(item) {
     const previewContainer = document.getElementById("imagePreviewContainer");
 
@@ -305,18 +288,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // ------------------------------------------------------
-  // Pencarian
-  // ------------------------------------------------------
   if (searchInput) {
     searchInput.addEventListener("keyup", function () {
       renderPorto(this.value);
     });
   }
 
-  // ------------------------------------------------------
-  // Simpan (tambah / edit)
-  // ------------------------------------------------------
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -379,9 +356,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // ------------------------------------------------------
-  // Konfirmasi hapus
-  // ------------------------------------------------------
   document
     .getElementById("btnConfirmDeletePorto")
     .addEventListener("click", async function () {

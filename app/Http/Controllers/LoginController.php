@@ -27,7 +27,7 @@ class LoginController extends Controller
 
             $user = Auth::user();
 
-          // PEMBELI
+
         if ($user->role === 'pembeli') {
         $redirect = $request->input('redirect');
 
@@ -37,22 +37,22 @@ class LoginController extends Controller
 
     return redirect()->route('profil.pembeli');
 }
-            // ADMIN TEFA
+
             if ($user->role === 'admin_tefa') {
                 return redirect('/dashboard');
             }
 
-            // ADMIN JURUSAN
+
             if ($user->role === 'admin_jurusan') {
                 return redirect('/jurusan-admin/dashboard');
             }
 
-            // ADMIN PRODUSER
+
             if ($user->role === 'admin_produser') {
                 return redirect('/produser/dashboard');
             }
 
-            // Role tidak dikenali
+
             Auth::logout();
 
             return back()

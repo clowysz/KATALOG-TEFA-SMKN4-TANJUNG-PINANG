@@ -14,14 +14,14 @@ class PesananController extends Controller
 {
     public function index()
     {
-        // Semua pesanan untuk tabel utama.
+
         $pesanans = Pesanan::with([
             'pembeli',
             'produkJasa.jurusan',
             'permintaanPembatalan',
         ])->latest()->get();
 
-        // Semua permintaan pembatalan yang belum diputuskan.
+
         $permintaanPembatalan = PermintaanPembatalan::with([
             'pesanan.pembeli',
             'pesanan.produkJasa.jurusan',
@@ -30,7 +30,7 @@ class PesananController extends Controller
         ->latest()
         ->get();
 
-        // Jumlah permintaan yang masih menunggu keputusan.
+
         $jumlahPermintaanPembatalan = $permintaanPembatalan->count();
 
         return view(
@@ -67,14 +67,14 @@ class PesananController extends Controller
 
         $pesanan = Pesanan::with('permintaanPembatalan')->findOrFail($id);
 
-        // Pesanan yang sudah dibatalkan tidak boleh diubah lagi.
+
         if ($pesanan->status === 'dibatalkan') {
             return redirect()->back()->withErrors([
                 'error' => 'Pesanan sudah dibatalkan dan statusnya tidak dapat diubah lagi.',
             ]);
         }
 
-        // Blokir perubahan status selama permintaan pembatalan menunggu.
+
         if (
             $pesanan->permintaanPembatalan &&
             $pesanan->permintaanPembatalan->status_permintaan === 'menunggu'
@@ -84,9 +84,9 @@ class PesananController extends Controller
             ]);
         }
 
-        // ===== PEMBATALAN OLEH ADMIN TEFA =====
+
         if ($request->status === 'dibatalkan') {
-            // Pesanan yang sudah selesai tidak boleh dibatalkan.
+
             if ($pesanan->status === 'selesai') {
                 return redirect()->back()->withErrors([
                     'error' => 'Pesanan yang sudah selesai tidak dapat dibatalkan.',
@@ -115,7 +115,7 @@ class PesananController extends Controller
             );
         }
 
-        // ===== STATUS BIASA =====
+
         if ($request->status === 'diproses') {
             $adaProduser = PenugasanProduser::where(
                 'id_produk_jasa',

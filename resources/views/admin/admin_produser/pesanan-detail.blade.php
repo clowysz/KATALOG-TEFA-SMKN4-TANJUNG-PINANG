@@ -17,7 +17,7 @@
      data-store-url="{{ route('produser.tahapan.store', $pesanan->id_pesanan) }}"
      data-update-base-url="{{ url('/produser/pesanan/' . $pesanan->id_pesanan . '/tahapan') }}">
 
-    {{-- ================= HEADER ================= --}}
+    
     <div class="detail-page-header">
 
         <a href="{{ route('admin.produser.pesanan') }}" class="btn-level-2">
@@ -32,7 +32,7 @@
 
     </div>
 
-    {{-- ================= NOTIFIKASI ================= --}}
+    
     @if(session('success'))
         <div class="prod-alert prod-alert-success" role="alert">
             <i class="ph ph-check-circle"></i>
@@ -52,7 +52,7 @@
         </div>
     @endif
 
-    {{-- ================= HERO PESANAN ================= --}}
+    
     <div class="order-hero-card">
 
         <div class="order-hero-top-v2">
@@ -126,7 +126,7 @@
 
     </div>
 
-    {{-- ================= INFORMASI + CATATAN ================= --}}
+    
     <div class="two-column">
 
         <div class="prod-card">
@@ -195,7 +195,7 @@
 
     </div>
 
-    {{-- ================= TAHAPAN PENGERJAAN ================= --}}
+    
     <div class="prod-card prod-card-spaced">
         <div class="prod-card-body">
 
@@ -270,7 +270,7 @@
                                 </div>
 
                                 <div class="mini-progress-bg">
-                                    {{-- Style inline hanya untuk lebar bar (nilai dari database) --}}
+                                    
                                     <div class="mini-progress-fill"
                                          style="width: {{ $tahapan->persentase_progress }}%;"></div>
                                 </div>
@@ -315,7 +315,7 @@
         </div>
     </div>
 
-    {{-- ================= PERBARUI PROGRESS ================= --}}
+    
     @if($bolehKelola)
 
         <div class="prod-card prod-card-spaced">
@@ -385,7 +385,7 @@
 
     @endif
 
-    {{-- ================= RIWAYAT PROGRESS ================= --}}
+    
     <div class="prod-card">
         <div class="prod-card-body">
 
@@ -566,7 +566,7 @@
                                                     <i class="ph ph-pencil-simple"></i>
                                                 </button>
 
-                                                {{-- Form hapus: konfirmasi ditangani modal kustom (lihat JS) --}}
+                                                
                                                 <form action="{{ route('produser.tahapan.destroy', [$pesanan->id_pesanan, $tahapan->id]) }}"
                                                       method="POST"
                                                       data-confirm-delete
@@ -608,7 +608,7 @@
         </div>
     </div>
 
-    {{-- ================= MODAL TAMBAH / EDIT TAHAPAN ================= --}}
+    
     <div id="modalFormTahap" class="prod-modal-overlay">
         <div class="prod-modal small" role="dialog" aria-modal="true" aria-labelledby="modalFormTahapTitle">
 
@@ -701,7 +701,7 @@
         </div>
     </div>
 
-    {{-- ================= MODAL KONFIRMASI HAPUS ================= --}}
+    
     <div id="modalKonfirmasiHapus" class="prod-modal-overlay confirm-overlay">
         <div class="prod-modal confirm-modal"
              role="alertdialog"
@@ -742,7 +742,7 @@
         </div>
     </div>
 
-    {{-- Form tersembunyi untuk menyimpan urutan --}}
+    
     <form id="formReorderTahapan"
           action="{{ route('produser.tahapan.reorder', $pesanan->id_pesanan) }}"
           method="POST"

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->string('email')->unique();
 
             $table->string('role')->default('pembeli');
-            // admin_tefa, admin_jurusan, admin_produser, pembeli
+
 
             $table->string('nomor_hp')->nullable();
 
-            // Menyimpan jurusan asal Admin Produser
+
             $table->unsignedBigInteger('id_jurusan_asal')->nullable();
 
             $table->timestamp('email_verified_at')->nullable();

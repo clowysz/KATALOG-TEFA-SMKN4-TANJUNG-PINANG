@@ -10,20 +10,20 @@
 
 <div class="kontak-halaman">
 
-    <!-- HEADER -->
+    
     <div class="page-header">
         <h2>Kontak Customer Service</h2>
         <p>Atur nomor WhatsApp yang dihubungi pelanggan saat membuka Customer Service.</p>
     </div>
 
-    <!-- PESAN BERHASIL -->
+    
     @if(session('sukses'))
         <div class="katalog-sukses">
             {{ session('sukses') }}
         </div>
     @endif
 
-    <!-- FORM NOMOR CUSTOMER SERVICE -->
+    
     <form
         action="{{ route('tefa.cs.update') }}"
         method="POST"
@@ -92,6 +92,6 @@
 @endsection
 
 @section('scripts')
-    {{-- Logika nomor kontak (validasi sendiri, tanpa dialog browser) --}}
+    
     <script src="{{ asset('js/kontak-tefa.js') }}?v=3" defer></script>
 @endsection

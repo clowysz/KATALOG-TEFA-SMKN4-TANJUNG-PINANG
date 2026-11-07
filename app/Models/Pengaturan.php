@@ -9,10 +9,10 @@ class Pengaturan extends Model
     public const KUNCI_NOMOR_PDF = 'nomor_pdf';
     public const KUNCI_NOMOR_CS = 'nomor_cs';
 
-    // Dipakai bila belum ada data tersimpan
+
     public const NOMOR_DEFAULT = '6289653628650';
 
-    // 62 + 8xx + 8 sampai 11 digit (nomor HP Indonesia)
+
     public const NOMOR_REGEX = '/^628\d{8,11}$/';
 
     public const PESAN_NOMOR_TIDAK_VALID =

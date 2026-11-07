@@ -20,7 +20,6 @@
         </p>
     </div>
 
-
     <!-- =========================
          SEARCH + FILTER
     ========================== -->
@@ -67,7 +66,6 @@
 
     </div>
 
-
     <!-- =========================
          LOADING
     ========================== -->
@@ -84,14 +82,13 @@
 
     </div>
 
-
     <!-- =========================
          CONTENT
     ========================== -->
 
     <div id="katalogContent" style="display: none;">
 
-        <!-- PRODUK -->
+        
         <div id="produkSection">
 
             <h3 class="katalog-section-title">
@@ -103,8 +100,7 @@
 
         </div>
 
-
-        <!-- JASA -->
+        
         <div id="jasaSection">
 
             <h3 class="katalog-section-title">
@@ -117,7 +113,6 @@
         </div>
 
     </div>
-
 
     <!-- =========================
          EMPTY
@@ -138,7 +133,6 @@
         </p>
 
     </div>
-
 
     <!-- =========================
          ERROR
@@ -163,7 +157,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 <script src="{{ asset('js/katalog-jurusan.js') }}"></script>

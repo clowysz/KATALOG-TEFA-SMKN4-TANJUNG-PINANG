@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div class="progress-track">
-                                    {{-- Satu-satunya style inline: lebar bar berasal dari data --}}
+                                    
                                     <div class="progress-fill" style="width: {{ $persentase }}%;"></div>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                     </tr>
                 @endforelse
 
-                {{-- Ditampilkan oleh JS saat pencarian tidak menemukan hasil --}}
+                
                 <tr id="noResultRow" class="empty-row" hidden>
                     <td colspan="6" class="empty-cell">
                         <i class="ph ph-magnifying-glass empty-cell-icon"></i>

@@ -18,7 +18,6 @@
     </p>
 </div>
 
-
 @if($jurusans->count() > 0)
 
     <div class="tefa-jurusan-grid">
@@ -39,13 +38,11 @@
                 };
             @endphp
 
-
             <div class="j-card {{ $theme }}">
 
                 <div class="j-card-title">
                     {{ $jurusan->nama_jurusan }}
                 </div>
-
 
                 <div class="j-stats">
 
@@ -59,7 +56,6 @@
                         </div>
                     </div>
 
-
                     <div class="j-stat-box">
                         <div class="j-stat-num">
                             {{ $jurusan->total_jasa }}
@@ -70,7 +66,6 @@
                         </div>
                     </div>
 
-
                     <div class="j-stat-box">
                         <div class="j-stat-num">
                             {{ $jurusan->total_portofolio }}
@@ -80,7 +75,6 @@
                             Portofolio
                         </div>
                     </div>
-
 
                     <div class="j-stat-box">
                         <div class="j-stat-num">

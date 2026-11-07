@@ -20,7 +20,7 @@ class PesananPembeliController extends Controller
         'dibatalkan',
     ];
 
-    // Daftar riwayat pesanan pembeli
+
     public function riwayat(Request $request)
     {
        $query = Pesanan::with([
@@ -53,7 +53,7 @@ class PesananPembeliController extends Controller
         return view('public.riwayat', compact('riwayats', 'status', 'keyword'));
     }
 
-    // Detail riwayat pesanan
+
     public function detail($id_pesanan)
     {
         $pesanan = Pesanan::with([
@@ -71,7 +71,7 @@ class PesananPembeliController extends Controller
         return view('public.riwayat-detail', compact('pesanan'));
     }
 
-    // Halaman checkout
+
     public function checkout(Request $request)
     {
         $request->validate([
@@ -84,7 +84,7 @@ class PesananPembeliController extends Controller
         return view('public.checkout', compact('produkJasa'));
     }
 
-    // Simpan pesanan
+
     public function store(Request $request)
     {
         if (Auth::user()->role !== 'pembeli') {
@@ -144,7 +144,7 @@ public function batalkan(Request $request, $id_pesanan)
             ->lockForUpdate()
             ->firstOrFail();
 
-        // Pesanan yang menunggu konfirmasi langsung dibatalkan.
+
         if ($pesanan->status === 'menunggu konfirmasi') {
             $pesanan->status = 'dibatalkan';
             $pesanan->save();
@@ -164,7 +164,7 @@ public function batalkan(Request $request, $id_pesanan)
             ];
         }
 
-        // Pesanan yang sudah dikonfirmasi menunggu keputusan admin.
+
         if ($pesanan->status === 'konfirmasi') {
             $permintaan = PermintaanPembatalan::firstOrCreate(
                 ['id_pesanan' => $pesanan->id_pesanan],
@@ -182,7 +182,7 @@ public function batalkan(Request $request, $id_pesanan)
                     ];
                 }
 
-                // Pengajuan ulang diperbolehkan jika permintaan sebelumnya ditolak.
+
                 if ($permintaan->status_permintaan === 'ditolak') {
                     $permintaan->update([
                         'alasan' => $data['alasan'],
@@ -212,7 +212,7 @@ public function batalkan(Request $request, $id_pesanan)
         ];
     });
 
-    // Jika permintaan berasal dari popup, balas dengan JSON.
+
     if ($request->expectsJson()) {
         return response()->json(
             $hasil,
@@ -220,7 +220,7 @@ public function batalkan(Request $request, $id_pesanan)
         );
     }
 
-    // Tetap mendukung pengiriman formulir biasa.
+
     if ($hasil['success']) {
         return redirect('/riwayat-pesanan')
             ->with('success', $hasil['message']);
@@ -241,7 +241,7 @@ public function hapusRiwayat($id_pesanan)
         ->where('id_user', Auth::id())
         ->firstOrFail();
 
-    // Hanya pesanan selesai dan dibatalkan yang boleh dihapus.
+
     if (!in_array($pesanan->status, ['selesai', 'dibatalkan'])) {
         return redirect()
             ->route('pembeli.riwayat')

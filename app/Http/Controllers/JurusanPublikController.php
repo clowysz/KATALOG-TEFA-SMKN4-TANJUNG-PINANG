@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class JurusanPublikController extends Controller
 {
-    // Detail jurusan
+
     public function show($slug)
     {
         [$jurusan] = $this->resolve($slug);
@@ -17,7 +17,7 @@ class JurusanPublikController extends Controller
         return view('public.jurusan.detail-jurusan', compact('jurusan', 'slug'));
     }
 
-    // Portofolio
+
     public function portofolio($slug)
     {
         [$jurusan, $jurusanDb] = $this->resolve($slug, true);
@@ -30,7 +30,7 @@ class JurusanPublikController extends Controller
         return view('public.portofolio.index', compact('jurusan', 'slug', 'portofolios'));
     }
 
-    // Detail portofolio
+
     public function portofolioDetail($slug, $id)
     {
         [$jurusan, $jurusanDb] = $this->resolve($slug, true);
@@ -43,7 +43,7 @@ class JurusanPublikController extends Controller
         return view('public.portofolio.detail', compact('jurusan', 'slug', 'portofolio'));
     }
 
-    // Daftar produk
+
     public function produk($slug)
     {
         [$jurusan, $jurusanDb] = $this->resolve($slug, true);
@@ -57,7 +57,7 @@ class JurusanPublikController extends Controller
         return view('public.produk.index', compact('jurusan', 'slug', 'produks'));
     }
 
-    // Detail produk
+
     public function produkDetail($slug, $id)
     {
         [$jurusan, $jurusanDb] = $this->resolve($slug, true);
@@ -73,7 +73,7 @@ class JurusanPublikController extends Controller
         return view('public.produk.detail', compact('jurusan', 'slug', 'produk'));
     }
 
-    // Daftar jasa
+
     public function jasa($slug)
     {
         [$jurusan, $jurusanDb] = $this->resolve($slug, true);
@@ -87,7 +87,7 @@ class JurusanPublikController extends Controller
         return view('public.jasa.index', compact('jurusan', 'slug', 'jasas'));
     }
 
-    // Detail jasa
+
     public function jasaDetail($slug, $id)
     {
         [$jurusan, $jurusanDb] = $this->resolve($slug, true);
@@ -103,9 +103,9 @@ class JurusanPublikController extends Controller
         return view('public.jasa.detail', compact('jurusan', 'slug', 'jasa'));
     }
 
-    // =====================================================================
-    // HELPER
-    // =====================================================================
+
+
+
 
     /**
      * Ambil data statis jurusan (config/jurusan.php) + data database.

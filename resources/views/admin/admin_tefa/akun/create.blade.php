@@ -10,7 +10,7 @@
 
 <div class="form-container">
 
-    {{-- Tombol kembali --}}
+    
     <a
         href="{{ route('akun.index') }}"
         class="btn-back"
@@ -18,11 +18,9 @@
         &larr; Kembali ke Daftar Akun
     </a>
 
-
     <h2 class="form-title">
         Tambah Akun Baru
     </h2>
-
 
     <div class="form-card">
 
@@ -30,8 +28,7 @@
             Tambahkan admin baru untuk mengelola TEFA
         </p>
 
-
-        {{-- Pesan error validasi --}}
+        
         @if($errors->any())
 
             <div class="error-message">
@@ -52,7 +49,6 @@
 
         @endif
 
-
         <form
             action="{{ route('akun.store') }}"
             method="POST"
@@ -61,8 +57,7 @@
 
             @csrf
 
-
-            <!-- NAMA -->
+            
             <div class="form-group">
 
                 <label
@@ -84,8 +79,7 @@
 
             </div>
 
-
-            <!-- EMAIL -->
+            
             <div class="form-group">
 
                 <label
@@ -107,8 +101,7 @@
 
             </div>
 
-
-            <!-- PASSWORD -->
+            
             <div class="form-group">
 
                 <label
@@ -130,8 +123,7 @@
 
             </div>
 
-
-            <!-- ROLE -->
+            
             <div class="form-group">
 
                 <label
@@ -174,8 +166,7 @@
 
             </div>
 
-
-            <!-- JURUSAN (ditampilkan / disembunyikan oleh akun.js) -->
+            
             <div
                 id="jurusanContainer"
                 class="form-group"
@@ -222,8 +213,7 @@
 
             </div>
 
-
-            <!-- BANTUAN JURUSAN -->
+            
             <span
                 id="helpTextJurusan"
                 class="akun-help-text"
@@ -231,8 +221,7 @@
                 Pilih role terlebih dahulu untuk menentukan kebutuhan jurusan.
             </span>
 
-
-            <!-- STATUS -->
+            
             <div class="form-group">
 
                 <label
@@ -267,8 +256,7 @@
 
             </div>
 
-
-            <!-- TOMBOL -->
+            
             <div class="form-actions">
 
                 <button
@@ -294,7 +282,6 @@
 </div>
 
 @endsection
-
 
 @section('scripts')
 

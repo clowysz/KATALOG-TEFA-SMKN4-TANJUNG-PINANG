@@ -10,13 +10,13 @@ use App\Models\User;
 
 class AuthForgotPasswordController extends Controller
 {
-    // Menampilkan halaman lupa sandi
+
     public function showForgotForm()
     {
         return view('auth.lupa-sandi');
     }
 
-    // Memproses email yang dimasukkan
+
     public function sendResetLink(Request $request)
     {
         $request->validate([
@@ -27,7 +27,7 @@ class AuthForgotPasswordController extends Controller
             ->where('role', 'pembeli')
             ->first();
 
-        // Jika email tidak ditemukan
+
         if (!$user) {
             return back()->with(
                 'status',
@@ -35,10 +35,10 @@ class AuthForgotPasswordController extends Controller
             );
         }
 
-        // Membuat token reset
+
         $token = Str::random(64);
 
-        // Menyimpan token
+
         DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $user->email],
             [
@@ -47,11 +47,11 @@ class AuthForgotPasswordController extends Controller
             ]
         );
 
-        // Untuk sementara, tampilkan link reset untuk pengujian
+
        return redirect()->route('password.reset', ['token' => $token]);
     }
 
-    // Menampilkan halaman reset sandi
+
    public function showResetForm(string $token)
 {
     $resetData = DB::table('password_reset_tokens')
@@ -72,7 +72,7 @@ class AuthForgotPasswordController extends Controller
     ]);
 }
 
-    // Memproses password baru
+
     public function resetPassword(Request $request)
     {
         $request->validate([
@@ -91,7 +91,7 @@ class AuthForgotPasswordController extends Controller
             ]);
         }
 
-        // Cek token
+
         if (!hash_equals(
             $resetData->token,
             hash('sha256', $request->token)
@@ -101,7 +101,7 @@ class AuthForgotPasswordController extends Controller
             ]);
         }
 
-        // Cari akun pembeli
+
         $user = User::where('email', $request->email)
             ->where('role', 'pembeli')
             ->first();
@@ -112,11 +112,11 @@ class AuthForgotPasswordController extends Controller
             ]);
         }
 
-        // Ubah password
+
         $user->password = Hash::make($request->password);
         $user->save();
 
-        // Hapus token setelah digunakan
+
         DB::table('password_reset_tokens')
             ->where('email', $request->email)
             ->delete();

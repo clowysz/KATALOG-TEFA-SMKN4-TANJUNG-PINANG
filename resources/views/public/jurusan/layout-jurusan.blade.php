@@ -28,7 +28,7 @@
             background-color: #F8FAFC !important;
         }
 
-        /* Latar navbar putih (sama seperti tampilan desktop sebelumnya) */
+        
         .jurusan-sticky-container {
             background: white !important;
         }
@@ -42,7 +42,7 @@
             background-color: #1E3A8A !important;
         }
 
-        /* Desktop: pertahankan jarak & bayangan asli layout ini */
+        
         @media (min-width: 851px) {
             .jurusan-sticky-container {
                 padding: 12px 20px;
@@ -56,19 +56,17 @@
 
 </head>
 
-
 <body>
 @php
     $isPembeli   = Auth::check() && Auth::user()->role === 'pembeli';
     $profilLabel = 'Profil';
 @endphp
 
-    {{-- ================= NAVBAR ================= --}}
+    
 
     <div class="jurusan-sticky-container">
 
         <div class="jurusan-nav-pill">
-
 
             @if(isset($jurusan))
 
@@ -111,8 +109,7 @@
 
             @endif
 
-
-            {{-- ================= MENU (terlipat di HP) ================= --}}
+            
 
             <div class="jurusan-nav-menu" id="jurusanNavMenu">
 
@@ -168,7 +165,7 @@
 
                 @endif
 
-                {{-- Profil: hanya tampil di dalam hamburger (HP/tablet) --}}
+                
                 <a href="/profil-pembeli" class="nav-profile-link">
                     <i class="ph ph-user"></i>
                     <span>{{ $profilLabel }}</span>
@@ -176,8 +173,7 @@
 
             </div>
 
-
-            {{-- ================= TOMBOL HAMBURGER ================= --}}
+            
 
             <button
                 type="button"
@@ -190,8 +186,7 @@
                 <i class="ph ph-list"></i>
             </button>
 
-
-            {{-- ================= PENCARIAN + PROFIL (desktop) ================= --}}
+            
 
             <div class="jurusan-nav-actions">
 
@@ -225,13 +220,11 @@
 
             </div>
 
-
         </div>
 
     </div>
 
-
-    {{-- ================= KONTEN ================= --}}
+    
 
     <main>
 
@@ -239,15 +232,13 @@
 
     </main>
 
-
-    {{-- ================= FOOTER ================= --}}
+    
 
     <footer class="footer">
 
         <div class="footer-grid">
 
-
-            {{-- LOGO SMKN 4 --}}
+            
 
             <div class="footer-col">
 
@@ -273,8 +264,7 @@
 
             </div>
 
-
-            {{-- LINK CEPAT --}}
+            
 
             <div class="footer-col">
 
@@ -307,8 +297,7 @@
 
             </div>
 
-
-            {{-- INFORMASI --}}
+            
 
             <div class="footer-col">
 
@@ -326,8 +315,7 @@
 
             </div>
 
-
-            {{-- HUBUNGI KAMI --}}
+            
 
             <div class="footer-col">
 
@@ -341,9 +329,7 @@
 
             </div>
 
-
         </div>
-
 
         <div class="footer-bottom">
             &copy; 2026 SMKN 4 Tanjungpinang.
@@ -352,16 +338,13 @@
 
     </footer>
 
-
-    {{-- WHATSAPP --}}
+    
 
     <a href="#" class="fab-wa" aria-label="WhatsApp">
         <i class="ph ph-whatsapp-logo"></i>
     </a>
 
-
     @stack('js')
-
 
 </body>
 

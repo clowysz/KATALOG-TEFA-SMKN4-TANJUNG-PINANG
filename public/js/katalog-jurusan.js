@@ -27,10 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let semuaJasa = [];
   let filterAktif = "semua";
 
-  // =========================================================
-  // UTILITAS
-  // =========================================================
-
   function formatRupiah(value) {
     if (value === null || value === undefined || value === "") {
       return "Rp0";
@@ -79,10 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return (item.nama_produk_jasa || "").toLowerCase().includes(search);
     });
   }
-
-  // =========================================================
-  // RENDER KARTU
-  // =========================================================
 
   function renderEmptySection(container, jenis) {
     const icon =
@@ -188,7 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Tombol detail (event delegation)
   function bindDetailButtons(container) {
     if (!container) {
       return;
@@ -207,10 +198,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // =========================================================
-  // RENDER KATALOG (sesuai filter jenis & kata kunci)
-  // =========================================================
-
   function renderKatalog(keyword = "") {
     let produkFiltered = [];
     let jasaFiltered = [];
@@ -223,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function () {
       jasaFiltered = getFilteredData(semuaJasa, keyword);
     }
 
-    // Seksi produk
     if (filterAktif === "jasa") {
       produkSection.style.display = "none";
     } else {
@@ -231,7 +217,6 @@ document.addEventListener("DOMContentLoaded", function () {
       renderCards(produkFiltered, produkContainer, "Produk");
     }
 
-    // Seksi jasa
     if (filterAktif === "produk") {
       jasaSection.style.display = "none";
     } else {
@@ -239,7 +224,6 @@ document.addEventListener("DOMContentLoaded", function () {
       renderCards(jasaFiltered, jasaContainer, "Jasa");
     }
 
-    // Kosong total
     if (produkFiltered.length === 0 && jasaFiltered.length === 0) {
       produkSection.style.display = "none";
       jasaSection.style.display = "none";
@@ -249,10 +233,6 @@ document.addEventListener("DOMContentLoaded", function () {
       emptyState.style.display = "none";
     }
   }
-
-  // =========================================================
-  // AMBIL DATA
-  // =========================================================
 
   function fetchJenis(jenis) {
     return fetch("/jurusan-admin/produk?jenis=" + jenis, {
@@ -280,7 +260,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       loading.style.display = "none";
 
-      // Database kosong
       if (semuaProduk.length === 0 && semuaJasa.length === 0) {
         content.style.display = "none";
         emptyState.style.display = "block";
@@ -299,10 +278,6 @@ document.addEventListener("DOMContentLoaded", function () {
       errorState.style.display = "block";
     }
   }
-
-  // =========================================================
-  // PENCARIAN & FILTER
-  // =========================================================
 
   if (searchInput) {
     searchInput.addEventListener("input", function () {
@@ -323,10 +298,6 @@ document.addEventListener("DOMContentLoaded", function () {
       renderKatalog(searchInput ? searchInput.value : "");
     });
   });
-
-  // =========================================================
-  // MULAI
-  // =========================================================
 
   bindDetailButtons(produkContainer);
   bindDetailButtons(jasaContainer);

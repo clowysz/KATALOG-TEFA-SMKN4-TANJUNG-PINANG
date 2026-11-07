@@ -43,7 +43,6 @@
             : 0;
     @endphp
 
-
     <!-- =========================
          RINGKASAN
     ========================== -->
@@ -60,7 +59,6 @@
             </div>
         </div>
 
-
         <div class="tefa-card summary-card summary-card--jasa">
             <div class="summary-icon">
                 <i class="ph ph-wrench"></i>
@@ -72,7 +70,6 @@
             </div>
         </div>
 
-
         <div class="tefa-card summary-card summary-card--portofolio">
             <div class="summary-icon">
                 <i class="ph ph-folder-open"></i>
@@ -83,7 +80,6 @@
                 <h2 class="summary-value">{{ $totalPortfolio }}</h2>
             </div>
         </div>
-
 
         <div class="tefa-card summary-card summary-card--pesanan">
             <div class="summary-icon">
@@ -97,7 +93,6 @@
         </div>
 
     </div>
-
 
     <!-- =========================
          PRODUK/JASA TERBANYAK DIPESAN
@@ -114,7 +109,6 @@
                 Berdasarkan data pesanan
             </span>
         </div>
-
 
         @forelse($produkTerlaris as $index => $item)
 
@@ -179,7 +173,6 @@
 
     </div>
 
-
     <!-- =========================
          PERFORMA PESANAN
     ========================== -->
@@ -192,7 +185,7 @@
 
         <div class="performa-grid">
 
-            <!-- Grafik -->
+            
             <div class="performa-chart">
                 <div class="performa-chart-box">
 
@@ -215,8 +208,7 @@
                 </div>
             </div>
 
-
-            <!-- Bar -->
+            
             <div>
 
                 <div class="performa-item">
@@ -245,7 +237,6 @@
                     </div>
 
                 </div>
-
 
                 <div class="performa-item">
 
@@ -280,7 +271,6 @@
 
     </div>
 
-
     <!-- =========================
          RINGKASAN PRODUK/JASA
     ========================== -->
@@ -296,7 +286,6 @@
                 Data katalog jurusan
             </span>
         </div>
-
 
         @forelse($produkTerlaris as $item)
 
@@ -335,7 +324,6 @@
 @endif
 
 @endsection
-
 
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -21,7 +21,7 @@
         'dibatalkan'          => 'Dibatalkan',
     ];
 
-    // Status lain (konfirmasi, diproses) memakai ikon & warna "progress"
+
     $statusIcons = [
         'menunggu konfirmasi' => 'clock',
         'selesai'             => 'check-circle',
@@ -44,7 +44,7 @@
 
 <div class="rw-page">
 
-    <!-- Gelembung dekorasi -->
+    
     <div class="bubble rw-bubble--1"></div>
     <div class="bubble rw-bubble--2"></div>
 
@@ -68,7 +68,7 @@
 
     <div class="rw-card">
 
-        <!-- FILTER -->
+        
         <div class="rw-tools">
 
             <div class="rw-tabs">
@@ -103,8 +103,7 @@
 
         </div>
 
-
-        <!-- TABEL PESANAN (jadi kartu di layar sempit) -->
+        
         <div class="rw-table-wrapper">
 
             <table class="rw-table">
@@ -135,7 +134,7 @@
 
                         <tr id="pesanan-{{ $item->id_pesanan }}">
 
-                            <!-- PRODUK / JASA -->
+                            
                             <td data-label="Pesanan">
                                 <div class="rw-item">
 
@@ -156,7 +155,7 @@
                                 </div>
                             </td>
 
-                            <!-- TANGGAL -->
+                            
                             <td data-label="Tanggal">
                                 <div>
                                     <div class="rw-text-main">
@@ -171,12 +170,12 @@
                                 </div>
                             </td>
 
-                            <!-- TOTAL -->
+                            
                             <td class="rw-price" data-label="Total">
                                 Rp {{ number_format($item->total_harga, 0, ',', '.') }}
                             </td>
 
-                            <!-- STATUS -->
+                            
                             <td class="rw-status" data-label="Status">
                                 <span class="rw-badge {{ $badgeClasses[$item->status] ?? 'rw-badge--progress' }}">
                                     <i class="ph ph-{{ $statusIcons[$item->status] ?? 'spinner-gap' }}"></i>
@@ -184,7 +183,7 @@
                                 </span>
                             </td>
 
-                            <!-- PROGRESS -->
+                            
                             <td data-label="Progress">
                                 <div>
                                     @if($progressTerakhir)
@@ -206,7 +205,7 @@
                                 </div>
                             </td>
 
-                            <!-- AKSI -->
+                            
                             <td class="rw-action" data-label="Aksi">
                                 <div class="rw-action-buttons">
 
@@ -232,7 +231,7 @@
                                 </div>
                             </td>
 
-                            <!-- HAPUS RIWAYAT -->
+                            
                             <td class="rw-delete" data-label="Hapus">
                                 @if(in_array($item->status, ['selesai', 'dibatalkan']))
                                     <form
@@ -289,7 +288,6 @@
 
 @include('public.popup.batal-pesanan')
 
-<!-- POPUP HAPUS RIWAYAT -->
 <div class="rw-modal-overlay" id="popupHapusRiwayat">
     <div class="rw-modal">
         <div class="rw-modal-icon">

@@ -8,7 +8,6 @@
 
 @section('content')
 
-<!-- Header Biru -->
 <div class="faq-hero">
     <div class="faq-hero-icon">
         <i class="ph ph-question"></i>
@@ -20,13 +19,12 @@
     </div>
 </div>
 
-<!-- Konten Pertanyaan -->
 <div class="faq-content">
     <div class="faq-wrapper">
 
         @forelse($faqs as $faq)
 
-            <!-- Item FAQ -->
+            
             <div class="faq-item">
 
                 <div
@@ -58,7 +56,7 @@
 
         @empty
 
-            <!-- Empty State FAQ -->
+            
             <div class="faq-empty">
 
                 <i class="ph ph-chat-circle-dots"></i>
@@ -71,7 +69,7 @@
 
         @endforelse
 
-        <!-- Box Kontak -->
+        
         <div class="faq-more">
 
             <div class="faq-more-left">
@@ -102,7 +100,6 @@
 </div>
 
 @endsection
-
 
 @push('js')
     <script src="{{ asset('js/faq-pembeli.js') }}"></script>

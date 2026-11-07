@@ -2,7 +2,6 @@
 
 @section('content')
 
-<!-- HERO SECTION DENGAN EFEK GELOMBANG DAN GELEMBUNG -->
 <section class="hero-section">
     <div class="bubble" style="width: 80px; height: 80px; top: 10%; left: 15%; animation-duration: 5s;"></div>
     <div class="bubble" style="width: 120px; height: 120px; top: 40%; left: 35%; animation-duration: 8s;"></div>
@@ -24,7 +23,6 @@
     </svg>
 </section>
 
-<!-- SECTION JURUSAN UNGGULAN (6 JURUSAN) -->
 <section class="jurusan-section" id="jurusan-unggulan">
     <div class="section-header-wrap">
         <span class="section-subtitle-tag">JURUSAN ──</span>
@@ -110,7 +108,6 @@
 </section>
 
 @endsection
-
 
 @push('js')
     <script src="{{ asset('js/home-pembeli.js') }}"></script>

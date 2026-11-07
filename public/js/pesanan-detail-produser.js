@@ -42,7 +42,6 @@
     var inputProgress = document.getElementById("inputProgressTahap");
     var outputProgress = document.getElementById("tahapProgressValue");
 
-    /* Form hapus yang sedang menunggu konfirmasi */
     var pendingDeleteForm = null;
 
     /* =====================================================
@@ -167,12 +166,10 @@
 
       var form = pendingDeleteForm;
 
-      /* Cegah klik ganda saat form dikirim */
       if (btnYakinHapus) {
         btnYakinHapus.disabled = true;
       }
 
-      /* form.submit() tidak memicu event submit, jadi tidak terulang */
       form.submit();
     }
 
@@ -211,7 +208,6 @@
       }
     }
 
-    /* Kembalikan urutan baris ke kondisi awal dari server */
     function resetReorder() {
       var tbody = document.querySelector("#modalKelolaTahapan tbody");
 
@@ -344,7 +340,6 @@
       });
     }
 
-    /* Tangkap input yang hanya berisi spasi */
     function blockBlankInput(form, input, message) {
       if (!form || !input) {
         return;
@@ -415,7 +410,6 @@
         return;
       }
 
-      /* Klik area gelap modal (konfirmasi hapus paling atas) */
       if (event.target === modalHapus) {
         closeHapus();
       } else if (event.target === modalKelola) {
@@ -425,7 +419,6 @@
       }
     });
 
-    /* Nilai slider tampil di elemen yang ditunjuk data-range-output */
     document.addEventListener("input", function (event) {
       var slider = event.target;
 
@@ -440,7 +433,6 @@
       }
     });
 
-    /* Hapus tahapan: tahan pengiriman, tampilkan modal konfirmasi kustom */
     document.addEventListener("submit", function (event) {
       var form = event.target;
 
@@ -452,7 +444,6 @@
       openHapus(form);
     });
 
-    /* Esc: tutup modal konfirmasi dulu, baru modal lain */
     document.addEventListener("keydown", function (event) {
       if (event.key !== "Escape") {
         return;

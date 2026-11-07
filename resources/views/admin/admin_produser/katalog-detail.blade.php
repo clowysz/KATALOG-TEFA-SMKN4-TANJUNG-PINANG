@@ -25,13 +25,13 @@
 
 <div class="detail-page-wrapper">
 
-    {{-- ================= TOMBOL KEMBALI ================= --}}
+    
     <a href="{{ route('admin.produser.katalog') }}" class="btn-level-2">
         <i class="ph ph-arrow-left"></i>
         <span>Kembali ke Katalog</span>
     </a>
 
-    {{-- ================= CONTAINER ATAS: GALERI & INFO ================= --}}
+    
     <div class="detail-top-card">
 
         <div class="detail-gallery">
@@ -60,7 +60,7 @@
 
     </div>
 
-    {{-- ================= META CARDS ================= --}}
+    
     <div class="detail-meta-cards">
 
         <div class="meta-card-item">
@@ -89,13 +89,13 @@
 
     </div>
 
-    {{-- ================= DESKRIPSI ================= --}}
+    
     <div class="detail-card">
         <h2 class="detail-section-title">DESKRIPSI</h2>
         <div class="detail-text">{{ $produkJasa->deskripsi ?: 'Tidak ada deskripsi.' }}</div>
     </div>
 
-    {{-- ================= PESANAN TERKAIT ================= --}}
+    
     <div class="detail-card">
         <h2 class="detail-section-title">
             PESANAN TERKAIT
@@ -142,7 +142,7 @@
                                     </div>
 
                                     <div class="order-progress-bar">
-                                        {{-- Style inline hanya untuk lebar bar (nilai dari data) --}}
+                                        
                                         <div class="order-progress-fill" style="width: {{ $persentase }}%;"></div>
                                     </div>
                                 </div>
@@ -177,7 +177,6 @@
 
 </div>
 
-{{-- ================= LIGHTBOX ================= --}}
 <div class="admin-gallery-lightbox" id="adminGalleryLightbox">
     <button type="button"
             class="admin-lightbox-close"
