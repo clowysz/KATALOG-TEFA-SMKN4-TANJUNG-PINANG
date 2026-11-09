@@ -127,7 +127,7 @@
             margin-right: -3mm;
         }
 
-        .catalog-grid td {
+        .catalog-grid td.grid-cell {
             width: 60.6mm;
             height: 51mm;
             vertical-align: top;
@@ -151,7 +151,9 @@
 
         .card-badges td {
             height: 5mm;
+            width: auto;
             padding: 0;
+            vertical-align: middle;
         }
 
         .badge {
@@ -307,7 +309,7 @@
                 @foreach($halaman->values()->pad(12, null)->chunk(3) as $baris)
                     <tr>
                         @foreach($baris as $item)
-                            <td>
+                            <td class="grid-cell">
                                 @if($item)
                                     <div class="catalog-card">
 
