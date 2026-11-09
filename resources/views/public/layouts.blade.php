@@ -319,7 +319,7 @@
 
                 <div class="footer-contact">
                     <i class="ph ph-phone"></i>
-                    <span>0771-123456</span>
+                    <span>0771-4440844</span>
                 </div>
 
             </div>
